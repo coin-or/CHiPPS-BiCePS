@@ -1,7 +1,7 @@
 #==========================================================================#
-# This file is part of the Abstract Library for Parallel Search (ALPS).    #
+# This file is part of the Branch, Constrain and Price Software (BiCePS).  #
 #                                                                          #
-# ALPS is distributed under the Common Public License as part of the       #
+# BiCePS is distributed under the Common Public License as part of the     #
 # COIN-OR repository (http://www.coin-or.org).                             #
 #                                                                          #
 # Authors: Yan Xu, SAS Institute Inc.                                      #
@@ -22,13 +22,25 @@
 
 AC_PREREQ(2.59)
 
-AC_INIT([Alps],[0.1],[https://projects.coin-or.org/Alps/newticket])
+AC_INIT([Bcps],[0.6],[https://projects.coin-or.org/Alps/newticket])
 
 AC_COPYRIGHT([
-Copyright 2006 International Business Machines and others.
-All Rights Reserved.
-This file is part of the open source package Coin which is distributed
-under the Common Public License.])
+#==========================================================================#
+# This file is part of the Branch, Constrain and Price Software (BiCePS).  #
+#                                                                          #
+# BiCePS is distributed under the Common Public License as part of the     #
+# COIN-OR repository (http://www.coin-or.org).                             #
+#                                                                          #
+# Authors: Yan Xu, SAS Institute Inc.                                      #
+#          Ted Ralphs, Lehigh University                                   #
+#          Laszlo Ladanyi, IBM T.J. Watson Research Center                 #
+#          Matthew Saltzman, Clemson University                            #
+#                                                                          #
+#                                                                          #
+# Copyright (C) 2001-2006, Lehigh University, Yan Xu, and Ted Ralphs.      #
+# All Rights Reserved.                                                     #
+#==========================================================================#
+])
 
 AC_REVISION(0.9)
 

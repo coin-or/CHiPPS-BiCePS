@@ -319,9 +319,9 @@ unitTest_LDADD = \
 # "cygpath" stuff is necessary to compile with native compilers on Cygwin
 AM_CPPFLAGS = \
 	-I`$(CYGPATH_W) $(ALPSSRCDIR)/src` \
-	-I`$(CYGPATH_W) $(ALPSSRCDIR)/inc` \
+	-I`$(CYGPATH_W) $(ALPSOBJDIR)/inc` \
 	-I`$(CYGPATH_W) $(BCPSSRCDIR)/src` \
-	-I`$(CYGPATH_W) $(BCPSSRCDIR)/inc` \
+	-I`$(CYGPATH_W) $(BCPSOBJDIR)/inc` \
 	-I`$(CYGPATH_W) $(CGLSRCDIR)/src` \
 	-I`$(CYGPATH_W) $(CGLSRCDIR)/src/CglClique` \
 	-I`$(CYGPATH_W) $(CGLSRCDIR)/src/CglFlowCover` \
