@@ -385,7 +385,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                     if (numDelRows > 0) {
                         delRow = new int [numDelRows];
                         for (k = 0; k < numDelRows; ++k) {
-                            delRow[k] = delIndices[k
+                            delRow[k] = delIndices[k];
 #ifdef BLIS_DEBUG
 			    std::cout << "REMOVE: slack row " << delRow[k] 
 				      << std::endl;
@@ -396,7 +396,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                         // Delete from lp solver.
                         //----------------------------------
                         
-                        model->solver()->deleteRows(numDelRows, delRow);
+			model->solver()->deleteRows(numDelRows, delRow);
                         
                         delete [] delRow;
                         delRow = NULL;
