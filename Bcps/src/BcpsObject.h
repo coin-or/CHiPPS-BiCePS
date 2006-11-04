@@ -105,6 +105,7 @@ class BcpsObject : public AlpsKnowledge {
     BcpsObject()
 	:
         objectIndex_(-1),
+	status_(0),
 	lbHard_(0.0),
 	ubHard_(0.0),
 	lbSoft_(0.0),
@@ -115,6 +116,7 @@ class BcpsObject : public AlpsKnowledge {
     BcpsObject(double lbh, double ubh, double lbs, double ubs) 
 	:
         objectIndex_(-1),
+	status_(0),
 	lbHard_(lbh),
 	ubHard_(ubh),
 	lbSoft_(lbs),
@@ -127,6 +129,7 @@ class BcpsObject : public AlpsKnowledge {
     /** Copy constructor. */
     BcpsObject (const BcpsObject & rhs) {
         objectIndex_ = rhs.objectIndex_;
+	status_ = rhs.status_;
 	lbHard_ = rhs.lbHard_;
 	ubHard_ = rhs.ubHard_;
 	lbSoft_ = rhs.lbSoft_;
@@ -247,7 +250,7 @@ class BcpsObject : public AlpsKnowledge {
     
     /** Pack Bcps part to a encode object. */
     AlpsReturnCode encodeBcps(AlpsEncoded *encoded) const {
-	AlpsReturnCode status;
+	AlpsReturnCode status = ALPS_OK;
 	encoded->writeRep(objectIndex_);
 	encoded->writeRep(repType_);
 	encoded->writeRep(intType_);
@@ -262,7 +265,7 @@ class BcpsObject : public AlpsKnowledge {
 
     /** Unpack Bcps part from a encode object. */
     AlpsReturnCode decodeBcps(AlpsEncoded &encoded){
-	AlpsReturnCode status;
+	AlpsReturnCode status = ALPS_OK;
 	encoded.readRep(objectIndex_);
 	encoded.readRep(repType_);
 	encoded.readRep(intType_);

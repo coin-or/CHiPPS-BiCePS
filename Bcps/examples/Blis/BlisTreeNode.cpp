@@ -396,7 +396,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                         // Delete from lp solver.
                         //----------------------------------
                         
-			model->solver()->deleteRows(numDelRows, delRow);
+                        model->solver()->deleteRows(numDelRows, delRow);
                         
                         delete [] delRow;
                         delRow = NULL;

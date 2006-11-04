@@ -49,7 +49,7 @@ class BcpsTreeNode : public AlpsTreeNode {
 	in constraint pool. The default implementation does nothing. */
     virtual int generateConstraints(BcpsModel *model, 
 				    BcpsConstraintPool *conPool) {
-	AlpsReturnCode status;
+	AlpsReturnCode status = ALPS_OK;
 	return status;
     };
 
@@ -57,7 +57,7 @@ class BcpsTreeNode : public AlpsTreeNode {
 	in variable pool. The default implementation does nothing. */
     virtual int generateVariables(BcpsModel *model, 
 				  BcpsVariablePool *varPool) {
-	AlpsReturnCode status;
+	AlpsReturnCode status = ALPS_OK;
 	return status;
     };
 
