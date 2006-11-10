@@ -35,6 +35,7 @@ libBcps_la_SOURCES = \
 	BcpsBranchStrategy.cpp BcpsBranchStrategy.h \
 	BcpsInterface.h \
 	BcpsLicense.h \
+	BcpsMessage.h BcpsMessage.cpp \
 	BcpsModel.h \
 	BcpsNodeDesc.cpp BcpsNodeDesc.h \
 	BcpsObject.cpp BcpsObject.h \
@@ -75,6 +76,7 @@ include_HEADERS = \
 	BcpsBranchStrategy.h \
 	BcpsInterface.h \
 	BcpsLicense.h \
+	BcpsMessage.h \
 	BcpsModel.h \
 	BcpsNodeDesc.h \
 	BcpsObject.h \
