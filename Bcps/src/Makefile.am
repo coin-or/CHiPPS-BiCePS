@@ -59,6 +59,10 @@ AM_CPPFLAGS = \
 	-I`$(CYGPATH_W) $(ALPSSRCDIR)/src` \
 	-I`$(CYGPATH_W) $(ALPSOBJDIR)/inc`
 
+# Include MPI header directory if MPI is used
+if COIN_HAS_MPI
+AM_CPPFLAGS +=  -I`$(CYGPATH_W) $(MPIINCDIR)`
+endif
 
 # This line is necessary to allow VPATH compilation with MS compilers
 # on Cygwin

@@ -56,6 +56,9 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+
+# Include MPI header directory if MPI is used
+@COIN_HAS_MPI_TRUE@am__append_1 = -I`$(CYGPATH_W) $(MPIINCDIR)`
 subdir = src
 DIST_COMMON = $(include_HEADERS) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in
@@ -298,12 +301,9 @@ libBcps_la_LDFLAGS = $(LT_LDFLAGS)
 
 # Here list all include flags, relative to this "srcdir" directory.  This
 # "cygpath" stuff is necessary to compile with native compilers on Windows.
-AM_CPPFLAGS = \
-	-I`$(CYGPATH_W) $(COINUTILSSRCDIR)/src` \
-	-I`$(CYGPATH_W) $(COINUTILSOBJDIR)/inc` \
-	-I`$(CYGPATH_W) $(ALPSSRCDIR)/src` \
-	-I`$(CYGPATH_W) $(ALPSOBJDIR)/inc`
-
+AM_CPPFLAGS = -I`$(CYGPATH_W) $(COINUTILSSRCDIR)/src` -I`$(CYGPATH_W) \
+	$(COINUTILSOBJDIR)/inc` -I`$(CYGPATH_W) $(ALPSSRCDIR)/src` \
+	-I`$(CYGPATH_W) $(ALPSOBJDIR)/inc` $(am__append_1)
 
 # This line is necessary to allow VPATH compilation with MS compilers
 # on Cygwin
