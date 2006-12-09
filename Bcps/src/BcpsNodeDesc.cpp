@@ -901,13 +901,13 @@ BcpsNodeDesc::encodeObjectMods(AlpsEncoded *encoded,
 	(objMod->objects)[k]->encode(encoded);
     }
     
-    std::cout << "---- BCPS encode lb hard:" << std::endl;
+    //std::cout << "---- BCPS encode lb hard:" << std::endl;
     status = encodeDblFieldMods(encoded, &(objMod->lbHard));
-    std::cout << "---- BCPS encode ub hard:" << std::endl;
+    //std::cout << "---- BCPS encode ub hard:" << std::endl;
     status = encodeDblFieldMods(encoded, &(objMod->ubHard));
-    std::cout << "---- BCPS encode lb soft:" << std::endl;
+    //std::cout << "---- BCPS encode lb soft:" << std::endl;
     status = encodeDblFieldMods(encoded, &(objMod->lbSoft));
-    std::cout << "---- BCPS encode ub soft:" << std::endl;
+    //std::cout << "---- BCPS encode ub soft:" << std::endl;
     status = encodeDblFieldMods(encoded, &(objMod->ubSoft));
 
     // Do know what's the use of status.
@@ -924,9 +924,9 @@ AlpsReturnCode BcpsNodeDesc::encodeBcps(AlpsEncoded *encoded) const
 {
     AlpsReturnCode status = ALPS_OK;    
     
-    std::cout << "---- BCPS encoded vars" << std::endl;
+    //std::cout << "---- BCPS encoded vars" << std::endl;
     status = encodeObjectMods(encoded, vars_);
-    std::cout << "---- BCPS encoded cons:" << std::endl;
+    //std::cout << "---- BCPS encoded cons:" << std::endl;
     status = encodeObjectMods(encoded, cons_);
     
     return status;
@@ -999,18 +999,17 @@ BcpsNodeDesc::decodeObjectMods(AlpsEncoded &encoded,
 	}
     }
     
-    std::cout << "---- BCPS decode lb hard:" << std::endl;
+    //std::cout << "---- BCPS decode lb hard:" << std::endl;
     status = decodeDblFieldMods(encoded, &(objMod->lbHard));
-    std::cout << "---- BCPS decode ub hard:" << std::endl;
+    //std::cout << "---- BCPS decode ub hard:" << std::endl;
     status = decodeDblFieldMods(encoded, &(objMod->ubHard));
-    std::cout << "---- BCPS decode lb soft:" << std::endl;
+    //std::cout << "---- BCPS decode lb soft:" << std::endl;
     status = decodeDblFieldMods(encoded, &(objMod->lbSoft));
-    std::cout << "---- BCPS decode ub soft:" << std::endl;
+    //std::cout << "---- BCPS decode ub soft:" << std::endl;
     status = decodeDblFieldMods(encoded, &(objMod->ubSoft));
-    
+
     // Do know what's the use of status.
     //status = encodeIntFieldMods(encoded, &(objMod->status));
-
 
     return status;
 }
