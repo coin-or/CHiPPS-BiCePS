@@ -35,13 +35,14 @@ libBcps_la_SOURCES = \
 	BcpsBranchStrategy.cpp BcpsBranchStrategy.h \
 	BcpsInterface.h \
 	BcpsLicense.h \
+	BcpsMessage.cpp	BcpsMessage.h \
 	BcpsModel.h \
 	BcpsNodeDesc.cpp BcpsNodeDesc.h \
 	BcpsObject.cpp BcpsObject.h \
-	BcpsObjectPool.h BcpsSolution.cpp \
-	BcpsSolution.h BcpsSubTree.cpp \
-	BcpsSubTree.h BcpsTreeNode.cpp \
-	BcpsTreeNode.h
+	BcpsObjectPool.h \
+	BcpsSolution.cpp BcpsSolution.h \
+	BcpsSubTree.cpp BcpsSubTree.h \
+	BcpsTreeNode.cpp BcpsTreeNode.h
 
 # This is for libtool (on Windows)
 libBcps_la_LDFLAGS = $(LT_LDFLAGS)
@@ -75,6 +76,7 @@ include_HEADERS = \
 	BcpsBranchStrategy.h \
 	BcpsInterface.h \
 	BcpsLicense.h \
+	BcpsMessage.h \
 	BcpsModel.h \
 	BcpsNodeDesc.h \
 	BcpsObject.h \

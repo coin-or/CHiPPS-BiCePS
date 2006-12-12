@@ -18,8 +18,13 @@
 
 //#############################################################################
 
+#include "CoinMessageHandler.hpp"
+
+#include "AlpsKnowledgeBroker.h"
 #include "AlpsModel.h"
+
 #include "BcpsObject.h"
+#include "BcpsMessage.h"
 
 //#############################################################################
 //#############################################################################
@@ -35,6 +40,12 @@ class BcpsModel : public AlpsModel {
     int numCoreVariables_;
 
     BcpsVariable **coreVariables_;
+
+    /** Message handler. */
+    CoinMessageHandler * bcpsMessageHandler_;
+
+    /** Bcps messages. */
+    CoinMessages bcpsMessages_;
     
  public:
 
@@ -43,8 +54,12 @@ class BcpsModel : public AlpsModel {
 	numCoreConstraints_(0), 
         coreConstraints_(NULL),
 	numCoreVariables_(0), 
-        coreVariables_(NULL) 
-        {}
+        coreVariables_(NULL)
+        {
+	    bcpsMessageHandler_ = new CoinMessageHandler();
+	    bcpsMessageHandler_->setLogLevel(2);
+	    bcpsMessages_ = BcpsMessage();
+	}
 
     virtual ~BcpsModel() {
 	int i = 0;
@@ -64,6 +79,7 @@ class BcpsModel : public AlpsModel {
 	    delete [] coreVariables_;
 	    coreVariables_ = NULL;
 	}
+	delete bcpsMessageHandler_;
     }
     
     /** Get core variables and constraints */
@@ -81,6 +97,13 @@ class BcpsModel : public AlpsModel {
     void setCoreConstraints(BcpsConstraint **con) { coreConstraints_ = con; }
     void setCoreVariables(BcpsVariable **var) { coreVariables_ = var; }
     /**@}*/
+
+    /** Get the message handler. */
+    CoinMessageHandler * bcpsMessageHandler() const 
+    { return bcpsMessageHandler_; }
+    
+    /** Return messages. */
+    CoinMessages bcpsMessages() { return bcpsMessages_; }
 
 };
 

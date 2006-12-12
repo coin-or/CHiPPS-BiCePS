@@ -78,8 +78,8 @@ libLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libBcps_la_LIBADD =
 am_libBcps_la_OBJECTS = BcpsBranchObject.lo BcpsBranchStrategy.lo \
-	BcpsNodeDesc.lo BcpsObject.lo BcpsSolution.lo BcpsSubTree.lo \
-	BcpsTreeNode.lo
+	BcpsMessage.lo BcpsNodeDesc.lo BcpsObject.lo BcpsSolution.lo \
+	BcpsSubTree.lo BcpsTreeNode.lo
 libBcps_la_OBJECTS = $(am_libBcps_la_OBJECTS)
 depcomp = $(SHELL) $(top_srcdir)/../depcomp
 am__depfiles_maybe = depfiles
@@ -279,13 +279,14 @@ libBcps_la_SOURCES = \
 	BcpsBranchStrategy.cpp BcpsBranchStrategy.h \
 	BcpsInterface.h \
 	BcpsLicense.h \
+	BcpsMessage.cpp	BcpsMessage.h \
 	BcpsModel.h \
 	BcpsNodeDesc.cpp BcpsNodeDesc.h \
 	BcpsObject.cpp BcpsObject.h \
-	BcpsObjectPool.h BcpsSolution.cpp \
-	BcpsSolution.h BcpsSubTree.cpp \
-	BcpsSubTree.h BcpsTreeNode.cpp \
-	BcpsTreeNode.h
+	BcpsObjectPool.h \
+	BcpsSolution.cpp BcpsSolution.h \
+	BcpsSubTree.cpp BcpsSubTree.h \
+	BcpsTreeNode.cpp BcpsTreeNode.h
 
 
 # This is for libtool (on Windows)
@@ -320,6 +321,7 @@ include_HEADERS = \
 	BcpsBranchStrategy.h \
 	BcpsInterface.h \
 	BcpsLicense.h \
+	BcpsMessage.h \
 	BcpsModel.h \
 	BcpsNodeDesc.h \
 	BcpsObject.h \
@@ -406,6 +408,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsBranchObject.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsBranchStrategy.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsMessage.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsNodeDesc.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsObject.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsSolution.Plo@am__quote@
