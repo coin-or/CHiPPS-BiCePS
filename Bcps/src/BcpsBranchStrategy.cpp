@@ -68,9 +68,9 @@ BcpsBranchStrategy::bestBranchObject()
         }
 	else {
 #ifdef BLIS_DEBUG
-	    std::cout<<"ERROR: Could not find a branching object."<< std::endl;
-            assert(0);
+	  std::cout<<"ERROR: Could not find a branching object."<< std::endl;
 #endif
+            assert(0);
         }
         
         //--------------------------------------------------
