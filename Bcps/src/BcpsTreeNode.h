@@ -16,12 +16,13 @@
 #ifndef BcpsTreeNode_h_
 #define BcpsTreeNode_h_
 
+#include "BcpsNodeDesc.h"
+
 #include <vector>
 
 #include "AlpsTreeNode.h"
 #include "AlpsNodeDesc.h"
 
-#include "BcpsNodeDesc.h"
 #include "BcpsBranchObject.h"
 #include "BcpsObjectPool.h"
 

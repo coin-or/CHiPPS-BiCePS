@@ -22,10 +22,10 @@
 #ifndef BcpsBranchObject_h_
 #define BcpsBranchObject_h_
 
+#include "BcpsModel.h"
+
 #include "Alps.h"
 #include "AlpsEncoded.h"
-
-#include "BcpsModel.h"
 
 
 //#############################################################################

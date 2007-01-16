@@ -16,11 +16,12 @@
 #ifndef BcpsNodeDesc_h_
 #define BcpsNodeDesc_h_
 
+#include "BcpsModel.h"
+
 #include "Alps.h"
 #include "AlpsNodeDesc.h"
 
 #include "BcpsObject.h"
-#include "BcpsModel.h"
 
 
 //#############################################################################

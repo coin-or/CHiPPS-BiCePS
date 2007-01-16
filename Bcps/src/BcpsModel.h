@@ -18,9 +18,10 @@
 
 //#############################################################################
 
+#include "AlpsKnowledgeBroker.h"
+
 #include "CoinMessageHandler.hpp"
 
-#include "AlpsKnowledgeBroker.h"
 #include "AlpsModel.h"
 
 #include "BcpsObject.h"
