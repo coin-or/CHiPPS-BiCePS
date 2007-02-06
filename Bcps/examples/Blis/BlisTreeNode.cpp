@@ -266,7 +266,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                     model->setBestSolution(BLIS_SOL_BOUNDING,
                                            quality_, 
                                            model->getLpSolution());
-                    getKnowledgeBroker()->getNodeCompare()->setWeight(0.0);
+                    getKnowledgeBroker()->getNodeSelection()->setWeight(0.0);
                     BlisSolution* ksol = 
                         new BlisSolution(numCols, 
                                            model->getLpSolution(), 

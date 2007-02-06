@@ -374,7 +374,7 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 					       newObjValue,
 					       solver->getColSolution());
 			(model->getKnowledgeBroker())->
-                            getNodeCompare()->setWeight(0.0);
+                            getNodeSelection()->setWeight(0.0);
 			BlisSolution* ksol = 
 			    new BlisSolution(solver->getNumCols(), 
 					       solver->getColSolution(), 
@@ -466,7 +466,7 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 					       solver->getColSolution());
                         
 			model->getKnowledgeBroker()->
-                            getNodeCompare()->setWeight(0.0);
+                            getNodeSelection()->setWeight(0.0);
                         
 			BlisSolution* ksol =
 			    new BlisSolution(solver->getNumCols(), 
