@@ -4,7 +4,7 @@
 # BiCePS is distributed under the Common Public License as part of the     #
 # COIN-OR repository (http://www.coin-or.org).                             #
 #                                                                          #
-# Authors: Yan Xu, SAS Institute Inc.                                      #
+# Authors: Yan Xu, Lehigh University                                      #
 #          Ted Ralphs, Lehigh University                                   #
 #          Laszlo Ladanyi, IBM T.J. Watson Research Center                 #
 #          Matthew Saltzman, Clemson University                            #
@@ -31,7 +31,7 @@ AC_COPYRIGHT([
 # BiCePS is distributed under the Common Public License as part of the     #
 # COIN-OR repository (http://www.coin-or.org).                             #
 #                                                                          #
-# Authors: Yan Xu, SAS Institute Inc.                                      #
+# Authors: Yan Xu, Lehigh University                                      #
 #          Ted Ralphs, Lehigh University                                   #
 #          Laszlo Ladanyi, IBM T.J. Watson Research Center                 #
 #          Matthew Saltzman, Clemson University                            #
