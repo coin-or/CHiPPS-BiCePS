@@ -10,14 +10,14 @@
 #          Matthew Saltzman, Clemson University                            #
 #                                                                          #
 #                                                                          #
-# Copyright (C) 2001-2006, Lehigh University, Yan Xu, and Ted Ralphs.      #
+# Copyright (C) 2001-2007, Lehigh University, Yan Xu, and Ted Ralphs.      #
 # All Rights Reserved.                                                     #
 #==========================================================================#
 
 ## $Id$
 
 # Author:  Andreas Waechter           IBM    2006-04-13
-#          Yan Xu                     SAS    2006-08-27
+#          Yan Xu                     Lehigh    2006-08-27
 
 #############################################################################
 #                       Names and other basic things                        #
