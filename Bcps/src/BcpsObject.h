@@ -105,6 +105,8 @@ class BcpsObject : public AlpsKnowledge {
     BcpsObject()
 	:
         objectIndex_(-1),
+	repType_(BCPS_CORE),
+	intType_('C'),
 	status_(0),
 	lbHard_(0.0),
 	ubHard_(0.0),
@@ -116,6 +118,8 @@ class BcpsObject : public AlpsKnowledge {
     BcpsObject(double lbh, double ubh, double lbs, double ubs) 
 	:
         objectIndex_(-1),
+	repType_(BCPS_CORE),
+	intType_('C'),
 	status_(0),
 	lbHard_(lbh),
 	ubHard_(ubh),
@@ -129,6 +133,8 @@ class BcpsObject : public AlpsKnowledge {
     /** Copy constructor. */
     BcpsObject (const BcpsObject & rhs) {
         objectIndex_ = rhs.objectIndex_;
+	repType_ = rhs.repType_;
+	intType_ = rhs.intType_;
 	status_ = rhs.status_;
 	lbHard_ = rhs.lbHard_;
 	ubHard_ = rhs.ubHard_;
