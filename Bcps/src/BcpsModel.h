@@ -68,23 +68,19 @@ class BcpsModel : public AlpsModel {
 	    bcpsMessages_ = BcpsMessage();
 	}
 
-        virtual ~BcpsModel() {
-
+    virtual ~BcpsModel() {
+       
         int i = 0, size  = 0;
 
         size = constraints_.size();
-	if (size > 0) {
-	    for (i = 0; i < size; ++i) {
-		delete constraints_[i]; 
-	    }
-	}
+        for (i = 0; i < size; ++i) {
+            delete constraints_[i]; 
+        }
 
         size =  variables_.size();
-	if (size > 0) {
-	    for (i = 0; i < size; ++i) {
-		delete variables_[i];
-	    }
-	}
+        for (i = 0; i < size; ++i) {
+            delete variables_[i];
+        }
 
 	delete bcpsMessageHandler_;
     }
