@@ -88,9 +88,9 @@ class BcpsModel : public AlpsModel {
     /** Get variables and constraints */
     /**@{*/
     std::vector<BcpsConstraint *> & getConstraints() { return constraints_; }
-    int getNumCoreConstraints() const { return numCoreConstraints_; }
-
     std::vector<BcpsVariable *> & getVariables() { return variables_; }
+
+    int getNumCoreConstraints() const { return numCoreConstraints_; }
     int getNumCoreVariables() const { return numCoreVariables_; }
     /**@}*/
     
