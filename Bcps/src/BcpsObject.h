@@ -255,7 +255,7 @@ class BcpsObject : public AlpsKnowledge {
  protected:
     
     /** Pack Bcps part to a encode object. */
-    AlpsReturnCode encodeBcps(AlpsEncoded *encoded) const {
+    AlpsReturnCode encodeBcpsObject(AlpsEncoded *encoded) const {
 	AlpsReturnCode status = ALPS_OK;
 	encoded->writeRep(objectIndex_);
 	encoded->writeRep(repType_);
@@ -270,7 +270,7 @@ class BcpsObject : public AlpsKnowledge {
     }
 
     /** Unpack Bcps part from a encode object. */
-    AlpsReturnCode decodeBcps(AlpsEncoded &encoded){
+    AlpsReturnCode decodeBcpsObject(AlpsEncoded &encoded){
 	AlpsReturnCode status = ALPS_OK;
 	encoded.readRep(objectIndex_);
 	encoded.readRep(repType_);
@@ -284,6 +284,8 @@ class BcpsObject : public AlpsKnowledge {
 	return status;
     }
 
+protected:
+    
  public:
 
     /** Pack into a encode object. */
