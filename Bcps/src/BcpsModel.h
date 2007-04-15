@@ -18,6 +18,8 @@
 
 //#############################################################################
 
+#include <vector>
+
 #include "AlpsKnowledgeBroker.h"
 
 #include "CoinMessageHandler.hpp"
@@ -34,14 +36,20 @@ class BcpsModel : public AlpsModel {
 
  protected:
 
-    int numCoreConstraints_;
+    /** Constraints input by users (before preprocessing). */
+    std::vector<BcpsConstraint *> constraints_;
 
-    BcpsConstraint **coreConstraints_;
+    /** Number of core constraints. By default, all input constraints are
+        core. 
+    */
+    int numCoreConstraints_;   
+    
+    /** Variables input by users (before preprocessing). */
+    std::vector<BcpsVariable *> variables_;
 
+    /** Number of core variables. By default, all input variables are core.*/
     int numCoreVariables_;
-
-    BcpsVariable **coreVariables_;
-
+    
     /** Message handler. */
     CoinMessageHandler * bcpsMessageHandler_;
 
@@ -53,50 +61,58 @@ class BcpsModel : public AlpsModel {
     BcpsModel() 
         : 
 	numCoreConstraints_(0), 
-        coreConstraints_(NULL),
-	numCoreVariables_(0), 
-        coreVariables_(NULL)
+	numCoreVariables_(0)
         {
 	    bcpsMessageHandler_ = new CoinMessageHandler();
 	    bcpsMessageHandler_->setLogLevel(2);
 	    bcpsMessages_ = BcpsMessage();
 	}
 
-    virtual ~BcpsModel() {
-	int i = 0;
-	if (numCoreConstraints_ > 0) {
-	    for (i = 0; i < numCoreConstraints_; ++i) {
-		delete coreConstraints_[i]; 
-		coreConstraints_[i] = NULL;
+        virtual ~BcpsModel() {
+
+        int i = 0, size  = 0;
+
+        size = constraints_.size();
+	if (size > 0) {
+	    for (i = 0; i < size; ++i) {
+		delete constraints_[i]; 
 	    }
-	    delete [] coreConstraints_;
-	    coreConstraints_ = NULL;
 	}
-	if (numCoreVariables_ > 0) {
-	    for (i = 0; i < numCoreVariables_; ++i) {
-		delete coreVariables_[i];
-		coreVariables_[i] = NULL;
+
+        size =  variables_.size();
+	if (size > 0) {
+	    for (i = 0; i < size; ++i) {
+		delete variables_[i];
 	    }
-	    delete [] coreVariables_;
-	    coreVariables_ = NULL;
 	}
+
 	delete bcpsMessageHandler_;
     }
     
-    /** Get core variables and constraints */
+    /** Get variables and constraints */
     /**@{*/
+    std::vector<BcpsConstraint *> & getConstraints() { return constraints_; }
     int getNumCoreConstraints() const { return numCoreConstraints_; }
-    BcpsConstraint ** getCoreConstraints() { return coreConstraints_; }
+
+    std::vector<BcpsVariable *> & getVariables() { return variables_; }
     int getNumCoreVariables() const { return numCoreVariables_; }
-    BcpsVariable ** getCoreVariables() { return coreVariables_; }
     /**@}*/
     
-    /** Set core variables and constraints */
+    /** Set variables and constraints */
     /**@{*/
+    void setConstraints(BcpsConstraint **con, int size) {
+        for (int j = 0; j < size; ++j) {
+            constraints_.push_back(con[j]);
+        }
+    }
     void setNumCoreConstraints(int num) { numCoreConstraints_ = num; }
+
+    void setVariables(BcpsVariable **var, int size) { 
+        for (int j = 0; j < size; ++j) {
+            variables_.push_back(var[j]);
+        }
+    }
     void setNumCoreVariables(int num) { numCoreVariables_ = num; }
-    void setCoreConstraints(BcpsConstraint **con) { coreConstraints_ = con; }
-    void setCoreVariables(BcpsVariable **var) { coreVariables_ = var; }
     /**@}*/
 
     /** Get the message handler. */
