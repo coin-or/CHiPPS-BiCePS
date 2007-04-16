@@ -43,9 +43,9 @@ typedef char BcpsIntegral_t;
 
 enum BcpsObject_t {
     BCPS_PRIMAL_OBJECT = 0,
-    BCPS_VARIABLE = 0,
+    BCPS_VAR_OBJECT = 0,
     BCPS_DUAL_OBJECT = 1,
-    BCPS_CONSTRAINT = 1
+    BCPS_CON_OBJECT = 1
 };
 
 //#############################################################################
@@ -291,9 +291,12 @@ protected:
     /** Pack into a encode object. */
     virtual AlpsReturnCode encode(AlpsEncoded *encoded) {
 	AlpsReturnCode status = ALPS_OK;
-	assert(0);
+        assert(0);
 	return status;
     };
+    
+    
+    
 
 };
 
@@ -328,7 +331,7 @@ class BcpsConstraint : public BcpsObject {
 	BcpsObject(rhs)
 	{}    
     
-    inline virtual BcpsObject_t getObjType() const { return BCPS_CONSTRAINT; }
+    inline virtual BcpsObject_t getObjType() const { return BCPS_CON_OBJECT; }
 };
 
 
@@ -355,7 +358,7 @@ class BcpsVariable : public BcpsObject {
 	BcpsObject(rhs)
 	{}
 
-    inline virtual BcpsObject_t getObjType() const { return BCPS_VARIABLE; }
+    inline virtual BcpsObject_t getObjType() const { return BCPS_VAR_OBJECT; }
 };
 
 

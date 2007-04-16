@@ -20,16 +20,14 @@
 
 #include <vector>
 
-#include "AlpsKnowledgeBroker.h"
-
 #include "CoinMessageHandler.hpp"
 
 #include "AlpsModel.h"
+#include "AlpsKnowledgeBroker.h"
 
-#include "BcpsObject.h"
 #include "BcpsMessage.h"
+#include "BcpsObject.h"
 
-//#############################################################################
 //#############################################################################
 
 class BcpsModel : public AlpsModel {
@@ -39,13 +37,14 @@ class BcpsModel : public AlpsModel {
     /** Constraints input by users (before preprocessing). */
     std::vector<BcpsConstraint *> constraints_;
 
+    /** Variables input by users (before preprocessing). */
+    std::vector<BcpsVariable *> variables_;
+
+
     /** Number of core constraints. By default, all input constraints are
         core. 
     */
     int numCoreConstraints_;   
-    
-    /** Variables input by users (before preprocessing). */
-    std::vector<BcpsVariable *> variables_;
 
     /** Number of core variables. By default, all input variables are core.*/
     int numCoreVariables_;
@@ -69,19 +68,15 @@ class BcpsModel : public AlpsModel {
 	}
 
     virtual ~BcpsModel() {
-       
         int i = 0, size  = 0;
-
         size = constraints_.size();
         for (i = 0; i < size; ++i) {
             delete constraints_[i]; 
         }
-
         size =  variables_.size();
         for (i = 0; i < size; ++i) {
             delete variables_[i];
         }
-
 	delete bcpsMessageHandler_;
     }
     
@@ -118,6 +113,13 @@ class BcpsModel : public AlpsModel {
     /** Return messages. */
     CoinMessages bcpsMessages() { return bcpsMessages_; }
 
+
+    /** Pack Bcps portion of model into an encoded object. */
+    AlpsReturnCode encodeBcps(AlpsEncoded *encoded) const;
+
+    /** Unpack Bcps portion of model from an encoded object. */
+    AlpsReturnCode decodeBcps(AlpsEncoded &encoded);
+    
 };
 
 

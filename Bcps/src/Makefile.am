@@ -31,12 +31,13 @@ lib_LTLIBRARIES = libBcps.la
 
 # List all source files for this library, including headers
 libBcps_la_SOURCES = \
+	Bcps.h \
 	BcpsBranchObject.cpp BcpsBranchObject.h \
 	BcpsBranchStrategy.cpp BcpsBranchStrategy.h \
 	BcpsInterface.h \
 	BcpsLicense.h \
 	BcpsMessage.h BcpsMessage.cpp \
-	BcpsModel.h \
+	BcpsModel.h BcpsModel.cpp \
 	BcpsNodeDesc.cpp BcpsNodeDesc.h \
 	BcpsObject.cpp BcpsObject.h \
 	BcpsObjectPool.h BcpsSolution.cpp \
@@ -76,6 +77,7 @@ DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)` -I$(top_builddir)/inc
 # and that therefore should be installed in 'install'
 include_HEADERS = \
 	../inc/config_biceps.h \
+	Bcps.h \
 	BcpsBranchObject.h \
 	BcpsBranchStrategy.h \
 	BcpsInterface.h \

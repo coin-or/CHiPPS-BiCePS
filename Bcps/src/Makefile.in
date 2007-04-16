@@ -81,8 +81,8 @@ libLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libBcps_la_LIBADD =
 am_libBcps_la_OBJECTS = BcpsBranchObject.lo BcpsBranchStrategy.lo \
-	BcpsMessage.lo BcpsNodeDesc.lo BcpsObject.lo BcpsSolution.lo \
-	BcpsSubTree.lo BcpsTreeNode.lo
+	BcpsMessage.lo BcpsModel.lo BcpsNodeDesc.lo BcpsObject.lo \
+	BcpsSolution.lo BcpsSubTree.lo BcpsTreeNode.lo
 libBcps_la_OBJECTS = $(am_libBcps_la_OBJECTS)
 depcomp = $(SHELL) $(top_srcdir)/../depcomp
 am__depfiles_maybe = depfiles
@@ -280,12 +280,13 @@ lib_LTLIBRARIES = libBcps.la
 
 # List all source files for this library, including headers
 libBcps_la_SOURCES = \
+	Bcps.h \
 	BcpsBranchObject.cpp BcpsBranchObject.h \
 	BcpsBranchStrategy.cpp BcpsBranchStrategy.h \
 	BcpsInterface.h \
 	BcpsLicense.h \
 	BcpsMessage.h BcpsMessage.cpp \
-	BcpsModel.h \
+	BcpsModel.h BcpsModel.cpp \
 	BcpsNodeDesc.cpp BcpsNodeDesc.h \
 	BcpsObject.cpp BcpsObject.h \
 	BcpsObjectPool.h BcpsSolution.cpp \
@@ -319,6 +320,7 @@ DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)` -I$(top_builddir)/inc
 # and that therefore should be installed in 'install'
 include_HEADERS = \
 	../inc/config_biceps.h \
+	Bcps.h \
 	BcpsBranchObject.h \
 	BcpsBranchStrategy.h \
 	BcpsInterface.h \
@@ -411,6 +413,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsBranchObject.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsBranchStrategy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsMessage.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsModel.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsNodeDesc.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsObject.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsSolution.Plo@am__quote@
