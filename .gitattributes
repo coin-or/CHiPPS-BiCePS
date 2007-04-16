@@ -55,6 +55,7 @@ Bcps/examples/Blis/data/knap1.mps -text
 Bcps/examples/Blis/data/knap2.mps -text
 Bcps/examples/Blis/data/knap3.mps -text
 Bcps/inc/config_biceps.h.in -text
+Bcps/src/Bcps.h -text
 Bcps/src/BcpsBranchObject.cpp -text
 Bcps/src/BcpsBranchObject.h -text
 Bcps/src/BcpsBranchStrategy.cpp -text
@@ -64,6 +65,7 @@ Bcps/src/BcpsInterface.h -text
 Bcps/src/BcpsLicense.h -text
 Bcps/src/BcpsMessage.cpp -text
 Bcps/src/BcpsMessage.h -text
+Bcps/src/BcpsModel.cpp -text
 Bcps/src/BcpsModel.h -text
 Bcps/src/BcpsNodeDesc.cpp -text
 Bcps/src/BcpsNodeDesc.h -text
