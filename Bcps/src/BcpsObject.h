@@ -19,6 +19,8 @@
 #include "Alps.h"
 #include "AlpsKnowledge.h"
 
+#include "Bcps.h"
+
 class BcpsModel;
 class BcpsBranchObject;
 
@@ -314,14 +316,14 @@ class BcpsConstraint : public BcpsObject {
 
  public:
     /** Default constructor. */
-    BcpsConstraint() { }
+    BcpsConstraint() { setType(BCPS_CONSTRAINT); }
 
     /** Useful constructor. */
     BcpsConstraint(double lbh, double ubh, double lbs, double ubs) 
 	:
 	BcpsObject(lbh, ubh, lbs, ubs)
-	{}
-
+	{ setType(BCPS_CONSTRAINT); }
+        
     /** Desctructor constructor. */
     virtual ~BcpsConstraint() {}
 
@@ -341,13 +343,13 @@ class BcpsConstraint : public BcpsObject {
 class BcpsVariable : public BcpsObject {
  public:
     /** Default constructor. */
-    BcpsVariable() { }
+    BcpsVariable() { setType(BCPS_VARIABLE); }
 
     /** Useful constructor. */
     BcpsVariable(double lbh, double ubh, double lbs, double ubs) 
 	:
 	BcpsObject(lbh, ubh, lbs, ubs)
-	{}
+	{ setType(BCPS_VARIABLE); }
 
     /** Destructor. */
     virtual ~BcpsVariable() {}

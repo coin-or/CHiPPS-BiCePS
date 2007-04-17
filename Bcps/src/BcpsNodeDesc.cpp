@@ -992,7 +992,7 @@ BcpsNodeDesc::decodeObjectMods(AlpsEncoded &encoded,
 	objMod->objects = new BcpsObject* [objMod->numAdd];
 	for (k = 0; k < objMod->numAdd; ++k) {
 	    objMod->objects[k] = static_cast<BcpsObject *>
-		( broker->decoderObject("BCPS_CONSTRAINT")->decode(encoded) );
+		( broker->decoderObject(BCPS_CONSTRAINT)->decode(encoded) );
 	    
 	    // Unpack a object from an encoded.
 	    // (objMod->objects)[k]->encode(encoded);
