@@ -53,8 +53,14 @@ BcpsModel::decodeBcps(AlpsEncoded &encoded)
     
     encoded.readRep(size);
     for (i = 0; i < size; ++i) {
-        BcpsConstraint *con = static_cast<BcpsConstraint *>
-            ( broker_->decoderObject(BCPS_CONSTRAINT)->decode(encoded) );
+        const AlpsKnowledge* know = 
+            broker_->decoderObject(BCPS_CONSTRAINT);
+        BcpsConstraint *con = NULL;
+        con = static_cast<BcpsConstraint *>(know->decode(encoded));
+        
+
+        //BcpsConstraint *con = static_cast<BcpsConstraint *>
+        //( broker_->decoderObject(BCPS_CONSTRAINT)->decode(encoded) );
 
         constraints_.push_back(con);
         con = NULL;
