@@ -32,12 +32,16 @@ BcpsObject &
 BcpsObject::operator = ( const BcpsObject& rhs)
 {
     if (this!=&rhs) {
-	objectIndex_ = rhs.objectIndex_;
+        objectIndex_ = rhs.objectIndex_;
+	repType_ = rhs.repType_;
+	intType_ = rhs.intType_;
+	status_ = rhs.status_;
 	lbHard_ = rhs.lbHard_;
 	ubHard_ = rhs.ubHard_;
 	lbSoft_ = rhs.lbSoft_;
 	ubSoft_ = rhs.ubSoft_;
         hashValue_ = rhs.hashValue_;
+	numInactive_ = rhs.numInactive_;
     }
     
     return *this;
