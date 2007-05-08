@@ -119,6 +119,15 @@ class BcpsSolution : public AlpsSolution {
     virtual BcpsSolution* selectFractional(const double etol = 1e-5) const;
     /**@} */
 
+    /** Print out the solution.*/
+    virtual void print(std::ostream& os) const {
+	for (int j = 0; j < size_; ++j) {
+	    if (values_[j] > 1.0e-15 || values_[j] < -1.0e-15) {
+		os << "x[" << j << "] = " << values_[j] << std::endl;
+	    }
+	}
+    }
+    
     //------------------------------------------------------
     // Parallel.
     //------------------------------------------------------
