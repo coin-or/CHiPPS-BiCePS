@@ -3,6 +3,7 @@ Bcps/AUTHORS -text
 Bcps/LICENSE -text
 Bcps/Makefile.am -text
 Bcps/Makefile.in -text
+Bcps/README -text
 Bcps/biceps_addlibs.txt.in -text
 Bcps/configure -text
 Bcps/configure.ac -text
