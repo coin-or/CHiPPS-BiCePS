@@ -2821,7 +2821,7 @@ BlisTreeNode::encode() const
     AlpsReturnCode status = ALPS_OK;
     
     // NOTE: "ALPS_NODE" is used as type name.
-    AlpsEncoded* encoded = new AlpsEncoded("ALPS_NODE");
+    AlpsEncoded* encoded = new AlpsEncoded(ALPS_NODE);
     
     // Encode decription.
     status = desc_->encode(encoded);

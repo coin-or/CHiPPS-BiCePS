@@ -330,20 +330,20 @@ BlisModel::setupSelf()
     // BlisVariable ** tempVars = new BlisVariable* [numCols_];
     // BlisConstraint ** tempCons = new BlisConstraint* [numRows_];
 
-    coreVariables_ = new BcpsVariable* [numCols_];
-    coreConstraints_ = new BcpsConstraint* [numRows_];
+    //variables_ = new BcpsVariable* [numCols_];
+    //constraints_ = new BcpsConstraint* [numRows_];
     
     for (j = 0; j < numCols_; ++j) {
 	BlisVariable * var = new BlisVariable(origVarLB_[j],
 					      origVarUB_[j], 
 					      origVarLB_[j], 
 					      origVarUB_[j]);
-	coreVariables_[j] = var;
+	variables_.push_back(var);
 	var = NULL;
-	coreVariables_[j]->setObjectIndex(j);
-	coreVariables_[j]->setRepType(BCPS_CORE);
-	coreVariables_[j]->setIntType(colType_[j]);
-	coreVariables_[j]->setStatus(BCPS_NONREMOVALBE);
+	variables_[j]->setObjectIndex(j);
+	variables_[j]->setRepType(BCPS_CORE);
+	variables_[j]->setIntType(colType_[j]);
+	variables_[j]->setStatus(BCPS_NONREMOVALBE);
     }
 
     for (j = 0; j < numRows_; ++j) {
@@ -351,12 +351,12 @@ BlisModel::setupSelf()
                                                  origConUB_[j], 
                                                  origConLB_[j], 
                                                  origConUB_[j]);
-        coreConstraints_[j] = con;
+        constraints_.push_back(con);
         con = NULL;
-        coreConstraints_[j]->setObjectIndex(j);
-        coreConstraints_[j]->setRepType(BCPS_CORE);
+        constraints_[j]->setObjectIndex(j);
+        constraints_[j]->setRepType(BCPS_CORE);
         //coreContraints_[j]->setIntType(colType_[j]);
-        coreConstraints_[j]->setStatus(BCPS_NONREMOVALBE);
+        constraints_[j]->setStatus(BCPS_NONREMOVALBE);
     }
     
     //------------------------------------------------------
@@ -984,8 +984,8 @@ BlisModel::createRoot() {
   //-------------------------------------------------------------
   int k;
 
-  BcpsVariable ** vars = getCoreVariables();
-  BcpsConstraint ** cons = getCoreConstraints();
+  std::vector<BcpsVariable *> vars = getVariables();
+  std::vector<BcpsConstraint *> cons = getConstraints();
 
 #ifdef BLIS_DEBUG
   std::cout << "BLIS: createRoot(): numCoreVariables_=" << numCoreVariables_
@@ -1128,7 +1128,7 @@ BlisModel::encode() const
     AlpsReturnCode status = ALPS_OK;
 
     // NOTE: "ALPS_MODEL" is the type name.
-    AlpsEncoded* encoded = new AlpsEncoded("ALPS_MODEL");
+    AlpsEncoded* encoded = new AlpsEncoded(ALPS_MODEL);
 
     //------------------------------------------------------
     // Encode Alps part. 
@@ -1432,19 +1432,19 @@ void
 BlisModel::registerKnowledge() {
     // Register model, solution, and tree node
     assert(broker_);
-    broker_->registerClass("ALPS_MODEL", new BlisModel);
+    broker_->registerClass(ALPS_MODEL, new BlisModel);
     std::cout << "Register Alps model." << std::endl;
     
-    broker_->registerClass("ALPS_NODE", new BlisTreeNode(this));
+    broker_->registerClass(ALPS_NODE, new BlisTreeNode(this));
     std::cout << "Register Alps node." << std::endl;
     
-    broker_->registerClass("ALPS_SOLUTION", new BlisSolution);
+    broker_->registerClass(ALPS_SOLUTION, new BlisSolution);
     std::cout << "Register Alps solution." << std::endl;
     
-    broker_->registerClass("BCPS_CONSTRAINT", new BlisConstraint);
+    broker_->registerClass(BCPS_CONSTRAINT, new BlisConstraint);
     std::cout << "Register Bcps constraint." << std::endl;
     
-    broker_->registerClass("BCPS_VARIABLE", new BlisVariable);
+    broker_->registerClass(BCPS_VARIABLE, new BlisVariable);
     std::cout << "Register Bcps variable." << std::endl;
 }
 

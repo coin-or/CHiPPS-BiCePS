@@ -124,7 +124,7 @@ class BlisVariable : public BcpsVariable {
     virtual AlpsReturnCode encode(AlpsEncoded *encoded){
 	AlpsReturnCode status;
 
-	status = encodeBcps(encoded);
+	status = encodeBcpsObject(encoded);
 	status = encodeBlis(encoded);
 	
 	return status;
@@ -136,7 +136,7 @@ class BlisVariable : public BcpsVariable {
 	BlisVariable * var = new BlisVariable();    
 	
 	// Unpack Bcps part.
-	status = var->decodeBcps(encoded);
+	status = var->decodeBcpsObject(encoded);
 	if (status) {
 	    throw CoinError("Failed to decode Bcps part of var",
 			    "decode",

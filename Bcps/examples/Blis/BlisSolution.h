@@ -54,7 +54,7 @@ class BlisSolution : public BcpsSolution {
     
     /** The method that encodes the solution into a encoded object. */
     virtual AlpsEncoded* encode() const {
-	AlpsEncoded* encoded = new AlpsEncoded("ALPS_SOLUTION");
+	AlpsEncoded* encoded = new AlpsEncoded(ALPS_SOLUTION);
 	encodeBcps(encoded);
 	// Nothing to do for Blis part.
 	return encoded;
