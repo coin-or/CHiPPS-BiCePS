@@ -16,9 +16,9 @@
 #ifndef BcpsBranchStrategy_h_
 #define BcpsBranchStrategy_h_
 
-class BcpsModel;
-class BcpsBranchObject;
+#include "BcpsBranchObject.h"
 
+class BcpsModel;
 
 //#############################################################################
 // NOTE: Borrow ideas from COIN/Cbc.
@@ -94,7 +94,12 @@ class BcpsBranchStrategy {
         {}
     
     /** Destructor. */
-    virtual ~BcpsBranchStrategy() {}
+    virtual ~BcpsBranchStrategy() {
+        for (int k = 0; k < numBranchObjects_; ++k) {
+            delete branchObjects_[k];
+        }
+        delete [] branchObjects_;
+    }
     
     /** Clone a branch strategy. */
     virtual BcpsBranchStrategy * clone() const = 0;

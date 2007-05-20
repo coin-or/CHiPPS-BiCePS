@@ -22,9 +22,7 @@
 #include <iostream>
 
 #include "BcpsBranchStrategy.h"
-#include "BcpsBranchObject.h"
 #include "BcpsModel.h"
-
 
 //#############################################################################
 

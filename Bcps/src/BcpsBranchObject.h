@@ -102,6 +102,8 @@ class BcpsBranchObject {
 	type_(0),
         model_(model),
         objectIndex_(objectIndex),
+        upScore_(0),
+        downScore_(0),
         direction_(direction),
         value_(value),
         numBranchesLeft_(2) 
