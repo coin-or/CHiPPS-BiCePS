@@ -48,6 +48,9 @@ Bcps/examples/Blis/INSTALL -text
 Bcps/examples/Blis/LICENSE -text
 Bcps/examples/Blis/Makefile.in -text
 Bcps/examples/Blis/README -text
+Bcps/examples/Blis/Win32/v8/Blis.sln -text
+Bcps/examples/Blis/Win32/v8/Blis.suo -text
+Bcps/examples/Blis/Win32/v8/Blis.vcproj -text
 Bcps/examples/Blis/blis.par.in -text
 Bcps/examples/Blis/data/egout.mps -text
 Bcps/examples/Blis/data/flugpl.mps -text

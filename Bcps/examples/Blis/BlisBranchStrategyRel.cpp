@@ -412,7 +412,7 @@ BlisBranchStrategyRel::createCandBranchObjects(int numPassesLeft)
 
         int numNotChange = 0;
 
-        std::multimap< double, BlisObjectInt* >::iterator pos;
+        std::multimap< double, BlisObjectInt*, BlisPseuoGreater >::iterator pos;
         
         CoinWarmStart * ws = solver->getWarmStart();
         solver->getIntParam(OsiMaxNumIterationHotStart, saveLimit);

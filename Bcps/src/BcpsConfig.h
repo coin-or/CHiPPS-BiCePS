@@ -56,6 +56,8 @@
 /* Define to 1 if the CoinUtils package is used */
 #define COIN_HAS_COINUTILS 1
 
+/* Define to 1 if the Clp package is used */
+#define COIN_HAS_CLP 1
 
 /* Define to 1 if readline is available */
 /* #undef COIN_HAS_READLINE */
