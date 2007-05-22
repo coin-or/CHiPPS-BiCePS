@@ -35,7 +35,7 @@ typedef struct {
 
 static Bcps_message us_english[]=
 {
-    {BCPS_S_VERSION, 1, 1, "BiCePS version 0.7.0"},
+    {BCPS_S_VERSION, 1, 1, "BiCePS version 0.8.0"},
     {BCPS_DUMMY_END, 999999, 0, ""}
 };
 
