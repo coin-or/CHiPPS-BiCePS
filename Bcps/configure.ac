@@ -160,10 +160,10 @@ AC_CONFIG_FILES([Makefile
 		 examples/Blis/blis.par
                  src/Makefile
                  test/Makefile
-		 biceps_addlibs.txt])
+		 bcps_addlibs.txt])
 
 # Here put the location and name of the configuration header file
-AC_CONFIG_HEADER([inc/config_biceps.h])
+AC_CONFIG_HEADER([inc/config_bcps.h])
 
 # Finally, we let configure write all the output...
 AC_COIN_FINALIZE

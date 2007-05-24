@@ -20,7 +20,7 @@
 #ifndef __BCPSCONFIG_H__
 
 #ifdef HAVE_CONFIG_H
-#include "config_biceps.h"
+#include "config_bcps.h"
 
 /* undefine macros that could conflict with those in other config.h
    files */

@@ -20775,11 +20775,11 @@ fi
 
 # Here list all the files that configure should create (except for the
 # configuration header file)
-                                                            ac_config_files="$ac_config_files Makefile examples/Blis/Makefile examples/Blis/blis.par src/Makefile test/Makefile biceps_addlibs.txt"
+                                                            ac_config_files="$ac_config_files Makefile examples/Blis/Makefile examples/Blis/blis.par src/Makefile test/Makefile bcps_addlibs.txt"
 
 
 # Here put the location and name of the configuration header file
-          ac_config_headers="$ac_config_headers inc/config_biceps.h"
+          ac_config_headers="$ac_config_headers inc/config_bcps.h"
 
 
 # Finally, we let configure write all the output...
@@ -21456,7 +21456,7 @@ do
   "examples/Blis/blis.par" ) CONFIG_FILES="$CONFIG_FILES examples/Blis/blis.par" ;;
   "src/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
   "test/Makefile" ) CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
-  "biceps_addlibs.txt" ) CONFIG_FILES="$CONFIG_FILES biceps_addlibs.txt" ;;
+  "bcps_addlibs.txt" ) CONFIG_FILES="$CONFIG_FILES bcps_addlibs.txt" ;;
   "test/BlisBranchObjectInt.cpp" ) CONFIG_LINKS="$CONFIG_LINKS test/BlisBranchObjectInt.cpp:examples/Blis/BlisBranchObjectInt.cpp" ;;
   "test/BlisBranchObjectInt.h" ) CONFIG_LINKS="$CONFIG_LINKS test/BlisBranchObjectInt.h:examples/Blis/BlisBranchObjectInt.h" ;;
   "test/BlisBranchStrategyPseudo.cpp" ) CONFIG_LINKS="$CONFIG_LINKS test/BlisBranchStrategyPseudo.cpp:examples/Blis/BlisBranchStrategyPseudo.cpp" ;;
@@ -21495,7 +21495,7 @@ do
   "test/BlisVariable.h" ) CONFIG_LINKS="$CONFIG_LINKS test/BlisVariable.h:examples/Blis/BlisVariable.h" ;;
   "test/flugpl.mps" ) CONFIG_LINKS="$CONFIG_LINKS test/flugpl.mps:examples/Blis/data/flugpl.mps" ;;
   "depfiles" ) CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
-  "inc/config_biceps.h" ) CONFIG_HEADERS="$CONFIG_HEADERS inc/config_biceps.h" ;;
+  "inc/config_bcps.h" ) CONFIG_HEADERS="$CONFIG_HEADERS inc/config_bcps.h" ;;
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;

@@ -4,7 +4,7 @@ Bcps/LICENSE -text
 Bcps/Makefile.am -text
 Bcps/Makefile.in -text
 Bcps/README -text
-Bcps/biceps_addlibs.txt.in -text
+Bcps/bcps_addlibs.txt.in -text
 Bcps/configure -text
 Bcps/configure.ac -text
 Bcps/examples/Blis/AUTHORS -text
@@ -58,7 +58,7 @@ Bcps/examples/Blis/data/gen.mps -text
 Bcps/examples/Blis/data/knap1.mps -text
 Bcps/examples/Blis/data/knap2.mps -text
 Bcps/examples/Blis/data/knap3.mps -text
-Bcps/inc/config_biceps.h.in -text
+Bcps/inc/config_bcps.h.in -text
 Bcps/src/Bcps.h -text
 Bcps/src/BcpsBranchObject.cpp -text
 Bcps/src/BcpsBranchObject.h -text

@@ -1,4 +1,4 @@
-/* inc/config_biceps.h.in.  Generated from configure.ac by autoheader.  */
+/* inc/config_bcps.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define to the debug sanity check level (0 is no test) */
 #undef COIN_BCPS_CHECKLEVEL

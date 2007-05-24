@@ -121,7 +121,7 @@ distclean-local:
 #                  Installation of the addlibs file                    #
 ########################################################################
 
-addlibsfile = biceps_addlibs.txt
+addlibsfile = bcps_addlibs.txt
 
 install-exec-local:
 	$(install_sh_DATA) $(addlibsfile) $(DESTDIR)$(libdir)/$(addlibsfile)
