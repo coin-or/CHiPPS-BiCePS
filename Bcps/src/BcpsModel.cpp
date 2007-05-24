@@ -29,15 +29,14 @@ AlpsReturnCode
 BcpsModel::encodeBcps(AlpsEncoded *encoded) const
 {
     AlpsReturnCode status  = ALPS_OK;
-    int i, size = 0;
-    
-    size = constraints_.size();
+    int i;
+    int size = static_cast<int> (constraints_.size());
     encoded->writeRep(size);
     for (i = 0; i < size; ++i) {
         constraints_[i]->encode(encoded); 
     }
     
-    size =  variables_.size();
+    size =  static_cast<int> (variables_.size());
     encoded->writeRep(size);
     for (i = 0; i < size; ++i) {
         variables_[i]->encode(encoded);

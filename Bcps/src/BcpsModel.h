@@ -75,12 +75,12 @@ class BcpsModel : public AlpsModel {
 	}
 
     virtual ~BcpsModel() {
-        int i = 0, size  = 0;
-        size = constraints_.size();
+        int i = 0;
+        int size = static_cast<int> (constraints_.size());
         for (i = 0; i < size; ++i) {
             delete constraints_[i]; 
         }
-        size =  variables_.size();
+        size =  static_cast<int> (variables_.size());
         for (i = 0; i < size; ++i) {
             delete variables_[i];
         }

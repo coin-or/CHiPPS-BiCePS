@@ -380,7 +380,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                         }
                     }
 #endif
-                    numDelRows = delIndices.size();
+                    numDelRows = static_cast<int> (delIndices.size());
 		    
 #ifdef BLIS_DEBUG
                     std::cout << "PROCESS: new cuts=" << numNewCons 
@@ -860,7 +860,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		// Summarize bounds.
 		//------------------------------------------
 		
-		for(j = model->leafToRootPath.size() - 1; j > -1; --j) {
+		for(j = static_cast<int> (model->leafToRootPath.size() - 1); j > -1; --j) {
 		    
 		    pathDesc = dynamic_cast<BlisNodeDesc*>
 			((model->leafToRootPath.at(j))->getDesc());
@@ -2044,7 +2044,7 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
     // collect full description.
     //------------------------------------------------------
     
-    for(i = model->leafToRootPath.size() - 1; i > -1; --i) {
+    for(i = static_cast<int> (model->leafToRootPath.size() - 1); i > -1; --i) {
 
 #ifdef BLIS_DEBUG_MORE
         if (index_ == 3487) {
@@ -2973,7 +2973,7 @@ BlisTreeNode::convertToExplicit()
 	//------------------------------------------------------	
 
 
-	for(i = model->leafToRootPath.size() - 1; i > -1; --i) {
+	for(i = static_cast<int> (model->leafToRootPath.size() - 1); i > -1; --i) {
 
 	    pathDesc = dynamic_cast<BlisNodeDesc*>((model->leafToRootPath.at(i))->
 						   getDesc());

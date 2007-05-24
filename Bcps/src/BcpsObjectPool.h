@@ -51,7 +51,7 @@ class BcpsObjectPool : public AlpsKnowledgePool {
 
     /** Free object pointers. */
     inline void freeGuts() {
-	for (int i = objects_.size() - 1; i >= 0; --i) {
+	for (int i = static_cast<int> (objects_.size() - 1); i >= 0; --i) {
 	    delete objects_[i];
 	}
         objects_.clear();
@@ -67,7 +67,7 @@ class BcpsObjectPool : public AlpsKnowledgePool {
  
     /** Query how many knowledges are in the pool.*/
     virtual int getNumKnowledges() const {
-	return objects_.size();
+	return static_cast<int>(objects_.size());
     }
 
     /** Query a knowledge, but doesn't remove it from the pool*/

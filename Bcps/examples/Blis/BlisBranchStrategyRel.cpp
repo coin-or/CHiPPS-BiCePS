@@ -301,7 +301,7 @@ BlisBranchStrategyRel::createCandBranchObjects(int numPassesLeft)
     // branch up and down to initialize pseudo-cost.
     //--------------------------------------------------
     
-    numFirsts = firstObjects.size();
+    numFirsts = static_cast<int> (firstObjects.size());
     if (numFirsts > 0) {
 	
         CoinWarmStart * ws = solver->getWarmStart();
