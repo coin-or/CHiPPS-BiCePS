@@ -158,9 +158,9 @@ class BlisBranchObjectInt : public BcpsBranchObject {
  protected:
 
     /** Pack Blis portion to an encoded object. */
-    AlpsReturnCode encodeBlis(AlpsEncoded *encoded) const {
+    AlpsReturnStatus encodeBlis(AlpsEncoded *encoded) const {
 	assert(encoded);
-	AlpsReturnCode status = ALPS_OK;
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	int j;
 	// TODO: N-way.
 	for (j = 0; j < 2; ++j) {
@@ -174,8 +174,8 @@ class BlisBranchObjectInt : public BcpsBranchObject {
     }
 
     /** Unpack Blis portion from an encoded object. */
-    AlpsReturnCode decodeBlis(AlpsEncoded &encoded) {
-	AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus decodeBlis(AlpsEncoded &encoded) {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	int j;
 	// TODO: N-way.
 	for (j = 0; j < 2; ++j) {
@@ -191,8 +191,8 @@ class BlisBranchObjectInt : public BcpsBranchObject {
  public:
 
     /** Pack to an encoded object. */
-    virtual AlpsReturnCode encode(AlpsEncoded *encoded) const {
-	AlpsReturnCode status = ALPS_OK;
+    virtual AlpsReturnStatus encode(AlpsEncoded *encoded) const {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 
 	status = encodeBcps(encoded);
 	status = encodeBlis(encoded);
@@ -201,9 +201,9 @@ class BlisBranchObjectInt : public BcpsBranchObject {
     };
 
     /** Unpack a branching object from an encoded object. */
-    virtual AlpsReturnCode decode(AlpsEncoded &encoded) {
+    virtual AlpsReturnStatus decode(AlpsEncoded &encoded) {
 	
-	AlpsReturnCode status = ALPS_OK;
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 
 	status = decodeBcps(encoded);
 	status = decodeBlis(encoded);

@@ -153,7 +153,7 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
 						      solver->getColSolution(),
 						      newObjValue);
 
-	    model->getKnowledgeBroker()->addKnowledge(ALPS_SOLUTION, 
+	    model->getKnowledgeBroker()->addKnowledge(AlpsKnowledgeTypeSolution, 
 						      ksol, 
 						      newObjValue);	    
 
@@ -227,7 +227,7 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
 						  solver->getColSolution(),
 						  newObjValue);
 
-	    model->getKnowledgeBroker()->addKnowledge(ALPS_SOLUTION, 
+	    model->getKnowledgeBroker()->addKnowledge(AlpsKnowledgeTypeSolution, 
 						      ksol, 
 						      newObjValue);	    
 	    // FIXME: should not keep this branch.
@@ -293,7 +293,7 @@ int BlisEncodeWarmStart(AlpsEncoded *encoded, const CoinWarmStartBasis *ws)
 //#############################################################################
 
 CoinWarmStartBasis *BlisDecodeWarmStart(AlpsEncoded &encoded,
-					AlpsReturnCode *rc) 
+					AlpsReturnStatus *rc) 
 {
     int numCols;
     int numRows;

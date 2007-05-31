@@ -86,7 +86,7 @@ class BlisHeurRound : public BlisHeuristic {
         Sets solution values if good, sets objective value (only if good)
         This is called after cuts have been added - so can not add cuts
     */
-    virtual int searchSolution(double & objectiveValue,
+    virtual bool searchSolution(double & objectiveValue,
                                double * newSolution);
     
     /** Set seed */

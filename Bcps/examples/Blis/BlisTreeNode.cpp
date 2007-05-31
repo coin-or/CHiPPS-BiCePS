@@ -278,7 +278,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                         new BlisSolution(numCols, 
                                            model->getLpSolution(), 
                                            quality_);
-                    getKnowledgeBroker()->addKnowledge(ALPS_SOLUTION, 
+                    getKnowledgeBroker()->addKnowledge(AlpsKnowledgeTypeSolution, 
                                                        ksol, 
                                                        quality_); 
                     // Update cutoff
@@ -559,7 +559,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                     BlisSolution* ksol = new BlisSolution(numCols, 
 							  heurSolution, 
 							  heurObjValue);
-                    getKnowledgeBroker()->addKnowledge(ALPS_SOLUTION,
+                    getKnowledgeBroker()->addKnowledge(AlpsKnowledgeTypeSolution,
                                                        ksol,
                                                        heurObjValue);
                     // Update cutoff
@@ -788,7 +788,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 	    // Decide if save explicit decription.
 	    //----------------------------------------------
 	    
-	    if (depth_ % 30 == 0 || isRoot || (phase == ALPS_PHASE_RAMPUP)) {
+	    if (depth_ % 30 == 0 || isRoot || (phase == AlpsPhaseRampup)) {
 		explicit_ = 1;
 		std::cout << "SAVE: node "<< index_ <<" explicitly, "
 			  << "depth=" << depth_ << std::endl;
@@ -801,7 +801,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 	    
 	    //explicit_ = 1;
 
-	    if (explicit_ || (phase == ALPS_PHASE_RAMPUP) ) {
+	    if (explicit_ || (phase == AlpsPhaseRampup) ) {
 		// NOTE: full hard bound has been stored. 
 		
 		int index;
@@ -839,7 +839,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		model->leafToRootPath.push_back(this);
 		BlisNodeDesc* pathDesc = NULL;
 		
-		if (phase != ALPS_PHASE_RAMPUP) {
+		if (phase != AlpsPhaseRampup) {
 		    while(parent) {
 			model->leafToRootPath.push_back(parent);
 			if (parent->getExplicit()) {
@@ -1359,7 +1359,7 @@ BlisTreeNode::branch()
     
     childDesc = new BlisNodeDesc(model);
     
-    if (phase == ALPS_PHASE_RAMPUP) {
+    if (phase == AlpsPhaseRampup) {
 	
 	//--------------------------------------------------
 	// Store a full description since each node will be the root of
@@ -1559,7 +1559,7 @@ BlisTreeNode::branch()
     
     childDesc = new BlisNodeDesc(model);
 
-    if (phase == ALPS_PHASE_RAMPUP) {
+    if (phase == AlpsPhaseRampup) {
 
 	//--------------------------------------------------
 	// Store a full description since each node will be the root of
@@ -1904,7 +1904,7 @@ int BlisTreeNode::bound(BcpsModel *model)
 
 int BlisTreeNode::installSubProblem(BcpsModel *m)
 {
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
 
     int i, k;
     int index;
@@ -2018,7 +2018,7 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
        NOTE: during rampup, this desc has full description when branch(). */
     model->leafToRootPath.push_back(this);
     
-    if (phase != ALPS_PHASE_RAMPUP) {
+    if (phase != AlpsPhaseRampup) {
 	while(parent) {
 #ifdef BLIS_DEBUG_MORE
 	    std::cout << "Parent id = " << parent->getIndex() << std::endl;
@@ -2825,10 +2825,10 @@ BlisTreeNode::encode() const
 	      << index_ << std::endl;
 #endif
 
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
     
-    // NOTE: "ALPS_NODE" is used as type name.
-    AlpsEncoded* encoded = new AlpsEncoded(ALPS_NODE);
+    // NOTE: "AlpsKnowledgeTypeNode" is used as type name.
+    AlpsEncoded* encoded = new AlpsEncoded(AlpsKnowledgeTypeNode);
     
     // Encode decription.
     status = desc_->encode(encoded);
@@ -2849,7 +2849,7 @@ BlisTreeNode::encode() const
 AlpsKnowledge* 
 BlisTreeNode::decode(AlpsEncoded& encoded) const 
 {
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
     BlisTreeNode* treeNode = NULL;
 
     BlisModel *model = dynamic_cast<BlisModel*>(desc_->getModel());

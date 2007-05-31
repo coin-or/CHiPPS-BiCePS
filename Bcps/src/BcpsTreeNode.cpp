@@ -28,8 +28,8 @@
 int
 BcpsTreeNode::process(bool isRoot, bool rampUp)
 {
-    int status = ALPS_OK;
-    bool keepOn = true;
+	BcpsReturnStatus status = BcpsReturnStatusOk;
+	bool keepOn = true;
     bool fathomed = false;
     bool genCons = true;
     bool genVars = true;
@@ -66,7 +66,7 @@ BcpsTreeNode::process(bool isRoot, bool rampUp)
         // Bounding to get the quality of this node.
         //--------------------------------------------------
         
-        status = bound(model);
+        status = static_cast<BcpsReturnStatus> (bound(model));
 
         //--------------------------------------------------
         // Handle bounding status:
@@ -78,7 +78,7 @@ BcpsTreeNode::process(bool isRoot, bool rampUp)
 	// Set node status accordingly.
         //--------------------------------------------------
 
-	status = handleBoundingStatus(status, keepOn, fathomed);
+	status = static_cast<BcpsReturnStatus> (handleBoundingStatus(status, keepOn, fathomed));
 
 	if(fathomed || !keepOn) {
 	    // Infeasible, fathomed, tailing off or some user's criteriall.
@@ -90,7 +90,7 @@ BcpsTreeNode::process(bool isRoot, bool rampUp)
         //--------------------------------------------------
 
         if (genCons) {
-	    status = generateConstraints(model, newConPool);
+	    status = static_cast<BcpsReturnStatus> (generateConstraints(model, newConPool));
 	}
 	
         //--------------------------------------------------
@@ -98,7 +98,7 @@ BcpsTreeNode::process(bool isRoot, bool rampUp)
         //--------------------------------------------------
 	
         if (genVars) {
-	    status = generateVariables(model, newVarPool);
+	    status = static_cast<BcpsReturnStatus> (generateVariables(model, newVarPool));
 	}
     }
     
@@ -107,11 +107,11 @@ BcpsTreeNode::process(bool isRoot, bool rampUp)
     //------------------------------------------------------
     
     if (!fathomed) { 
-	status = chooseBranchingObject(model);
+	status = static_cast<BcpsReturnStatus> (chooseBranchingObject(model));
     }
     
 
-    return status;    
+	return (status == BcpsReturnStatusOk) ? AlpsReturnStatusOk : AlpsReturnStatusErr;    
 }
 
 //#############################################################################

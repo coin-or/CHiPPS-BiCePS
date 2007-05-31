@@ -82,15 +82,15 @@ class BlisConstraint : public BcpsConstraint {
  protected:
 
     /** Pack Blis part into an encoded object. */
-    AlpsReturnCode encodeBlis(AlpsEncoded *encoded);
+    AlpsReturnStatus encodeBlis(AlpsEncoded *encoded);
 
     /** Unpack Blis part from a encode object. */
-    AlpsReturnCode decodeBlis(AlpsEncoded &encoded);
+    AlpsReturnStatus decodeBlis(AlpsEncoded &encoded);
 	    
  public:
 
     /** Pack into a encode object. */
-    virtual AlpsReturnCode encode(AlpsEncoded *encoded);
+    virtual AlpsReturnStatus encode(AlpsEncoded *encoded);
     
     /** Decode a constraint from an encoded object. */
     virtual AlpsKnowledge* decode(AlpsEncoded& encoded) const;

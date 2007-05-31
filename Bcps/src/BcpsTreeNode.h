@@ -57,7 +57,7 @@ class BcpsTreeNode : public AlpsTreeNode {
 	in constraint pool. The default implementation does nothing. */
     virtual int generateConstraints(BcpsModel *model, 
 				    BcpsConstraintPool *conPool) {
-	AlpsReturnCode status = ALPS_OK;
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	return status;
     };
 
@@ -65,7 +65,7 @@ class BcpsTreeNode : public AlpsTreeNode {
 	in variable pool. The default implementation does nothing. */
     virtual int generateVariables(BcpsModel *model, 
 				  BcpsVariablePool *varPool) {
-	AlpsReturnCode status = ALPS_OK;
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	return status;
     };
 
@@ -90,7 +90,7 @@ class BcpsTreeNode : public AlpsTreeNode {
      */
     virtual int handleBoundingStatus(int status, bool &keepOn, bool &fathomed){
 	// Default do nothing.
-	return ALPS_OK;
+	return BcpsReturnStatusOk;
     };
     
  public:
@@ -128,8 +128,8 @@ class BcpsTreeNode : public AlpsTreeNode {
  protected:
 
     /** Pack Bcps portion of node into an encoded object. */
-    AlpsReturnCode encodeBcps(AlpsEncoded *encoded) const {
-	AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus encodeBcps(AlpsEncoded *encoded) const {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	int type = 0;
 	if (branchObject_) {
 	    type = branchObject_->getType();
@@ -144,8 +144,8 @@ class BcpsTreeNode : public AlpsTreeNode {
 
 #if 0 // Can't docode a down(blis) branching object here.
     /** Unpack Bcps portion of node from an encoded object. */
-    AlpsReturnCode decodeBcps(AlpsEncoded &encoded) {
-	AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus decodeBcps(AlpsEncoded &encoded) {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	int mark;
 	encoded.readRep(mark);
 	

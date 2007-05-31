@@ -104,8 +104,8 @@ class BlisVariable : public BcpsVariable {
  protected:
 
    /** Pack Blis part into an encoded object. */
-    AlpsReturnCode encodeBlis(AlpsEncoded *encoded) {
-	AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus encodeBlis(AlpsEncoded *encoded) {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 
 	encoded->writeRep(objCoef_);
 	encoded->writeRep(indices_, size_);
@@ -115,8 +115,8 @@ class BlisVariable : public BcpsVariable {
     }    
 
     /** Unpack Blis part from a encode object. */
-    AlpsReturnCode decodeBlis(AlpsEncoded &encoded) {
-	AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus decodeBlis(AlpsEncoded &encoded) {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 
 	encoded.readRep(objCoef_);
 	encoded.readRep(indices_, size_);
@@ -128,8 +128,8 @@ class BlisVariable : public BcpsVariable {
  public:
     
     /** Pack to a encode object. */
-    virtual AlpsReturnCode encode(AlpsEncoded *encoded){
-	AlpsReturnCode status;
+    virtual AlpsReturnStatus encode(AlpsEncoded *encoded){
+	AlpsReturnStatus status;
 
 	status = encodeBcpsObject(encoded);
 	status = encodeBlis(encoded);
@@ -139,7 +139,7 @@ class BlisVariable : public BcpsVariable {
 
     /** Decode a variable from an encoded object. */
     virtual AlpsKnowledge* decode(AlpsEncoded &encoded) const {
-	AlpsReturnCode status = ALPS_OK;
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	BlisVariable * var = new BlisVariable();    
 	
 	// Unpack Bcps part.

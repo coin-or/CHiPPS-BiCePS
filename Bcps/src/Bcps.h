@@ -24,9 +24,20 @@
 #define Bcps_h_
 
 //#############################################################################
+// Return code.
+//#############################################################################
 
-const int BCPS_CONSTRAINT  = 11;
-const int BCPS_VARIABLE  = 12;
+enum BcpsReturnStatus {
+   BcpsReturnStatusOk = 0,
+   BcpsReturnStatusErr
+};
+
+//#############################################################################
+
+enum BcpsKnowledgeType{
+   BcpsKnowledgeTypeConstraint  = 11,
+   BcpsKnowledgeTypeVariable  = 12
+};
 
 //#############################################################################
 

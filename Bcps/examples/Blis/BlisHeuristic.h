@@ -133,8 +133,8 @@ class BlisHeuristic {
         Sets solution values if good, sets objective value 
         This is called after cuts have been added - so can not add cuts
     */
-    virtual int searchSolution(double & objectiveValue, 
-                               double * newSolution)=0;
+    virtual bool searchSolution(double & objectiveValue, 
+                                double * newSolution)=0;
     
     /** returns 0 if no solution, 1 if valid solution, -1 if just
         returning an estimate of best possible solution

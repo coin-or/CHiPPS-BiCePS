@@ -109,8 +109,8 @@ class BlisNodeDesc : public BcpsNodeDesc {
  protected:
 
     /** Pack blis portion of node description into an encoded. */
-    AlpsReturnCode encodeBlis(AlpsEncoded *encoded) const {
-	AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus encodeBlis(AlpsEncoded *encoded) const {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 
 	encoded->writeRep(branchedDir_);
 	encoded->writeRep(branchedInd_);
@@ -131,8 +131,8 @@ class BlisNodeDesc : public BcpsNodeDesc {
     }
 
     /** Unpack blis portion of node description from an encoded. */
-    AlpsReturnCode decodeBlis(AlpsEncoded &encoded) {
-	AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus decodeBlis(AlpsEncoded &encoded) {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	
 	encoded.readRep(branchedDir_);
 	encoded.readRep(branchedInd_);
@@ -154,8 +154,8 @@ class BlisNodeDesc : public BcpsNodeDesc {
  public:
 
     /** Pack node description into an encoded. */
-    virtual AlpsReturnCode encode(AlpsEncoded *encoded) const {
-    	AlpsReturnCode status = ALPS_OK;
+    virtual AlpsReturnStatus encode(AlpsEncoded *encoded) const {
+    	AlpsReturnStatus status = AlpsReturnStatusOk;
 	
 	status = encodeBcps(encoded);
 	status = encodeBlis(encoded);
@@ -164,9 +164,9 @@ class BlisNodeDesc : public BcpsNodeDesc {
     }
 
     /** Unpack a node description from an encoded. Fill member data. */
-    virtual AlpsReturnCode decode(AlpsEncoded &encoded) {
+    virtual AlpsReturnStatus decode(AlpsEncoded &encoded) {
 	
-    	AlpsReturnCode status = ALPS_OK;
+    	AlpsReturnStatus status = AlpsReturnStatusOk;
 	
 	status = decodeBcps(encoded);
 	status = decodeBlis(encoded);

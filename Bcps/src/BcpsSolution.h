@@ -140,10 +140,10 @@ class BcpsSolution : public AlpsSolution {
     //------------------------------------------------------
    
     /** Pack Bcps part of solution into an encoded objects. */
-    AlpsReturnCode encodeBcps(AlpsEncoded *encoded) const;
+    AlpsReturnStatus encodeBcps(AlpsEncoded *encoded) const;
 
     /** Unpack Bcps part of solution from an encoded objects. */
-    AlpsReturnCode decodeBcps(AlpsEncoded & encoded);
+    AlpsReturnStatus decodeBcps(AlpsEncoded & encoded);
     
 };
 

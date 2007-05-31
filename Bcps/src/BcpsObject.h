@@ -272,8 +272,8 @@ class BcpsObject : public AlpsKnowledge {
  protected:
     
     /** Pack Bcps part to a encode object. */
-    AlpsReturnCode encodeBcpsObject(AlpsEncoded *encoded) const {
-	AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus encodeBcpsObject(AlpsEncoded *encoded) const {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	encoded->writeRep(objectIndex_);
 	encoded->writeRep(repType_);
 	encoded->writeRep(intType_);
@@ -287,8 +287,8 @@ class BcpsObject : public AlpsKnowledge {
     }
 
     /** Unpack Bcps part from a encode object. */
-    AlpsReturnCode decodeBcpsObject(AlpsEncoded &encoded){
-	AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus decodeBcpsObject(AlpsEncoded &encoded){
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	encoded.readRep(objectIndex_);
 	encoded.readRep(repType_);
 	encoded.readRep(intType_);
@@ -306,8 +306,8 @@ protected:
  public:
 
     /** Pack into a encode object. */
-    virtual AlpsReturnCode encode(AlpsEncoded *encoded) {
-	AlpsReturnCode status = ALPS_OK;
+    virtual AlpsReturnStatus encode(AlpsEncoded *encoded) {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
         assert(0);
 	return status;
     };
@@ -334,13 +334,13 @@ class BcpsConstraint : public BcpsObject {
 
  public:
     /** Default constructor. */
-    BcpsConstraint() { setType(BCPS_CONSTRAINT); }
+    BcpsConstraint() { setType(BcpsKnowledgeTypeConstraint); }
 
     /** Useful constructor. */
     BcpsConstraint(double lbh, double ubh, double lbs, double ubs) 
 	:
 	BcpsObject(lbh, ubh, lbs, ubs)
-	{ setType(BCPS_CONSTRAINT); }
+	{ setType(BcpsKnowledgeTypeConstraint); }
         
     /** Desctructor constructor. */
     virtual ~BcpsConstraint() {}
@@ -361,13 +361,13 @@ class BcpsConstraint : public BcpsObject {
 class BcpsVariable : public BcpsObject {
  public:
     /** Default constructor. */
-    BcpsVariable() { setType(BCPS_VARIABLE); }
+    BcpsVariable() { setType(BcpsKnowledgeTypeVariable); }
 
     /** Useful constructor. */
     BcpsVariable(double lbh, double ubh, double lbs, double ubs) 
 	:
 	BcpsObject(lbh, ubh, lbs, ubs)
-	{ setType(BCPS_VARIABLE); }
+	{ setType(BcpsKnowledgeTypeVariable); }
 
     /** Destructor. */
     virtual ~BcpsVariable() {}

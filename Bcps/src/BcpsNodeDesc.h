@@ -363,36 +363,36 @@ class BcpsNodeDesc : public AlpsNodeDesc {
  protected:
 
     /** Pack a double field into an encoded object. */
-    AlpsReturnCode encodeDblFieldMods(AlpsEncoded *encoded,
+    AlpsReturnStatus encodeDblFieldMods(AlpsEncoded *encoded,
 				      BcpsFieldListMod<double> * field) const;
 
     /** Pack a integer field into an encoded object. */
-    AlpsReturnCode encodeIntFieldMods(AlpsEncoded *encoded,
+    AlpsReturnStatus encodeIntFieldMods(AlpsEncoded *encoded,
 				      BcpsFieldListMod<int> * field) const;
     
     /** Pack object modifications to an encoded object. */
-    AlpsReturnCode encodeObjectMods(AlpsEncoded *encoded,
+    AlpsReturnStatus encodeObjectMods(AlpsEncoded *encoded,
 				    BcpsObjectListMod *objMod) const;
 
     /** Unpack a double field from an encoded object. */
-    AlpsReturnCode decodeDblFieldMods(AlpsEncoded &encoded,
+    AlpsReturnStatus decodeDblFieldMods(AlpsEncoded &encoded,
 				      BcpsFieldListMod<double>*field);
 
     /** Unpack a integer field from an encoded object. */
-    AlpsReturnCode decodeIntFieldMods(AlpsEncoded &encoded,
+    AlpsReturnStatus decodeIntFieldMods(AlpsEncoded &encoded,
 				      BcpsFieldListMod<int> *field);
 
     /** Unpack object modifications to an encoded object. */
-    AlpsReturnCode decodeObjectMods(AlpsEncoded &encoded,
+    AlpsReturnStatus decodeObjectMods(AlpsEncoded &encoded,
 				    BcpsObjectListMod *objMod);
     
  public:
 
     /** Pack bcps node description into an encoded. */
-    AlpsReturnCode encodeBcps(AlpsEncoded *encoded) const;
+    AlpsReturnStatus encodeBcps(AlpsEncoded *encoded) const;
 
     /** Unpack bcps node description into an encoded. */
-    AlpsReturnCode decodeBcps(AlpsEncoded &encoded);
+    AlpsReturnStatus decodeBcps(AlpsEncoded &encoded);
     
 };
 

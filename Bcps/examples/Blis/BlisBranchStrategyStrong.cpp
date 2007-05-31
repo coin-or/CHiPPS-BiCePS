@@ -387,7 +387,7 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 					       solver->getColSolution(), 
 					       newObjValue);
 			model->getKnowledgeBroker()->
-                            addKnowledge(ALPS_SOLUTION, 
+                            addKnowledge(AlpsKnowledgeTypeSolution, 
                                          ksol, 
                                          newObjValue);
 
@@ -481,7 +481,7 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 					     newObjValue);
                         
 			model->getKnowledgeBroker()->
-                            addKnowledge(ALPS_SOLUTION, 
+                            addKnowledge(AlpsKnowledgeTypeSolution, 
                                          ksol, 
                                          newObjValue);
                         

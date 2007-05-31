@@ -122,10 +122,10 @@ class BcpsModel : public AlpsModel {
 
 
     /** Pack Bcps portion of model into an encoded object. */
-    AlpsReturnCode encodeBcps(AlpsEncoded *encoded) const;
+    AlpsReturnStatus encodeBcps(AlpsEncoded *encoded) const;
 
     /** Unpack Bcps portion of model from an encoded object. */
-    AlpsReturnCode decodeBcps(AlpsEncoded &encoded);
+    AlpsReturnStatus decodeBcps(AlpsEncoded &encoded);
     
 };
 

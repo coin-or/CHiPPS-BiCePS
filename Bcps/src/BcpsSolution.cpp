@@ -47,10 +47,10 @@ BcpsSolution::selectFractional(const double etol) const
 //#############################################################################
 
 /** Pack Bcps part of solution into an encoded objects. */
-AlpsReturnCode 
+AlpsReturnStatus 
 BcpsSolution::encodeBcps(AlpsEncoded *encoded) const
 {
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
     encoded->writeRep(size_);
     encoded->writeRep(values_, size_);
     encoded->writeRep(quality_);
@@ -61,10 +61,10 @@ BcpsSolution::encodeBcps(AlpsEncoded *encoded) const
 //#############################################################################
 
 /** Unpack Bcps part of solution from an encoded objects. */
-AlpsReturnCode 
+AlpsReturnStatus 
 BcpsSolution::decodeBcps(AlpsEncoded & encoded)
 {
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
     
     encoded.readRep(size_);
     encoded.readRep(values_, size_);

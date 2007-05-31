@@ -72,10 +72,10 @@ void BlisHeurRound::setModel(BlisModel * model)
 // Fix values if asked for
 // Returns 1 if solution, 0 if not
 
-int
+bool
 BlisHeurRound::searchSolution(double & solutionValue, double * betterSolution)
 {
-    int foundBetter = false;
+    bool foundBetter = false;
     
     if (strategy_ == -2) {
         // This heuristic has been disabled.

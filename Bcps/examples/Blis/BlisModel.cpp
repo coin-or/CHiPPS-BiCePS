@@ -1132,10 +1132,10 @@ BlisModel::addCutGenerator(CglCutGenerator * generator,
 AlpsEncoded* 
 BlisModel::encode() const 
 { 
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
 
-    // NOTE: "ALPS_MODEL" is the type name.
-    AlpsEncoded* encoded = new AlpsEncoded(ALPS_MODEL);
+    // NOTE: "AlpsKnowledgeTypeModel" is the type name.
+    AlpsEncoded* encoded = new AlpsEncoded(AlpsKnowledgeTypeModel);
 
     //------------------------------------------------------
     // Encode Alps part. 
@@ -1257,7 +1257,7 @@ BlisModel::encode() const
 void
 BlisModel::decodeToSelf(AlpsEncoded& encoded) 
 {
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
 
     //------------------------------------------------------
     // Decode Alps part. 
@@ -1439,19 +1439,19 @@ void
 BlisModel::registerKnowledge() {
     // Register model, solution, and tree node
     assert(broker_);
-    broker_->registerClass(ALPS_MODEL, new BlisModel);
+    broker_->registerClass(AlpsKnowledgeTypeModel, new BlisModel);
     std::cout << "Register Alps model." << std::endl;
     
-    broker_->registerClass(ALPS_NODE, new BlisTreeNode(this));
+    broker_->registerClass(AlpsKnowledgeTypeNode, new BlisTreeNode(this));
     std::cout << "Register Alps node." << std::endl;
     
-    broker_->registerClass(ALPS_SOLUTION, new BlisSolution);
+    broker_->registerClass(AlpsKnowledgeTypeSolution, new BlisSolution);
     std::cout << "Register Alps solution." << std::endl;
     
-    broker_->registerClass(BCPS_CONSTRAINT, new BlisConstraint);
+    broker_->registerClass(BcpsKnowledgeTypeConstraint, new BlisConstraint);
     std::cout << "Register Bcps constraint." << std::endl;
     
-    broker_->registerClass(BCPS_VARIABLE, new BlisVariable);
+    broker_->registerClass(BcpsKnowledgeTypeVariable, new BlisVariable);
     std::cout << "Register Bcps variable." << std::endl;
 }
 

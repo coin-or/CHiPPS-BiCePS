@@ -38,13 +38,13 @@ BlisParams::createKeywordList() {
   //--------------------------------------------------------
   
   keys_.push_back(make_pair(std::string("Blis_useCons"),
-			    AlpsParameter(AlpsCharPar, useCons)));
+			    AlpsParameter(AlpsBoolPar, useCons)));
 
   keys_.push_back(make_pair(std::string("Blis_useHeuristics"),
-			    AlpsParameter(AlpsCharPar, useHeuristics)));
+			    AlpsParameter(AlpsBoolPar, useHeuristics)));
 
   keys_.push_back(make_pair(std::string("Blis_cutDuringRampup"),
-			    AlpsParameter(AlpsCharPar, cutDuringRampup)));
+			    AlpsParameter(AlpsBoolPar, cutDuringRampup)));
     
   //--------------------------------------------------------
   // BoolArrayPar

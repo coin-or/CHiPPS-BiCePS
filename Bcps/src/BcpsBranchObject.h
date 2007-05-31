@@ -202,8 +202,8 @@ class BcpsBranchObject {
  protected:
 
     /** Pack Bcps portion to an encoded object. */
-    AlpsReturnCode encodeBcps(AlpsEncoded *encoded) const {
-	AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus encodeBcps(AlpsEncoded *encoded) const {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	assert(encoded);
 	encoded->writeRep(objectIndex_);
 	encoded->writeRep(upScore_);
@@ -216,8 +216,8 @@ class BcpsBranchObject {
     }
 
     /** Unpack Bcps portion from an encoded object. */
-    AlpsReturnCode decodeBcps(AlpsEncoded &encoded) {
-	AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus decodeBcps(AlpsEncoded &encoded) {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 
 	encoded.readRep(objectIndex_);
 	encoded.readRep(upScore_);
@@ -232,16 +232,16 @@ class BcpsBranchObject {
  public:
 
     /** Pack to an encoded object. */
-    virtual AlpsReturnCode encode(AlpsEncoded *encoded) const {
-	AlpsReturnCode status = ALPS_OK;
+    virtual AlpsReturnStatus encode(AlpsEncoded *encoded) const {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	// Should never be called.
 	assert(0);
 	return status;
     };
 
     /** Unpack a branching object from an encoded object. */
-    virtual AlpsReturnCode decode(AlpsEncoded &encoded) {
-	AlpsReturnCode status = ALPS_OK;
+    virtual AlpsReturnStatus decode(AlpsEncoded &encoded) {
+	AlpsReturnStatus status = AlpsReturnStatusOk;
 	// Should never be called.
 	assert(0);
 	return status;

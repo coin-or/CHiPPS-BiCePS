@@ -53,7 +53,7 @@ int BlisEncodeWarmStart(AlpsEncoded *encoded, const CoinWarmStartBasis *ws);
 
 /** Unpack coin warm start from an encoded object. */
 CoinWarmStartBasis *BlisDecodeWarmStart(AlpsEncoded &encoded,
-					AlpsReturnCode *rc);
+					AlpsReturnStatus *rc);
 
 /** Compute and return a hash value of an Osi row cut. */
 double BlisHashingOsiRowCut(const OsiRowCut *rowCut, 

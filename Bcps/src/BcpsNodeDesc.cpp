@@ -842,11 +842,11 @@ void BcpsNodeDesc::setConHardBound(int numModHardConLB,
 
 //#############################################################################
 
-AlpsReturnCode 
+AlpsReturnStatus 
 BcpsNodeDesc::encodeDblFieldMods(AlpsEncoded *encoded,
 				 BcpsFieldListMod<double> *field) const
 {
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
     assert(encoded);
     
     encoded->writeRep(field->relative);
@@ -866,11 +866,11 @@ BcpsNodeDesc::encodeDblFieldMods(AlpsEncoded *encoded,
 
 //#############################################################################
 
-AlpsReturnCode 
+AlpsReturnStatus 
 BcpsNodeDesc::encodeIntFieldMods(AlpsEncoded *encoded,
 				 BcpsFieldListMod<int> *field) const
 {
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
     assert(encoded);
     
     encoded->writeRep(field->relative);
@@ -890,12 +890,12 @@ BcpsNodeDesc::encodeIntFieldMods(AlpsEncoded *encoded,
 
 //#############################################################################
 
-AlpsReturnCode 
+AlpsReturnStatus 
 BcpsNodeDesc::encodeObjectMods(AlpsEncoded *encoded,
 			       BcpsObjectListMod *objMod) const
 {
     int k;
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
     assert(encoded);
     
     // Pack removed object positions.
@@ -927,9 +927,9 @@ BcpsNodeDesc::encodeObjectMods(AlpsEncoded *encoded,
 //#############################################################################
 
 /** Pack bcps node description into an encoded. */
-AlpsReturnCode BcpsNodeDesc::encodeBcps(AlpsEncoded *encoded) const
+AlpsReturnStatus BcpsNodeDesc::encodeBcps(AlpsEncoded *encoded) const
 {
-    AlpsReturnCode status = ALPS_OK;    
+    AlpsReturnStatus status = AlpsReturnStatusOk;    
     
     //std::cout << "---- BCPS encoded vars" << std::endl;
     status = encodeObjectMods(encoded, vars_);
@@ -941,11 +941,11 @@ AlpsReturnCode BcpsNodeDesc::encodeBcps(AlpsEncoded *encoded) const
 
 //#############################################################################
 
-AlpsReturnCode 
+AlpsReturnStatus 
 BcpsNodeDesc::decodeDblFieldMods(AlpsEncoded &encoded,
 				 BcpsFieldListMod<double> *field)
 {
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
     
     encoded.readRep(field->relative);
     encoded.readRep(field->posModify, field->numModify);
@@ -964,11 +964,11 @@ BcpsNodeDesc::decodeDblFieldMods(AlpsEncoded &encoded,
 
 //#############################################################################
 
-AlpsReturnCode 
+AlpsReturnStatus 
 BcpsNodeDesc::decodeIntFieldMods(AlpsEncoded &encoded,
 				 BcpsFieldListMod<int> *field)
 {
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
     
     encoded.readRep(field->relative);
     encoded.readRep(field->posModify, field->numModify);
@@ -979,12 +979,12 @@ BcpsNodeDesc::decodeIntFieldMods(AlpsEncoded &encoded,
 
 //#############################################################################
 
-AlpsReturnCode 
+AlpsReturnStatus 
 BcpsNodeDesc::decodeObjectMods(AlpsEncoded &encoded,
 			       BcpsObjectListMod *objMod)
 {
     int k;
-    AlpsReturnCode status = ALPS_OK;
+    AlpsReturnStatus status = AlpsReturnStatusOk;
     
     AlpsKnowledgeBroker *broker = model_->getKnowledgeBroker();
     assert(broker);
@@ -999,7 +999,7 @@ BcpsNodeDesc::decodeObjectMods(AlpsEncoded &encoded,
 	objMod->objects = new BcpsObject* [objMod->numAdd];
 	for (k = 0; k < objMod->numAdd; ++k) {
 	    objMod->objects[k] = static_cast<BcpsObject *>
-		( broker->decoderObject(BCPS_CONSTRAINT)->decode(encoded) );
+		( broker->decoderObject(BcpsKnowledgeTypeConstraint)->decode(encoded) );
 	    
 	    // Unpack a object from an encoded.
 	    // (objMod->objects)[k]->encode(encoded);
@@ -1024,9 +1024,9 @@ BcpsNodeDesc::decodeObjectMods(AlpsEncoded &encoded,
 //#############################################################################
 
 /** Unpack bcps node description from an encoded. */
-AlpsReturnCode BcpsNodeDesc::decodeBcps(AlpsEncoded &encoded)
+AlpsReturnStatus BcpsNodeDesc::decodeBcps(AlpsEncoded &encoded)
 {
-    AlpsReturnCode status = ALPS_OK;    
+    AlpsReturnStatus status = AlpsReturnStatusOk;    
     
     status = decodeObjectMods(encoded, vars_);
     status = decodeObjectMods(encoded, cons_);

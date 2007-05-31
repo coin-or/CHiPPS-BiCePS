@@ -37,7 +37,7 @@ class BlisParams : public AlpsParameterSet {
  public:
   /** Character parameters. All of these variable are used as booleans
       (ture = 1, false = 0). */
-  enum chrParams{
+  enum boolParams{
     /// Whether generate cuts at all. Default: true.
     useCons,
     /// Whether call heuristics. Default: true.
@@ -45,7 +45,7 @@ class BlisParams : public AlpsParameterSet {
     /// Whether generate cuts during rampup. Default: false.
     cutDuringRampup,
     //
-    endOfChrParams
+    endOfBoolParams
   };
   
   /** Integer paramters. */
@@ -149,7 +149,7 @@ class BlisParams : public AlpsParameterSet {
       set. */
   BlisParams() :
     AlpsParameterSet(
-		     static_cast<int>(endOfChrParams),
+		     static_cast<int>(endOfBoolParams),
 		     static_cast<int>(endOfIntParams),
 		     static_cast<int>(endOfDblParams),
 		     static_cast<int>(endOfStrParams),
@@ -174,8 +174,8 @@ class BlisParams : public AlpsParameterSet {
   /** For user application: 
    *   Following code are do NOT need to change. 
    *   The reason can not put following functions in base class 
-   *   <CODE> AlpsParameterSet </CODE> is that <CODE> chrParams </CODE>
-   *   and <CODE> endOfChrParams </CODE> etc., are NOT the same as those
+   *   <CODE> AlpsParameterSet </CODE> is that <CODE> boolParams </CODE>
+   *   and <CODE> endOfBoolParams </CODE> etc., are NOT the same as those
    *   declared in base class.
    */
   //===========================================================================
@@ -190,7 +190,7 @@ class BlisParams : public AlpsParameterSet {
   */
   /*@{*/
   ///
-  inline char entry(const chrParams key) const { return cpar_[key]; }
+  inline bool entry(const boolParams key) const { return bpar_[key]; }
   ///
   inline int entry(const intParams key) const { return ipar_[key]; }
   ///
@@ -205,14 +205,14 @@ class BlisParams : public AlpsParameterSet {
 
   //---------------------------------------------------------------------------
   /// char* is true(1) or false(0), not used
-  void setEntry(const chrParams key, const char * val) {
-    cpar_[key] = atoi(val); }
+  void setEntry(const boolParams key, const char * val) {
+	  bpar_[key] = atoi(val) ? true : false; }
   /// char is true(1) or false(0), not used
-  void setEntry(const chrParams key, const char val) {
-    cpar_[key] = val; }
+  void setEntry(const boolParams key, const char val) {
+	  bpar_[key] = val ? true : false; }
   /// This method is the one that ever been used.
-  void setEntry(const chrParams key, const bool val) {
-    cpar_[key] = val; }
+  void setEntry(const boolParams key, const bool val) {
+    bpar_[key] = val; }
   ///
   void setEntry(const intParams key, const char * val) {
     ipar_[key] = atoi(val); }
@@ -239,7 +239,7 @@ class BlisParams : public AlpsParameterSet {
   /** Pack the parameter set into the buffer (AlpsEncoded is used 
       as buffer Here). */
   void pack(AlpsEncoded& buf) {
-    buf.writeRep(cpar_, endOfChrParams)
+    buf.writeRep(bpar_, endOfBoolParams)
       .writeRep(ipar_, endOfIntParams)
       .writeRep(dpar_, endOfDblParams);
     for (int i = 0; i < endOfStrParams; ++i)
@@ -254,8 +254,8 @@ class BlisParams : public AlpsParameterSet {
   void unpack(AlpsEncoded& buf) {
     int dummy;
     // No need to allocate the arrays, they are of fixed length
-    dummy = static_cast<int>(endOfChrParams);
-    buf.readRep(cpar_, dummy, false);
+    dummy = static_cast<int>(endOfBoolParams);
+    buf.readRep(bpar_, dummy, false);
     dummy = static_cast<int>(endOfIntParams);
     buf.readRep(ipar_, dummy, false);
     dummy = static_cast<int>(endOfDblParams);

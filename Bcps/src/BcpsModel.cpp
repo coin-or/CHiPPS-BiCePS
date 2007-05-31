@@ -25,10 +25,10 @@
 
 //#############################################################################
 
-AlpsReturnCode 
+AlpsReturnStatus 
 BcpsModel::encodeBcps(AlpsEncoded *encoded) const
 {
-    AlpsReturnCode status  = ALPS_OK;
+    AlpsReturnStatus status  = AlpsReturnStatusOk;
     int i;
     int size = static_cast<int> (constraints_.size());
     encoded->writeRep(size);
@@ -51,22 +51,22 @@ BcpsModel::encodeBcps(AlpsEncoded *encoded) const
 
 //#############################################################################
 
-AlpsReturnCode 
+AlpsReturnStatus 
 BcpsModel::decodeBcps(AlpsEncoded &encoded)
 {
-    AlpsReturnCode status  = ALPS_OK;
+    AlpsReturnStatus status  = AlpsReturnStatusOk;
     int i, size;
     
     encoded.readRep(size);
     for (i = 0; i < size; ++i) {
         const AlpsKnowledge* know = 
-            broker_->decoderObject(BCPS_CONSTRAINT);
+            broker_->decoderObject(BcpsKnowledgeTypeConstraint);
         BcpsConstraint *con = NULL;
         con = static_cast<BcpsConstraint *>(know->decode(encoded));
         
 
         //BcpsConstraint *con = static_cast<BcpsConstraint *>
-        //( broker_->decoderObject(BCPS_CONSTRAINT)->decode(encoded) );
+        //( broker_->decoderObject(BcpsKnowledgeTypeConstraint)->decode(encoded) );
 
         constraints_.push_back(con);
         con = NULL;
@@ -75,7 +75,7 @@ BcpsModel::decodeBcps(AlpsEncoded &encoded)
     encoded.readRep(size);
     for (i = 0; i < size; ++i) {
         BcpsVariable *var = static_cast<BcpsVariable *>
-            ( broker_->decoderObject(BCPS_VARIABLE)->decode(encoded) );
+            ( broker_->decoderObject(BcpsKnowledgeTypeVariable)->decode(encoded) );
 
         variables_.push_back(var);
         var = NULL;
