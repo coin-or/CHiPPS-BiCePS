@@ -86,6 +86,7 @@ Bcps/src/Makefile.am -text
 Bcps/src/Makefile.in -text
 Bcps/test/Makefile.am -text
 Bcps/test/Makefile.in -text
+/Externals.release -text
 /Makefile.am -text
 /Makefile.in -text
 /README -text
