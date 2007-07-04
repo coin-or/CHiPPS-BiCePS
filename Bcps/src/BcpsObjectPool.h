@@ -51,7 +51,7 @@ class BcpsObjectPool : public AlpsKnowledgePool {
 
     /** Free object pointers. */
     inline void freeGuts() {
-	for (int i = static_cast<int> (objects_.size() - 1); i >= 0; --i) {
+	for (int i = static_cast<int> (objects_.size() - 1); i > -1; --i) {
 	    delete objects_[i];
 	}
         objects_.clear();
@@ -83,7 +83,7 @@ class BcpsObjectPool : public AlpsKnowledgePool {
 
     /** Check whether the pool has knowledge. */
     virtual bool hasKnowledge() const
-        { return objects_.empty() ? false : true; };
+        { return objects_.empty() ? false : true; }
 	
 
     /** Set the quantity limit of knowledges that can be stored in the pool. */
@@ -117,10 +117,7 @@ class BcpsObjectPool : public AlpsKnowledgePool {
     //		"getAllKnowledge()", "AlpsKnowledgePool");
     //}
     
-    std::vector<AlpsKnowledge *> getObjects() const 
-	{
-	    return objects_;
-	}
+    std::vector<AlpsKnowledge *> getObjects() const { return objects_; }
 };
 
 
