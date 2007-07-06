@@ -334,7 +334,7 @@ class BcpsConstraint : public BcpsObject {
 
  public:
     /** Default constructor. */
-    BcpsConstraint() { setType(BcpsKnowledgeTypeConstraint); }
+    BcpsConstraint() : BcpsObject() { setType(BcpsKnowledgeTypeConstraint); }
 
     /** Useful constructor. */
     BcpsConstraint(double lbh, double ubh, double lbs, double ubs) 
@@ -361,7 +361,7 @@ class BcpsConstraint : public BcpsObject {
 class BcpsVariable : public BcpsObject {
  public:
     /** Default constructor. */
-    BcpsVariable() { setType(BcpsKnowledgeTypeVariable); }
+    BcpsVariable() : BcpsObject() { setType(BcpsKnowledgeTypeVariable); }
 
     /** Useful constructor. */
     BcpsVariable(double lbh, double ubh, double lbs, double ubs) 

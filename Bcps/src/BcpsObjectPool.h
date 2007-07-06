@@ -35,7 +35,7 @@
 
 class BcpsObjectPool : public AlpsKnowledgePool {
 
- private:
+ protected:
 
     std::vector<AlpsKnowledge *> objects_;
 
@@ -48,7 +48,7 @@ class BcpsObjectPool : public AlpsKnowledgePool {
 	    freeGuts();
 	}
     }
-
+    
     /** Free object pointers. */
     inline void freeGuts() {
 	for (int i = static_cast<int> (objects_.size() - 1); i > -1; --i) {
@@ -75,51 +75,29 @@ class BcpsObjectPool : public AlpsKnowledgePool {
 	return std::make_pair(objects_[0], 0.0);
     };
 
-    /** Remove the queried knowledge from the pool*/
-    //virtual void popKnowledge() {
-    //throw CoinError("Can not call popKnowledge()",
-    //		"popKnowledge()", "AlpsKnowledgePool");
-    //}
-
     /** Check whether the pool has knowledge. */
     virtual bool hasKnowledge() const
         { return objects_.empty() ? false : true; }
+
+    /** Delete object k from pool */
+    void deleteObject(int k) { 
+	assert(k > -1 && k < ((int)objects_.size()));
 	
+	AlpsKnowledge *objectK = getObject(k);
+	std::vector<AlpsKnowledge *>::iterator pos;
+	pos = objects_.begin() + k;
+	objects_.erase(pos);
+	
+	// Free memory of object k.
+	delete objectK;
+    }
 
-    /** Set the quantity limit of knowledges that can be stored in the pool. */
-    //virtual void setMaxNumKnowledges(int num) {
-    //std::cout << "Can not call setMaxNumKnowledges without overriding"
-    //	  << std::endl;
-    //throw CoinError("Can not call  setMaxNumKnowledges()",
-    //		"setMaxNumKnowledges()", "AlpsKnowledgePool");
-    //}
+    /** Get all objects. */
+    const std::vector<AlpsKnowledge *>& getObjects() const { return objects_; }
 
-    /** Query the quantity limit of knowledges. */
-    //virtual int getMaxNumKnowledges() const {
-	// throw CoinError("Can not call getMaxNumKnowledges()",
-	//		    "getMaxNumKnowledges()", "AlpsKnowledgePool");
-	//return INT_MAX;
-    //}
-    
-    /** Query the best knowledge in the pool.*/
-    //virtual std::pair<AlpsKnowledge*, double> 
-    //getBestKnowledge() const {
-    //throw CoinError("Can not call  getBestKnowledge()",
-    //		"getBestKnowledge()", "AlpsKnowledgePool");
-    //}
- 
-    /** Get a reference to all the knowledges in the pool.*/
-    // virtual void getAllKnowledges (std::vector<std::pair<AlpsKnowledge*, 
-    //			   double> >& kls) const {
-    //std::cout << "Can not call  getAllKnowledge() without overriding"
-    //	  << std::endl;
-    //throw CoinError("Can not call  getAllKnowledge()",
-    //		"getAllKnowledge()", "AlpsKnowledgePool");
-    //}
-    
-    std::vector<AlpsKnowledge *> getObjects() const { return objects_; }
+    /** Get a object. */
+    AlpsKnowledge *getObject(int k) const { return objects_[k]; }
 };
-
 
 //#############################################################################
 
@@ -127,6 +105,21 @@ class BcpsConstraintPool : public BcpsObjectPool {
  public:
     BcpsConstraintPool() {}
     virtual ~BcpsConstraintPool() {}
+
+    /** Add a constraint to pool */
+    void addConstraint(BcpsConstraint * con) { objects_.push_back(con); }
+
+    /** Delete constraint k from pool */
+    void deleteConstraint(int k) { deleteObject(k); }
+    
+    /** Query how many constraints are in the pool.*/
+    int getNumConstraints() const { return getNumKnowledges(); }
+    
+    /** Get the vector of constraints. */
+    const std::vector<AlpsKnowledge *>& getConstraints() const {return objects_;}
+
+    /** Get a constraints. */
+    AlpsKnowledge *getConstraint(int k) const {return getObject(k);}
 };
 
 //#############################################################################
@@ -135,7 +128,23 @@ class BcpsVariablePool : public BcpsObjectPool {
  public:
     BcpsVariablePool() {}
     virtual ~BcpsVariablePool() {}
+
+    /** Add a variable to pool */
+    void addVariable(BcpsVariable * var) { objects_.push_back(var); }
+
+    /** Delete variable k from pool */
+    void deleteVariable(int k) { deleteObject(k); }
+
+    /** Query how many variables are in the pool.*/
+    int getNumVariables() const { return getNumKnowledges(); }
+
+    /** Get the vector of variables. */
+    const std::vector<AlpsKnowledge *>& getVariables() const {return objects_;}
+
+    /** Get the vector of variables. */
+    AlpsKnowledge *getVariable(int k) const {return getObject(k);}
 };
 
+//#############################################################################
 
 #endif // End of file
