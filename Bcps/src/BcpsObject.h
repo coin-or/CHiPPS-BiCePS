@@ -88,7 +88,11 @@ class BcpsObject : public AlpsKnowledge {
 	for continuous, 'I' for general integer, 'B' for binary and 
 	'S' for semicontinuous) */
     BcpsIntegral_t intType_;
-    
+
+    /** Valid in the whole tree or only the subtree rooted at the node that
+	generate this object. */
+    BcpsValidRegion validRegion_;
+
     /** The status of the object */
     // branched on? non-removable ? can it be sent to the pool?
     // do we need it at all?
@@ -119,6 +123,7 @@ class BcpsObject : public AlpsKnowledge {
         objectIndex_(-1),
 	repType_(BCPS_CORE),
 	intType_('C'),
+	validRegion_(BcpsValidLocal),
 	status_(0),
 	lbHard_(0.0),
 	ubHard_(0.0),
@@ -133,6 +138,7 @@ class BcpsObject : public AlpsKnowledge {
         objectIndex_(-1),
 	repType_(BCPS_CORE),
 	intType_('C'),
+ 	validRegion_(BcpsValidLocal),
 	status_(0),
 	lbHard_(lbh),
 	ubHard_(ubh),
@@ -149,6 +155,7 @@ class BcpsObject : public AlpsKnowledge {
         objectIndex_ = rhs.objectIndex_;
 	repType_ = rhs.repType_;
 	intType_ = rhs.intType_;
+	validRegion_ = rhs.validRegion_,
 	status_ = rhs.status_;
 	lbHard_ = rhs.lbHard_;
 	ubHard_ = rhs.ubHard_;
@@ -172,6 +179,7 @@ class BcpsObject : public AlpsKnowledge {
     inline int getObjectIndex() const         { return objectIndex_; }
     inline BcpsObjRep_t getRepType() const    { return repType_; }
     inline BcpsIntegral_t getIntType() const  { return intType_; }
+    inline BcpsValidRegion getValidRegion() const  { return validRegion_; }
     inline int getStatus() const              { return status_; }
     inline double getLbHard() const           { return lbHard_; }
     inline double getUbHard() const           { return ubHard_; }
@@ -182,15 +190,16 @@ class BcpsObject : public AlpsKnowledge {
 
     /** Set the appropriate property */
     /**@{*/
-    inline void setObjectIndex(const int ind)       { objectIndex_ = ind; }    
-    inline void setRepType(const BcpsObjRep_t rt)   { repType_ = rt; }
-    inline void setIntType(const BcpsIntegral_t it) { intType_ = it; }
-    inline void setStatus(const int st)             { status_ |= st; }
-    inline void setLbHard(const double lb)          { lbHard_ = lb; }
-    inline void setUbHard(const double ub)          { ubHard_ = ub; }
-    inline void setLbSoft(const double lb)          { lbSoft_ = lb; }
-    inline void setUbSoft(const double ub)          { ubSoft_ = ub; }
-    inline void setNumInactive(const int num)       { numInactive_ = num; }
+    inline void setObjectIndex(int ind)       { objectIndex_ = ind; }    
+    inline void setRepType(BcpsObjRep_t rt)   { repType_ = rt; }
+    inline void setIntType(BcpsIntegral_t it) { intType_ = it; }
+    inline void setValidRegion(BcpsValidRegion val) { validRegion_ = val;} 
+    inline void setStatus(int st)             { status_ |= st; }
+    inline void setLbHard(double lb)          { lbHard_ = lb; }
+    inline void setUbHard(double ub)          { ubHard_ = ub; }
+    inline void setLbSoft(double lb)          { lbSoft_ = lb; }
+    inline void setUbSoft(double ub)          { ubSoft_ = ub; }
+    inline void setNumInactive(int num)       { numInactive_ = num; }
     /**@}*/
     
     /** Hashing */
@@ -277,6 +286,7 @@ class BcpsObject : public AlpsKnowledge {
 	encoded->writeRep(objectIndex_);
 	encoded->writeRep(repType_);
 	encoded->writeRep(intType_);
+	encoded->writeRep(validRegion_);
 	encoded->writeRep(status_);
 	encoded->writeRep(lbHard_);
 	encoded->writeRep(ubHard_);
@@ -292,6 +302,7 @@ class BcpsObject : public AlpsKnowledge {
 	encoded.readRep(objectIndex_);
 	encoded.readRep(repType_);
 	encoded.readRep(intType_);
+	encoded.readRep(validRegion_);
 	encoded.readRep(status_);
 	encoded.readRep(lbHard_);
 	encoded.readRep(ubHard_);
