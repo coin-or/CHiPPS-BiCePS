@@ -115,6 +115,9 @@ class BcpsObject : public AlpsKnowledge {
 
     /** Number of inactive when in formulation. */
     int numInactive_;
+
+    /** Effectiveness: nonnegative value. */
+    double effectiveness_;
     
  public:
 
@@ -130,7 +133,8 @@ class BcpsObject : public AlpsKnowledge {
 	lbSoft_(0.0),
 	ubSoft_(0.0),
 	hashValue_(0.0),
-	numInactive_(0)
+	numInactive_(0),
+	effectiveness_(-ALPS_DBL_MAX)
 	{}
     
     BcpsObject(double lbh, double ubh, double lbs, double ubs) 
@@ -145,7 +149,8 @@ class BcpsObject : public AlpsKnowledge {
 	lbSoft_(lbs),
 	ubSoft_(ubs),
 	hashValue_(0.0),
-	numInactive_(0)
+	numInactive_(0),
+	effectiveness_(-ALPS_DBL_MAX)
 	{}
 
     virtual ~BcpsObject() {}
@@ -163,6 +168,7 @@ class BcpsObject : public AlpsKnowledge {
 	ubSoft_ = rhs.ubSoft_;
         hashValue_ = rhs.hashValue_;
 	numInactive_ = rhs.numInactive_;
+	effectiveness_ = rhs.effectiveness_;
     }
 
     /** Assignment operator. */
@@ -186,6 +192,7 @@ class BcpsObject : public AlpsKnowledge {
     inline double getLbSoft() const           { return lbSoft_; }
     inline double getUbSoft() const           { return ubSoft_; }
     inline int getNumInactive() const         { return numInactive_; }
+    inline double getEffectiveness() const    { return effectiveness_; }
     /**@}*/
 
     /** Set the appropriate property */
@@ -200,6 +207,7 @@ class BcpsObject : public AlpsKnowledge {
     inline void setLbSoft(double lb)          { lbSoft_ = lb; }
     inline void setUbSoft(double ub)          { ubSoft_ = ub; }
     inline void setNumInactive(int num)       { numInactive_ = num; }
+    inline void setEffectiveness(double eff)  { effectiveness_= eff; }
     /**@}*/
     
     /** Hashing */
