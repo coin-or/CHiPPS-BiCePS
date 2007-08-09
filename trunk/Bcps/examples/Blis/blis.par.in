@@ -1,0 +1,117 @@
+Alps_processNum 6
+Alps_hubNum 1
+Alps_masterInitNodeNum 4
+Alps_hubInitNodeNum 4
+Alps_timeLimit 600.0
+Alps_interClusterBalance 1      # 1: balancing load, 0: don't.
+Alps_intraClusterBalance 1      # 1: balancing load, 0: don't.
+Alps_unitWorkNodes 30           # or unit time
+Alps_unitWorkTime 0.03 
+Alps_needWorkThreshold 0.5
+Alps_changeWorkThreshold 0.10
+Alps_donorThreshold 0.10
+Alps_receiverThreshold 0.10
+Alps_logFileLevel 0
+Alps_coinLogLevel 1
+Alps_masterBalancePeriod 0.3
+Alps_masterReportInterval 50
+Alps_hubReportPeriod 0.5
+Alps_maxNumSolustion 10
+Alps_smallSize 1024
+Alps_mediumSize 4096
+Alps_largeSize 5048576 #2097152    # 2^22 #1048576
+Alps_nodeInterval 1
+Alps_eliteSize 1
+Alps_maxHubWorkSize 2
+Alps_hubReportFreqency 10000
+Alps_nodeSelStrategy    0      # 0: Best quality, 1: Depth, 2: Best estimate
+#Alps_subTreeCompareRule 0   # 0: Best quality, 1: Most quantity, 2: root depth
+
+#Alps_instance ./data/knap3.mps
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/10teams.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/air03.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/air04.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/air05.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/arki001.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/bell3a.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/bell5.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/blend2.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/cap6000.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/dano3mip.gz  #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/danoint.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/dcmulti.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/dsbmip.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/egout.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/enigma.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/fast0507.gz  #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/fiber.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/fixnet6.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/flugpl.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/gen.gz       #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/gesa2.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/gesa2_o.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/gesa3.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/gesa3_o.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/gt2.gz       #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/harp2.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/khb05250.gz  #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/l152lav.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/lseu.gz      #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/misc03.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/misc06.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/misc07.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/mitre.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/mod008.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/mod010.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/mod011.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/modglob.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/noswot.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/nw04.gz      #
+Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/p0033.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/p0201.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/p0282.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/p0548.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/p2756.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/pk1.gz       #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/pp08a.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/pp08aCUTS.gz #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/qiu.gz       #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/qnet1.gz     #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/qnet1_o.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/rentacar.gz  #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/rgn.gz       #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/rout.gz      #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/set1ch.gz    #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/seymour.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/stein27.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/stein45.gz   #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/vpm1.gz      #
+#Alps_instance /home/yax2/COIN/Cbc/Samples/miplib3/vpm2.gz      #
+
+Blis_cutDuringRampup 0  # 1 true; 0 false
+
+
+Blis_useCons        1  #  1 true; 0 false
+
+Blis_cutClique      -2  # -2: disable, -1: root, 0: auto, any positive integer
+Blis_cutGomory      0
+Blis_cutFlowCover   -2
+Blis_cutKnapsack    -2
+
+Blis_cutProbing     -2
+
+Blis_cutMir        -2
+
+Blis_cutOddHole    -2
+Blis_cutTwoMir     -2
+
+Blis_useHeuristic   1  # 1 true; 0 false
+Blis_heurRound      0  # -2: disable, -1: root, 0: auto, any positive integer
+
+Blis_branchStrategy 1  # 0: max inf, 1: pseudocost, 2: relibility, 3: strong
+
+Blis_pseudoWeight        0.8  # [0.0, 1.0]
+Blis_pseudoRelibility      8
+Blis_lookAhead             4
+Blis_denseConFactor        5.0
+Blis_scaleConFactor        100000000.0

@@ -1,0 +1,66 @@
+BCPS Version 0.8 README
+=======================
+
+Welcome to Bcps, also known as BiCePS. Bcps is distributed under the Common
+Public License Version 1.0 and is freely redistributable. All source code and
+documentation is Copyright 2001-2007 by Lehigh University, Yan Xu, Ted Ralphs,
+and others. This README may be distributed freely.
+
+WHAT IS BCPS?
+=============
+
+Bcps is one of the libraries that make up the Cops (COIN Open Parallel Search
+Framework) library hierarchy. It implements that data-handling functions
+needed to support development of many types of relaxation-based
+branch-and-bound algorithms, especially for solving mathematical programs. It
+is intended to capture the implementation of methods common to all such
+algorithms without assuming anything about the structure of the mathematical
+program or the bounding method used. Blis, which is another layer built on top
+of Bcps, is a concretization of Bcps for the case of mixed integer linear
+programs. DECOMP is another implementation being developed using Blis that
+implements a decomposition-based bounding procedure.
+
+PROJECT WEB PAGE
+================
+
+https://projects.coin-or.org/Cops
+
+DOCUMENTATION
+=============
+
+The html documentation of the classes in Bcps (See INSTALL file) can be
+created. A user's guide that is under preparation that can help with running
+or customizing Bcps.
+
+INSTALLATION
+============
+
+Please see the INSTALL file for a guide to install Bcps.
+
+SUPPORT
+=======
+
+1. Authors
+
+Source Code:
+
+Yan Xu (yax2@lehigh.edu)
+Ted Ralphs (tkralphs@lehigh.edu), Project Manager
+
+Original Conceptual Design:
+
+Yan Xu (yax2@lehigh.edu)
+Ted Ralphs (tkralphs@lehigh.edu), Project Manager
+Laci Ladanyi (ladanyi@us.ibm.com)
+Matt Saltzman (mjs@clemson.edu)
+
+2. List Serve
+
+Cops users should use the Coin-Discuss mailing list. To subscribe, go to 
+http://list.coin-or.org/mailman/listinfo/cops
+
+3. Bug Reports
+
+Bug reports should be reported on the Cops development web site at
+
+https://projects.coin-or.org/Cops/newticket
