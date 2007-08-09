@@ -63,7 +63,7 @@ class BcpsObjectPool : public AlpsKnowledgePool {
     /** Add a knowledge to pool */
     virtual void addKnowledge(AlpsKnowledge * nk, double priority) { 
 	objects_.push_back(nk);
-    };
+    }
  
     /** Query how many knowledges are in the pool.*/
     virtual int getNumKnowledges() const {
@@ -73,7 +73,7 @@ class BcpsObjectPool : public AlpsKnowledgePool {
     /** Query a knowledge, but doesn't remove it from the pool*/
     virtual std::pair<AlpsKnowledge*, double> getKnowledge() const {
 	return std::make_pair(objects_[0], 0.0);
-    };
+    }
 
     /** Check whether the pool has knowledge. */
     virtual bool hasKnowledge() const

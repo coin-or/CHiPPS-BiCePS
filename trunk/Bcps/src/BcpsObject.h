@@ -329,7 +329,7 @@ protected:
 	AlpsReturnStatus status = AlpsReturnStatusOk;
         assert(0);
 	return status;
-    };
+    }
    
     /** Decode a constraint from an encoded object. */
     virtual AlpsKnowledge* decode(AlpsEncoded& encoded) const {

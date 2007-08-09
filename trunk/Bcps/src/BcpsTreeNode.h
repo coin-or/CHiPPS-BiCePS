@@ -59,7 +59,7 @@ class BcpsTreeNode : public AlpsTreeNode {
 				    BcpsConstraintPool *conPool) {
 	AlpsReturnStatus status = AlpsReturnStatusOk;
 	return status;
-    };
+    }
 
     /** Generate variables. The generated varaibles are stored
 	in variable pool. The default implementation does nothing. */
@@ -67,7 +67,7 @@ class BcpsTreeNode : public AlpsTreeNode {
 				  BcpsVariablePool *varPool) {
 	AlpsReturnStatus status = AlpsReturnStatusOk;
 	return status;
-    };
+    }
 
     /** Choose a branching object. */
     virtual int chooseBranchingObject(BcpsModel *model) = 0;
@@ -91,7 +91,7 @@ class BcpsTreeNode : public AlpsTreeNode {
     virtual int handleBoundingStatus(int status, bool &keepOn, bool &fathomed){
 	// Default do nothing.
 	return BcpsReturnStatusOk;
-    };
+    }
     
  public:
 
