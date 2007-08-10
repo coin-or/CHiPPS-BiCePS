@@ -198,7 +198,7 @@ class BlisBranchObjectInt : public BcpsBranchObject {
 	status = encodeBlis(encoded);
 	
 	return status;
-    };
+    }
 
     /** Unpack a branching object from an encoded object. */
     virtual AlpsReturnStatus decode(AlpsEncoded &encoded) {
