@@ -177,8 +177,9 @@ BlisConGenerator::generateCons(OsiCuts & coinCuts , bool fullScan)
             generator_->generateCuts(*solver, coinCuts);
         }
         else {
-            // It is probing - return tight column bounds
-            generator->generateCutsAndModify(*solver, coinCuts);
+            // It is probing - return tight column bound
+ 	    CglTreeInfo info;
+            generator->generateCutsAndModify(*solver, coinCuts, &info);
             const double * tightLower = generator->tightLower();
             const double * lower = solver->getColLower();
             const double * tightUpper = generator->tightUpper();
