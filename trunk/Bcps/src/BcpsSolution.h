@@ -100,7 +100,7 @@ class BcpsSolution : public AlpsSolution {
     inline int getSize() const { return size_; }
     inline const BcpsObject_p* getObjects() const { return objects_; }
     inline const double* getValues() const { return values_; }
-    inline const double getQuality() const { return quality_; }
+    inline double getQuality() const { return quality_; }
     /**@} */
 
    /** Set/assign the appropriate data member. */
