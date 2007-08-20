@@ -324,12 +324,13 @@ protected:
     
  public:
 
+    using AlpsKnowledge::encode ;
     /** Pack into a encode object. */
     virtual AlpsReturnStatus encode(AlpsEncoded *encoded) {
 	AlpsReturnStatus status = AlpsReturnStatusOk;
         assert(0);
 	return status;
-    };
+    }
    
     /** Decode a constraint from an encoded object. */
     virtual AlpsKnowledge* decode(AlpsEncoded& encoded) const {

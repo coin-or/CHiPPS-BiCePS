@@ -164,7 +164,7 @@ class BcpsBranchObject {
     virtual double branch(bool normalBranch = false) = 0;
     
     /** Print information about this branching object. */
-    virtual void print(bool normalBranch) {};
+    virtual void print(bool normalBranch) {}
 
     /** Return true if branching should fix object bounds. */
     virtual bool boundBranch() const { return true; }
@@ -237,7 +237,7 @@ class BcpsBranchObject {
 	// Should never be called.
 	assert(0);
 	return status;
-    };
+    }
 
     /** Unpack a branching object from an encoded object. */
     virtual AlpsReturnStatus decode(AlpsEncoded &encoded) {
@@ -245,7 +245,7 @@ class BcpsBranchObject {
 	// Should never be called.
 	assert(0);
 	return status;
-    };
+    }
     
 };
 

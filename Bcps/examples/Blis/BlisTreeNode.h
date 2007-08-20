@@ -133,7 +133,7 @@ class BlisTreeNode : public BcpsTreeNode {
                            int numPassesLeft);
 
     /** To be defined. */
-    virtual int chooseBranchingObject(BcpsModel*) { return AlpsReturnStatusOk;};
+    virtual int chooseBranchingObject(BcpsModel*) { return AlpsReturnStatusOk;}
     
     /** Generate constraints. */
     int generateConstraints(BlisModel *model, OsiCuts & cutPool);
