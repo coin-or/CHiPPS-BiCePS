@@ -853,8 +853,10 @@ BcpsNodeDesc::encodeDblFieldMods(AlpsEncoded *encoded,
     encoded->writeRep(field->posModify, field->numModify);
     encoded->writeRep(field->entries, field->numModify);
 
-#ifdef BCPS_DEBUG_MORE
+#if 0
     int k;
+    std::cout << "BCPS encode() dbl: numNodify = " << field->numModify 
+              << std::endl;
     for (k = 0; k < field->numModify; ++k) {
 	std::cout << "BCPS encode() dbl: pos = " << field->posModify[k]
 		  << ", value = " << field->entries[k] << std::endl;
@@ -951,8 +953,10 @@ BcpsNodeDesc::decodeDblFieldMods(AlpsEncoded &encoded,
     encoded.readRep(field->posModify, field->numModify);
     encoded.readRep(field->entries, field->numModify);
 
-#ifdef BCPS_DEBUG_MORE
+#if 0
     int k;
+    std::cout << "BCPS decode() dbl: numNodify = " << field->numModify 
+              << std::endl;
     for (k = 0; k < field->numModify; ++k) {
 	std::cout << "BCPS decode() dbl: pos = " << field->posModify[k]
 		  << ", value = " << field->entries[k] << std::endl;
@@ -1028,7 +1032,9 @@ AlpsReturnStatus BcpsNodeDesc::decodeBcps(AlpsEncoded &encoded)
 {
     AlpsReturnStatus status = AlpsReturnStatusOk;    
     
+    //std::cout << "---- BCPS decoded vars" << std::endl;
     status = decodeObjectMods(encoded, vars_);
+    //std::cout << "---- BCPS decoded cons" << std::endl;
     status = decodeObjectMods(encoded, cons_);
     
     return status;
