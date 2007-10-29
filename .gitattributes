@@ -89,6 +89,7 @@ Bcps/test/Makefile.am -text
 Bcps/test/Makefile.in -text
 /Externals -text
 /Externals.release -text
+/LICENSE -text
 /Makefile.am -text
 /Makefile.in -text
 /README -text
