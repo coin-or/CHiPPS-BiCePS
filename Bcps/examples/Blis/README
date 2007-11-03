@@ -1,26 +1,27 @@
-BCPS Version 0.9 README
-=======================
+BiCePS Version 0.9 README
+=========================
 
-Welcome to Bcps, also known as BiCePS. Bcps is distributed under the Common
-Public License Version 1.0 and is freely redistributable. All source code and
-documentation is Copyright 2001-2007 by Lehigh University, Yan Xu, and Ted
-Ralphs. This README may be distributed freely.
+Welcome to BiCePS. BiCePS is distributed under the Common Public License
+Version 1.0 and is freely redistributable. All source code and documentation
+is Copyright 2001-2007 by Lehigh University, Yan Xu, and Ted Ralphs. This
+README may be distributed freely.
 
-WHAT IS BLIS
-============
+WHAT IS BLIS?
+=============
 
-Blis is an example of an application developed on top of Bcps (See the README
-of Bcps). Blis is a simple branch and cut solver for Mixed Integer Linear
-Programming. Its purpose is to illustrate how to write an application based on
-Bcps. The version of Blis here is an older version of the full-blown MILP
-solver that is distributed separately. We keep it around to use as a test bed
-for BiCePS. For serious use, please check out the full version of Blis.
+BLIS (BiCePS Linear Integer Solver) is an example of an application developed
+on top of BiCePS (See the README of BiCePS). BLIS is a simple branch and cut
+solver for Mixed Integer Linear Programming. Its purpose is to illustrate how
+to write an application based on BiCePS. The version of BLIS here is an older
+version of the full-blown MILP solver that is distributed separately. We keep
+it around to use as a test bed for BiCePS. For serious use, please check out
+the full version of Blis.
 
 
 DOCUMENTATION
 =============
 
-The html documentation of the classes in Blis (See INSTALL of Blis) can be 
+The html documentation of the classes in BLIS (See INSTALL of BLIS) can be 
 created. A user's guide that is under preparation that can help users to 
 develop an application.
 

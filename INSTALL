@@ -3,7 +3,7 @@
 ***                         DOWNLOAD                               ***
 **********************************************************************
 
-You can obtain the source code for the Alps package in two ways:
+You can obtain the source code for BiCePS in two ways:
 
 1. Obtain the source directly from the COIN-OR subversion repository
    (recommended). For this, you need a subversion client installed. For a
@@ -42,7 +42,7 @@ Switch to the directory in which you just downloaded or extracted the source
 For configuration and and compilation of the MPI parallel solver, the user has
 to specify the location of MPI with options --with-mpi-incdir, --with-mpi-lib,
 MPICC, and MPICXX. Switch to the directory that you just downloaded or
-extracted (e.g. Alps-1.0) and execute the following commands (substituting the
+extracted (e.g., Bcps-0.9) and execute the following commands (substituting the
 correct paths and command names).
 
   1) ./configure --enable-debug --with-mpi-incdir=/usr/local/mpich/include
@@ -74,6 +74,6 @@ into the appropriate subdirectory in the source distribution and type "make".
 **********************************************************************
 
 MSVC++ project and solution files are provided for all libraries and example
-codes. Simpl open the files corresponding to the project you wish to build and
+codes. Simply open the files corresponding to the project you wish to build and
 build it.
 
