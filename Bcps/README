@@ -3,15 +3,15 @@ BiCePS Version 0.9 README
 
 Welcome to BiCePS. BiCePS is distributed under the Common Public License
 Version 1.0 and is freely redistributable. All source code and documentation
-is Copyright 2001-2007 by Lehigh University, Yan Xu, and Ted Ralphs. This
+is Copyright 2001-2008 by Lehigh University, Yan Xu, and Ted Ralphs. This
 README may be distributed freely.
 
 WHAT IS BiCePS?
 =============
 
-BiCePS is one of the libraries that make up the Cops (COIN Open Parallel Search
-Framework) library hierarchy. It implements that data-handling functions
-needed to support development of many types of relaxation-based
+BiCePS is one of the libraries that make up the CHiPPS (COIN High Performance
+Parallel Search Framework) library hierarchy. It implements that data-handling
+functions needed to support development of many types of relaxation-based
 branch-and-bound algorithms, especially for solving mathematical programs. It
 is intended to capture the implementation of methods common to all such
 algorithms without assuming anything about the structure of the mathematical
@@ -23,7 +23,7 @@ implements a decomposition-based bounding procedure.
 PROJECT WEB PAGE
 ================
 
-https://projects.coin-or.org/Cops
+https://projects.coin-or.org/CHiPPS
 
 DOCUMENTATION
 =============
@@ -56,11 +56,11 @@ Matt Saltzman (mjs@clemson.edu)
 
 2. List Serve
 
-Cops users should use the Coin-Discuss mailing list. To subscribe, go to 
-http://list.coin-or.org/mailman/listinfo/cops
+CHiPPS users should use the Coin-Discuss mailing list. To subscribe, go to 
+http://list.coin-or.org/mailman/listinfo/chipps
 
 3. Bug Reports
 
-Bug reports should be reported on the Cops development web site at
+Bug reports should be reported on the CHiPPS development web site at
 
-https://projects.coin-or.org/Cops/newticket
+https://projects.coin-or.org/CHiPPS/newticket
