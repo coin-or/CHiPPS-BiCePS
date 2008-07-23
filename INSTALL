@@ -9,17 +9,17 @@ You can obtain the source code for BiCePS in two ways:
    (recommended). For this, you need a subversion client installed. For a
    command-line client, check out the code with
 
-   svn co https://projects.coin-or.org/svn/Cops/Bcps/stable/0.9 Bcps-0.9
+   svn co https://projects.coin-or.org/svn/CHiPPS/Bcps/stable/0.9 Bcps-0.9
 
 2. Download the source in a compressed file from from
-   http://www.coin-or.org/download/source/Cops and
+   http://www.coin-or.org/download/source/CHiPPS and
    extract it, for example, with
 
    tar -xzvf Bcps-0.9.0.tgz
 
    More detailed download instructions can be found at
 
-   https://projects.coin-or.org/Cops
+   https://projects.coin-or.org/CHiPPS
 
 **********************************************************************
 ***      CONFIGURATION, COMPILE, INSTALLATION                      ***
@@ -59,7 +59,7 @@ Please visit
 
 and the COPS Trac page
 
-   https://projects.coin-or.org/Cops
+   https://projects.coin-or.org/CHiPPS
 
 for more information.
 

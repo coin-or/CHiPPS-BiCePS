@@ -16,7 +16,7 @@
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
  *                                                                           *
- * Copyright (C) 2001-2007, Lehigh University, Yan Xu, and Ted Ralphs.       *
+ * Copyright (C) 2001-2008, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
  *===========================================================================*/
 
@@ -36,7 +36,7 @@ typedef struct {
 
 static Bcps_message us_english[]=
 {
-    {BCPS_S_VERSION, 1, 1, "BiCePS version 0.8.0"},
+    {BCPS_S_VERSION, 1, 1, "BiCePS version 0.9"},
     {BCPS_DUMMY_END, 999999, 0, ""}
 };
 
