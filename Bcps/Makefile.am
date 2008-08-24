@@ -128,11 +128,7 @@ install-exec-local: install-doc
 	$(install_sh_DATA) $(addlibsfile) $(DESTDIR)$(addlibsdir)/$(addlibsfile)
 
 uninstall-local: uninstall-doc
-<<<<<<< .working
-	rm -f $(DESTDIR)$(addlibsdir)/$(addlibsfile)
-=======
 	rm -f $(addlibsdir)/$(addlibsfile)
->>>>>>> .merge-right.r1215
 
 ########################################################################
 #                         Maintainer Stuff                             #
