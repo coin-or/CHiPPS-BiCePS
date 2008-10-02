@@ -97,8 +97,8 @@ BlisObjectInt::infeasibility(BcpsModel *m, int & preferredWay) const
 
     double value = solution[columnIndex_];
     
-    value = max(value, lower[columnIndex_]);
-    value = min(value, upper[columnIndex_]);
+    value = std::max(value, lower[columnIndex_]);
+    value = std::min(value, upper[columnIndex_]);
     
     //printf("%d %g %g %g %g\n",columnIndex_,value,lower[columnIndex_],
     //   solution[columnIndex_],upper[columnIndex_]);
