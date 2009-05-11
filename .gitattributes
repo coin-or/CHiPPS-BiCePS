@@ -2,6 +2,7 @@
 Bcps/AUTHORS -text
 Bcps/LICENSE -text
 Bcps/MSVisualStudio/v8/libBcps.vcproj -text
+Bcps/MSVisualStudio/v9/libBcps.vcproj -text
 Bcps/Makefile.am -text
 Bcps/Makefile.in -text
 Bcps/README -text
@@ -50,6 +51,9 @@ Bcps/examples/Blis/LICENSE -text
 Bcps/examples/Blis/MSVisualStudio/v8/Blis.sln -text
 Bcps/examples/Blis/MSVisualStudio/v8/Blis.suo -text
 Bcps/examples/Blis/MSVisualStudio/v8/Blis.vcproj -text
+Bcps/examples/Blis/MSVisualStudio/v9/Blis.sln -text
+Bcps/examples/Blis/MSVisualStudio/v9/Blis.suo -text
+Bcps/examples/Blis/MSVisualStudio/v9/Blis.vcproj -text
 Bcps/examples/Blis/Makefile.in -text
 Bcps/examples/Blis/README -text
 Bcps/examples/Blis/blis.par.in -text
