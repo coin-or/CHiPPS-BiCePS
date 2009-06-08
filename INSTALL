@@ -9,13 +9,13 @@ You can obtain the source code for BiCePS in two ways:
    (recommended). For this, you need a subversion client installed. For a
    command-line client, check out the code with
 
-   svn co https://projects.coin-or.org/svn/CHiPPS/Bcps/stable/0.9 Bcps-0.9
+   svn co https://projects.coin-or.org/svn/CHiPPS/Bcps/stable/0.91 Bcps-0.91
 
 2. Download the source in a compressed file from from
    http://www.coin-or.org/download/source/CHiPPS and
    extract it, for example, with
 
-   tar -xzvf Bcps-0.9.0.tgz
+   tar -xzvf Bcps-0.91.0.tgz
 
    More detailed download instructions can be found at
 
@@ -29,7 +29,7 @@ You can obtain the source code for BiCePS in two ways:
 ----------------
 
 Switch to the directory in which you just downloaded or extracted the source
-(e.g., Bcps-0.9) and execute the following commands:
+(e.g., Bcps-0.91) and execute the following commands:
 
   1) ./configure
   2) make
@@ -42,7 +42,7 @@ Switch to the directory in which you just downloaded or extracted the source
 For configuration and and compilation of the MPI parallel solver, the user has
 to specify the location of MPI with options --with-mpi-incdir, --with-mpi-lib,
 MPICC, and MPICXX. Switch to the directory that you just downloaded or
-extracted (e.g., Bcps-0.9) and execute the following commands (substituting the
+extracted (e.g., Bcps-0.91) and execute the following commands (substituting the
 correct paths and command names).
 
   1) ./configure --enable-debug --with-mpi-incdir=/usr/local/mpich/include
