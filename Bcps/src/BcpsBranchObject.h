@@ -40,9 +40,9 @@
 
 /** BcpsBranchObject contains the member data required when choosing
     branching entities and excuting actual branching. It also has 
-    the member funtions of to do branching by adjusting bounds, etc. 
-    in solver. Branching object can be simple integers or more
-    complicated ones like SOS. */
+    the member funtions to do branching by adjusting bounds, etc. 
+    in solver. Branching objects can be simple integer variables or more
+    complicated objects like SOS. */
 
 class BcpsBranchObject {
     
@@ -65,14 +65,14 @@ class BcpsBranchObject {
 	Derived class can add more metrics.
     */
     //@{ 
-    /** The score of branching up. */
+    /** The score of branching up. Used for binary branching only. */
     double upScore_;
     
-    /** The score of branching down. */
+    /** The score of branching down. Used for binary branching only. */
     double downScore_;
     //@}
     
-    /** Information required to do branching. */
+    /** Information required to do branching. Used for binary branching only.*/
     //@{ 
     /** The direction of the active branch. Down is -1, up is 1. */
     int direction_;
@@ -100,6 +100,19 @@ class BcpsBranchObject {
         numBranchesLeft_(0)
         {}
     
+    /** Useful constructor. */
+    BcpsBranchObject(BcpsModel * model)
+        :
+	type_(0),
+        model_(model),
+        objectIndex_(-1),
+        upScore_(0),
+        downScore_(0),
+        direction_(0),
+        value_(0.0),
+        numBranchesLeft_(2) 
+        {}
+
     /** Useful constructor. */
     BcpsBranchObject(BcpsModel * model, 
                      int objectIndex, 

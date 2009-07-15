@@ -36,7 +36,7 @@
 
 /* Compare N branch objects and identify bestObject_. Return index 
    of best and sets way of branch bestObject_. */
-int
+BcpsBranchObject *
 BcpsBranchStrategy::bestBranchObject()
 {
     int i, betterDir;
@@ -72,10 +72,7 @@ BcpsBranchStrategy::bestBranchObject()
             branchObjects_[bestBrObjIndex] = NULL;
         }
 	else {
-#ifdef BLIS_DEBUG
-	  std::cout<<"ERROR: Could not find a branching object."<< std::endl;
-#endif
-            assert(0);
+	    bestBranchObject_ = NULL;
         }
         
         //--------------------------------------------------
@@ -92,13 +89,8 @@ BcpsBranchStrategy::bestBranchObject()
         branchObjects_ = NULL;
         numBranchObjects_ = 0;
     }
-    else {
-        if (bestBranchObject_) {
-            return bestBranchObject_->getObjectIndex();
-        }
-    }
-    
-    return bestBrObjIndex;
+
+    return bestBranchObject_;
 }
   
 //#############################################################################

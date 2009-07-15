@@ -148,7 +148,7 @@ class BcpsBranchStrategy {
     /** Compare branching objects in branchObjects_. Return the index of the 
 	best branching object. Also, set branch direction in the best object. 
     */
-    virtual int bestBranchObject();
+    virtual BcpsBranchObject *bestBranchObject();
 };
 
 #endif
