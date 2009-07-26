@@ -135,7 +135,9 @@ class BcpsBranchStrategy {
     }
 
     /** Create a set of candidate branching objects. */
-    virtual int createCandBranchObjects(int numPassesLeft) { return 0; }
+    virtual int createCandBranchObjects(int numPassesLeft, double ub){ 
+	return 0; 
+    }
     
     /** Compare branching object thisOne to bestSoFar. If thisOne is better 
 	than bestObject, return branching direction(1 or -1), otherwise
