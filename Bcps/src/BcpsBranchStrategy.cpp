@@ -43,7 +43,7 @@ BcpsBranchStrategy::bestBranchObject()
     int bestDir = 0;
     int bestBrObjIndex = -1;
     
-    if (numBranchObjects_) {
+    if (numBranchObjects_ > 1) {
 
         //--------------------------------------------------	
         // Clear best members.
@@ -89,7 +89,9 @@ BcpsBranchStrategy::bestBranchObject()
         branchObjects_ = NULL;
         numBranchObjects_ = 0;
     }
-
+    else{
+	bestBranchObject_ = branchObjects_[0];
+    }
     return bestBranchObject_;
 }
   

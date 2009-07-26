@@ -44,6 +44,9 @@ class BcpsBranchStrategy {
     
  protected:
 
+    /** Type of branching strategy. */
+    int type_;
+    
     /** Pointer to model. */
     BcpsModel *model_;
 
@@ -111,6 +114,12 @@ class BcpsBranchStrategy {
     /** Clone a branch strategy. */
     virtual BcpsBranchStrategy * clone() const = 0;
     
+    /** Get type. */
+    int getType() { return type_; }
+    
+    /** Set type. */
+    void setType(int t) { type_ = t; }
+
     /** Set model. */
     void setModel(BcpsModel *m) { model_ = m; }
 
