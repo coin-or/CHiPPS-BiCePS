@@ -85,13 +85,15 @@ BcpsBranchStrategy::bestBranchObject()
                 branchObjects_[i] = NULL;
             }
         }
-        delete [] branchObjects_;
-        branchObjects_ = NULL;
-        numBranchObjects_ = 0;
     }
     else{
 	bestBranchObject_ = branchObjects_[0];
     }
+
+    delete [] branchObjects_;
+    branchObjects_ = NULL;
+    numBranchObjects_ = 0;
+
     return bestBranchObject_;
 }
   
