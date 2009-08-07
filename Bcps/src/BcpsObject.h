@@ -286,6 +286,8 @@ class BcpsObject : public AlpsKnowledge {
     /** Return "down" estimate. Default: 1.0e-5. */
     virtual double downEstimate() const { return 1.0e-5; }
 
+    virtual void printDesc() {}
+    
  protected:
     
     /** Pack Bcps part to a encode object. */

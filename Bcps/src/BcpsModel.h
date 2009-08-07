@@ -113,6 +113,12 @@ class BcpsModel : public AlpsModel {
     void setNumCoreVariables(int num) { numCoreVariables_ = num; }
     /**@}*/
 
+    /** Return list of variables. */
+    std::vector<BcpsVariable *> getVariables() const { return variables_; }
+
+    /** Return list of constraints. */
+    std::vector<BcpsConstraint *> getConstrints() const { return constraints_; }
+
     /** Get the message handler. */
     CoinMessageHandler * bcpsMessageHandler() const 
     { return bcpsMessageHandler_; }
