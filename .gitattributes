@@ -92,6 +92,7 @@ Bcps/src/Makefile.in -text
 Bcps/test/Makefile.am -text
 Bcps/test/Makefile.in -text
 /Dependencies -text
+/Externals -text
 /LICENSE -text
 /Makefile.am -text
 /Makefile.in -text
