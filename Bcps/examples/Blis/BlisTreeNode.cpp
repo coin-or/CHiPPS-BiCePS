@@ -1766,7 +1766,8 @@ int BlisTreeNode::selectBranchObject(BlisModel *model,
     // Create branching object candidates.
     //-----------------------------------------------------
     
-    bStatus = strategy->createCandBranchObjects(numPassesLeft);   
+    bStatus = strategy->createCandBranchObjects(numPassesLeft,
+                                                model->getCutoff());
     
     //------------------------------------------------------
     // Select the best branching objects.
@@ -1774,25 +1775,24 @@ int BlisTreeNode::selectBranchObject(BlisModel *model,
     
     if (bStatus >= 0) {
         
-        int bestIndex = strategy->bestBranchObject();
-        
-        if (bestIndex >= 0) {
-            // Move best branching object to node.
-            branchObject_ = strategy->getBestBranchObject();
+       branchObject_ = strategy->bestBranchObject();
+
+       if (branchObject_) {
+	  // Move best branching object to node.
 
 #ifdef BLIS_DEBUG_MORE
-            std::cout << "SELECTBEST: Set branching obj" << std::endl;
+	  std::cout << "SELECTBEST: Set branching obj" << std::endl;
 #endif
-        }
-        else {
+       }
+       else {
 #ifdef BLIS_DEBUG
-            std::cout << "WARNING: Can't find best branching obj" << std::endl;
-            assert(0);
-#endif      
-        }
-        
-        // Set guessed solution value
-        // solEstimate_ = quality_ + sumDeg;
+	  std::cout << "ERROR: Can't find branching object" << std::endl;
+#endif
+	  assert(0);
+       }
+
+       // Set guessed solution value
+       // solEstimate_ = quality_ + sumDeg;
     }
     
     if (!model->branchStrategy()) {
