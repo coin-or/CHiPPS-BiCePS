@@ -1,0 +1,11 @@
+prefix=@prefix@
+libdir=@ABSBUILDDIR@/src
+includedir=@abs_source_dir@/src
+
+Name: BCPS
+Description: Branch, Constrain, and Price Software Fraework
+URL: https://projects.coin-or.org/CHiPPS
+Version: @PACKAGE_VERSION@
+Libs: ${libdir}/libBcps.la @BCPSLIB_PCLIBS@
+Cflags: -I@abs_source_dir@/src -I@ABSBUILDDIR@/src
+Requires: @BCPSLIB_PCREQUIRES@

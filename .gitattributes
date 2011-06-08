@@ -6,7 +6,8 @@ Bcps/MSVisualStudio/v9/libBcps.vcproj -text
 Bcps/Makefile.am -text
 Bcps/Makefile.in -text
 Bcps/README -text
-Bcps/bcps_addlibs.txt.in -text
+Bcps/bcps-uninstalled.pc.in -text
+Bcps/bcps.pc.in -text
 Bcps/configure -text
 Bcps/configure.ac -text
 Bcps/examples/Blis/AUTHORS -text
