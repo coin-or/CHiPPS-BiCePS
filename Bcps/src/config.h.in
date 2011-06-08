@@ -21,11 +21,11 @@
 /* Define to the debug verbosity level (0 is no output) */
 #undef COIN_BCPS_VERBOSITY
 
+/* Define to 1 if the Alps package is available */
+#undef COIN_HAS_ALPS
+
 /* Define to 1 if the Clp package is available */
 #undef COIN_HAS_CLP
-
-/* Define to 1 if the CoinDepend package is available */
-#undef COIN_HAS_COINDEPEND
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H

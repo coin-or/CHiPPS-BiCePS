@@ -472,7 +472,7 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS build build_cpu build_vendor build_os ALWAYS_FALSE_TRUE ALWAYS_FALSE_FALSE have_svnversion BCPS_SVN_REV CDEFS ADD_CFLAGS DBG_CFLAGS OPT_CFLAGS sol_cc_compiler CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT COIN_CC_IS_CL_TRUE COIN_CC_IS_CL_FALSE MPICC CXXDEFS ADD_CXXFLAGS DBG_CXXFLAGS OPT_CXXFLAGS CXX CXXFLAGS ac_ct_CXX COIN_CXX_IS_CL_TRUE COIN_CXX_IS_CL_FALSE MPICXX EGREP LN_S INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM mkdir_p AWK SET_MAKE am__leading_dot AMTAR am__tar am__untar DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE CXXDEPMODE am__fastdepCXX_TRUE am__fastdepCXX_FALSE MAINTAINER_MODE_TRUE MAINTAINER_MODE_FALSE MAINT LIBTOOLM4 have_autoconf have_automake have_svn BUILDTOOLSDIR AUX_DIR abs_source_dir abs_lib_dir abs_include_dir abs_bin_dir HAVE_EXTERNALS_TRUE HAVE_EXTERNALS_FALSE host host_cpu host_vendor host_os ECHO AR ac_ct_AR RANLIB ac_ct_RANLIB CPP CXXCPP F77 FFLAGS ac_ct_F77 LIBTOOL ac_c_preproc_warn_flag ac_cxx_preproc_warn_flag RPATH_FLAGS LT_LDFLAGS PKG_CONFIG ac_pt_PKG_CONFIG COIN_HAS_PKGCONFIG_TRUE COIN_HAS_PKGCONFIG_FALSE COIN_PKG_CONFIG_PATH COIN_PKG_CONFIG_PATH_UNINSTALLED COINDEPEND_LIBS COINDEPEND_CFLAGS COINDEPEND_DATA COINDEPEND_DEPENDENCIES COINDEPEND_LIBS_INSTALLED COINDEPEND_CFLAGS_INSTALLED COINDEPEND_DATA_INSTALLED BCPSLIB_CFLAGS BCPSLIB_LIBS BCPSLIB_PCLIBS BCPSLIB_PCREQUIRES BCPSLIB_DEPENDENCIES BCPSLIB_CFLAGS_INSTALLED BCPSLIB_LIBS_INSTALLED COIN_HAS_COINDEPEND_TRUE COIN_HAS_COINDEPEND_FALSE CLP_LIBS CLP_CFLAGS CLP_DATA CLP_DEPENDENCIES CLP_LIBS_INSTALLED CLP_CFLAGS_INSTALLED CLP_DATA_INSTALLED ABC_CFLAGS ABC_LIBS ABC_PCLIBS ABC_PCREQUIRES ABC_DEPENDENCIES ABC_CFLAGS_INSTALLED ABC_LIBS_INSTALLED COIN_HAS_CLP_TRUE COIN_HAS_CLP_FALSE LIBEXT VPATH_DISTCLEANFILES ABSBUILDDIR LIBOBJS LTLIBOBJS'
+ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS build build_cpu build_vendor build_os ALWAYS_FALSE_TRUE ALWAYS_FALSE_FALSE have_svnversion BCPS_SVN_REV CDEFS ADD_CFLAGS DBG_CFLAGS OPT_CFLAGS sol_cc_compiler CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT COIN_CC_IS_CL_TRUE COIN_CC_IS_CL_FALSE MPICC CXXDEFS ADD_CXXFLAGS DBG_CXXFLAGS OPT_CXXFLAGS CXX CXXFLAGS ac_ct_CXX COIN_CXX_IS_CL_TRUE COIN_CXX_IS_CL_FALSE MPICXX EGREP LN_S INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM mkdir_p AWK SET_MAKE am__leading_dot AMTAR am__tar am__untar DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE CXXDEPMODE am__fastdepCXX_TRUE am__fastdepCXX_FALSE MAINTAINER_MODE_TRUE MAINTAINER_MODE_FALSE MAINT LIBTOOLM4 have_autoconf have_automake have_svn BUILDTOOLSDIR AUX_DIR abs_source_dir abs_lib_dir abs_include_dir abs_bin_dir HAVE_EXTERNALS_TRUE HAVE_EXTERNALS_FALSE host host_cpu host_vendor host_os ECHO AR ac_ct_AR RANLIB ac_ct_RANLIB CPP CXXCPP F77 FFLAGS ac_ct_F77 LIBTOOL ac_c_preproc_warn_flag ac_cxx_preproc_warn_flag RPATH_FLAGS LT_LDFLAGS PKG_CONFIG ac_pt_PKG_CONFIG COIN_HAS_PKGCONFIG_TRUE COIN_HAS_PKGCONFIG_FALSE COIN_PKG_CONFIG_PATH COIN_PKG_CONFIG_PATH_UNINSTALLED ALPS_LIBS ALPS_CFLAGS ALPS_DATA ALPS_DEPENDENCIES ALPS_LIBS_INSTALLED ALPS_CFLAGS_INSTALLED ALPS_DATA_INSTALLED BCPSLIB_CFLAGS BCPSLIB_LIBS BCPSLIB_PCLIBS BCPSLIB_PCREQUIRES BCPSLIB_DEPENDENCIES BCPSLIB_CFLAGS_INSTALLED BCPSLIB_LIBS_INSTALLED COIN_HAS_ALPS_TRUE COIN_HAS_ALPS_FALSE CLP_LIBS CLP_CFLAGS CLP_DATA CLP_DEPENDENCIES CLP_LIBS_INSTALLED CLP_CFLAGS_INSTALLED CLP_DATA_INSTALLED ABC_CFLAGS ABC_LIBS ABC_PCLIBS ABC_PCREQUIRES ABC_DEPENDENCIES ABC_CFLAGS_INSTALLED ABC_LIBS_INSTALLED COIN_HAS_CLP_TRUE COIN_HAS_CLP_FALSE LIBEXT VPATH_DISTCLEANFILES ABSBUILDDIR LIBOBJS LTLIBOBJS'
 ac_subst_files=''
 
 # Initialize some variables set by options.
@@ -1115,13 +1115,9 @@ Optional Packages:
   --with-coin-instdir     prefix of installation directory for precompiled
                           COIN packages
 
-  --with-coindepend-lib linker flags for using package CoinDepend
-  --with-coindepend-incdir
-                          directory with header files for using package
-                          CoinDepend
-  --with-coindepend-datadir
-                          directory with data files for using package
-                          CoinDepend
+  --with-alps-lib linker flags for using package Alps
+  --with-alps-incdir directory with header files for using package Alps
+  --with-alps-datadir directory with data files for using package Alps
   --with-clp-lib linker flags for using package Clp
   --with-clp-incdir directory with header files for using package Clp
   --with-clp-datadir directory with data files for using package Clp
@@ -5940,7 +5936,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 5943 "configure"' > conftest.$ac_ext
+  echo '#line 5939 "configure"' > conftest.$ac_ext
   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -7074,7 +7070,7 @@ fi
 
 
 # Provide some information about the compiler.
-echo "$as_me:7077:" \
+echo "$as_me:7073:" \
      "checking for Fortran 77 compiler version" >&5
 ac_compiler=`set X $ac_compile; echo $2`
 { (eval echo "$as_me:$LINENO: \"$ac_compiler --version </dev/null >&5\"") >&5
@@ -8141,11 +8137,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:8144: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:8140: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:8148: \$? = $ac_status" >&5
+   echo "$as_me:8144: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -8409,11 +8405,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:8412: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:8408: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:8416: \$? = $ac_status" >&5
+   echo "$as_me:8412: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -8513,11 +8509,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:8516: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:8512: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:8520: \$? = $ac_status" >&5
+   echo "$as_me:8516: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -10858,7 +10854,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 10861 "configure"
+#line 10857 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -10958,7 +10954,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 10961 "configure"
+#line 10957 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -13302,11 +13298,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:13305: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:13301: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:13309: \$? = $ac_status" >&5
+   echo "$as_me:13305: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -13406,11 +13402,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:13409: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:13405: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:13413: \$? = $ac_status" >&5
+   echo "$as_me:13409: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -14976,11 +14972,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:14979: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:14975: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:14983: \$? = $ac_status" >&5
+   echo "$as_me:14979: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -15080,11 +15076,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:15083: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:15079: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:15087: \$? = $ac_status" >&5
+   echo "$as_me:15083: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -17287,11 +17283,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:17290: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:17286: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:17294: \$? = $ac_status" >&5
+   echo "$as_me:17290: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -17555,11 +17551,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:17558: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:17554: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:17562: \$? = $ac_status" >&5
+   echo "$as_me:17558: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -17659,11 +17655,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:17662: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:17658: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:17666: \$? = $ac_status" >&5
+   echo "$as_me:17662: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -20766,35 +20762,35 @@ fi
 
 
 
-echo "$as_me:$LINENO: checking for COIN-OR package CoinDepend" >&5
-echo $ECHO_N "checking for COIN-OR package CoinDepend... $ECHO_C" >&6
+echo "$as_me:$LINENO: checking for COIN-OR package Alps" >&5
+echo $ECHO_N "checking for COIN-OR package Alps... $ECHO_C" >&6
 
-coin_has_coindepend=notGiven
+coin_has_alps=notGiven
 
 # check if user wants to skip package in any case
 if test x"$COIN_SKIP_PROJECTS" != x; then
   for dir in $COIN_SKIP_PROJECTS; do
-    if test $dir = "CoinDepend"; then
-      coin_has_coindepend=skipping
+    if test $dir = "Alps"; then
+      coin_has_alps=skipping
     fi
   done
 fi
 
-if test "$coin_has_coindepend" != skipping; then
+if test "$coin_has_alps" != skipping; then
 
-# Check whether --with-m4_tolower(CoinDepend) or --without-m4_tolower(CoinDepend) was given.
-if test "${with_coindepend+set}" = set; then
-  withval="$with_coindepend"
+# Check whether --with-m4_tolower(Alps) or --without-m4_tolower(Alps) was given.
+if test "${with_alps+set}" = set; then
+  withval="$with_alps"
   if test "$withval" = no ; then
-       coin_has_coindepend=skipping
+       coin_has_alps=skipping
      fi
 
 fi;
 fi
 
-COINDEPEND_LIBS=
-COINDEPEND_CFLAGS=
-COINDEPEND_DATA=
+ALPS_LIBS=
+ALPS_CFLAGS=
+ALPS_DATA=
 
 
 
@@ -20813,23 +20809,23 @@ COINDEPEND_DATA=
 
 
 #check if user provided LIBS, CFLAGS, or DATA for package or disables use of package
-if test $coin_has_coindepend != skipping; then
+if test $coin_has_alps != skipping; then
 
-# Check whether --with-m4_tolower(CoinDepend)-lib or --without-m4_tolower(CoinDepend)-lib was given.
-if test "${with_coindepend_lib+set}" = set; then
-  withval="$with_coindepend_lib"
+# Check whether --with-m4_tolower(Alps)-lib or --without-m4_tolower(Alps)-lib was given.
+if test "${with_alps_lib+set}" = set; then
+  withval="$with_alps_lib"
   if test "$withval" = no ; then
-       coin_has_coindepend=skipping
+       coin_has_alps=skipping
      else
-       coin_has_coindepend=yes
-       COINDEPEND_LIBS="$withval"
+       coin_has_alps=yes
+       ALPS_LIBS="$withval"
 
          BCPSLIB_PCLIBS="$withval $BCPSLIB_PCLIBS"
          BCPSLIB_LIBS="$withval $BCPSLIB_LIBS"
 
        # if project flags are given by user and we build without pkg-config, then we need to setup the _INSTALLED variables
        if test -z "$PKG_CONFIG" ; then
-         COINDEPEND_LIBS_INSTALLED="$withval"
+         ALPS_LIBS_INSTALLED="$withval"
          BCPSLIB_LIBS_INSTALLED="$withval $BCPSLIB_LIBS_INSTALLED"
        fi
      fi
@@ -20837,47 +20833,47 @@ if test "${with_coindepend_lib+set}" = set; then
 fi;
 fi
 
-if test $coin_has_coindepend != skipping; then
+if test $coin_has_alps != skipping; then
 
-# Check whether --with-m4_tolower(CoinDepend)-incdir or --without-m4_tolower(CoinDepend)-incdir was given.
-if test "${with_coindepend_incdir+set}" = set; then
-  withval="$with_coindepend_incdir"
+# Check whether --with-m4_tolower(Alps)-incdir or --without-m4_tolower(Alps)-incdir was given.
+if test "${with_alps_incdir+set}" = set; then
+  withval="$with_alps_incdir"
   if test "$withval" = no ; then
-       coin_has_coindepend=skipping
+       coin_has_alps=skipping
      else
-       coin_has_coindepend=yes
-       COINDEPEND_CFLAGS="-I`${CYGPATH_W} $withval`"
+       coin_has_alps=yes
+       ALPS_CFLAGS="-I`${CYGPATH_W} $withval`"
        BCPSLIB_CFLAGS="-I`${CYGPATH_W} $withval` $BCPSLIB_CFLAGS"
        # if project flags are given by user and we build without pkg-config, then we need to setup the _INSTALLED variables
        if test -z "$PKG_CONFIG" ; then
-         COINDEPEND_CFLAGS_INSTALLED="$COINDEPEND_CFLAGS"
-         BCPSLIB_CFLAGS_INSTALLED="$COINDEPEND_CFLAGS $BCPSLIB_CFLAGS_INSTALLED"
+         ALPS_CFLAGS_INSTALLED="$ALPS_CFLAGS"
+         BCPSLIB_CFLAGS_INSTALLED="$ALPS_CFLAGS $BCPSLIB_CFLAGS_INSTALLED"
        fi
      fi
 
 fi;
 fi
 
-if test $coin_has_coindepend != skipping; then
+if test $coin_has_alps != skipping; then
 
-# Check whether --with-m4_tolower(CoinDepend)-datadir or --without-m4_tolower(CoinDepend)-datadir was given.
-if test "${with_coindepend_datadir+set}" = set; then
-  withval="$with_coindepend_datadir"
+# Check whether --with-m4_tolower(Alps)-datadir or --without-m4_tolower(Alps)-datadir was given.
+if test "${with_alps_datadir+set}" = set; then
+  withval="$with_alps_datadir"
   if test "$withval" = no ; then
-       coin_has_coindepend=skipping
+       coin_has_alps=skipping
      else
-       coin_has_coindepend=yes
-       COINDEPEND_DATA="$withval"
+       coin_has_alps=yes
+       ALPS_DATA="$withval"
        # if project flags are given by user and we build without pkg-config, then we need to setup the _INSTALLED variables
        if test -z "$PKG_CONFIG" ; then
-         COINDEPEND_DATA_INSTALLED="$withval"
+         ALPS_DATA_INSTALLED="$withval"
        fi
      fi
 
 fi;
 fi
 
-if test $coin_has_coindepend = notGiven; then
+if test $coin_has_alps = notGiven; then
   if test -n "$PKG_CONFIG" ; then
     # set search path for pkg-config
     # need to export variable to be sure that the following pkg-config gets these values
@@ -20890,9 +20886,9 @@ if test $coin_has_coindepend = notGiven; then
 
 
 if test -n "$PKG_CONFIG" ; then
-  if $PKG_CONFIG --exists "coinutils alps"; then
-    COINDEPEND_VERSIONS="`$PKG_CONFIG --modversion "coinutils alps" 2>/dev/null | tr '\n' ' '`"
-     cflags=`$PKG_CONFIG --cflags "coinutils alps" 2>/dev/null`
+  if $PKG_CONFIG --exists "alps"; then
+    ALPS_VERSIONS="`$PKG_CONFIG --modversion "alps" 2>/dev/null | tr '\n' ' '`"
+     cflags=`$PKG_CONFIG --cflags "alps" 2>/dev/null`
     # pkg-config cannot handle spaces, so CYGPATH_W cannot be put into .pc files
 	# thus, we modify the cflags extracted from pkg-config by putting CYGPATH_W behind -I's
 	# but only do this if is not trivial
@@ -20900,38 +20896,38 @@ if test -n "$PKG_CONFIG" ; then
       # need to put into brackets since otherwise autoconf replaces the brackets in the sed command
       cflags=`echo $cflags | sed -e 's/-I\([^ ]*\)/-I\`${CYGPATH_W} \1\`/g'`
     fi
-    COINDEPEND_CFLAGS="$cflags"
-    COINDEPEND_LIBS=`$PKG_CONFIG --libs "coinutils alps" 2>/dev/null`
-    COINDEPEND_DATA=`$PKG_CONFIG --variable=datadir "coinutils alps" 2>/dev/null`
-     coin_has_coindepend=yes
-        echo "$as_me:$LINENO: result: yes: $COINDEPEND_VERSIONS" >&5
-echo "${ECHO_T}yes: $COINDEPEND_VERSIONS" >&6
+    ALPS_CFLAGS="$cflags"
+    ALPS_LIBS=`$PKG_CONFIG --libs "alps" 2>/dev/null`
+    ALPS_DATA=`$PKG_CONFIG --variable=datadir "alps" 2>/dev/null`
+     coin_has_alps=yes
+        echo "$as_me:$LINENO: result: yes: $ALPS_VERSIONS" >&5
+echo "${ECHO_T}yes: $ALPS_VERSIONS" >&6
 
         # adjust linker flags for (i)cl compiler
         # for the LIBS, we replace everything of the form "/somepath/name.lib" by "`$(CYGPATH_W) /somepath/`name.lib | sed -e s|\|/|g" (where we have to use excessive many \ to get the \ into the command line for cl)
         if test x$coin_cxx_is_cl = xtrue || test x$coin_cc_is_cl = xtrue ;
         then
-          COINDEPEND_LIBS=`echo " $COINDEPEND_LIBS " | sed -e 's/ \(\/[^ ]*\/\)\([^ ]*\)\.lib / \`$(CYGPATH_W) \1 | sed -e "s|\\\\\\\\\\\\\\\\\\\\|\/|g"\`\2.lib /g'`
+          ALPS_LIBS=`echo " $ALPS_LIBS " | sed -e 's/ \(\/[^ ]*\/\)\([^ ]*\)\.lib / \`$(CYGPATH_W) \1 | sed -e "s|\\\\\\\\\\\\\\\\\\\\|\/|g"\`\2.lib /g'`
         fi
 
         # augment X_PCREQUIRES, X_CFLAGS, and X_LIBS for each build target X in BcpsLib
 
-          BCPSLIB_PCREQUIRES="coinutils alps $BCPSLIB_PCREQUIRES"
-          BCPSLIB_CFLAGS="$COINDEPEND_CFLAGS $BCPSLIB_CFLAGS"
-          BCPSLIB_LIBS="$COINDEPEND_LIBS $BCPSLIB_LIBS"
+          BCPSLIB_PCREQUIRES="alps $BCPSLIB_PCREQUIRES"
+          BCPSLIB_CFLAGS="$ALPS_CFLAGS $BCPSLIB_CFLAGS"
+          BCPSLIB_LIBS="$ALPS_LIBS $BCPSLIB_LIBS"
 
 
 
   else
-    COINDEPEND_PKG_ERRORS=`$PKG_CONFIG $pkg_short_errors --errors-to-stdout --print-errors "coinutils alps"`
-      coin_has_coindepend=notGiven
-        echo "$as_me:$LINENO: result: not given: $COINDEPEND_PKG_ERRORS" >&5
-echo "${ECHO_T}not given: $COINDEPEND_PKG_ERRORS" >&6
+    ALPS_PKG_ERRORS=`$PKG_CONFIG $pkg_short_errors --errors-to-stdout --print-errors "alps"`
+      coin_has_alps=notGiven
+        echo "$as_me:$LINENO: result: not given: $ALPS_PKG_ERRORS" >&5
+echo "${ECHO_T}not given: $ALPS_PKG_ERRORS" >&6
 
   fi
 else
-  { { echo "$as_me:$LINENO: error: \"Cannot check for existance of module CoinDepend without pkg-config\"" >&5
-echo "$as_me: error: \"Cannot check for existance of module CoinDepend without pkg-config\"" >&2;}
+  { { echo "$as_me:$LINENO: error: \"Cannot check for existance of module Alps without pkg-config\"" >&5
+echo "$as_me: error: \"Cannot check for existance of module Alps without pkg-config\"" >&2;}
    { (exit 1); exit 1; }; }
 fi
 
@@ -20946,19 +20942,19 @@ fi
     echo "$as_me:$LINENO: result: skipped check via pkg-config, redirect to fallback" >&5
 echo "${ECHO_T}skipped check via pkg-config, redirect to fallback" >&6
 
-echo "$as_me:$LINENO: checking for COIN-OR package CoinDepend (fallback)" >&5
-echo $ECHO_N "checking for COIN-OR package CoinDepend (fallback)... $ECHO_C" >&6
+echo "$as_me:$LINENO: checking for COIN-OR package Alps (fallback)" >&5
+echo $ECHO_N "checking for COIN-OR package Alps (fallback)... $ECHO_C" >&6
 
-coin_has_coindepend=notGiven
-COINDEPEND_LIBS=
-COINDEPEND_LIBS_INSTALLED=
-COINDEPEND_CFLAGS=
-COINDEPEND_CFLAGS_INSTALLED=
-COINDEPEND_DATA=
-COINDEPEND_DATA_INSTALLED=
+coin_has_alps=notGiven
+ALPS_LIBS=
+ALPS_LIBS_INSTALLED=
+ALPS_CFLAGS=
+ALPS_CFLAGS_INSTALLED=
+ALPS_DATA=
+ALPS_DATA_INSTALLED=
 
-# initial list of dependencies is "coinutils alps", but we need to filter out version number specifications (= x, <= x, >= x, != x)
-projtoprocess="coinutils alps"
+# initial list of dependencies is "alps", but we need to filter out version number specifications (= x, <= x, >= x, != x)
+projtoprocess="alps"
 
 # we first expand the list of projects to process by adding all dependencies just behind the project which depends on it
 # further, we collect the list of corresponding .pc files, but do this in reverse order, because we need this order afterwards
@@ -20999,11 +20995,11 @@ echo "$as_me: WARNING: Found $pcfile, but $dir/${proj}.pc is not available. This
       projtoprocess=${projtoprocess/$proj/$projrequires}
 
       # read DATA from $pcfile, if _DATA is still empty
-      if test "x$COINDEPEND_DATA" = x ; then
+      if test "x$ALPS_DATA" = x ; then
         projdatadir=
         pcfilemod=`sed -e '/[a-zA-Z]:/d' -e 's/datadir=\(.*\)/echo projdatadir=\\\\"\1\\\\"/g' $pcfile`
         eval `sh -c "$pcfilemod"`
-        COINDEPEND_DATA="$projdatadir"
+        ALPS_DATA="$projdatadir"
       fi
 
       allproj="$allproj $proj"
@@ -21020,14 +21016,14 @@ echo "${ECHO_T}no, dependency $proj not available" >&6
       allpcifiles="$pcifile:$allpcifiles"
 
       # read DATA_INSTALLED from $pcifile, if _DATA_INSTALLED is still empty
-      if test "x$COINDEPEND_DATA_INSTALLED" = x ; then
+      if test "x$ALPS_DATA_INSTALLED" = x ; then
         projdatadir=
         pcifilemod=`sed -e '/[a-zA-Z]:/d' -e 's/datadir=\(.*\)/echo projdatadir=\\\\"\1\\\\"/g' $pcifile`
         eval `sh -c "$pcifilemod"`
         if test "${CYGPATH_W}" != "echo"; then
           projdatadir="\`\$(CYGPATH_W) ${projdatadir} | sed -e 's/\\\\\\\\/\\\\\\\\\\\\\\\\/g'\`"
         fi
-        COINDEPEND_DATA_INSTALLED="$projdatadir"
+        ALPS_DATA_INSTALLED="$projdatadir"
       fi
 
     fi
@@ -21075,10 +21071,10 @@ if test "$allproj" != fail ; then
     if test "${CYGPATH_W}" != "echo"; then
       projcflags=`echo "$projcflags" | sed -e 's/-I\([^ ]*\)/-I\`${CYGPATH_W} \1\`/g'`
     fi
-    COINDEPEND_CFLAGS="$projcflags $COINDEPEND_CFLAGS"
+    ALPS_CFLAGS="$projcflags $ALPS_CFLAGS"
 
     # set LIBS variable
-    COINDEPEND_LIBS="$projlibs $COINDEPEND_LIBS"
+    ALPS_LIBS="$projlibs $ALPS_LIBS"
 
     # remember that we have processed $pcfile
     pcfilesprocessed="$pcfilesprocessed:$pcfile"
@@ -21120,10 +21116,10 @@ if test "$allproj" != fail ; then
     if test "${CYGPATH_W}" != "echo"; then
       projcflags=`echo "$projcflags" | sed -e 's/-I\([^ ]*\)/-I\`${CYGPATH_W} \1\`/g'`
     fi
-    COINDEPEND_CFLAGS_INSTALLED="$projcflags $COINDEPEND_CFLAGS_INSTALLED"
+    ALPS_CFLAGS_INSTALLED="$projcflags $ALPS_CFLAGS_INSTALLED"
 
     # set LIBS variable
-    COINDEPEND_LIBS_INSTALLED="$projlibs $COINDEPEND_LIBS_INSTALLED"
+    ALPS_LIBS_INSTALLED="$projlibs $ALPS_LIBS_INSTALLED"
 
     # remember that we have processed $pcfile
     pcfilesprocessed="$pcfilesprocessed:$pcfile"
@@ -21133,12 +21129,12 @@ if test "$allproj" != fail ; then
 
 
   # finish up
-  coin_has_coindepend=yes
+  coin_has_alps=yes
   echo "$as_me:$LINENO: result: yes" >&5
 echo "${ECHO_T}yes" >&6
 
 cat >>confdefs.h <<\_ACEOF
-#define COIN_HAS_COINDEPEND 1
+#define COIN_HAS_ALPS 1
 _ACEOF
 
 
@@ -21149,29 +21145,29 @@ _ACEOF
   #    everything of the form "-lname" by "libname.lib"
   if test x$coin_cxx_is_cl = xtrue || test x$coin_cc_is_cl = xtrue ;
   then
-    COINDEPEND_LIBS=`echo " $COINDEPEND_LIBS " | sed -e 's/ \(\/[^ ]*\/\)\([^ ]*\)\.lib / \`$(CYGPATH_W) \1 | sed -e "s|\\\\\\\\\\\\\\\\\\\\|\/|g"\`\2.lib /g'`
-    COINDEPEND_LIBS_INSTALLED=`echo " $COINDEPEND_LIBS_INSTALLED" | sed -e 's/ \(\/[^ ]*\/\)/ \`$(CYGPATH_W) \1\`/g' -e 's/ -L\([^ ]*\)/ \/libpath:\`$(CYGPATH_W) \1\`/g' -e 's/ -l\([^ ]*\)/ lib\1.lib/g'`
+    ALPS_LIBS=`echo " $ALPS_LIBS " | sed -e 's/ \(\/[^ ]*\/\)\([^ ]*\)\.lib / \`$(CYGPATH_W) \1 | sed -e "s|\\\\\\\\\\\\\\\\\\\\|\/|g"\`\2.lib /g'`
+    ALPS_LIBS_INSTALLED=`echo " $ALPS_LIBS_INSTALLED" | sed -e 's/ \(\/[^ ]*\/\)/ \`$(CYGPATH_W) \1\`/g' -e 's/ -L\([^ ]*\)/ \/libpath:\`$(CYGPATH_W) \1\`/g' -e 's/ -l\([^ ]*\)/ lib\1.lib/g'`
   fi
 
 
-    BCPSLIB_PCREQUIRES="coinutils alps $BCPSLIB_PCREQUIRES"
-    BCPSLIB_CFLAGS="$COINDEPEND_CFLAGS $BCPSLIB_CFLAGS"
-    BCPSLIB_LIBS="$COINDEPEND_LIBS $BCPSLIB_LIBS"
-    BCPSLIB_CFLAGS_INSTALLED="$COINDEPEND_CFLAGS_INSTALLED $BCPSLIB_CFLAGS_INSTALLED"
-    BCPSLIB_LIBS_INSTALLED="$COINDEPEND_LIBS_INSTALLED $BCPSLIB_LIBS_INSTALLED"
+    BCPSLIB_PCREQUIRES="alps $BCPSLIB_PCREQUIRES"
+    BCPSLIB_CFLAGS="$ALPS_CFLAGS $BCPSLIB_CFLAGS"
+    BCPSLIB_LIBS="$ALPS_LIBS $BCPSLIB_LIBS"
+    BCPSLIB_CFLAGS_INSTALLED="$ALPS_CFLAGS_INSTALLED $BCPSLIB_CFLAGS_INSTALLED"
+    BCPSLIB_LIBS_INSTALLED="$ALPS_LIBS_INSTALLED $BCPSLIB_LIBS_INSTALLED"
 
 
 fi
 
 
 
-if test $coin_has_coindepend != notGiven &&
-                test $coin_has_coindepend != skipping; then
-  COIN_HAS_COINDEPEND_TRUE=
-  COIN_HAS_COINDEPEND_FALSE='#'
+if test $coin_has_alps != notGiven &&
+                test $coin_has_alps != skipping; then
+  COIN_HAS_ALPS_TRUE=
+  COIN_HAS_ALPS_FALSE='#'
 else
-  COIN_HAS_COINDEPEND_TRUE='#'
-  COIN_HAS_COINDEPEND_FALSE=
+  COIN_HAS_ALPS_TRUE='#'
+  COIN_HAS_ALPS_FALSE=
 fi
 
 
@@ -21179,15 +21175,15 @@ fi
   fi
 
 else
-  echo "$as_me:$LINENO: result: $coin_has_coindepend" >&5
-echo "${ECHO_T}$coin_has_coindepend" >&6
+  echo "$as_me:$LINENO: result: $coin_has_alps" >&5
+echo "${ECHO_T}$coin_has_alps" >&6
 fi
 
-if test $coin_has_coindepend != skipping &&
-   test $coin_has_coindepend != notGiven ; then
+if test $coin_has_alps != skipping &&
+   test $coin_has_alps != notGiven ; then
 
 cat >>confdefs.h <<\_ACEOF
-#define COIN_HAS_COINDEPEND 1
+#define COIN_HAS_ALPS 1
 _ACEOF
 
 
@@ -21205,32 +21201,32 @@ fi;
      # remove everything of the form -framework xxx as used on Mac and mklxxx as used on Windows
      # then remove everything of the form -xxx
      # also remove everything of the form `xxx`yyy (may have been added for cygwin/cl)
-     COINDEPEND_DEPENDENCIES=`echo " $COINDEPEND_LIBS" | sed -e 's/ mkl[^ ]*//g' -e 's/ -framework  *[^ ]*//g' -e 's/ -[^ ]*//g' -e 's/\`[^\`]*\`[^ ]* //g'`
+     ALPS_DEPENDENCIES=`echo " $ALPS_LIBS" | sed -e 's/ mkl[^ ]*//g' -e 's/ -framework  *[^ ]*//g' -e 's/ -[^ ]*//g' -e 's/\`[^\`]*\`[^ ]* //g'`
 
        BCPSLIB_DEPENDENCIES=`echo " $BCPSLIB_LIBS " | sed -e 's/ mkl[^ ]*//g' -e 's/ -framework  *[^ ]*//g' -e 's/ -[^ ]*//g' -e 's/\`[^\`]*\`[^ ]* //g'`
 
   fi
 
   if test 1 = 0 ; then  #change this test to enable a bit of debugging output
-    if test -n "$COINDEPEND_CFLAGS" ; then
-      { echo "$as_me:$LINENO: CoinDepend CFLAGS are $COINDEPEND_CFLAGS" >&5
-echo "$as_me: CoinDepend CFLAGS are $COINDEPEND_CFLAGS" >&6;}
+    if test -n "$ALPS_CFLAGS" ; then
+      { echo "$as_me:$LINENO: Alps CFLAGS are $ALPS_CFLAGS" >&5
+echo "$as_me: Alps CFLAGS are $ALPS_CFLAGS" >&6;}
     fi
-    if test -n "$COINDEPEND_LIBS" ; then
-      { echo "$as_me:$LINENO: CoinDepend LIBS   are $COINDEPEND_LIBS" >&5
-echo "$as_me: CoinDepend LIBS   are $COINDEPEND_LIBS" >&6;}
+    if test -n "$ALPS_LIBS" ; then
+      { echo "$as_me:$LINENO: Alps LIBS   are $ALPS_LIBS" >&5
+echo "$as_me: Alps LIBS   are $ALPS_LIBS" >&6;}
     fi
-    if test -n "$COINDEPEND_DEPENDENCIES" ; then
-      { echo "$as_me:$LINENO: CoinDepend DEPENDENCIES are $COINDEPEND_DEPENDENCIES" >&5
-echo "$as_me: CoinDepend DEPENDENCIES are $COINDEPEND_DEPENDENCIES" >&6;}
+    if test -n "$ALPS_DEPENDENCIES" ; then
+      { echo "$as_me:$LINENO: Alps DEPENDENCIES are $ALPS_DEPENDENCIES" >&5
+echo "$as_me: Alps DEPENDENCIES are $ALPS_DEPENDENCIES" >&6;}
     fi
-    if test -n "$COINDEPEND_DATA" ; then
-      { echo "$as_me:$LINENO: CoinDepend DATA   is  $COINDEPEND_DATA" >&5
-echo "$as_me: CoinDepend DATA   is  $COINDEPEND_DATA" >&6;}
+    if test -n "$ALPS_DATA" ; then
+      { echo "$as_me:$LINENO: Alps DATA   is  $ALPS_DATA" >&5
+echo "$as_me: Alps DATA   is  $ALPS_DATA" >&6;}
     fi
-    if test -n "$COINDEPEND_CFLAGS" ; then
-      { echo "$as_me:$LINENO: CoinDepend CFLAGS are $COINDEPEND_CFLAGS" >&5
-echo "$as_me: CoinDepend CFLAGS are $COINDEPEND_CFLAGS" >&6;}
+    if test -n "$ALPS_CFLAGS" ; then
+      { echo "$as_me:$LINENO: Alps CFLAGS are $ALPS_CFLAGS" >&5
+echo "$as_me: Alps CFLAGS are $ALPS_CFLAGS" >&6;}
     fi
 
       { echo "$as_me:$LINENO: BcpsLib CFLAGS are $BCPSLIB_CFLAGS" >&5
@@ -21246,20 +21242,20 @@ fi
 # Define the Makefile conditional
 
 
-if test $coin_has_coindepend != notGiven &&
-                test $coin_has_coindepend != skipping; then
-  COIN_HAS_COINDEPEND_TRUE=
-  COIN_HAS_COINDEPEND_FALSE='#'
+if test $coin_has_alps != notGiven &&
+                test $coin_has_alps != skipping; then
+  COIN_HAS_ALPS_TRUE=
+  COIN_HAS_ALPS_FALSE='#'
 else
-  COIN_HAS_COINDEPEND_TRUE='#'
-  COIN_HAS_COINDEPEND_FALSE=
+  COIN_HAS_ALPS_TRUE='#'
+  COIN_HAS_ALPS_FALSE=
 fi
 
 
 
-if test $coinhas_coindepend != yes ; then
-  { { echo "$as_me:$LINENO: error: Required package CoinUtils not available." >&5
-echo "$as_me: error: Required package CoinUtils not available." >&2;}
+if test $coinhas_alps != yes ; then
+  { { echo "$as_me:$LINENO: error: Required package Alps not available." >&5
+echo "$as_me: error: Required package Alps not available." >&2;}
    { (exit 1); exit 1; }; }
 fi
 
@@ -22001,17 +21997,17 @@ echo "$as_me: error: conditional \"COIN_HAS_PKGCONFIG\" was never defined.
 Usually this means the macro was only invoked conditionally." >&2;}
    { (exit 1); exit 1; }; }
 fi
-if test -z "${COIN_HAS_COINDEPEND_TRUE}" && test -z "${COIN_HAS_COINDEPEND_FALSE}"; then
-  { { echo "$as_me:$LINENO: error: conditional \"COIN_HAS_COINDEPEND\" was never defined.
+if test -z "${COIN_HAS_ALPS_TRUE}" && test -z "${COIN_HAS_ALPS_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"COIN_HAS_ALPS\" was never defined.
 Usually this means the macro was only invoked conditionally." >&5
-echo "$as_me: error: conditional \"COIN_HAS_COINDEPEND\" was never defined.
+echo "$as_me: error: conditional \"COIN_HAS_ALPS\" was never defined.
 Usually this means the macro was only invoked conditionally." >&2;}
    { (exit 1); exit 1; }; }
 fi
-if test -z "${COIN_HAS_COINDEPEND_TRUE}" && test -z "${COIN_HAS_COINDEPEND_FALSE}"; then
-  { { echo "$as_me:$LINENO: error: conditional \"COIN_HAS_COINDEPEND\" was never defined.
+if test -z "${COIN_HAS_ALPS_TRUE}" && test -z "${COIN_HAS_ALPS_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"COIN_HAS_ALPS\" was never defined.
 Usually this means the macro was only invoked conditionally." >&5
-echo "$as_me: error: conditional \"COIN_HAS_COINDEPEND\" was never defined.
+echo "$as_me: error: conditional \"COIN_HAS_ALPS\" was never defined.
 Usually this means the macro was only invoked conditionally." >&2;}
    { (exit 1); exit 1; }; }
 fi
@@ -22718,13 +22714,13 @@ s,@COIN_HAS_PKGCONFIG_TRUE@,$COIN_HAS_PKGCONFIG_TRUE,;t t
 s,@COIN_HAS_PKGCONFIG_FALSE@,$COIN_HAS_PKGCONFIG_FALSE,;t t
 s,@COIN_PKG_CONFIG_PATH@,$COIN_PKG_CONFIG_PATH,;t t
 s,@COIN_PKG_CONFIG_PATH_UNINSTALLED@,$COIN_PKG_CONFIG_PATH_UNINSTALLED,;t t
-s,@COINDEPEND_LIBS@,$COINDEPEND_LIBS,;t t
-s,@COINDEPEND_CFLAGS@,$COINDEPEND_CFLAGS,;t t
-s,@COINDEPEND_DATA@,$COINDEPEND_DATA,;t t
-s,@COINDEPEND_DEPENDENCIES@,$COINDEPEND_DEPENDENCIES,;t t
-s,@COINDEPEND_LIBS_INSTALLED@,$COINDEPEND_LIBS_INSTALLED,;t t
-s,@COINDEPEND_CFLAGS_INSTALLED@,$COINDEPEND_CFLAGS_INSTALLED,;t t
-s,@COINDEPEND_DATA_INSTALLED@,$COINDEPEND_DATA_INSTALLED,;t t
+s,@ALPS_LIBS@,$ALPS_LIBS,;t t
+s,@ALPS_CFLAGS@,$ALPS_CFLAGS,;t t
+s,@ALPS_DATA@,$ALPS_DATA,;t t
+s,@ALPS_DEPENDENCIES@,$ALPS_DEPENDENCIES,;t t
+s,@ALPS_LIBS_INSTALLED@,$ALPS_LIBS_INSTALLED,;t t
+s,@ALPS_CFLAGS_INSTALLED@,$ALPS_CFLAGS_INSTALLED,;t t
+s,@ALPS_DATA_INSTALLED@,$ALPS_DATA_INSTALLED,;t t
 s,@BCPSLIB_CFLAGS@,$BCPSLIB_CFLAGS,;t t
 s,@BCPSLIB_LIBS@,$BCPSLIB_LIBS,;t t
 s,@BCPSLIB_PCLIBS@,$BCPSLIB_PCLIBS,;t t
@@ -22732,8 +22728,8 @@ s,@BCPSLIB_PCREQUIRES@,$BCPSLIB_PCREQUIRES,;t t
 s,@BCPSLIB_DEPENDENCIES@,$BCPSLIB_DEPENDENCIES,;t t
 s,@BCPSLIB_CFLAGS_INSTALLED@,$BCPSLIB_CFLAGS_INSTALLED,;t t
 s,@BCPSLIB_LIBS_INSTALLED@,$BCPSLIB_LIBS_INSTALLED,;t t
-s,@COIN_HAS_COINDEPEND_TRUE@,$COIN_HAS_COINDEPEND_TRUE,;t t
-s,@COIN_HAS_COINDEPEND_FALSE@,$COIN_HAS_COINDEPEND_FALSE,;t t
+s,@COIN_HAS_ALPS_TRUE@,$COIN_HAS_ALPS_TRUE,;t t
+s,@COIN_HAS_ALPS_FALSE@,$COIN_HAS_ALPS_FALSE,;t t
 s,@CLP_LIBS@,$CLP_LIBS,;t t
 s,@CLP_CFLAGS@,$CLP_CFLAGS,;t t
 s,@CLP_DATA@,$CLP_DATA,;t t

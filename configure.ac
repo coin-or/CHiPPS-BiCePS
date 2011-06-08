@@ -89,7 +89,6 @@ AC_COIN_MAIN_PACKAGEDIR(Clp)
 AC_COIN_MAIN_PACKAGEDIR(Cgl)
 AC_COIN_MAIN_PACKAGEDIR(Alps)
 AC_COIN_MAIN_PACKAGEDIR(Bcps)
-# The following are required for Alps examples
 
 ##############################################################################
 #                   Finishing up by writing all the output                   #
