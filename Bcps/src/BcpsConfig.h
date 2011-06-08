@@ -18,6 +18,7 @@
  *                                                                           * 
  *                                                                           *
  * Copyright (C) 2001-2010, Lehigh University, Yan Xu, and Ted Ralphs.       *
+ * All Rights Reserved.                                                      *
  *===========================================================================*/
 
 /* Include file for the configuration of Alps.
@@ -61,7 +62,7 @@
 
 #else /* HAVE_CONFIG_H */
 
-#ifdef ALPS_BUILD
+#ifdef BCPS_BUILD
 #include "config_default.h"
 #else
 #include "config_bcps_default.h"

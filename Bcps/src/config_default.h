@@ -18,13 +18,14 @@
  *                                                                           * 
  *                                                                           *
  * Copyright (C) 2001-2010, Lehigh University, Yan Xu, and Ted Ralphs.       *
+ * All Rights Reserved.                                                      *
  *===========================================================================*/
 
 /* include the COIN-OR-wide system specific configure header */
 #include "configall_system.h"
 
 /* include the public project specific macros */
-#include "config_alps_default.h"
+#include "config_bcps_default.h"
 
 /***************************************************************************/
 /*             HERE DEFINE THE PROJECT SPECIFIC MACROS                     */
