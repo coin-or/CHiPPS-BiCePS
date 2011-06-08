@@ -23,9 +23,6 @@
 
 ## $Id$
 
-# Author:  Andreas Waechter           IBM    2006-04-13
-#          Yan Xu                     Lehigh    2006-08-27
-
 #############################################################################
 #                       Names and other basic things                        #
 #############################################################################
@@ -61,7 +58,7 @@ AC_CANONICAL_BUILD
 # the source root directory contains definition of where to find those
 # externals.  The following macro ensures that those externals are
 # retrieved by svn if they are not there yet.
-AC_COIN_PROJECTDIR_INIT
+AC_COIN_PROJECTDIR_INIT(Bcps)
 
 # Check if user wants to produce debugging code
 AC_COIN_DEBUG_COMPILE(Bcps)
@@ -84,19 +81,11 @@ AC_COIN_INIT_AUTO_TOOLS
 #                              COIN components                              #
 #############################################################################
 
-AC_COIN_HAS_PROJECT(Bcps)
-AC_COIN_HAS_PROJECT(CoinUtils)
-AC_COIN_HAS_PROJECT(Alps)
-AC_COIN_HAS_PROJECT(Clp)
-AC_COIN_HAS_PROJECT(Cgl)
-AC_COIN_HAS_PROJECT(Osi)
-
-#############################################################################
-#                             Other dependencies                            #
-#############################################################################
-
-AC_COIN_HAS_USER_LIBRARY([Mpi], [MPI], [mpi.h], [MPI_Irecv])
-# ToDo: Automatically choose MPI compiler
+AC_COIN_CHECK_PACKAGE(CoinDepend, [coinutils alps], [BcpsLib])
+if test $coinhas_coindepend != yes ; then
+  AC_MSG_ERROR([Required package CoinUtils not available.])
+fi
+AC_COIN_CHECK_PACKAGE(Clp, [cgl osi-clp], [Abc])
 
 ##############################################################################
 #                   VPATH links for example input files                      #
@@ -160,10 +149,11 @@ AC_CONFIG_FILES([Makefile
 		 examples/Blis/blis.par
                  src/Makefile
                  test/Makefile
-		 bcps_addlibs.txt])
+		 bcps.pc
+		 bcps-uninstalled.pc])
 
 # Here put the location and name of the configuration header file
-AC_CONFIG_HEADER([inc/config_bcps.h])
+AC_CONFIG_HEADER([src/config.h src/config_bcps.h])
 
 # Finally, we let configure write all the output...
 AC_COIN_FINALIZE

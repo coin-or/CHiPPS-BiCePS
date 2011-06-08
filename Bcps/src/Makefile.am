@@ -61,16 +61,7 @@ libBcps_la_LDFLAGS = $(LT_LDFLAGS)
 
 # Here list all include flags, relative to this "srcdir" directory.  This
 # "cygpath" stuff is necessary to compile with native compilers on Windows.
-AM_CPPFLAGS = \
-	-I`$(CYGPATH_W) $(COINUTILSSRCDIR)/src` \
-	-I`$(CYGPATH_W) $(COINUTILSOBJDIR)/inc` \
-	-I`$(CYGPATH_W) $(ALPSSRCDIR)/src` \
-	-I`$(CYGPATH_W) $(ALPSOBJDIR)/inc`
-
-# Include MPI header directory if MPI is used
-if COIN_HAS_MPI
-AM_CPPFLAGS +=  -I`$(CYGPATH_W) $(MPIINCDIR)`
-endif
+AM_CPPFLAGS = $(COINDEPEND_CFLAGS)
 
 # This line is necessary to allow VPATH compilation with MS compilers
 # on Cygwin
@@ -84,7 +75,7 @@ DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)` -I$(top_builddir)/inc
 # and that therefore should be installed in 'install/coin'
 includecoindir = $(includedir)/coin
 includecoin_HEADERS = \
-	../inc/config_bcps.h \
+	config.h \
 	Bcps.h \
 	BcpsBranchObject.h \
 	BcpsBranchStrategy.h \
@@ -104,16 +95,8 @@ includecoin_HEADERS = \
 # Create the Config.h file that always defines HAVE_CONFIG_H and install it #
 #############################################################################
 
-# You only need to adapt the following line
-ConfigHeader = BcpsConfig.h
-
 install-exec-local:
-	echo "#ifndef HAVE_CONFIG_H" >bla
-	echo "#define HAVE_CONFIG_H" >>bla
-	echo "#endif" >> bla
-	cat $(srcdir)/$(ConfigHeader) >> bla
-	$(install_sh_DATA) bla $(DESTDIR)$(includecoindir)/$(ConfigHeader)
-	rm -f bla
+	$(install_sh_DATA) config_bcps.h $(DESTDIR)$(includecoindir)/BcpsConfig.h
 
 uninstall-local:
-	rm -f $(DESTDIR)$(includecoindir)/$(ConfigHeader)
+	rm -f $(DESTDIR)$(includecoindir)/BcpsConfig.h

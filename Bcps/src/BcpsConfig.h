@@ -1,5 +1,26 @@
-/*
- * Include file for the configuration of Clp.
+/*===========================================================================*
+ * This file is part of the Abstract Library for Parallel Search (ALPS).     *
+ *                                                                           *
+ * ALPS is distributed under the Common Public License as part of the        *
+ * COIN-OR repository (http://www.coin-or.org).                              *
+ *                                                                           *
+ * Authors:                                                                  *
+ *                                                                           *
+ *          Yan Xu, Lehigh University                                        *
+ *          Ted Ralphs, Lehigh University                                    *
+ *                                                                           *
+ * Conceptual Design:                                                        *
+ *                                                                           *
+ *          Yan Xu, Lehigh University                                        *
+ *          Ted Ralphs, Lehigh University                                    *
+ *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
+ *          Matthew Saltzman, Clemson University                             *
+ *                                                                           * 
+ *                                                                           *
+ * Copyright (C) 2001-2010, Lehigh University, Yan Xu, and Ted Ralphs.       *
+ *===========================================================================*/
+
+/* Include file for the configuration of Alps.
  *
  * On systems where the code is configured with the configure script
  * (i.e., compilation is always done with HAVE_CONFIG_H defined), this
@@ -10,20 +31,26 @@
  * Developer Studio), a header files is included to define those
  * macros that depend on the operating system and the compiler.  The
  * macros that define the configuration of the particular user setting
- * (e.g., presence of other COIN packages or third party code) are set
- * here.  The project maintainer needs to remember to update this file
- * and choose reasonable defines.  A user can modify the default
- * setting by editing this file here.
+ * (e.g., presence of other COIN-OR packages or third party code) are set
+ * by the files config_*default.h. The project maintainer needs to remember
+ * to update these file and choose reasonable defines.
+ * A user can modify the default setting by editing the config_*default.h files.
  *
  */
 
 #ifndef __BCPSCONFIG_H__
+#define __BCPSCONFIG_H__
 
 #ifdef HAVE_CONFIG_H
+#ifdef BCPS_BUILD
+#include "config.h"
+#else
 #include "config_bcps.h"
+#endif
 
 /* undefine macros that could conflict with those in other config.h
-   files */
+   files. This is a hack that shouldbe removed when other projects
+   are converted to the new system */
 #undef PACKAGE
 #undef PACKAGE_BUGREPORT
 #undef PACKAGE_NAME
@@ -34,34 +61,12 @@
 
 #else /* HAVE_CONFIG_H */
 
-/* include the COIN-wide system specific configure header */
-#include "configall_system.h"
-
-/***************************************************************************/
-/*             HERE DEFINE THE CONFIGURATION SPECIFIC MACROS               */
-/***************************************************************************/
-
-/* Define to the debug sanity check level (0 is no test) */
-#define COIN_BCPS_CHECKLEVEL 0
-
-/* Define to the debug verbosity level (0 is no output) */
-#define COIN_BCPS_VERBOSITY 0
-
-/* Define to 1 if the ALPS package is used */
-#define COIN_HAS_ALPS 1
-
-/* Define to 1 if the BiCePS package is used */
-#define COIN_HAS_BCPS 1
-
-/* Define to 1 if the CoinUtils package is used */
-#define COIN_HAS_COINUTILS 1
-
-/* Define to 1 if the Clp package is used */
-#define COIN_HAS_CLP 1
-
-/* Define to 1 if readline is available */
-/* #undef COIN_HAS_READLINE */
+#ifdef ALPS_BUILD
+#include "config_default.h"
+#else
+#include "config_bcps_default.h"
+#endif
 
 #endif /* HAVE_CONFIG_H */
 
-#endif /*__HAVE_COINUTILS_CONFIG_H__*/
+#endif /*__BCPSCONFIG_H__*/

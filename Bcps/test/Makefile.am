@@ -1,7 +1,7 @@
 #==========================================================================#
 # This file is part of the Abstract Library for Parallel Search (ALPS).    #
 #                                                                          #
-# ALPS is distributed under the Common Public License as part of the       #
+# ALPS is distributed under the Eclipse Public License as part of the      #
 # COIN-OR repository (http://www.coin-or.org).                             #
 #                                                                          #
 # Authors:                                                                 #
@@ -17,13 +17,13 @@
 #          Matthew Saltzman, Clemson University                            #
 #                                                                          #
 #                                                                          #
-# Copyright (C) 2001-2010, Lehigh University, Yan Xu, and Ted Ralphs.      #
+# Copyright (C) 2001-2011, Lehigh University, Yan Xu, and Ted Ralphs.      #
 # All Rights Reserved.                                                     #
 #==========================================================================#
 
 ## $Id: Makefile.am 507 2006-06-03 03:20:16Z andreasw $
 
-# Author:  Andreas Waechter           IBM    2006-04-13
+# Author:  Yan Xu Lehigh
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -58,50 +58,18 @@ nodist_unitTest_SOURCES = \
 	BlisVariable.h 
 
 # List libraries of COIN projects
-unitTest_LDADD = \
-	../src/libBcps.la \
-	$(ALPSOBJDIR)/src/libAlps.la \
-	$(CGLOBJDIR)/src/libCgl.la \
-	$(OSIOBJDIR)/src/OsiClp/libOsiClp.la \
-	$(OSIOBJDIR)/src/libOsi.la \
-	$(CLPOBJDIR)/src/libClp.la \
-	$(COINUTILSOBJDIR)/src/libCoinUtils.la
-
-# List additional libraries
-LIBS += $(ADDLIBS) \
-	`cat $(ALPSOBJDIR)/alps_addlibs.txt` \
-	`cat $(CGLOBJDIR)/cgl_addlibs.txt` \
-	`cat $(OSIOBJDIR)/osi_addlibs.txt` \
-	`cat $(CLPOBJDIR)/clp_addlibs.txt` \
-	`cat $(COINUTILSOBJDIR)/coinutils_addlibs.txt`
+unitTest_LDADD = ../src/libBcps.la $(ABC_LIBS) $(BCPSLIB_LIBS)
+unitTest_DEPENDENCIES = ../src/libBcps.la $(ABC_DEPENDENCIES) $(ALPSLIB_DEPENDENCIES)
 
 # Here list all include flags, relative to this "srcdir" directory.  This
 # "cygpath" stuff is necessary to compile with native compilers on Cygwin
-AM_CPPFLAGS = \
-	-I`$(CYGPATH_W) $(ALPSSRCDIR)/src` \
-	-I`$(CYGPATH_W) $(ALPSOBJDIR)/inc` \
-	-I`$(CYGPATH_W) $(BCPSSRCDIR)/src` \
-	-I`$(CYGPATH_W) $(BCPSOBJDIR)/inc` \
-	-I`$(CYGPATH_W) $(CGLSRCDIR)/src` \
-	-I`$(CYGPATH_W) $(CGLSRCDIR)/src/CglClique` \
-	-I`$(CYGPATH_W) $(CGLSRCDIR)/src/CglFlowCover` \
-	-I`$(CYGPATH_W) $(CGLSRCDIR)/src/CglGomory` \
-	-I`$(CYGPATH_W) $(CGLSRCDIR)/src/CglKnapsackCover` \
-	-I`$(CYGPATH_W) $(CGLSRCDIR)/src/CglMixedIntegerRounding` \
-	-I`$(CYGPATH_W) $(CGLSRCDIR)/src/CglMixedIntegerRounding2` \
-	-I`$(CYGPATH_W) $(CGLSRCDIR)/src/CglOddHole` \
-	-I`$(CYGPATH_W) $(CGLSRCDIR)/src/CglProbing` \
-	-I`$(CYGPATH_W) $(CGLSRCDIR)/src/CglTwomir` \
-	-I`$(CYGPATH_W) $(OSISRCDIR)/src` \
-	-I`$(CYGPATH_W) $(OSISRCDIR)/src/OsiClp` \
-	-I`$(CYGPATH_W) $(CLPSRCDIR)/src` \
-	-I`$(CYGPATH_W) $(CLPOBJDIR)/inc` \
-        -I`$(CYGPATH_W) $(COINUTILSSRCDIR)/src` \
-        -I`$(CYGPATH_W) $(COINUTILSOBJDIR)/inc`
+AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/../src` \
+        $(ABC_CFLAGS) \
+        $(BCPSLIB_CFLAGS)
 
 # This line is necessary to allow VPATH compilation with MS compilers
 # on Cygwin
-DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)` -I$(top_builddir)/inc
+DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)` 
 
 test: unitTest$(EXEEXT)
 	./unitTest$(EXEEXT) -Alps_instance ./flugpl.mps
