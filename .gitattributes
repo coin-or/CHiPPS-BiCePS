@@ -63,7 +63,6 @@ Bcps/examples/Blis/data/gen.mps -text
 Bcps/examples/Blis/data/knap1.mps -text
 Bcps/examples/Blis/data/knap2.mps -text
 Bcps/examples/Blis/data/knap3.mps -text
-Bcps/inc/config_bcps.h.in -text
 Bcps/src/Bcps.h -text
 Bcps/src/BcpsBranchObject.cpp -text
 Bcps/src/BcpsBranchObject.h -text
@@ -89,6 +88,10 @@ Bcps/src/BcpsTreeNode.cpp -text
 Bcps/src/BcpsTreeNode.h -text
 Bcps/src/Makefile.am -text
 Bcps/src/Makefile.in -text
+Bcps/src/config.h.in -text
+Bcps/src/config_bcps.h.in -text
+Bcps/src/config_bcps_default.h -text
+Bcps/src/config_default.h -text
 Bcps/test/Makefile.am -text
 Bcps/test/Makefile.in -text
 /Dependencies -text

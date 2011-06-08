@@ -1,4 +1,19 @@
-/* inc/config_bcps.h.in.  Generated from configure.ac by autoheader.  */
+/* src/config.h.in.  Generated from configure.ac by autoheader.  */
+
+/* SVN revision number of project */
+#undef BCPS_SVN_REV
+
+/* Version number of project */
+#undef BCPS_VERSION
+
+/* Major Version number of project */
+#undef BCPS_VERSION_MAJOR
+
+/* Minor Version number of project */
+#undef BCPS_VERSION_MINOR
+
+/* Release Version number of project */
+#undef BCPS_VERSION_RELEASE
 
 /* Define to the debug sanity check level (0 is no test) */
 #undef COIN_BCPS_CHECKLEVEL
@@ -6,26 +21,11 @@
 /* Define to the debug verbosity level (0 is no output) */
 #undef COIN_BCPS_VERBOSITY
 
-/* Define to 1 if the Alps package is used */
-#undef COIN_HAS_ALPS
-
-/* Define to 1 if the Bcps package is used */
-#undef COIN_HAS_BCPS
-
-/* Define to 1 if the Cgl package is used */
-#undef COIN_HAS_CGL
-
-/* Define to 1 if the Clp package is used */
+/* Define to 1 if the Clp package is available */
 #undef COIN_HAS_CLP
 
-/* Define to 1 if the CoinUtils package is used */
-#undef COIN_HAS_COINUTILS
-
-/* Define to 1 if the Mpi package is available */
-#undef COIN_HAS_MPI
-
-/* Define to 1 if the Osi package is used */
-#undef COIN_HAS_OSI
+/* Define to 1 if the CoinDepend package is available */
+#undef COIN_HAS_COINDEPEND
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
