@@ -21253,7 +21253,7 @@ fi
 
 
 
-if test $coinhas_alps != yes ; then
+if test $coin_has_alps != yes ; then
   { { echo "$as_me:$LINENO: error: Required package Alps not available." >&5
 echo "$as_me: error: Required package Alps not available." >&2;}
    { (exit 1); exit 1; }; }

@@ -82,7 +82,7 @@ AC_COIN_INIT_AUTO_TOOLS
 #############################################################################
 
 AC_COIN_CHECK_PACKAGE(Alps, [alps], [BcpsLib])
-if test $coinhas_alps != yes ; then
+if test $coin_has_alps != yes ; then
   AC_MSG_ERROR([Required package Alps not available.])
 fi
 AC_COIN_CHECK_PACKAGE(Clp, [cgl osi-clp], [Abc])

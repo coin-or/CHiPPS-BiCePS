@@ -38,6 +38,7 @@
 #==========================================================================#
 
 # Author:  Yan Xu Lehigh
+#          Yan Xu                     Lehigh    2006-08-27
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
