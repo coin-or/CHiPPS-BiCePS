@@ -17,7 +17,6 @@
  *          Matthew Saltzman, Clemson University                             *
  *                                                                           * 
  *                                                                           *
- * Copyright (C) 2001-2005, International Business Machines                  *
  * Corporation, Lehigh University, Yan Xu, Ted Ralphs, Matthew Salzman and   *
  * others. All Rights Reserved.                                              *
  *===========================================================================*/

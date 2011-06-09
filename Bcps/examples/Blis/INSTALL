@@ -1,12 +1,12 @@
 TO BUILD AND RUN SERIAL BLIS (UNIX-LIKE ENVIRONMENTS)
 =====================================================
 
-1. Download and build the BiCePS serial library version 0.9. Please refer to
+1. Download and build the BiCePS serial library version 0.92. Please refer to
 the INSTALL file in the installation directory for instructions.
 
 2. In BUILDDIR/Bcps/examples/Blis, type 'make' to build the executable.
 
-3. Modify parameters if desired. Bcps-0.9/Alps/include/AlpsParams.h has
+3. Modify parameters if desired. Bcps-0.92/Alps/include/AlpsParams.h has
 explanations of each parameter. There are two ways to specify parameters:
    - parameter file: blis.par
    - command line
@@ -29,12 +29,12 @@ The users can specify:
 TO BUILD AND RUN PARALLEL BLIS (UNIX_LIKE ENVIRONMENTS)
 ======================================================
 
-1. Download and build BiCePS parallel library version 0.9. Please refer to the
+1. Download and build BiCePS parallel library version 0.92. Please refer to the
 INSTALL file in the installation directory.
 
 2. In BUILDDIR/Bcps/examples/Blis, type 'make' to build the executable.
 
-3. Modify parameters if desired. Bcps-0.9/Alps/include/AlpsParams.h has
+3. Modify parameters if desired. Bcps-0.92/Alps/include/AlpsParams.h has
 explanations of each parameter. There are two ways to specify parameters:
    - parameter file: blis.par
    - command line
