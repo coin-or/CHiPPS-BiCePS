@@ -23,9 +23,6 @@
 
 ## $Id: Makefile.am 507 2006-06-03 03:20:16Z andreasw $
 
-# Author:  Yan Xu Lehigh
-#          Yan Xu                     Lehigh    2006-08-27
-
 AUTOMAKE_OPTIONS = foreign
 
 ########################################################################
