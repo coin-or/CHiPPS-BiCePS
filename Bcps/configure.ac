@@ -1,7 +1,7 @@
 #==========================================================================#
 # This file is part of the Branch, Constrain and Price Software (BiCePS).  #
 #                                                                          #
-# BiCePS is distributed under the Common Public License as part of the     #
+# BiCePS is distributed under the Eclipse Public License as part of the    #
 # COIN-OR repository (http://www.coin-or.org).                             #
 #                                                                          #
 # Authors:                                                                 #
@@ -32,10 +32,29 @@ AC_PREREQ(2.59)
 AC_INIT([Bcps],[0.9],[https://projects.coin-or.org/Alps/newticket])
 
 AC_COPYRIGHT([
-Copyright 2006 International Business Machines and others.
-All Rights Reserved.
-This file is part of the open source package Coin which is distributed
-under the Common Public License.])
+#==========================================================================#
+# This file is part of the Branch, Constrain and Price Software (BiCePS).  #
+#                                                                          #
+# BiCePS is distributed under the Eclipse Public License as part of the    #
+# COIN-OR repository (http://www.coin-or.org).                             #
+#                                                                          #
+# Authors:                                                                 #
+#                                                                          #
+#          Yan Xu, Lehigh University                                       #
+#          Ted Ralphs, Lehigh University                                   #
+#                                                                          #
+# Conceptual Design:                                                       #
+#                                                                          #
+#          Yan Xu, Lehigh University                                       #
+#          Ted Ralphs, Lehigh University                                   #
+#          Laszlo Ladanyi, IBM T.J. Watson Research Center                 #
+#          Matthew Saltzman, Clemson University                            #
+#                                                                          #
+#                                                                          #
+# Copyright (C) 2001-2011, Lehigh University, Yan Xu, and Ted Ralphs.      #
+# All Rights Reserved.                                                     #
+#==========================================================================#
+])
 
 # List one file in the package so that the configure script can test
 # whether the package is actually there

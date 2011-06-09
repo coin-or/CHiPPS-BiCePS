@@ -1,7 +1,7 @@
 /*===========================================================================*
  * This file is part of the Bcps Linear Solver (BLIS).                       *
  *                                                                           *
- * BLIS is distributed under the Common Public License as part of the        *
+ * BLIS is distributed under the Eclipse Public License as part of the       *
  * COIN-OR repository (http://www.coin-or.org).                              *
  *                                                                           *
  * Authors:                                                                  *

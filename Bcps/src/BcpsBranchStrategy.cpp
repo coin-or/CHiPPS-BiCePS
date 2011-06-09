@@ -1,7 +1,7 @@
 /*===========================================================================*
  * This file is part of the Branch, Constrain and Price Software (BiCePS)    *
  *                                                                           *
- * BiCePS is distributed under the Common Public License as part of the      *
+ * BiCePS is distributed under the Eclipse Public License as part of the     *
  * COIN-OR repository (http://www.coin-or.org).                              *
  *                                                                           *
  * Authors:                                                                  *
