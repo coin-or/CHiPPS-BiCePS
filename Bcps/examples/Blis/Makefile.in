@@ -91,7 +91,7 @@ ifeq ($(COIN_HAS_PKGCONFIG), TRUE)
   LIBS = `PKG_CONFIG_PATH=@COIN_PKG_CONFIG_PATH@ @PKG_CONFIG@ --libs bcps cgl osi-clp`
 else
   ifeq ($(COIN_CXX_IS_CL), TRUE)
-    LIBS = /link /libpath:`$(CYGPATH_W) @abs_lib_dir@` libBcps.lib @ABCLIBS_INSTALLED@ @BCPSLIB_LIBS_INSTALLED@
+    LIBS = -link -libpath:`$(CYGPATH_W) @abs_lib_dir@` libBcps.lib @ABCLIBS_INSTALLED@ @BCPSLIB_LIBS_INSTALLED@
   else
     LIBS = -L@abs_lib_dir@ -lBcps @ABC_LIBS_INSTALLED@ @BCPSLIB_LIBS_INSTALLED@
   endif
