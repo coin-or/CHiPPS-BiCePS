@@ -99,7 +99,7 @@ BlisBranchStrategyPseudo::betterBranchObject(BcpsBranchObject * thisOne,
 
 /** Create a set of candidate branching objects. */
 int 
-BlisBranchStrategyPseudo::createCandBranchObjects(int numPassesLeft)
+BlisBranchStrategyPseudo::createCandBranchObjects(int numPassesLeft, double ub)
 {
     int bStatus = 0;
     int i, pass, colInd;
