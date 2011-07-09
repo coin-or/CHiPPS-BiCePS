@@ -26,13 +26,13 @@
 /***************************************************************************/
 
 /* Version number of project */
-#undef BCPS_VERSION "trunk"
+#undef BCPS_VERSION       "0.92"
 
 /* Major Version number of project */
-#undef BCPS_VERSION_MAJOR   9999
+#undef BCPS_VERSION_MAJOR      0
 
 /* Minor Version number of project */
-#undef BCPS_VERSION_MINOR   9999
+#undef BCPS_VERSION_MINOR     92
 
 /* Release Version number of project */
 #undef BCPS_VERSION_RELEASE 9999
