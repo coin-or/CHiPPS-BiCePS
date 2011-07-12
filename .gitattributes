@@ -1,6 +1,7 @@
 * text=auto !eol
 Bcps/AUTHORS -text
 Bcps/LICENSE -text
+Bcps/MSVisualStudio/v10/libBcps.vcxproj -text
 Bcps/MSVisualStudio/v8/libBcps.vcproj -text
 Bcps/MSVisualStudio/v9/libBcps.vcproj -text
 Bcps/Makefile.am -text
@@ -49,6 +50,9 @@ Bcps/examples/Blis/BlisTreeNode.h -text
 Bcps/examples/Blis/BlisVariable.h -text
 Bcps/examples/Blis/INSTALL -text
 Bcps/examples/Blis/LICENSE -text
+Bcps/examples/Blis/MSVisualStudio/v10/Blis.sln -text
+Bcps/examples/Blis/MSVisualStudio/v10/Blis.suo -text
+Bcps/examples/Blis/MSVisualStudio/v10/Blis.vcxproj -text
 Bcps/examples/Blis/MSVisualStudio/v8/Blis.sln -text
 Bcps/examples/Blis/MSVisualStudio/v8/Blis.suo -text
 Bcps/examples/Blis/MSVisualStudio/v8/Blis.vcproj -text
