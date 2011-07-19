@@ -1,21 +1,38 @@
 
+These are quick install instructions mainly intended for UNIX-like systems
+(including Linux, OS X, AIX, Cygwin and MSys). Additional details for building
+this and other COIN projects are available at
+
+  https://projects.coin-or.org/BuildTools
+
+You can find instructions for building with Microsoft Visual Studio under
+Windows at
+
+  https://projects.coin-or.org/MSVisualStudio
+
 **********************************************************************
 ***                         DOWNLOAD                               ***
 **********************************************************************
 
-You can obtain the source code for BiCePS in two ways:
+Pre-built binaries are available for some versions of BiCePS on some
+platforms. They can be downloaded at
+
+  http://www.coin-or.org/download/binary/Bcps
+
+If you would like to build from source, you can obtain the source code for
+BiCePS in two ways:
 
 1. Obtain the source directly from the COIN-OR subversion repository
    (recommended). For this, you need a subversion client installed. For a
    command-line client, check out the code with
 
-   svn co https://projects.coin-or.org/svn/CHiPPS/Bcps/stable/0.9 Bcps-0.9
+   svn co https://projects.coin-or.org/svn/CHiPPS/Bcps/stable/0.92 Bcps-0.92
 
 2. Download the source in a compressed file from from
    http://www.coin-or.org/download/source/CHiPPS and
    extract it, for example, with
 
-   tar -xzvf Bcps-0.9.0.tgz
+   tar -xzvf Bcps-0.92.0.tgz
 
    More detailed download instructions can be found at
 
