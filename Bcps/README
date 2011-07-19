@@ -1,5 +1,5 @@
-BiCePS Version 0.91 README
-=======================
+BiCePS Version 0.92 README
+==========================
 
 Welcome to BiCePS. BiCePS is distributed under the Common Public License
 Version 1.0 and is freely redistributable. All source code and documentation
@@ -7,7 +7,7 @@ is Copyright 2001-2009 by Lehigh University, Yan Xu, and Ted Ralphs. This
 README may be distributed freely.
 
 WHAT IS BiCePS?
-=============
+===============
 
 BiCePS is one of the libraries that make up the CHiPPS (COIN High Performance
 Parallel Search Framework) library hierarchy. It implements that data-handling
@@ -56,7 +56,7 @@ Matt Saltzman (mjs@clemson.edu)
 
 2. List Serve
 
-CHiPPS users should use the Coin-Discuss mailing list. To subscribe, go to 
+CHiPPS users should use the CHiPPS mailing list. To subscribe, go to 
 http://list.coin-or.org/mailman/listinfo/chipps
 
 3. Bug Reports

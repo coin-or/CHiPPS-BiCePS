@@ -29,7 +29,7 @@ You can obtain the source code for BiCePS in two ways:
 ----------------
 
 Switch to the directory in which you just downloaded or extracted the source
-(e.g., Bcps-0.9) and execute the following commands:
+(e.g., Bcps-0.92) and execute the following commands:
 
   1) ./configure
   2) make
@@ -42,7 +42,7 @@ Switch to the directory in which you just downloaded or extracted the source
 For configuration and and compilation of the MPI parallel solver, the user has
 to specify the location of MPI with options --with-mpi-incdir, --with-mpi-lib,
 MPICC, and MPICXX. Switch to the directory that you just downloaded or
-extracted (e.g., Bcps-0.9) and execute the following commands (substituting the
+extracted (e.g., Bcps-0.92) and execute the following commands (substituting the
 correct paths and command names).
 
   1) ./configure --enable-debug --with-mpi-incdir=/usr/local/mpich/include
@@ -57,7 +57,7 @@ Please visit
 
    https://projects.coin-or.org/BuildTools
 
-and the COPS Trac page
+and the CHiPPS Trac page
 
    https://projects.coin-or.org/CHiPPS
 
