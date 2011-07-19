@@ -1,13 +1,13 @@
-BiCePS Version 0.91 README
-=======================
+BiCePS Version 0.92 README
+==========================
 
-Welcome to BiCePS. BiCePS is distributed under the Common Public License
-Version 1.0 and is freely redistributable. All source code and documentation
-is Copyright 2001-2009 by Lehigh University, Yan Xu, and Ted Ralphs. This
-README may be distributed freely.
+Welcome to BiCePS. BiCePS is distributed under the Eclipse Public License and
+is freely redistributable. All source code and documentation is Copyright
+2001-2011 by Lehigh University, Yan Xu, and Ted Ralphs. This README may be
+distributed freely.
 
 WHAT IS BiCePS?
-=============
+===============
 
 BiCePS is one of the libraries that make up the CHiPPS (COIN High Performance
 Parallel Search Framework) library hierarchy. It implements that data-handling
@@ -17,7 +17,7 @@ is intended to capture the implementation of methods common to all such
 algorithms without assuming anything about the structure of the mathematical
 program or the bounding method used. BLIS, which is another layer built on top
 of BiCePS, is a concretization of Bcps for the case of mixed integer linear
-programs. DECOMP is another implementation being developed using BLIS that
+programs. DIP is another implementation being developed using BLIS that
 implements a decomposition-based bounding procedure.
 
 PROJECT WEB PAGE
@@ -56,7 +56,7 @@ Matt Saltzman (mjs@clemson.edu)
 
 2. List Serve
 
-CHiPPS users should use the Coin-Discuss mailing list. To subscribe, go to 
+BiCePS users should use the CHiPPS mailing list. To subscribe, go to 
 http://list.coin-or.org/mailman/listinfo/chipps
 
 3. Bug Reports
