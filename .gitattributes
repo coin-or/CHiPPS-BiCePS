@@ -2,7 +2,6 @@
 Bcps/AUTHORS -text
 Bcps/LICENSE -text
 Bcps/MSVisualStudio/v10/libBcps.vcxproj -text
-Bcps/MSVisualStudio/v8/libBcps.vcproj -text
 Bcps/MSVisualStudio/v9/libBcps.vcproj -text
 Bcps/Makefile.am -text
 Bcps/Makefile.in -text
