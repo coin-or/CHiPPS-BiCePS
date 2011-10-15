@@ -52,7 +52,3 @@
 
 /* Define to 1 if the Mpi package is used */
 /* #define COIN_HAS_MPI 1 */
-
-/* Define to 1 if readline is available */
-/* #undef COIN_HAS_READLINE */
-

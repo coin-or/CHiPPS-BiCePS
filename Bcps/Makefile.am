@@ -133,7 +133,7 @@ if COIN_HAS_PKGCONFIG
 	$(PKG_CONFIG) --libs bcps > $(addlibsdir)/bcps_addlibs.txt
 else
 if COIN_CXX_IS_CL
-	echo "-libpath:`$(CYGPATH_W) @abs_lib_dir@` libBcps.lib @BCPSLIB_LIBS_INSTALLED@" > $(addlibsdir)/bcps_addlibs_cpp.txt
+	echo "-libpath:`$(CYGPATH_W) @abs_lib_dir@` libBcps.lib @BCPSLIB_LIBS_INSTALLED@" > $(addlibsdir)/bcps_addlibs.txt
 else
 	echo -L@abs_lib_dir@ -lBcps @BCPSLIB_LIBS_INSTALLED@ > $(addlibsdir)/bcps_addlibs.txt
 endif
