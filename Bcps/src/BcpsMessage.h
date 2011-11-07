@@ -37,7 +37,6 @@
 
 enum BCPS_Message
 {
-    BCPS_S_VERSION,
     BCPS_DUMMY_END
 };
 
