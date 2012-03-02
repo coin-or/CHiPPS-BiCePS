@@ -26,14 +26,14 @@
 /***************************************************************************/
 
 /* Version number of project */
-#undef BCPS_VERSION "trunk"
+#define BCPS_VERSION "trunk"
 
 /* Major Version number of project */
-#undef BCPS_VERSION_MAJOR   9999
+#define BCPS_VERSION_MAJOR   9999
 
 /* Minor Version number of project */
-#undef BCPS_VERSION_MINOR   9999
+#define BCPS_VERSION_MINOR   9999
 
 /* Release Version number of project */
-#undef BCPS_VERSION_RELEASE 9999
+#define BCPS_VERSION_RELEASE 9999
 
