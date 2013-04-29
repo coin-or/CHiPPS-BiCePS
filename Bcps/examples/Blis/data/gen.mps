@@ -255,7 +255,7 @@ ROWS
  L  SEGS1241
  L  SEGS1242
  L  SEGS1243
- L  SEGS2011
+ L  SEGS2013
  L  SEGS2012
  L  SEGS2013
  L  SEGS2021
@@ -917,7 +917,7 @@ COLUMNS
     XON.1.24  SEGS1243           -10   REST24..            45
     XON.1.24  SCOST1..             1   STAR1124            -1
     XON.2.01  COST....    143.265793   POWIT201           -15
-    XON.2.01  SEGS2011           -10   SEGS2012           -10
+    XON.2.01  SEGS2013           -10   SEGS2012           -10
     XON.2.01  SEGS2013           -10   REST01..            45
     XON.2.01  SCOST2..             1   STAR1202             1
     XON.2.01  STAR2201            -1
@@ -1953,7 +1953,7 @@ COLUMNS
     ZS.1.243  COST....       9.89818   POWIT124            -1
     ZS.1.243  SEGS1243             1
     ZS.2.011  COST....       8.56556   POWIT201            -1
-    ZS.2.011  SEGS2011             1
+    ZS.2.011  SEGS2013             1
     ZS.2.012  COST....       9.64712   POWIT201            -1
     ZS.2.012  SEGS2012             1
     ZS.2.013  COST....       9.10634   POWIT201            -1
