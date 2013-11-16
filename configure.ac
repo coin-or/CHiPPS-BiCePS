@@ -29,7 +29,7 @@
 
 AC_PREREQ(2.59)
 
-AC_INIT([Bcps],[0.93.3],[https://projects.coin-or.org/Alps/newticket])
+AC_INIT([Bcps],[0.93.7],[https://projects.coin-or.org/Alps/newticket])
 
 AC_COPYRIGHT([
 #==========================================================================#
