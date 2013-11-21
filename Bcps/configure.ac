@@ -29,7 +29,7 @@
 
 AC_PREREQ(2.59)
 
-AC_INIT([Bcps],[0.93.3],[https://projects.coin-or.org/Alps/newticket])
+AC_INIT([Bcps],[0.93.8],[https://projects.coin-or.org/Alps/newticket])
 
 AC_COPYRIGHT([
 #==========================================================================#
@@ -77,7 +77,7 @@ AC_CANONICAL_BUILD
 # the source root directory contains definition of where to find those
 # externals.  The following macro ensures that those externals are
 # retrieved by svn if they are not there yet.
-AC_COIN_PROJECTDIR_INIT(Bcps,7:3:6)
+AC_COIN_PROJECTDIR_INIT(Bcps,7:3:6,7:8:6)
 
 # Check if user wants to produce debugging code
 AC_COIN_DEBUG_COMPILE(Bcps)
