@@ -49,6 +49,11 @@ libBcps_la_SOURCES = \
 	BcpsSubTree.h BcpsTreeNode.cpp \
 	BcpsTreeNode.h
 
+# List all additionally required libraries
+if DEPENDENCY_LINKING
+libBcps_la_LIBADD = $(BCPSLIB_LIBS)
+endif
+
 # This is for libtool (on Windows)
 libBcps_la_LDFLAGS = $(LT_LDFLAGS)
 
