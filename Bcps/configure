@@ -21800,6 +21800,9 @@ fi
                                                                       ac_config_files="$ac_config_files Makefile examples/Blis/Makefile examples/Blis/blis.par src/Makefile test/Makefile bcps.pc bcps-uninstalled.pc"
 
 
+          ac_config_files="$ac_config_files doxydoc/doxygen.conf"
+
+
 # Here put the location and name of the configuration header file
                     ac_config_headers="$ac_config_headers src/config.h src/config_bcps.h"
 
@@ -22510,6 +22513,7 @@ do
   "test/Makefile" ) CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
   "bcps.pc" ) CONFIG_FILES="$CONFIG_FILES bcps.pc" ;;
   "bcps-uninstalled.pc" ) CONFIG_FILES="$CONFIG_FILES bcps-uninstalled.pc" ;;
+  "doxydoc/doxygen.conf" ) CONFIG_FILES="$CONFIG_FILES doxydoc/doxygen.conf" ;;
   "test/BlisBranchObjectInt.cpp" ) CONFIG_LINKS="$CONFIG_LINKS test/BlisBranchObjectInt.cpp:examples/Blis/BlisBranchObjectInt.cpp" ;;
   "test/BlisBranchObjectInt.h" ) CONFIG_LINKS="$CONFIG_LINKS test/BlisBranchObjectInt.h:examples/Blis/BlisBranchObjectInt.h" ;;
   "test/BlisBranchStrategyPseudo.cpp" ) CONFIG_LINKS="$CONFIG_LINKS test/BlisBranchStrategyPseudo.cpp:examples/Blis/BlisBranchStrategyPseudo.cpp" ;;
