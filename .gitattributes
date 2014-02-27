@@ -10,6 +10,7 @@ Bcps/bcps-uninstalled.pc.in -text
 Bcps/bcps.pc.in -text
 Bcps/configure -text
 Bcps/configure.ac -text
+Bcps/doxydoc/doxygen.conf.in -text
 Bcps/examples/Blis/AUTHORS -text
 Bcps/examples/Blis/Blis.h -text
 Bcps/examples/Blis/BlisBranchObjectInt.cpp -text
