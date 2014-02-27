@@ -83,6 +83,7 @@ DIST_COMMON = README $(am__configure_deps) $(srcdir)/../config.guess \
 	$(srcdir)/BuildTools/Makemain.inc $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/bcps-uninstalled.pc.in \
 	$(srcdir)/bcps.pc.in $(top_srcdir)/configure \
+	$(top_srcdir)/doxydoc/doxygen.conf.in \
 	$(top_srcdir)/examples/Blis/Blis.h \
 	$(top_srcdir)/examples/Blis/BlisBranchObjectInt.cpp \
 	$(top_srcdir)/examples/Blis/BlisBranchObjectInt.h \
@@ -136,7 +137,7 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/src/config.h \
 	$(top_builddir)/src/config_bcps.h
 CONFIG_CLEAN_FILES = examples/Blis/Makefile examples/Blis/blis.par \
-	bcps.pc bcps-uninstalled.pc
+	bcps.pc bcps-uninstalled.pc doxydoc/doxygen.conf
 SOURCES =
 DIST_SOURCES =
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
@@ -448,6 +449,8 @@ bcps.pc: $(top_builddir)/config.status $(srcdir)/bcps.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 bcps-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/bcps-uninstalled.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
+doxydoc/doxygen.conf: $(top_builddir)/config.status $(top_srcdir)/doxydoc/doxygen.conf.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -611,7 +614,7 @@ distclean-tags:
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkdir_p) $(distdir)/. $(distdir)/.. $(distdir)/BuildTools $(distdir)/examples/Blis $(distdir)/examples/Blis/data
+	$(mkdir_p) $(distdir)/. $(distdir)/.. $(distdir)/BuildTools $(distdir)/doxydoc $(distdir)/examples/Blis $(distdir)/examples/Blis/data
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \
