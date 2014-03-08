@@ -8,8 +8,11 @@ Bcps/Makefile.in -text
 Bcps/README -text
 Bcps/bcps-uninstalled.pc.in -text
 Bcps/bcps.pc.in -text
+Bcps/config.guess -text
+Bcps/config.sub -text
 Bcps/configure -text
 Bcps/configure.ac -text
+Bcps/depcomp -text
 Bcps/doxydoc/doxygen.conf.in -text
 Bcps/examples/Blis/AUTHORS -text
 Bcps/examples/Blis/Blis.h -text
@@ -68,6 +71,9 @@ Bcps/examples/Blis/data/gen.mps -text
 Bcps/examples/Blis/data/knap1.mps -text
 Bcps/examples/Blis/data/knap2.mps -text
 Bcps/examples/Blis/data/knap3.mps -text
+Bcps/install-sh -text
+Bcps/ltmain.sh -text
+Bcps/missing -text
 Bcps/src/Bcps.h -text
 Bcps/src/BcpsBranchObject.cpp -text
 Bcps/src/BcpsBranchObject.h -text
