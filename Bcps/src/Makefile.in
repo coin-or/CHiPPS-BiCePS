@@ -88,7 +88,7 @@ am_libBcps_la_OBJECTS = BcpsBranchObject.lo BcpsBranchStrategy.lo \
 	BcpsMessage.lo BcpsModel.lo BcpsNodeDesc.lo BcpsObject.lo \
 	BcpsSolution.lo BcpsSubTree.lo BcpsTreeNode.lo
 libBcps_la_OBJECTS = $(am_libBcps_la_OBJECTS)
-depcomp = $(SHELL) $(top_srcdir)/../depcomp
+depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
