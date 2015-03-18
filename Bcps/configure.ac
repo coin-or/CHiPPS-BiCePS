@@ -157,6 +157,12 @@ AC_CONFIG_LINKS(test/BlisBranchObjectInt.cpp:examples/Blis/BlisBranchObjectInt.c
 #AC_COIN_VPATH_LINK(examples/Blis/blis.par)
 #AC_COIN_VPATH_LINK(examples/input.130)
 
+#############################################################################
+#                  Check for doxygen                                        #
+#############################################################################
+
+AC_COIN_DOXYGEN(CoinUtils Alps)
+
 ##############################################################################
 #                   Finishing up by writing all the output                   #
 ##############################################################################
