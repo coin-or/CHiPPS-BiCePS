@@ -1,4 +1,5 @@
 * text=auto !eol
+/.travis.yml -text
 Bcps/AUTHORS -text
 Bcps/LICENSE -text
 Bcps/MSVisualStudio/v10/libBcps.vcxproj -text
