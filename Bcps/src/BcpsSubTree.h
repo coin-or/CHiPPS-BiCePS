@@ -36,7 +36,7 @@
     subtree. Initally, this will be implemeted as a std::set, but later on
     should be changed to something more efficient such as a hash table or
     something like that. */
-// *FIXME* : Implement hashing for object storage. 
+// *FIXME* : Implement hashing for object storage.
 //#############################################################################
 
 class BcpsSubTree : public virtual AlpsSubTree {
@@ -44,25 +44,25 @@ class BcpsSubTree : public virtual AlpsSubTree {
     /** This is the list of objects that exist in the subtree. */
     BcpsConstraintPool *constraintPool_;
     BcpsVariablePool *variablePool_;
-    
+
  public:
-    BcpsSubTree() 
+    BcpsSubTree()
         :
         constraintPool_(new BcpsConstraintPool),
         variablePool_(new BcpsVariablePool)
         {}
-    virtual ~BcpsSubTree() 
+    virtual ~BcpsSubTree()
         {
             delete constraintPool_;
             delete variablePool_;
         }
 
-    BcpsConstraintPool* getConstraintPool() const 
+    BcpsConstraintPool* getConstraintPool() const
         {
             return constraintPool_;
         }
-    
-    BcpsVariablePool* getVariablePool() const 
+
+    BcpsVariablePool* getVariablePool() const
         {
             return variablePool_;
         }

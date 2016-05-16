@@ -34,43 +34,42 @@
 //#############################################################################
 
 
-// Assignment operator 
-BcpsObject & 
+// Assignment operator
+BcpsObject &
 BcpsObject::operator = ( const BcpsObject& rhs)
 {
     if (this!=&rhs) {
         objectIndex_ = rhs.objectIndex_;
-	repType_ = rhs.repType_;
-	intType_ = rhs.intType_;
-	status_ = rhs.status_;
-	lbHard_ = rhs.lbHard_;
-	ubHard_ = rhs.ubHard_;
-	lbSoft_ = rhs.lbSoft_;
-	ubSoft_ = rhs.ubSoft_;
+        repType_ = rhs.repType_;
+        intType_ = rhs.intType_;
+        status_ = rhs.status_;
+        lbHard_ = rhs.lbHard_;
+        ubHard_ = rhs.ubHard_;
+        lbSoft_ = rhs.lbSoft_;
+        ubSoft_ = rhs.ubSoft_;
         hashValue_ = rhs.hashValue_;
-	numInactive_ = rhs.numInactive_;
+        numInactive_ = rhs.numInactive_;
     }
-    
+
     return *this;
 }
 
 //#############################################################################
 
 // Returns floor and ceiling i.e. closest valid points
-void 
-BcpsObject::floorCeiling(double & floorValue, 
-			 double & ceilingValue, 
-			 double value,
-			 double tolerance) const
+void
+BcpsObject::floorCeiling(double & floorValue,
+                         double & ceilingValue,
+                         double value,
+                         double tolerance) const
 {
     if (fabs(floor(value + 0.5) - value) > tolerance) {
-	floorValue = floor(value);
-    } 
+        floorValue = floor(value);
+    }
     else {
-	floorValue = floor(value + 0.5);
+        floorValue = floor(value + 0.5);
     }
     ceilingValue = floorValue + 1.0;
 }
 
 //#############################################################################
-

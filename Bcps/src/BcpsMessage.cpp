@@ -42,7 +42,7 @@ static Bcps_message us_english[]=
 //#############################################################################
 
 /* Constructor */
-BcpsMessage::BcpsMessage(Language language) 
+BcpsMessage::BcpsMessage(Language language)
     :
     CoinMessages(sizeof(us_english) / sizeof(Bcps_message))
 {
@@ -51,10 +51,10 @@ BcpsMessage::BcpsMessage(Language language)
     Bcps_message * message = us_english;
 
     while (message->internalNumber != BCPS_DUMMY_END) {
-	CoinOneMessage oneMessage(message->externalNumber, message->detail,
-				  message->message);
-	addMessage(message->internalNumber, oneMessage);
-	message++;
+        CoinOneMessage oneMessage(message->externalNumber, message->detail,
+                                  message->message);
+        addMessage(message->internalNumber, oneMessage);
+        message++;
     }
 
     // now override any language ones
@@ -62,15 +62,15 @@ BcpsMessage::BcpsMessage(Language language)
     switch (language) {
 
     default:
-	message = NULL;
-	break;
+        message = NULL;
+        break;
     }
 
     // replace if any found
     if (message) {
-	while (message->internalNumber != BCPS_DUMMY_END) {
-	    replaceMessage(message->internalNumber, message->message);
-	    message++;
-	}
+        while (message->internalNumber != BCPS_DUMMY_END) {
+            replaceMessage(message->internalNumber, message->message);
+            message++;
+        }
     }
 }

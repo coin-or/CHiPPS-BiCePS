@@ -43,13 +43,13 @@ enum BCPS_Message
 class BcpsMessage : public CoinMessages {
 
 public:
-    
+
     /**@name Constructors etc */
     //@{
     /** Constructor */
     BcpsMessage(Language language=us_en);
     //@}
-    
+
 };
 
 #endif

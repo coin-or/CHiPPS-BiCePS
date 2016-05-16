@@ -32,7 +32,7 @@
 
 //#############################################################################
 
-// Copy constructor 
+// Copy constructor
 BcpsBranchObject::BcpsBranchObject(const BcpsBranchObject &rhs)
 {
     model_ = rhs.model_;
@@ -44,20 +44,19 @@ BcpsBranchObject::BcpsBranchObject(const BcpsBranchObject &rhs)
 
 //#############################################################################
 
-// Assignment operator 
-BcpsBranchObject & 
+// Assignment operator
+BcpsBranchObject &
 BcpsBranchObject::operator = ( const BcpsBranchObject& rhs)
 {
     if (this != &rhs) {
-	model_ = rhs.model_;
-	objectIndex_ = rhs.objectIndex_;
-	direction_ = rhs.direction_;
-	value_ = rhs.value_;
-	numBranchesLeft_ = rhs.numBranchesLeft_;
+        model_ = rhs.model_;
+        objectIndex_ = rhs.objectIndex_;
+        direction_ = rhs.direction_;
+        value_ = rhs.value_;
+        numBranchesLeft_ = rhs.numBranchesLeft_;
     }
 
     return *this;
 }
 
 //#############################################################################
-

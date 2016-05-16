@@ -32,13 +32,13 @@ class BcpsInterface {
        search tree node before the node is processed. Also, logical fixing
        results can be returned in the last four parameters. This might be very
        useful if the branching implies significant tightening.<br>
-       Default: empty method. 
-       @param vars       (IN) The variables in the current formulation 
+       Default: empty method.
+       @param vars       (IN) The variables in the current formulation
        @param cuts       (IN) The cuts in the current formulation
        @param var_status (IN) The stati of the variables
        @param cut_status (IN) The stati of the cuts
        @param var_changed_pos (OUT) The positions of the variables whose
-	                            bounds should be tightened
+                                    bounds should be tightened
        @param var_new_bd      (OUT) The new lb/ub of those variables
        @param cut_changed_pos (OUT) The positions of the cuts whose bounds
        should be tightened
@@ -46,11 +46,11 @@ class BcpsInterface {
    */
    virtual void
    initialize_new_search_tree_node(const BcpsObject_p* objects,
-				   const BCP_vec<BCP_cut*>& cuts,
-				   const BCP_vec<BCP_obj_status>& var_status,
-				   const BCP_vec<BCP_obj_status>& cut_status,
-				   BCP_vec<int>& var_changed_pos,
-				   BCP_vec<double>& var_new_bd,
-				   BCP_vec<int>& cut_changed_pos,
-				   BCP_vec<double>& cut_new_bd);
+                                   const BCP_vec<BCP_cut*>& cuts,
+                                   const BCP_vec<BCP_obj_status>& var_status,
+                                   const BCP_vec<BCP_obj_status>& cut_status,
+                                   BCP_vec<int>& var_changed_pos,
+                                   BCP_vec<double>& var_new_bd,
+                                   BCP_vec<int>& cut_changed_pos,
+                                   BCP_vec<double>& cut_new_bd);
   /*@}*/

@@ -49,44 +49,44 @@ class BcpsModel : public AlpsModel {
 
 
     /** Number of core constraints. By default, all input constraints are
-        core. 
+        core.
     */
-    int numCoreConstraints_;   
+    int numCoreConstraints_;
 
     /** Number of core variables. By default, all input variables are core.*/
     int numCoreVariables_;
-    
+
     /** Message handler. */
     CoinMessageHandler * bcpsMessageHandler_;
 
     /** Bcps messages. */
     CoinMessages bcpsMessages_;
-    
+
  public:
 
-    BcpsModel() 
-        : 
-	numCoreConstraints_(0), 
-	numCoreVariables_(0)
+    BcpsModel()
+        :
+        numCoreConstraints_(0),
+        numCoreVariables_(0)
         {
-	    bcpsMessageHandler_ = new CoinMessageHandler();
-	    bcpsMessageHandler_->setLogLevel(2);
-	    bcpsMessages_ = BcpsMessage();
-	}
+            bcpsMessageHandler_ = new CoinMessageHandler();
+            bcpsMessageHandler_->setLogLevel(2);
+            bcpsMessages_ = BcpsMessage();
+        }
 
     virtual ~BcpsModel() {
         int i = 0;
         int size = static_cast<int> (constraints_.size());
         for (i = 0; i < size; ++i) {
-            delete constraints_[i]; 
+            delete constraints_[i];
         }
         size =  static_cast<int> (variables_.size());
         for (i = 0; i < size; ++i) {
             delete variables_[i];
         }
-	delete bcpsMessageHandler_;
+        delete bcpsMessageHandler_;
     }
-    
+
     /** Get variables and constraints */
     /**@{*/
     std::vector<BcpsConstraint *> & getConstraints() { return constraints_; }
@@ -95,22 +95,42 @@ class BcpsModel : public AlpsModel {
     int getNumCoreConstraints() const { return numCoreConstraints_; }
     int getNumCoreVariables() const { return numCoreVariables_; }
     /**@}*/
-    
+
     /** Set variables and constraints */
     /**@{*/
     void setConstraints(BcpsConstraint **con, int size) {
         for (int j = 0; j < size; ++j) {
             constraints_.push_back(con[j]);
         }
+        int numCons = getNumCoreConstraints();
+        setNumCoreConstraints(numCons+size);
     }
     void setNumCoreConstraints(int num) { numCoreConstraints_ = num; }
 
-    void setVariables(BcpsVariable **var, int size) { 
+    void setVariables(BcpsVariable **var, int size) {
         for (int j = 0; j < size; ++j) {
             variables_.push_back(var[j]);
         }
+        int numVars = getNumCoreVariables();
+        setNumCoreVariables(numVars+size);
     }
     void setNumCoreVariables(int num) { numCoreVariables_ = num; }
+    /**@}*/
+
+    /** Add variables and constraints */
+    /**@{*/
+    void addConstraint(BcpsConstraint *con, bool isCore = true) {
+        constraints_.push_back(con);
+        if (isCore) {
+            numCoreConstraints_++;
+        }
+    }
+    void addVariable(BcpsVariable *var, bool isCore = true) {
+        variables_.push_back(var);
+        if (isCore) {
+            numCoreVariables_++;
+        }
+    }
     /**@}*/
 
     /** Return list of variables. */
@@ -120,9 +140,9 @@ class BcpsModel : public AlpsModel {
     std::vector<BcpsConstraint *> getConstrints() const { return constraints_; }
 
     /** Get the message handler. */
-    CoinMessageHandler * bcpsMessageHandler() const 
+    CoinMessageHandler * bcpsMessageHandler() const
     { return bcpsMessageHandler_; }
-    
+
     /** Return messages. */
     CoinMessages bcpsMessages() { return bcpsMessages_; }
 
@@ -132,7 +152,7 @@ class BcpsModel : public AlpsModel {
 
     /** Unpack Bcps portion of model from an encoded object. */
     AlpsReturnStatus decodeBcps(AlpsEncoded &encoded);
-    
+
 };
 
 

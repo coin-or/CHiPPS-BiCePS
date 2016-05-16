@@ -37,10 +37,10 @@
     <code>std::vector<T></code> object. */
 
 template <class T> struct BcpsFieldListMod {
-    /** How the modification is stored, explicit means complete 
-	replacement, relative means relative to some other explicit 
-	object vector ("explicit" is a key word so we can't 
-	name the field that.) */
+    /** How the modification is stored, explicit means complete
+        replacement, relative means relative to some other explicit
+        object vector ("explicit" is a key word so we can't
+        name the field that.) */
     bool relative;
 
     /** The number of entries to be modified. */
@@ -48,7 +48,7 @@ template <class T> struct BcpsFieldListMod {
 
     /** The positions to be modified. */
     int* posModify;
-    
+
     /** Values*/
     T*   entries;
 };
@@ -56,7 +56,7 @@ template <class T> struct BcpsFieldListMod {
 
 //#############################################################################
 
-    
+
 /** Here is the set of <code>vectorMod_</code> objects that represent the
     list of objects of a particular type (either in relative or explicit
     form). If <code>numRemove</code> is positive, then
@@ -65,20 +65,20 @@ template <class T> struct BcpsFieldListMod {
 
 struct BcpsObjectListMod {
 
-    /** The number of entries to be deleted. If this is -1, then all 
-	objects should be deleted, i.e., we have an explicit list. */
+    /** The number of entries to be deleted. If this is -1, then all
+        objects should be deleted, i.e., we have an explicit list. */
     int  numRemove;
 
     /** The positions of the entries to be deleted. */
     int* posRemove;
-    
+
     /** The number of objects that are to added. */
     int  numAdd;
     /** The objects to be added. */
     BcpsObject **objects;
-  
+
     /** These are the data structures that store the changes in the
-	individual fields. */
+        individual fields. */
     /** @{ */
     BcpsFieldListMod<double> lbHard;
     BcpsFieldListMod<double> ubHard;
@@ -127,37 +127,37 @@ struct BcpsObjectListMod {
 */
 class BcpsNodeDesc : public AlpsNodeDesc {
 
- protected: 
+ protected:
 
     /** Variable objects. */
     BcpsObjectListMod *vars_;
 
     /** Constraint objects. */
     BcpsObjectListMod *cons_;
-  
+
  public:
 
     /** Default constructor. */
     BcpsNodeDesc() { initToNull(); }
-    
+
     /** Useful constructor. */
-    BcpsNodeDesc(BcpsModel* m) 
+    BcpsNodeDesc(BcpsModel* m)
         :
         AlpsNodeDesc(m) { initToNull(); }
-    
+
     /** Destructor. */
     virtual ~BcpsNodeDesc();
-    
+
     /** Initialize member data. */
     void initToNull();
-  
+
     /** Set variable objects. */
     void setVars(int numRem,
                  const int    *posRem,
                  int numAdd,
                  const BcpsObject **objects,
                  bool relvlh,
-                 int numvlh, 
+                 int numvlh,
                  const int    *vlhp,
                  const double *vlhe,
                  bool relvuh,
@@ -172,14 +172,14 @@ class BcpsNodeDesc : public AlpsNodeDesc {
                  int numvus,
                  const int    *vusp,
                  const double *vuse);
-    
+
     /** Assign variable objects. Take over memory ownership. */
     void assignVars(int numRem,
                     int    *&posRem,
                     int numAdd,
                     BcpsObject **&objects,
                     bool relvlh,
-                    int numvlh, 
+                    int numvlh,
                     int    *&vlhp,
                     double *&vlhe,
                     bool relvuh,
@@ -195,7 +195,7 @@ class BcpsNodeDesc : public AlpsNodeDesc {
                     int    *&vusp,
                     double *&vuse);
 
-    /** Set constraint objects. */    
+    /** Set constraint objects. */
     void setCons(int numRem,
                  const int    *posRem,
                  int numAdd,
@@ -216,7 +216,7 @@ class BcpsNodeDesc : public AlpsNodeDesc {
                  int numcus,
                  const int    *cusp,
                  const double *cuse);
-    
+
     /** Assign constraint objects. Take over memory ownership. */
     void assignCons(int numRem,
                     int    *&posRem,
@@ -238,124 +238,124 @@ class BcpsNodeDesc : public AlpsNodeDesc {
                     int numcus,
                     int    *&cusp,
                     double *&cuse);
-    
+
     /** Get variable objects. */
     BcpsObjectListMod *getVars() const { return vars_; }
-  
+
     /** Get constraint objects. */
     BcpsObjectListMod *getCons() const { return cons_; }
-    
+
     /** Accesss varaibles. */
     BcpsObjectListMod *vars() { return vars_; }
-    
+
     /** Accesss constraints. */
     BcpsObjectListMod *cons() { return cons_; }
 
     /** Set variable soft bounds. Take ownerships of arraies. */
-    void assignVarSoftBound(int numModSoftVarLB, 
-			    int *&varLBi,
-			    double *&varLBv,
-			    int numModSoftVarUB,
-			    int *&varUBi,
-			    double *&varUBv);
- 
+    void assignVarSoftBound(int numModSoftVarLB,
+                            int *&varLBi,
+                            double *&varLBv,
+                            int numModSoftVarUB,
+                            int *&varUBi,
+                            double *&varUBv);
+
     /** Set variable soft bounds. Don't take ownerships of arraies. */
-    void setVarSoftBound(int numModSoftVarLB, 
+    void setVarSoftBound(int numModSoftVarLB,
                          const int *varLBi,
                          const double *varLBv,
                          int numModSoftVarUB,
                          const int *varUBi,
                          const double *varUBv);
-  
+
     /** Set variable hard bounds. Take ownerships of arraies. */
-    void assignVarHardBound(int numModHardVarLB, 
-			    int *&varLBi,
-			    double *&varLBv,
-			    int numModHardVarUB,
-			    int *&varUBi,
-			    double *&varUBv);
- 
+    void assignVarHardBound(int numModHardVarLB,
+                            int *&varLBi,
+                            double *&varLBv,
+                            int numModHardVarUB,
+                            int *&varUBi,
+                            double *&varUBv);
+
     /** Set constraint soft bounds.  Don't take ownerships of arraies. */
-    void setConSoftBound(int numModSoftConLB, 
+    void setConSoftBound(int numModSoftConLB,
                          const int *conLBi,
                          const double *conLBv,
                          int numModSoftConUB,
                          const int *conUBi,
                          const double *conUBv);
-    
+
     /** Set variable hard bounds. Don't take ownerships of arraies. */
-    void setVarHardBound(int numModHardVarLB, 
+    void setVarHardBound(int numModHardVarLB,
                          const int *varLBi,
                          const double *varLBv,
                          int numModHardVarUB,
                          const int *varUBi,
                          const double *varUBv);
-    
-    /** Set constraint hard bounds. Don't take ownerships of arraies. */  
-    void setConHardBound(int numModHardConLB, 
+
+    /** Set constraint hard bounds. Don't take ownerships of arraies. */
+    void setConHardBound(int numModHardConLB,
                          const int *conLBi,
                          const double *conLBv,
                          int numModHardConUB,
                          const int *conUBi,
                          const double *conUBv);
 
-    /** Recode the added constraints. Take over the memory ownship of 
-	aguments. Append to previous constraints. */
+    /** Recode the added constraints. Take over the memory ownship of
+        aguments. Append to previous constraints. */
     void appendAddedConstraints(int numAdd, BcpsObject **addCons){
-	int numAll = numAdd + cons_->numAdd;
-	BcpsObject ** allAdd = new BcpsObject* [numAll];
-	int k;
-	
-	for (k = 0; k < cons_->numAdd; ++k) {
-	    allAdd[k] = cons_->objects[k];
-	}
-	for (k = 0; k < numAdd; ++k) {
-	    allAdd[(k+cons_->numAdd)] = addCons[k];
-	}
+        int numAll = numAdd + cons_->numAdd;
+        BcpsObject ** allAdd = new BcpsObject* [numAll];
+        int k;
 
-	delete [] cons_->objects;
-	cons_->numAdd = numAll;
+        for (k = 0; k < cons_->numAdd; ++k) {
+            allAdd[k] = cons_->objects[k];
+        }
+        for (k = 0; k < numAdd; ++k) {
+            allAdd[(k+cons_->numAdd)] = addCons[k];
+        }
+
+        delete [] cons_->objects;
+        cons_->numAdd = numAll;
         cons_->objects = allAdd;
     }
 
-    /** Recode the added constraints. Take over the memory ownship of 
-	aguments. Delete already added constraints. */
+    /** Recode the added constraints. Take over the memory ownship of
+        aguments. Delete already added constraints. */
     void setAddedConstraints(int numAdd, BcpsObject **addCons){
-	// NOTE: make sure objects can be safely deleted.
-	if (cons_->objects) {
-	    for (int k = 0; k < cons_->numAdd; ++k) {
-		delete cons_->objects[k];
-	    }
-	    delete [] cons_->objects;
-	}
+        // NOTE: make sure objects can be safely deleted.
+        if (cons_->objects) {
+            for (int k = 0; k < cons_->numAdd; ++k) {
+                delete cons_->objects[k];
+            }
+            delete [] cons_->objects;
+        }
         cons_->numAdd = numAdd;
         cons_->objects = addCons;
     }
 
-    /** Record the constraints are deleted. Take over the memory 
-	ownship of arguments. */
+    /** Record the constraints are deleted. Take over the memory
+        ownship of arguments. */
     void delConstraints(int numDel, int *indices){
-	if ( cons_->posRemove) delete []  cons_->posRemove;
+        if ( cons_->posRemove) delete []  cons_->posRemove;
         cons_->numRemove = numDel;
         cons_->posRemove = indices;
     }
 
     /** Record added variables. Take over the memory ownship of arguments. */
     void addVariables(int numAdd, BcpsObject **addVars){
-	if (vars_->objects) {
-	    for (int k = 0; k < vars_->numAdd; ++k) {
-		delete vars_->objects[k];
-	    }
-	    delete [] vars_->objects;
-	}
-	
+        if (vars_->objects) {
+            for (int k = 0; k < vars_->numAdd; ++k) {
+                delete vars_->objects[k];
+            }
+            delete [] vars_->objects;
+        }
+
         vars_->numAdd = numAdd;
         vars_->objects = addVars;
     }
-    
+
     /** Record deleted variables. Take over the memory ownship of arguemnts. */
     void delVariables(int numDel, int *indices){
-	if (vars_->posRemove) delete []  vars_->posRemove;
+        if (vars_->posRemove) delete []  vars_->posRemove;
         vars_->numRemove = numDel;
         vars_->posRemove = indices;
     }
@@ -364,28 +364,28 @@ class BcpsNodeDesc : public AlpsNodeDesc {
 
     /** Pack a double field into an encoded object. */
     AlpsReturnStatus encodeDblFieldMods(AlpsEncoded *encoded,
-				      BcpsFieldListMod<double> * field) const;
+                                      BcpsFieldListMod<double> * field) const;
 
     /** Pack a integer field into an encoded object. */
     AlpsReturnStatus encodeIntFieldMods(AlpsEncoded *encoded,
-				      BcpsFieldListMod<int> * field) const;
-    
+                                      BcpsFieldListMod<int> * field) const;
+
     /** Pack object modifications to an encoded object. */
     AlpsReturnStatus encodeObjectMods(AlpsEncoded *encoded,
-				    BcpsObjectListMod *objMod) const;
+                                    BcpsObjectListMod *objMod) const;
 
     /** Unpack a double field from an encoded object. */
     AlpsReturnStatus decodeDblFieldMods(AlpsEncoded &encoded,
-				      BcpsFieldListMod<double>*field);
+                                      BcpsFieldListMod<double>*field);
 
     /** Unpack a integer field from an encoded object. */
     AlpsReturnStatus decodeIntFieldMods(AlpsEncoded &encoded,
-				      BcpsFieldListMod<int> *field);
+                                      BcpsFieldListMod<int> *field);
 
     /** Unpack object modifications to an encoded object. */
     AlpsReturnStatus decodeObjectMods(AlpsEncoded &encoded,
-				    BcpsObjectListMod *objMod);
-    
+                                    BcpsObjectListMod *objMod);
+
  public:
 
     /** Pack bcps node description into an encoded. */
@@ -393,7 +393,7 @@ class BcpsNodeDesc : public AlpsNodeDesc {
 
     /** Unpack bcps node description into an encoded. */
     AlpsReturnStatus decodeBcps(AlpsEncoded &encoded);
-    
+
 };
 
 #endif /* End of file */

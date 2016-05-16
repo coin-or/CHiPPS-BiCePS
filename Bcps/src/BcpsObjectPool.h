@@ -44,35 +44,35 @@ class BcpsObjectPool : public AlpsKnowledgePool {
     /** Default construct. */
     BcpsObjectPool() {}
     virtual ~BcpsObjectPool() {
-	if (! objects_.empty()) {
-	    freeGuts();
-	}
+        if (! objects_.empty()) {
+            freeGuts();
+        }
     }
-    
+
     /** Free object pointers. */
     inline void freeGuts() {
-	for (int i = static_cast<int> (objects_.size() - 1); i > -1; --i) {
-	    delete objects_[i];
-	}
+        for (int i = static_cast<int> (objects_.size() - 1); i > -1; --i) {
+            delete objects_[i];
+        }
         objects_.clear();
     }
-    
+
     /** Reset to empty. Don't free memory. */
     inline void clear(){ objects_.clear(); }
-    
+
     /** Add a knowledge to pool */
-    virtual void addKnowledge(AlpsKnowledge * nk, double priority) { 
-	objects_.push_back(nk);
+    virtual void addKnowledge(AlpsKnowledge * nk, double priority) {
+        objects_.push_back(nk);
     }
- 
+
     /** Query how many knowledges are in the pool.*/
     virtual int getNumKnowledges() const {
-	return static_cast<int>(objects_.size());
+        return static_cast<int>(objects_.size());
     }
 
     /** Query a knowledge, but doesn't remove it from the pool*/
     virtual std::pair<AlpsKnowledge*, double> getKnowledge() const {
-	return std::make_pair(objects_[0], 0.0);
+        return std::make_pair(objects_[0], 0.0);
     }
 
     /** Check whether the pool has knowledge. */
@@ -80,16 +80,16 @@ class BcpsObjectPool : public AlpsKnowledgePool {
         { return objects_.empty() ? false : true; }
 
     /** Delete object k from pool */
-    void deleteObject(int k) { 
-	assert(k > -1 && k < ((int)objects_.size()));
-	
-	AlpsKnowledge *objectK = getObject(k);
-	std::vector<AlpsKnowledge *>::iterator pos;
-	pos = objects_.begin() + k;
-	objects_.erase(pos);
-	
-	// Free memory of object k.
-	delete objectK;
+    void deleteObject(int k) {
+        assert(k > -1 && k < ((int)objects_.size()));
+
+        AlpsKnowledge *objectK = getObject(k);
+        std::vector<AlpsKnowledge *>::iterator pos;
+        pos = objects_.begin() + k;
+        objects_.erase(pos);
+
+        // Free memory of object k.
+        delete objectK;
     }
 
     /** Get all objects. */
@@ -111,10 +111,10 @@ class BcpsConstraintPool : public BcpsObjectPool {
 
     /** Delete constraint k from pool */
     void deleteConstraint(int k) { deleteObject(k); }
-    
+
     /** Query how many constraints are in the pool.*/
     int getNumConstraints() const { return getNumKnowledges(); }
-    
+
     /** Get the vector of constraints. */
     const std::vector<AlpsKnowledge *>& getConstraints() const {return objects_;}
 

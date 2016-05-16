@@ -30,24 +30,24 @@ BcpsSolution *
 BcpsSolution::selectNonzeros(const double etol) const
 {
     BcpsSolution *sol = NULL;
-    
+
     return sol;
 }
 
 //#############################################################################
 
-BcpsSolution* 
+BcpsSolution*
 BcpsSolution::selectFractional(const double etol) const
 {
     BcpsSolution *sol = NULL;
-    
+
     return sol;
 }
 
 //#############################################################################
 
 /** Pack Bcps part of solution into an encoded objects. */
-AlpsReturnStatus 
+AlpsReturnStatus
 BcpsSolution::encodeBcps(AlpsEncoded *encoded) const
 {
     AlpsReturnStatus status = AlpsReturnStatusOk;
@@ -61,11 +61,11 @@ BcpsSolution::encodeBcps(AlpsEncoded *encoded) const
 //#############################################################################
 
 /** Unpack Bcps part of solution from an encoded objects. */
-AlpsReturnStatus 
+AlpsReturnStatus
 BcpsSolution::decodeBcps(AlpsEncoded & encoded)
 {
     AlpsReturnStatus status = AlpsReturnStatusOk;
-    
+
     encoded.readRep(size_);
     encoded.readRep(values_, size_);
     encoded.readRep(quality_);
