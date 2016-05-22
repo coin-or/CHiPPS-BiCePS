@@ -25,7 +25,6 @@
 // Borrow ideas from COIN/Cbc
 //#############################################################################
 
-
 #ifndef BcpsBranchObject_h_
 #define BcpsBranchObject_h_
 
@@ -34,232 +33,118 @@
 #include "Alps.h"
 #include "AlpsEncoded.h"
 
+/*!
 
-//#############################################################################
+  # BcpsBranchObject
 
+  BcpsBranchObject contains the member data required when branching a node.
+  Branching is creating new nodes from current one. This is an abstract class
+  that represents data needed for the branching process in the most general
+  form. Branching objects can be simple integer variables or more
+  complicated objects like SOS.
 
-/** BcpsBranchObject contains the member data required when choosing
-    branching entities and excuting actual branching. It also has
-    the member funtions to do branching by adjusting bounds, etc.
-    in solver. Branching objects can be simple integer variables or more
-    complicated objects like SOS. */
+  Branching in general form is not necessarily binary. Branching process may
+  create more than two nodes.
+
+  This interface lets creating arbitrary number of nodes. score() is updated
+  while the new branches are created. next() returns an integer that
+  identifies the new branch that will be created. This can be thought as
+  direction of the branch in the binary case. The indexing starts at 0. if
+  next() is 5, this indicates the branching object already created 5 nodes.
+
+  BcpsBranchObject has no idea what next() returns or means. The super class
+  will put a meaning to it. For example, in a binary branching object
+  implementing this ABC, 0 might mean down node and 1 might mean up node.
+  When next() is 2, it means the branch object created both down and up nodes.
+
+  score() is the quality of this object. It is used to compare this branching
+  object to others.
+
+  # Notes(aykut):
+
+  I removed up and down score data fields. I added a single field to store
+  the score. Up and down assumes binary branching and this is a general ABC.
+  Up and down should be implemented in the super class in case needed.
+
+*/
 
 class BcpsBranchObject {
+  /// The model that owns this branch object.
+  BcpsModel * model_;
+  /// Type of branching. This will be set by the application built on top of
+  /// Bcps.
+  int type_;
+  /// Branch object index. The index is not necessarily the same as variable
+  /// index. It will be set by the user to identify this object.
+  int index_;
+  /// Quality/Goodness of this object. It is  used when comparing two branching
+  /// enities. Derived class can add more metrics like this.
+  double score_;
+  /// Current branching value. When branching on integer variables, it can be
+  /// the fractional value branched. Its meaning will be defined by the super
+  /// class.
+  double value_;
 
- protected:
+  ///@name Private functions.
+  //@{
+  /// Pack Bcps portion to an encoded object.
+  AlpsReturnStatus encodeBcps(AlpsEncoded * encoded) const;
+  /// Unpack Bcps portion from an encoded object.
+  AlpsReturnStatus decodeBcps(AlpsEncoded & encoded);
+  //@}
 
-    /** Type of branching. */
-    int type_;
+public:
+  ///@name Constructors and Destructor.
+  //@{
+  /// Constructor.
+  BcpsBranchObject(BcpsModel * model, int type, int index, int score);
+  /// Constructor.
+  BcpsBranchObject(BcpsModel * model, int type, int index, double score,
+                   double value);
+  /// Copy constructor.
+  BcpsBranchObject(BcpsBranchObject const & other);
+  /// Copy assignment operator
+  BcpsBranchObject & operator=(BcpsBranchObject const & rhs);
+  /// Destructor.
+  virtual ~BcpsBranchObject() { /* Do nothing */}
+  //@}
 
-    /** The model that owns this branch object. */
-    BcpsModel *model_;
+  ///@name Get functions.
+  //@{
+  /// Return model.
+  BcpsModel * model() const { return  model_; }
+  /// Get type.
+  int type() const { return type_; }
+  /// Get index.
+  int index() const { return index_; }
+  /// Return score.
+  double score() const { return score_; }
+  /// Return object branching value.
+  double value() const { return value_; }
+  //@}
 
-    /** Branch object index. The index is not the same as variable
-        index. For integer branching, the index refers to the position
-        in the integer object array/vector. */
-    int objectIndex_;
+  ///@name Set functions.
+  //@{
+  /// Set score.
+  void setScore(double score) { score_ = score; }
+  //@}
 
-    /** Quality/Goodness of this object. They are set when creating
-        candiate branching entities, and used when comparing two
-        branching enities.
-        Derived class can add more metrics.
-    */
-    //@{
-    /** The score of branching up. Used for binary branching only. */
-    double upScore_;
+  ///@name Pure virtual functions.
+  /// The number of branch arms created for this branch object.
+  virtual int numBranches() const = 0;
+  /// The number of branch arms left to be evaluated.
+  virtual int numBranchesLeft() const = 0;
+  /// Spit out a branch and, update this or superclass fields if necessary.
+  virtual double branch(bool normalBranch = false) = 0;
+  /// Pack to an encoded object.
+  virtual AlpsReturnStatus encode(AlpsEncoded * encoded) const = 0;
+  /// Unpack a branching object from an encoded object.
+  virtual AlpsReturnStatus decode(AlpsEncoded & encoded) = 0;
+  //@}
 
-    /** The score of branching down. Used for binary branching only. */
-    double downScore_;
-    //@}
-
-    /** Information required to do branching. Used for binary branching only.*/
-    //@{
-    /** The direction of the active branch. Down is -1, up is 1. */
-    int direction_;
-
-    /** Current branching value. For integer, it can be fractional solution
-        value. */
-    double value_;
-
-    /** Number of arms remaining to be evaluated. */
-    int numBranchesLeft_;
-    //@}
-
- public:
-
-    /** Default Constructor. */
-    BcpsBranchObject()
-        :
-        type_(0),
-        model_(NULL),
-        objectIndex_(-1),
-        upScore_(0),
-        downScore_(0),
-        direction_(0),
-        value_(0.0),
-        numBranchesLeft_(0)
-        {}
-
-    /** Useful constructor. */
-    BcpsBranchObject(BcpsModel * model)
-        :
-        type_(0),
-        model_(model),
-        objectIndex_(-1),
-        upScore_(0),
-        downScore_(0),
-        direction_(0),
-        value_(0.0),
-        numBranchesLeft_(2)
-        {}
-
-    /** Useful constructor. */
-    BcpsBranchObject(BcpsModel * model,
-                     int objectIndex,
-                     int direction ,
-                     double value)
-        :
-        type_(0),
-        model_(model),
-        objectIndex_(objectIndex),
-        upScore_(0),
-        downScore_(0),
-        direction_(direction),
-        value_(value),
-        numBranchesLeft_(2)
-        {}
-
-    /** Useful constructor. */
-    BcpsBranchObject(BcpsModel * model,
-                     int objectIndex,
-                     double upScore,
-                     double downScore,
-                     int direction ,
-                     double value)
-        :
-        type_(0),
-        model_(model),
-        objectIndex_(objectIndex),
-        upScore_(upScore),
-        downScore_(downScore),
-        direction_(direction),
-        value_(value),
-        numBranchesLeft_(2)
-        {}
-
-    /** Copy constructor. */
-    BcpsBranchObject (const BcpsBranchObject &);
-
-    /** Destructor. */
-    virtual ~BcpsBranchObject() { /* Do nothing */}
-
-    /** Assignment operator. */
-    BcpsBranchObject & operator = ( const BcpsBranchObject& rhs);
-
-    /** Clone a object. */
-    virtual BcpsBranchObject * clone() const = 0;
-
-    /** Get type. */
-    int getType() { return type_; }
-
-    /** Set type. */
-    void setType(int t) { type_ = t; }
-
-    /** The number of branch arms created for this branch object. */
-    virtual int numBranches() const { return 2; }
-
-    /** The number of branch arms left to be evaluated. */
-    virtual int numBranchesLeft() const { return numBranchesLeft_; }
-
-    /**Perform branching as specified by the branching object.
-       Also, update the status of this branching object. */
-    // THINK: what's the use of normalBranch?
-    virtual double branch(bool normalBranch = false) = 0;
-
-    /** Print information about this branching object. */
-    virtual void print(bool normalBranch) {}
-
-    /** Return true if branching should fix object bounds. */
-    virtual bool boundBranch() const { return true; }
-
-    /** Object objectIndex. */
-    inline int getObjectIndex() const { return objectIndex_; }
-
-    /** Set object objectIndex. */
-    inline void setObjectIndex(int ind) {  objectIndex_ = ind; }
-
-    /** Get integer score. */
-    inline double getUpScore() const { return upScore_; }
-
-    /** Set integer score. */
-    inline void setUpScore(double score) { upScore_ = score; }
-
-    /** Get double score. */
-    inline double getDownScore() const { return downScore_; }
-
-    /** Get double score. */
-    inline void setDownScore(double score) { downScore_ = score; }
-
-    /** Returns a code indicating the active arm of the branching object. */
-    inline int getDirection() const { return direction_; }
-
-    /** Set the direction of the branching object. */
-    inline void setDirection(int direction) { direction_ = direction; }
-
-    /** Return object branching value. */
-    inline double getValue() const { return value_; }
-
-    /** Return model. */
-    inline BcpsModel * model() const { return  model_; }
-
- protected:
-
-    /** Pack Bcps portion to an encoded object. */
-    AlpsReturnStatus encodeBcps(AlpsEncoded *encoded) const {
-        AlpsReturnStatus status = AlpsReturnStatusOk;
-        assert(encoded);
-        encoded->writeRep(objectIndex_);
-        encoded->writeRep(upScore_);
-        encoded->writeRep(downScore_);
-        encoded->writeRep(direction_);
-        encoded->writeRep(value_);
-        encoded->writeRep(numBranchesLeft_);
-
-        return status;
-    }
-
-    /** Unpack Bcps portion from an encoded object. */
-    AlpsReturnStatus decodeBcps(AlpsEncoded &encoded) {
-        AlpsReturnStatus status = AlpsReturnStatusOk;
-
-        encoded.readRep(objectIndex_);
-        encoded.readRep(upScore_);
-        encoded.readRep(downScore_);
-        encoded.readRep(direction_);
-        encoded.readRep(value_);
-        encoded.readRep(numBranchesLeft_);
-
-        return status;
-    }
-
- public:
-
-    /** Pack to an encoded object. */
-    virtual AlpsReturnStatus encode(AlpsEncoded *encoded) const {
-        AlpsReturnStatus status = AlpsReturnStatusOk;
-        // Should never be called.
-        assert(0);
-        return status;
-    }
-
-    /** Unpack a branching object from an encoded object. */
-    virtual AlpsReturnStatus decode(AlpsEncoded &encoded) {
-        AlpsReturnStatus status = AlpsReturnStatusOk;
-        // Should never be called.
-        assert(0);
-        return status;
-    }
-
+private:
+  /// Disable default constructor.
+  BcpsBranchObject();
 };
 
 #endif

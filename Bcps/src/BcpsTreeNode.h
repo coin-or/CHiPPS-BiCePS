@@ -132,7 +132,7 @@ class BcpsTreeNode : public AlpsTreeNode {
         AlpsReturnStatus status = AlpsReturnStatusOk;
         int type = 0;
         if (branchObject_) {
-            type = branchObject_->getType();
+            type = branchObject_->type();
             encoded->writeRep(type);
             status = branchObject_->encode(encoded);
         }

@@ -26,6 +26,7 @@
 #include "BcpsBranchObject.h"
 
 class BcpsModel;
+class BcpsTreeNode;
 
 //#############################################################################
 // NOTE: Borrow ideas from COIN/Cbc.
@@ -36,138 +37,90 @@ class BcpsModel;
   This class is an Abstract Base Class (ABC) for a branching strategy. A
   branching strategy specifies:
   <ul>
-    <li> how to select a candidate set of branching objects
-    <li> how to compare two branching objects
+  <li> how to select a candidate set of branching objects
+  <li> how to compare two branching objects
   </ul>
 
 */
 
 class BcpsBranchStrategy {
+  /// Type of branching strategy.
+  int type_;
+  /// Pointer to model.
+  BcpsModel * model_;
 
- private:
-    /** Disable assignment operator. */
-    BcpsBranchStrategy & operator=(const BcpsBranchStrategy& rhs);
+  /// Following members are used to store candidate branching objects. NOTE:
+  /// They are required to be cleared before starting another round of
+  /// selecting.
+  //@{ Number of candidate branching objects.
+  int numBranchObjects_;
+  /// The set of candiate branching objects.
+  BcpsBranchObject ** branchObjects_;
+  //@}
 
- protected:
+  /** Following members are used to store information about best
+      branching object found so far.
+      NOTE: They are required to be cleared before starting another
+      round of selecting.*/
+  //@{
+  /// Index of the best branching object found so far.
+  int bestIndex_;
+  //@}
 
-    /** Type of branching strategy. */
-    int type_;
+public:
+  ///@name Constructors and destructors.
+  //@{
+  /// Useful Constructor.
+  BcpsBranchStrategy(BcpsModel *m);
+  /// Destructor.
+  virtual ~BcpsBranchStrategy();
+  //@}
 
-    /** Pointer to model. */
-    BcpsModel *model_;
+  ///@name Get data fields
+  //@{
+  /// Get type.
+  int type() { return type_; }
+  BcpsModel * model() const { return model_; }
+  int numBranchObjects() { return numBranchObjects_; }
+  int bestIndex() { return bestIndex_; }
+  // BcpsBranchObject * bestBranchObject() { return bestBranchObject_; }
+  // BcpsBranchObject ** branchObjects() { return branchObjects_; }
+  //@}
 
-    /** Following members are used to store candidate branching objects.
-        NOTE: They are required to be cleared before starting another
-        round of selecting.*/
-    //@{
-    /** Number of candidate branching objects. */
-    int numBranchObjects_;
-    /** The set of candiate branching objects. */
-    BcpsBranchObject ** branchObjects_;
-    //@}
+  ///@name Set data fields
+  //@{
+  /// Set type.
+  void setType(int type) { type_ = type; }
+  /// Set model.
+  void setModel(BcpsModel * model) { model_ = model; }
+  // set branch objects, takes ownership of input objects.
+  void setBranchObjects(int num, BcpsBranchObject **obj);
+  void setBranchObjects(std::vector<BcpsBranchObject*> & obj);
+  void setBestIndex(int index) { bestIndex_ = index; }
+  //@}
 
-    /** Following members are used to store information about best
-        branching object found so far.
-        NOTE: They are required to be cleared before starting another
-        round of selecting.*/
-    //@{
-    /** Best branching object found so far. */
-    BcpsBranchObject * bestBranchObject_;
-    /** Change up for best. */
-    double bestChangeUp_;
-    /** Number of infeasibilities for up. */
-    int bestNumberUp_;
-    /** Change down for best. */
-    double bestChangeDown_;
-    /** Number of infeasibilities for down. */
-    int bestNumberDown_;
-    //@}
+  ///@name Selecting and Creating branches.
+  //@{
+  /// Create a set of candidate branching objects from the given node.
+  virtual int createCandBranchObjects(BcpsTreeNode * node) = 0;
+  /// Compare current to other, return 1 if current is better, 0 otherwise
+  virtual int betterBranchObject(BcpsBranchObject const * current,
+                                 BcpsBranchObject const * other) = 0;
+  /// Compares branching objects stored. Returns the best branching object
+  /// with the smallest index.
+  virtual BcpsBranchObject * bestBranchObject();
+  /// Clear branch objects stored.
+  void clearBranchObjects();
+  //@}
 
- public:
+private:
+  /// Disable default constructor.
+  BcpsBranchStrategy();
+  /// Disable copy constructor.
+  BcpsBranchStrategy(BcpsBranchStrategy const & other);
+  /// Disable copy assignment operator.
+  BcpsBranchStrategy & operator=(const BcpsBranchStrategy & rhs);
 
-    /** Default Constructor. */
-    BcpsBranchStrategy()
-        :
-        model_(NULL),
-        numBranchObjects_(0),
-        branchObjects_(NULL),
-        bestChangeUp_(0.0),
-        bestNumberUp_(0),
-        bestChangeDown_(0.0),
-        bestNumberDown_(0)
-        {}
-
-    /** Useful Constructor. */
-    BcpsBranchStrategy(BcpsModel *m)
-        :
-        model_(m),
-        numBranchObjects_(0),
-        branchObjects_(NULL),
-        bestChangeUp_(0.0),
-        bestNumberUp_(0),
-        bestChangeDown_(0.0),
-        bestNumberDown_(0)
-        {}
-
-    /** Destructor. */
-    virtual ~BcpsBranchStrategy() {
-        for (int k = 0; k < numBranchObjects_; ++k) {
-            delete branchObjects_[k];
-        }
-        delete [] branchObjects_;
-    }
-
-    /** Clone a branch strategy. */
-    virtual BcpsBranchStrategy * clone() const = 0;
-
-    /** Get type. */
-    int getType() { return type_; }
-
-    /** Set type. */
-    void setType(int t) { type_ = t; }
-
-    /** Set model. */
-    void setModel(BcpsModel *m) { model_ = m; }
-
-    /** Set/get branching objects. */
-    //@{
-    int getNumBranchObjects() { return numBranchObjects_; }
-    void setNumBranchObjects(int num) { numBranchObjects_ = num; }
-    BcpsBranchObject ** getBranchObjects() { return branchObjects_; }
-    void setBranchObjects(BcpsBranchObject **obj) { branchObjects_ = obj; }
-    void setBranchObjects(std::vector<BcpsBranchObject*> & obj);
-    void clearBranchObjects();
-    BcpsBranchObject *getBestBranchObject() { return bestBranchObject_; }
-    void setBestBranchObject(BcpsBranchObject *ob) { bestBranchObject_ = ob; }
-    //@}
-
-    /** Clear branching strategy environment before starting a new round
-        of selecting the best branch object. */
-    virtual void clearBest(BcpsModel * model) {
-        bestBranchObject_ = NULL;
-        bestChangeUp_ = 0.0;
-        bestNumberUp_ = 0;
-        bestChangeDown_ = 0.0;
-        bestNumberDown_ = 0;
-    }
-
-    /** Create a set of candidate branching objects. */
-    virtual int createCandBranchObjects(int numPassesLeft, double ub){
-        return 0;
-    }
-
-    /** Compare branching object thisOne to bestSoFar. If thisOne is better
-        than bestObject, return branching direction(1 or -1), otherwise
-        return 0.
-        If bestSorFar is NULL, then always return branching direction(1 or -1).
-    */
-    virtual int betterBranchObject(BcpsBranchObject * b,
-                                   BcpsBranchObject * bestSoFar) = 0;
-
-    /** Compare branching objects in branchObjects_. Return the index of the
-        best branching object. Also, set branch direction in the best object.
-    */
-    virtual BcpsBranchObject *bestBranchObject();
 };
 
 #endif

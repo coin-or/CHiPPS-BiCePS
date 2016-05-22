@@ -30,33 +30,53 @@
 #include "BcpsBranchObject.h"
 
 
-//#############################################################################
-
-// Copy constructor
-BcpsBranchObject::BcpsBranchObject(const BcpsBranchObject &rhs)
-{
-    model_ = rhs.model_;
-    objectIndex_ = rhs.objectIndex_;
-    direction_ = rhs.direction_;
-    value_ = rhs.value_;
-    numBranchesLeft_ = rhs.numBranchesLeft_;
+/// Constructor.
+BcpsBranchObject::BcpsBranchObject(BcpsModel * model, int type, int index,
+                                   int score)
+  : model_(model), type_(type), index_(index), score_(score), value_(0.0) {
 }
 
-//#############################################################################
-
-// Assignment operator
-BcpsBranchObject &
-BcpsBranchObject::operator = ( const BcpsBranchObject& rhs)
-{
-    if (this != &rhs) {
-        model_ = rhs.model_;
-        objectIndex_ = rhs.objectIndex_;
-        direction_ = rhs.direction_;
-        value_ = rhs.value_;
-        numBranchesLeft_ = rhs.numBranchesLeft_;
-    }
-
-    return *this;
+/// Constructor.
+BcpsBranchObject::BcpsBranchObject(BcpsModel * model, int type, int index,
+                                   double score, double value)
+  : model_(model), type_(type), index_(index), score_(score), value_(value) {
 }
 
-//#############################################################################
+/// Copy constructor.
+BcpsBranchObject::BcpsBranchObject(BcpsBranchObject const & other)
+  : model_(other.model()), type_(other.type()), index_(other.index()),
+    score_(other.score()), value_(other.value()) {
+}
+
+/// Copy assignment operator
+BcpsBranchObject & BcpsBranchObject::operator=(BcpsBranchObject const & rhs) {
+  model_ = rhs.model();
+  type_ = rhs.type();
+  index_ = rhs.index();
+  score_ = rhs.score();
+  value_ = rhs.value();
+  return *this;
+}
+
+/// Pack Bcps portion to an encoded object.
+AlpsReturnStatus BcpsBranchObject::encodeBcps(AlpsEncoded * encoded) const {
+  AlpsReturnStatus status = AlpsReturnStatusOk;
+  assert(encoded);
+  encoded->writeRep(model_);
+  encoded->writeRep(type_);
+  encoded->writeRep(index_);
+  encoded->writeRep(score_);
+  encoded->writeRep(value_);
+  return status;
+}
+
+/// Unpack Bcps portion from an encoded object.
+AlpsReturnStatus BcpsBranchObject::decodeBcps(AlpsEncoded & encoded) {
+  AlpsReturnStatus status = AlpsReturnStatusOk;
+  encoded.readRep(model_);
+  encoded.readRep(type_);
+  encoded.readRep(index_);
+  encoded.readRep(score_);
+  encoded.readRep(value_);
+  return status;
+}

@@ -31,14 +31,68 @@
 #include "BcpsBranchStrategy.h"
 #include "BcpsModel.h"
 
-//#############################################################################
+BcpsBranchStrategy::BcpsBranchStrategy(BcpsModel * model)
+  : model_(model), numBranchObjects_(0), branchObjects_(NULL), bestIndex_(-1) {
+}
 
+BcpsBranchStrategy::~BcpsBranchStrategy() {
+  for (int k=0; k<numBranchObjects_; ++k) {
+    delete branchObjects_[k];
+  }
+  delete[] branchObjects_;
+}
 
-void BcpsBranchStrategy::setBranchObjects(std::vector<BcpsBranchObject*> & obj) {
+void BcpsBranchStrategy::setBranchObjects(int num, BcpsBranchObject ** obj) {
+  // clear members
   clearBranchObjects();
+  // take ownership of objects
+  branchObjects_ = obj;
+  obj = NULL;
+  numBranchObjects_ = num;
+  // reset index of the best branch object
+  bestIndex_ = -1;
+  // set best branch index
+  bestBranchObject();
+}
+
+void
+BcpsBranchStrategy::setBranchObjects(std::vector<BcpsBranchObject*> & obj) {
+  // clear members
+  clearBranchObjects();
+  // take ownership of objects
   numBranchObjects_ = obj.size();
   branchObjects_ = new BcpsBranchObject*[numBranchObjects_];
   std::copy(obj.begin(), obj.end(), branchObjects_);
+  for(int i=0; i<numBranchObjects_; ++i) {
+    obj[i] = NULL;
+  }
+  // reset index of the best branch object
+  bestIndex_ = -1;
+  // set best branch index
+  bestBranchObject();
+}
+
+/* Compare N branch objects and identify bestObject_. Return index
+   of best and sets way of branch bestObject_. */
+BcpsBranchObject * BcpsBranchStrategy::bestBranchObject() {
+  if (numBranchObjects_==0) {
+    // there are no branch objects
+    std::cerr << "No branch objects in the branch strategy!" << std::endl;
+    std::cerr << "This might mean all columns are feasible!" << std::endl;
+    throw std::exception();
+  }
+  if (bestIndex_!=-1) {
+    return branchObjects_[bestIndex_];
+  }
+  bestIndex_ = 0;
+  for (int i=1; i<numBranchObjects_; ++i) {
+    BcpsBranchObject * current = branchObjects_[i];
+    int curr_better = betterBranchObject(current, branchObjects_[bestIndex_]);
+    if (curr_better) {
+      bestIndex_ = i;
+    }
+  }
+  return branchObjects_[bestIndex_];
 }
 
 void BcpsBranchStrategy::clearBranchObjects() {
@@ -49,75 +103,7 @@ void BcpsBranchStrategy::clearBranchObjects() {
     delete[] branchObjects_;
     branchObjects_ = NULL;
   }
+  numBranchObjects_ = 0;
+  // reset index of the best branch object.
+  bestIndex_ = -1;
 }
-
-/* Compare N branch objects and identify bestObject_. Return index
-   of best and sets way of branch bestObject_. */
-BcpsBranchObject *
-BcpsBranchStrategy::bestBranchObject()
-{
-    int i, betterDir;
-    int bestDir = 0;
-    int bestBrObjIndex = -1;
-
-    if (numBranchObjects_ == 0) {
-      // there are no branch objects
-      std::cerr << "No branch objects in the branch strategy!" << std::endl;
-      std::cerr << "This might mean all columns are feasible!" << std::endl;
-      throw std::exception();
-    }
-    if (numBranchObjects_ > 1) {
-
-        //--------------------------------------------------
-        // Clear best members.
-        //--------------------------------------------------
-
-        clearBest(model_);
-
-        //--------------------------------------------------
-        // Select the best branching object.
-        //--------------------------------------------------
-
-        for (i = 0; i < numBranchObjects_; ++i) {
-            betterDir = betterBranchObject(branchObjects_[i],
-                                           bestBranchObject_);
-            if (betterDir) {
-                bestBrObjIndex = i;
-                bestBranchObject_ = branchObjects_[i];
-                bestDir = betterDir;
-            }
-        }
-
-        if (bestBrObjIndex >= 0) {
-            // Set branching direction.
-            bestBranchObject_->setDirection(bestDir);
-            // Need move this b obj to node later. Rest will be deleted.
-            branchObjects_[bestBrObjIndex] = NULL;
-        }
-        else {
-            bestBranchObject_ = NULL;
-        }
-
-        //--------------------------------------------------
-        // Delete rest candidates.
-        //--------------------------------------------------
-
-        for (i = 0; i < numBranchObjects_; ++i) {
-            if (branchObjects_[i]) {
-                delete branchObjects_[i];
-                branchObjects_[i] = NULL;
-            }
-        }
-    }
-    else{
-        bestBranchObject_ = branchObjects_[0];
-    }
-
-    delete [] branchObjects_;
-    branchObjects_ = NULL;
-    numBranchObjects_ = 0;
-
-    return bestBranchObject_;
-}
-
-//#############################################################################
