@@ -84,7 +84,7 @@ public:
   int numBranchObjects() { return numBranchObjects_; }
   int bestIndex() { return bestIndex_; }
   // BcpsBranchObject * bestBranchObject() { return bestBranchObject_; }
-  // BcpsBranchObject ** branchObjects() { return branchObjects_; }
+  BcpsBranchObject ** branchObjects() { return branchObjects_; }
   //@}
 
   ///@name Set data fields
