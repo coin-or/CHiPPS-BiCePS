@@ -96,6 +96,9 @@ fi
 # Initialize automake and libtool
 AC_COIN_INIT_AUTO_TOOLS
 
+# Check for C++11 standard
+
+
 #############################################################################
 #                              COIN components                              #
 #############################################################################
@@ -113,42 +116,42 @@ AC_COIN_CHECK_PACKAGE(Clp, [cgl osi-clp], [Abc])
 # In this case, the source code is taken from the Bcps examples directory
 
 AC_CONFIG_LINKS(test/BlisBranchObjectInt.cpp:examples/Blis/BlisBranchObjectInt.cpp
-	test/BlisBranchObjectInt.h:examples/Blis/BlisBranchObjectInt.h
-	test/BlisBranchStrategyPseudo.cpp:examples/Blis/BlisBranchStrategyPseudo.cpp
-	test/BlisBranchStrategyPseudo.h:examples/Blis/BlisBranchStrategyPseudo.h
-	test/BlisBranchStrategyRel.cpp:examples/Blis/BlisBranchStrategyRel.cpp
-	test/BlisBranchStrategyRel.h:examples/Blis/BlisBranchStrategyRel.h
-	test/BlisBranchStrategyStrong.cpp:examples/Blis/BlisBranchStrategyStrong.cpp
-	test/BlisBranchStrategyStrong.h:examples/Blis/BlisBranchStrategyStrong.h
-	test/BlisConGenerator.cpp:examples/Blis/BlisConGenerator.cpp
-	test/BlisConGenerator.h:examples/Blis/BlisConGenerator.h
-	test/BlisConstraint.cpp:examples/Blis/BlisConstraint.cpp
-	test/BlisConstraint.h:examples/Blis/BlisConstraint.h
-	test/Blis.h:examples/Blis/Blis.h
-	test/BlisHelp.cpp:examples/Blis/BlisHelp.cpp
-	test/BlisHelp.h:examples/Blis/BlisHelp.h
-	test/BlisHeuristic.h:examples/Blis/BlisHeuristic.h
-	test/BlisHeurRound.cpp:examples/Blis/BlisHeurRound.cpp
-	test/BlisHeurRound.h:examples/Blis/BlisHeurRound.h
-	test/BlisLicense.h:examples/Blis/BlisLicense.h
-	test/BlisMain.cpp:examples/Blis/BlisMain.cpp
-	test/BlisMessage.cpp:examples/Blis/BlisMessage.cpp
-	test/BlisMessage.h:examples/Blis/BlisMessage.h
-	test/BlisModel.cpp:examples/Blis/BlisModel.cpp
-	test/BlisModel.h:examples/Blis/BlisModel.h
-	test/BlisNodeDesc.h:examples/Blis/BlisNodeDesc.h
-	test/BlisObjectInt.cpp:examples/Blis/BlisObjectInt.cpp
-	test/BlisObjectInt.h:examples/Blis/BlisObjectInt.h
-	test/BlisParams.cpp:examples/Blis/BlisParams.cpp
-	test/BlisParams.h:examples/Blis/BlisParams.h
-	test/BlisPseudo.cpp:examples/Blis/BlisPseudo.cpp
-	test/BlisPseudo.h:examples/Blis/BlisPseudo.h
-	test/BlisSolution.h:examples/Blis/BlisSolution.h
-	test/BlisSubTree.h:examples/Blis/BlisSubTree.h
-	test/BlisTreeNode.cpp:examples/Blis/BlisTreeNode.cpp
-	test/BlisTreeNode.h:examples/Blis/BlisTreeNode.h
-	test/BlisVariable.h:examples/Blis/BlisVariable.h
-	test/flugpl.mps:examples/Blis/data/flugpl.mps)
+        test/BlisBranchObjectInt.h:examples/Blis/BlisBranchObjectInt.h
+        test/BlisBranchStrategyPseudo.cpp:examples/Blis/BlisBranchStrategyPseudo.cpp
+        test/BlisBranchStrategyPseudo.h:examples/Blis/BlisBranchStrategyPseudo.h
+        test/BlisBranchStrategyRel.cpp:examples/Blis/BlisBranchStrategyRel.cpp
+        test/BlisBranchStrategyRel.h:examples/Blis/BlisBranchStrategyRel.h
+        test/BlisBranchStrategyStrong.cpp:examples/Blis/BlisBranchStrategyStrong.cpp
+        test/BlisBranchStrategyStrong.h:examples/Blis/BlisBranchStrategyStrong.h
+        test/BlisConGenerator.cpp:examples/Blis/BlisConGenerator.cpp
+        test/BlisConGenerator.h:examples/Blis/BlisConGenerator.h
+        test/BlisConstraint.cpp:examples/Blis/BlisConstraint.cpp
+        test/BlisConstraint.h:examples/Blis/BlisConstraint.h
+        test/Blis.h:examples/Blis/Blis.h
+        test/BlisHelp.cpp:examples/Blis/BlisHelp.cpp
+        test/BlisHelp.h:examples/Blis/BlisHelp.h
+        test/BlisHeuristic.h:examples/Blis/BlisHeuristic.h
+        test/BlisHeurRound.cpp:examples/Blis/BlisHeurRound.cpp
+        test/BlisHeurRound.h:examples/Blis/BlisHeurRound.h
+        test/BlisLicense.h:examples/Blis/BlisLicense.h
+        test/BlisMain.cpp:examples/Blis/BlisMain.cpp
+        test/BlisMessage.cpp:examples/Blis/BlisMessage.cpp
+        test/BlisMessage.h:examples/Blis/BlisMessage.h
+        test/BlisModel.cpp:examples/Blis/BlisModel.cpp
+        test/BlisModel.h:examples/Blis/BlisModel.h
+        test/BlisNodeDesc.h:examples/Blis/BlisNodeDesc.h
+        test/BlisObjectInt.cpp:examples/Blis/BlisObjectInt.cpp
+        test/BlisObjectInt.h:examples/Blis/BlisObjectInt.h
+        test/BlisParams.cpp:examples/Blis/BlisParams.cpp
+        test/BlisParams.h:examples/Blis/BlisParams.h
+        test/BlisPseudo.cpp:examples/Blis/BlisPseudo.cpp
+        test/BlisPseudo.h:examples/Blis/BlisPseudo.h
+        test/BlisSolution.h:examples/Blis/BlisSolution.h
+        test/BlisSubTree.h:examples/Blis/BlisSubTree.h
+        test/BlisTreeNode.cpp:examples/Blis/BlisTreeNode.cpp
+        test/BlisTreeNode.h:examples/Blis/BlisTreeNode.h
+        test/BlisVariable.h:examples/Blis/BlisVariable.h
+        test/flugpl.mps:examples/Blis/data/flugpl.mps)
 
 # In case this is a VPATH configuration we need to make sure that the
 # input files for the examples are available in the VPATH directory.
@@ -170,12 +173,12 @@ AC_COIN_DOXYGEN(CoinUtils Alps)
 # Here list all the files that configure should create (except for the
 # configuration header file)
 AC_CONFIG_FILES([Makefile
-		 examples/Blis/Makefile
-		 examples/Blis/blis.par
+                 examples/Blis/Makefile
+                 examples/Blis/blis.par
                  src/Makefile
                  test/Makefile
-		 bcps.pc
-		 bcps-uninstalled.pc])
+                 bcps.pc
+                 bcps-uninstalled.pc])
 
 AC_CONFIG_FILES([doxydoc/doxygen.conf])
 
