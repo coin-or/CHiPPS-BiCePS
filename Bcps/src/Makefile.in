@@ -86,7 +86,8 @@ am__DEPENDENCIES_1 =
 @DEPENDENCY_LINKING_TRUE@	$(am__DEPENDENCIES_1)
 am_libBcps_la_OBJECTS = BcpsBranchObject.lo BcpsBranchStrategy.lo \
 	BcpsMessage.lo BcpsModel.lo BcpsNodeDesc.lo BcpsObject.lo \
-	BcpsSolution.lo BcpsSubTree.lo BcpsTreeNode.lo
+	BcpsObjectPool.lo BcpsSolution.lo BcpsSubTree.lo \
+	BcpsTreeNode.lo
 libBcps_la_OBJECTS = $(am_libBcps_la_OBJECTS)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -314,17 +315,27 @@ lib_LTLIBRARIES = libBcps.la
 # List all source files for this library, including headers
 libBcps_la_SOURCES = \
 	Bcps.h \
-	BcpsBranchObject.cpp BcpsBranchObject.h \
-	BcpsBranchStrategy.cpp BcpsBranchStrategy.h \
+	BcpsBranchObject.cpp \
+	BcpsBranchObject.h \
+	BcpsBranchStrategy.cpp \
+	BcpsBranchStrategy.h \
 	BcpsInterface.h \
 	BcpsLicense.h \
-	BcpsMessage.h BcpsMessage.cpp \
-	BcpsModel.h BcpsModel.cpp \
-	BcpsNodeDesc.cpp BcpsNodeDesc.h \
-	BcpsObject.cpp BcpsObject.h \
-	BcpsObjectPool.h BcpsSolution.cpp \
-	BcpsSolution.h BcpsSubTree.cpp \
-	BcpsSubTree.h BcpsTreeNode.cpp \
+	BcpsMessage.h \
+	BcpsMessage.cpp \
+	BcpsModel.h \
+	BcpsModel.cpp \
+	BcpsNodeDesc.cpp \
+	BcpsNodeDesc.h \
+	BcpsObject.cpp \
+	BcpsObject.h \
+	BcpsObjectPool.h \
+	BcpsObjectPool.cpp \
+	BcpsSolution.cpp \
+	BcpsSolution.h \
+	BcpsSubTree.cpp \
+	BcpsSubTree.h \
+	BcpsTreeNode.cpp \
 	BcpsTreeNode.h
 
 
@@ -471,6 +482,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsModel.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsNodeDesc.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsObject.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsObjectPool.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsSolution.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsSubTree.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsTreeNode.Plo@am__quote@

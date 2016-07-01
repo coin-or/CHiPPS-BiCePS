@@ -36,17 +36,27 @@ lib_LTLIBRARIES = libBcps.la
 # List all source files for this library, including headers
 libBcps_la_SOURCES = \
 	Bcps.h \
-	BcpsBranchObject.cpp BcpsBranchObject.h \
-	BcpsBranchStrategy.cpp BcpsBranchStrategy.h \
+	BcpsBranchObject.cpp \
+	BcpsBranchObject.h \
+	BcpsBranchStrategy.cpp \
+	BcpsBranchStrategy.h \
 	BcpsInterface.h \
 	BcpsLicense.h \
-	BcpsMessage.h BcpsMessage.cpp \
-	BcpsModel.h BcpsModel.cpp \
-	BcpsNodeDesc.cpp BcpsNodeDesc.h \
-	BcpsObject.cpp BcpsObject.h \
-	BcpsObjectPool.h BcpsSolution.cpp \
-	BcpsSolution.h BcpsSubTree.cpp \
-	BcpsSubTree.h BcpsTreeNode.cpp \
+	BcpsMessage.h \
+	BcpsMessage.cpp \
+	BcpsModel.h \
+	BcpsModel.cpp \
+	BcpsNodeDesc.cpp \
+	BcpsNodeDesc.h \
+	BcpsObject.cpp \
+	BcpsObject.h \
+	BcpsObjectPool.h \
+	BcpsObjectPool.cpp \
+	BcpsSolution.cpp \
+	BcpsSolution.h \
+	BcpsSubTree.cpp \
+	BcpsSubTree.h \
+	BcpsTreeNode.cpp \
 	BcpsTreeNode.h
 
 # List all additionally required libraries
