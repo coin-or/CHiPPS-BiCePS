@@ -328,17 +328,17 @@ protected:
 
     using AlpsKnowledge::encode ;
     /** Pack into a encode object. */
-    virtual AlpsReturnStatus encode(AlpsEncoded *encoded) {
-        AlpsReturnStatus status = AlpsReturnStatusOk;
-        assert(0);
-        return status;
+    virtual AlpsReturnStatus encode(AlpsEncoded * encoded) const {
+      AlpsReturnStatus status;
+      status = encodeBcpsObject(encoded);
+      return status;
     }
 
     /** Decode a constraint from an encoded object. */
-    virtual AlpsKnowledge* decode(AlpsEncoded& encoded) const {
-        AlpsKnowledge* know = NULL;
-        assert(0);
-        return know;
+    virtual AlpsReturnStatus decodeToSelf(AlpsEncoded & encoded) {
+      AlpsReturnStatus status;
+      status = decodeBcpsObject(encoded);
+      return status;
     }
 };
 
@@ -356,13 +356,13 @@ class BcpsConstraint : public BcpsObject {
 
  public:
     /** Default constructor. */
-    BcpsConstraint() : BcpsObject() { setType(BcpsKnowledgeTypeConstraint); }
+    BcpsConstraint() : BcpsObject() { }
 
     /** Useful constructor. */
     BcpsConstraint(double lbh, double ubh, double lbs, double ubs)
         :
         BcpsObject(lbh, ubh, lbs, ubs)
-        { setType(BcpsKnowledgeTypeConstraint); }
+        { }
 
     /** Desctructor constructor. */
     virtual ~BcpsConstraint() {}
@@ -383,13 +383,13 @@ class BcpsConstraint : public BcpsObject {
 class BcpsVariable : public BcpsObject {
  public:
     /** Default constructor. */
-    BcpsVariable() : BcpsObject() { setType(BcpsKnowledgeTypeVariable); }
+    BcpsVariable() : BcpsObject() { }
 
     /** Useful constructor. */
     BcpsVariable(double lbh, double ubh, double lbs, double ubs)
         :
         BcpsObject(lbh, ubh, lbs, ubs)
-        { setType(BcpsKnowledgeTypeVariable); }
+        { }
 
     /** Destructor. */
     virtual ~BcpsVariable() {}

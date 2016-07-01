@@ -40,7 +40,7 @@ BcpsTreeNode::process(bool isRoot, bool rampUp)
     BcpsConstraintPool *newConPool = NULL;
     BcpsVariablePool *newVarPool = NULL;
 
-    BcpsModel *model = dynamic_cast<BcpsModel*>(desc_->getModel());
+    BcpsModel * model = dynamic_cast<BcpsModel*>(desc_->broker()->getModel());
 
     //------------------------------------------------------
     // Extract node information (bounds, constraints, variables) from

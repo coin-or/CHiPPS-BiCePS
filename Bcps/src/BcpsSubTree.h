@@ -40,32 +40,29 @@
 //#############################################################################
 
 class BcpsSubTree : public virtual AlpsSubTree {
- private:
-    /** This is the list of objects that exist in the subtree. */
-    BcpsConstraintPool *constraintPool_;
-    BcpsVariablePool *variablePool_;
+private:
+  /** This is the list of objects that exist in the subtree. */
+  BcpsConstraintPool *constraintPool_;
+  BcpsVariablePool *variablePool_;
 
- public:
-    BcpsSubTree()
-        :
-        constraintPool_(new BcpsConstraintPool),
-        variablePool_(new BcpsVariablePool)
-        {}
-    virtual ~BcpsSubTree()
-        {
-            delete constraintPool_;
-            delete variablePool_;
-        }
+public:
+  BcpsSubTree(): constraintPool_(NULL), variablePool_(NULL) {}
+  virtual ~BcpsSubTree() {
+    if (constraintPool_) {
+      delete constraintPool_;
+    }
+    if (variablePool_) {
+      delete variablePool_;
+    }
+  }
 
-    BcpsConstraintPool* getConstraintPool() const
-        {
-            return constraintPool_;
-        }
+  BcpsConstraintPool* getConstraintPool() const {
+    return constraintPool_;
+  }
 
-    BcpsVariablePool* getVariablePool() const
-        {
-            return variablePool_;
-        }
+  BcpsVariablePool* getVariablePool() const {
+    return variablePool_;
+  }
 };
 
 

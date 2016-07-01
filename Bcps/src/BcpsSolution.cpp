@@ -44,38 +44,20 @@ BcpsSolution::selectFractional(const double etol) const
     return sol;
 }
 
-//#############################################################################
-
-/** Pack Bcps part of solution into an encoded objects. */
-AlpsReturnStatus
-BcpsSolution::encodeBcps(AlpsEncoded *encoded) const
-{
-    AlpsReturnStatus status = AlpsReturnStatusOk;
-    encoded->writeRep(size_);
-    encoded->writeRep(values_, size_);
-    encoded->writeRep(quality_);
-
-    return status;
+/// Pack AlpsPar_ into a given encode object.
+AlpsReturnStatus BcpsSolution::encode(AlpsEncoded * encoded) const {
+  AlpsReturnStatus status = AlpsReturnStatusOk;
+  encoded->writeRep(size_);
+  encoded->writeRep(values_, size_);
+  encoded->writeRep(quality_);
+  return status;
 }
 
-//#############################################################################
-
-/** Unpack Bcps part of solution from an encoded objects. */
-AlpsReturnStatus
-BcpsSolution::decodeBcps(AlpsEncoded & encoded)
-{
-    AlpsReturnStatus status = AlpsReturnStatusOk;
-
-    encoded.readRep(size_);
-    encoded.readRep(values_, size_);
-    encoded.readRep(quality_);
-
-    return status;
+/// Decode the given AlpsEncoded object into this.
+AlpsReturnStatus BcpsSolution::decodeToSelf(AlpsEncoded & encoded) {
+  AlpsReturnStatus status = AlpsReturnStatusOk;
+  encoded.readRep(size_);
+  encoded.readRep(values_, size_);
+  encoded.readRep(quality_);
+  return status;
 }
-
-
-
-//#############################################################################
-
-
-//#############################################################################

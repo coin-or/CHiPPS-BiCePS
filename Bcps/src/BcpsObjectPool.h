@@ -34,76 +34,71 @@
 //#############################################################################
 
 class BcpsObjectPool : public AlpsKnowledgePool {
+protected:
+  std::vector<AlpsKnowledge *> objects_;
 
- protected:
+public:
+  ///@name Constructors and Destructor.
+  //@{
+  /// Default constructor.
+  BcpsObjectPool();
+  /// Destructor.
+  virtual ~BcpsObjectPool();
+  //@}
 
-    std::vector<AlpsKnowledge *> objects_;
+  ///@name Other functions
+  //@{
+  /// Delete object k from pool
+  void deleteObject(int k);
+  /** Get all objects. */
+  std::vector<AlpsKnowledge *> const & getObjects() const { return objects_; }
+  /** Get a object. */
+  AlpsKnowledge * getObject(int k) const { return objects_[k]; }
+  /// Free stored objects.
+  void freeGuts();
+  //@}
 
- public:
+  ///@name Querry methods, inherited from AlpsKnowledgePool
+  //@{
+  /// Return size of the pool.
+  virtual int getNumKnowledges() const;
+  /// Check the first item in the pool.
+  virtual std::pair<AlpsKnowledge*, double> getKnowledge() const;
+  /// Check whether the pool is empty.
+  virtual bool hasKnowledge() const;
+  /// Query the quantity limit of knowledges.
+  virtual int getMaxNumKnowledges() const;
+  /// Query the best knowledge in the pool.
+  virtual std::pair<AlpsKnowledge*, double> getBestKnowledge() const;
+  /// Get a reference to all the knowledges in the pool.*/
+  virtual void getAllKnowledges (std::vector<std::pair<AlpsKnowledge*,
+                                 double> >& kls) const;
+  //@}
 
-    /** Default construct. */
-    BcpsObjectPool() {}
-    virtual ~BcpsObjectPool() {
-        if (! objects_.empty()) {
-            freeGuts();
-        }
-    }
+  ///@name Knowledge manipulation, inherited from AlpsKnowledgePool
+  //@{
+  /// Add a knowledge to pool.
+  virtual void addKnowledge(AlpsKnowledge * nk, double priority);
+  /// Pop the first knowledge from the pool.
+  virtual void popKnowledge();
+  //@}
 
-    /** Free object pointers. */
-    inline void freeGuts() {
-        for (int i = static_cast<int> (objects_.size() - 1); i > -1; --i) {
-            delete objects_[i];
-        }
-        objects_.clear();
-    }
+  ///@name Other functions
+  //@{
+  /// Set the quantity limit of knowledges that can be stored in the pool.
+  virtual void setMaxNumKnowledges(int num);
+  //@}
 
-    /** Reset to empty. Don't free memory. */
-    inline void clear(){ objects_.clear(); }
-
-    /** Add a knowledge to pool */
-    virtual void addKnowledge(AlpsKnowledge * nk, double priority) {
-        objects_.push_back(nk);
-    }
-
-    /** Query how many knowledges are in the pool.*/
-    virtual int getNumKnowledges() const {
-        return static_cast<int>(objects_.size());
-    }
-
-    /** Query a knowledge, but doesn't remove it from the pool*/
-    virtual std::pair<AlpsKnowledge*, double> getKnowledge() const {
-        return std::make_pair(objects_[0], 0.0);
-    }
-
-    /** Check whether the pool has knowledge. */
-    virtual bool hasKnowledge() const
-        { return objects_.empty() ? false : true; }
-
-    /** Delete object k from pool */
-    void deleteObject(int k) {
-        assert(k > -1 && k < ((int)objects_.size()));
-
-        AlpsKnowledge *objectK = getObject(k);
-        std::vector<AlpsKnowledge *>::iterator pos;
-        pos = objects_.begin() + k;
-        objects_.erase(pos);
-
-        // Free memory of object k.
-        delete objectK;
-    }
-
-    /** Get all objects. */
-    const std::vector<AlpsKnowledge *>& getObjects() const { return objects_; }
-
-    /** Get a object. */
-    AlpsKnowledge *getObject(int k) const { return objects_[k]; }
+private:
+  BcpsObjectPool(BcpsObjectPool const & other);
+  BcpsObjectPool & operator=(BcpsObjectPool const & rhs);
 };
 
 //#############################################################################
 
 class BcpsConstraintPool : public BcpsObjectPool {
- public:
-    BcpsConstraintPool() {}
+public:
+  BcpsConstraintPool(): BcpsObjectPool() { }
     virtual ~BcpsConstraintPool() {}
 
     /** Add a constraint to pool */
@@ -120,14 +115,18 @@ class BcpsConstraintPool : public BcpsObjectPool {
 
     /** Get a constraints. */
     AlpsKnowledge *getConstraint(int k) const {return getObject(k);}
+private:
+  BcpsConstraintPool(BcpsConstraintPool const & other);
+  BcpsConstraintPool & operator=(BcpsConstraintPool const & rhs);
 };
 
 //#############################################################################
 
 class BcpsVariablePool : public BcpsObjectPool {
- public:
-    BcpsVariablePool() {}
-    virtual ~BcpsVariablePool() {}
+public:
+  BcpsVariablePool(): BcpsObjectPool() { }
+
+  virtual ~BcpsVariablePool() {}
 
     /** Add a variable to pool */
     void addVariable(BcpsVariable * var) { objects_.push_back(var); }
@@ -143,6 +142,9 @@ class BcpsVariablePool : public BcpsObjectPool {
 
     /** Get the vector of variables. */
     AlpsKnowledge *getVariable(int k) const {return getObject(k);}
+private:
+  BcpsVariablePool(BcpsVariablePool const & other);
+  BcpsVariablePool & operator=(BcpsVariablePool const & rhs);
 };
 
 //#############################################################################

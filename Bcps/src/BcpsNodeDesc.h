@@ -143,7 +143,7 @@ class BcpsNodeDesc : public AlpsNodeDesc {
     /** Useful constructor. */
     BcpsNodeDesc(BcpsModel* m)
         :
-        AlpsNodeDesc(m) { initToNull(); }
+        AlpsNodeDesc() { initToNull(); }
 
     /** Destructor. */
     virtual ~BcpsNodeDesc();

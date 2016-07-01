@@ -135,16 +135,15 @@ class BcpsSolution : public AlpsSolution {
         }
     }
 
-    //------------------------------------------------------
-    // Parallel.
-    //------------------------------------------------------
-
-    /** Pack Bcps part of solution into an encoded objects. */
-    AlpsReturnStatus encodeBcps(AlpsEncoded *encoded) const;
-
-    /** Unpack Bcps part of solution from an encoded objects. */
-    AlpsReturnStatus decodeBcps(AlpsEncoded & encoded);
-
+  ///@name Encode and decode functions.
+  //@{
+  /// Get encode function defined in #AlpsKnowledge.
+  using AlpsKnowledge::encode;
+  /// Pack into a given encode object.
+  virtual AlpsReturnStatus encode(AlpsEncoded * encoded) const;
+  /// Decode the given AlpsEncoded object into this.
+  virtual AlpsReturnStatus decodeToSelf(AlpsEncoded & encoded);
+  //@}
 };
 
 //#############################################################################

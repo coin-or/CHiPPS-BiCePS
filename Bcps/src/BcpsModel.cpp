@@ -23,69 +23,22 @@
 #include "Bcps.h"
 #include "BcpsModel.h"
 
-//#############################################################################
-
-AlpsReturnStatus
-BcpsModel::encodeBcps(AlpsEncoded *encoded) const
-{
-    AlpsReturnStatus status  = AlpsReturnStatusOk;
-    int i;
-    int size = static_cast<int> (constraints_.size());
-    encoded->writeRep(size);
-    for (i = 0; i < size; ++i) {
-        constraints_[i]->encode(encoded);
-    }
-
-    size =  static_cast<int> (variables_.size());
-    encoded->writeRep(size);
-    for (i = 0; i < size; ++i) {
-        variables_[i]->encode(encoded);
-    }
-
-    // Core node decription
-    encoded->writeRep(numCoreConstraints_);
-    encoded->writeRep(numCoreVariables_);
-
-    return status;
+AlpsReturnStatus BcpsModel::encode(AlpsEncoded * encoded) const {
+  AlpsReturnStatus status = AlpsReturnStatusOk;
+  int numCons = static_cast<int> (constraints_.size());
+  encoded->writeRep(numCons);
+  for (int i=0; i<numCons; ++i) {
+    status = constraints_[i]->encode(encoded);
+    assert(status==AlpsReturnStatusOk);
+  }
+  int numVars =  static_cast<int> (variables_.size());
+  encoded->writeRep(numVars);
+  for (int i=0; i<numVars; ++i) {
+    status = variables_[i]->encode(encoded);
+    assert(status==AlpsReturnStatusOk);
+  }
+  // Core node decription
+  encoded->writeRep(numCoreConstraints_);
+  encoded->writeRep(numCoreVariables_);
+  return status;
 }
-
-//#############################################################################
-
-AlpsReturnStatus
-BcpsModel::decodeBcps(AlpsEncoded &encoded)
-{
-    AlpsReturnStatus status  = AlpsReturnStatusOk;
-    int i, size;
-
-    encoded.readRep(size);
-    for (i = 0; i < size; ++i) {
-        const AlpsKnowledge* know =
-            broker_->decoderObject(BcpsKnowledgeTypeConstraint);
-        BcpsConstraint *con = NULL;
-        con = static_cast<BcpsConstraint *>(know->decode(encoded));
-
-
-        //BcpsConstraint *con = static_cast<BcpsConstraint *>
-        //( broker_->decoderObject(BcpsKnowledgeTypeConstraint)->decode(encoded) );
-
-        constraints_.push_back(con);
-        con = NULL;
-    }
-
-    encoded.readRep(size);
-    for (i = 0; i < size; ++i) {
-        BcpsVariable *var = static_cast<BcpsVariable *>
-            ( broker_->decoderObject(BcpsKnowledgeTypeVariable)->decode(encoded) );
-
-        variables_.push_back(var);
-        var = NULL;
-    }
-
-    // Core node decription
-    encoded.readRep(numCoreConstraints_);
-    encoded.readRep(numCoreVariables_);
-
-    return status;
-}
-
-//#############################################################################
