@@ -23,95 +23,212 @@
 #include "BcpsTreeNode.h"
 #include "BcpsNodeDesc.h"
 
-//#############################################################################
 
-int
-BcpsTreeNode::process(bool isRoot, bool rampUp)
-{
-        BcpsReturnStatus status = BcpsReturnStatusOk;
-        bool keepOn = true;
-    bool fathomed = false;
-    bool genCons = true;
-    bool genVars = true;
+extern std::map<BCPS_Grumpy_Msg_Type, char const *> grumpyMessage;
+extern std::map<BcpsNodeBranchDir, char> grumpyDirection;
 
-    int maxPass = 20; // Should be a parameter.
-    int pass = 0;
-
-    BcpsConstraintPool *newConPool = NULL;
-    BcpsVariablePool *newVarPool = NULL;
-
-    BcpsModel * model = dynamic_cast<BcpsModel*>(desc_->broker()->getModel());
-
-    //------------------------------------------------------
-    // Extract node information (bounds, constraints, variables) from
-    // this node and load the information into the relaxation solver,
-    // such as linear programming solver.
-    //------------------------------------------------------
-
-    installSubProblem(model);
-
-    //------------------------------------------------------
-    // Iteratively:
-    //  - bounding,
-    //  - heuristic searching,
-    //  - constraint generating,
-    //  - variable generating.
-    //------------------------------------------------------
-
-    while (keepOn && (pass < maxPass)) {
-        ++pass;
-        keepOn = false;
-
-        //--------------------------------------------------
-        // Bounding to get the quality of this node.
-        //--------------------------------------------------
-
-        status = static_cast<BcpsReturnStatus> (bound(model));
-
-        //--------------------------------------------------
-        // Handle bounding status:
-        //  - relaxed feasible but not integer feasible,
-        //  - integer feasible,
-        //  - infeasible,
-        //  - unbounded,
-        //  - fathomed (for instance, reaching objective limit for LP).
-        // Set node status accordingly.
-        //--------------------------------------------------
-
-        status = static_cast<BcpsReturnStatus> (handleBoundingStatus(status, keepOn, fathomed));
-
-        if(fathomed || !keepOn) {
-            // Infeasible, fathomed, tailing off or some user's criteriall.
-            break;
-        }
-
-        //--------------------------------------------------
-        // Generate constraints.
-        //--------------------------------------------------
-
-        if (genCons) {
-            status = static_cast<BcpsReturnStatus> (generateConstraints(model, newConPool));
-        }
-
-        //--------------------------------------------------
-        // Generate variables.
-        //--------------------------------------------------
-
-        if (genVars) {
-            status = static_cast<BcpsReturnStatus> (generateVariables(model, newVarPool));
-        }
-    }
-
-    //------------------------------------------------------
-    // Select branching object
-    //------------------------------------------------------
-
-    if (!fathomed) {
-        status = static_cast<BcpsReturnStatus> (chooseBranchingObject(model));
-    }
-
-
-        return (status == BcpsReturnStatusOk) ? AlpsReturnStatusOk : AlpsReturnStatusErr;
+/// Destructor.
+BcpsTreeNode::~BcpsTreeNode() {
+  clearBranchObject();
 }
 
-//#############################################################################
+//todo(aykut) this method is not used yet. it should be implemented in user
+//sub-class.
+int BcpsTreeNode::process(bool isRoot, bool rampUp) {
+  AlpsNodeStatus status = getStatus();
+  BcpsModel * model = dynamic_cast<BcpsModel*>(broker()->getModel());
+  CoinMessageHandler * message_handler = model->bcpsMessageHandler_;
+
+  // debug stuff
+  std::stringstream debug_msg;
+  debug_msg << "Processing node ";
+  debug_msg << this;
+  debug_msg << " index ";
+  debug_msg << getIndex();
+  debug_msg << " parent ";
+  debug_msg << getParent();
+  message_handler->message(0, "Bcps", debug_msg.str().c_str(),
+                           'G', BCPS_DLOG_PROCESS)
+    << CoinMessageEol;
+  // end of debug stuff
+
+  // check if this can be fathomed
+  if (getQuality() > broker()->getBestQuality()) {
+    // debug message
+    message_handler->message(0, "Bcps", "Node fathomed due to parent quality.",
+                             'G', BCPS_DLOG_PROCESS);
+    // end of debug message
+    setStatus(AlpsNodeStatusFathomed);
+    return AlpsReturnStatusOk;
+  }
+
+  if (status==AlpsNodeStatusCandidate or
+      status==AlpsNodeStatusEvaluated) {
+    boundingLoop(isRoot, rampUp);
+  }
+  else if (status==AlpsNodeStatusBranched or
+           status==AlpsNodeStatusFathomed or
+           status==AlpsNodeStatusDiscarded) {
+    // this should not happen
+    message_handler->message(BCPS_NODE_UNEXPECTEDSTATUS, model->bcpsMessages_)
+      << static_cast<int>(status) << CoinMessageEol;
+  }
+  return AlpsReturnStatusOk;
+}
+
+/// Clear branch object stored.
+void BcpsTreeNode::clearBranchObject() {
+  if (branchObject_) {
+    delete branchObject_;
+    branchObject_=NULL;
+  }
+}
+
+int BcpsTreeNode::boundingLoop(bool isRoot, bool rampUp) {
+  AlpsNodeStatus status = getStatus();
+
+  BcpsModel * model = dynamic_cast<BcpsModel*>(broker_->getModel());
+  CoinMessageHandler * message_handler = model->bcpsMessageHandler_;
+
+  bool keepBounding = true;
+  bool fathomed = false;
+  bool do_branch = false;
+  bool genConstraints = false;
+  bool genVariables = false;
+  BcpsConstraintPool * constraintPool = new BcpsConstraintPool();
+  BcpsVariablePool * variablePool = new BcpsVariablePool();
+  installSubProblem();
+
+  while (keepBounding) {
+    keepBounding = false;
+    // solve subproblem corresponds to this node
+    BcpsSubproblemStatus subproblem_status = bound();
+
+    // debug print objective value after bounding
+    std::stringstream debug_msg;
+    debug_msg << "Subproblem solved. "
+              << "status "
+              << subproblem_status
+              << " Obj value "
+              << quality_
+              << " estimate "
+              << solEstimate_;
+    message_handler->message(0, "Bcps", debug_msg.str().c_str(),
+                             'G', BCPS_DLOG_PROCESS);
+    // end of debug stuff
+
+    // call heuristics to search for a solution
+    callHeuristics();
+
+    // decide what to do
+    branchConstrainOrPrice(subproblem_status, keepBounding, do_branch,
+                           genConstraints,
+                           genVariables);
+
+    // debug message
+    // reset debug message
+    debug_msg.str(std::string());
+    debug_msg << "BCP function decided to"
+              << " keep bounding "
+              << keepBounding
+              << " branch "
+              << do_branch
+              << " generate cons "
+              << genConstraints;
+    message_handler->message(0, "Bcps", debug_msg.str().c_str(),
+                             'G', BCPS_DLOG_PROCESS);
+    // end of debug stuff
+
+    if (getStatus()==AlpsNodeStatusFathomed) {
+      // node is fathomed, nothing to do.
+      break;
+    }
+    else if (keepBounding and genConstraints) {
+      generateConstraints(constraintPool);
+      // add constraints to the model
+      applyConstraints(constraintPool);
+      // clear constraint pool
+      constraintPool->freeGuts();
+      // set status to evaluated
+      setStatus(AlpsNodeStatusEvaluated);
+    }
+    else if (keepBounding and genVariables) {
+      generateVariables(variablePool);
+      // add variables to the model
+      // set status to evaluated
+      setStatus(AlpsNodeStatusEvaluated);
+    }
+    else if (keepBounding==false and do_branch==false) {
+      // put node back into the list.
+      // this means do not change the node status and end processing the node.
+      // set status to evaluated
+      setStatus(AlpsNodeStatusEvaluated);
+    }
+    else if (keepBounding==false and do_branch) {
+      // // prepare for branch() call
+      // BcpsBranchStrategy * branchStrategy = model->branchStrategy();
+      // // todo(aykut) following should be a parameter
+      // // Maximum number of resolve during branching.
+      // int numBranchResolve = 10;
+      // // todo(aykut) why ub should be an input?
+      // branchStrategy->createCandBranchObjects(this);
+      // // prepare this node for branching, bookkeeping for differencing.
+      // // call pregnant setting routine
+      // processSetPregnant();
+    }
+    else {
+      message_handler->message(9998, "Bcps", "This should not happen. "
+                               " branchConstrainOrPrice() is buggy.", 'E', 0)
+        << CoinMessageEol;
+    }
+
+  }
+  delete constraintPool;
+  delete variablePool;
+  return AlpsReturnStatusOk;
+}
+
+//todo(aykut) Warm start stuff should be implemented without assuming much
+//about the underlying solver.
+void BcpsTreeNode::processSetPregnant() {
+  // get warm start basis from solver
+  // todo(aykut) This does not help much if the underlying solver is an IPM
+  // based solver.
+  // BcpsModel * model = dynamic_cast<BcpsModel*>(broker()->getModel());
+  // CoinWarmStartBasis * ws = dynamic_cast<CoinWarmStartBasis*>
+  //   (model->solver()->getWarmStart());
+  // // store basis in the node desciption.
+  // getDesc()->setBasis(ws);
+  // // set status pregnant
+  // setStatus(AlpsNodeStatusPregnant);
+
+}
+
+
+/// Encode the content of this into the given AlpsEncoded object.
+AlpsReturnStatus BcpsTreeNode::encode(AlpsEncoded * encoded) const {
+  AlpsReturnStatus status = AlpsReturnStatusOk;
+  // int type = 0;
+  // bool branch_obj_exists;
+  // branch_obj_exists = branchObject_ ? true : false;
+  // encoded->writeRep(branch_obj_exists);
+  // if (branch_obj_exists) {
+  //   status = branchObject_->encode(encoded);
+  //   assert(status==AlpsReturnStatusOk);
+  // }
+  return status;
+}
+
+/// Decode the given AlpsEncoded object into this.
+AlpsReturnStatus BcpsTreeNode::decodeToSelf(AlpsEncoded & encoded) {
+  AlpsReturnStatus status = AlpsReturnStatusOk;
+  // bool branch_obj_exists;
+  // encoded.readRep(branch_obj_exists);
+  // if (branch_obj_exists) {
+  //   if (branchObject_) {
+  //     status = branchObject_->decodeToSelf(encoded);
+  //     assert(status==AlpsReturnStatusOk);
+  //   }
+  // }
+  return status;
+}
