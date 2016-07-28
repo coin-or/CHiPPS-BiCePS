@@ -33,131 +33,132 @@
 #include "BcpsBranchObject.h"
 #include "BcpsObjectPool.h"
 
-//#############################################################################
-/**
-   This class contain the data for a BCPS search tree node. At this level, we
-   consider a tree node to be simply a list of objects. The objects are
-   organized by type. A differencing scheme is implemented here by looking for
-   differences between the lists of each type in the current node and its
-   parent.
+/*!
+   #BcpsTreeNode class represents a tree node in a Branch, Constraint and Price
+   type of tree. Alps does not assume an optimization model, Bcps
+   does. BcpsNodeTree holds auxilary data, like branching object
+   etc. #BcpsNodeDesc holds the data corresponding to the subproblem the node
+   stands for, ie. variable bounds, etc. A differencing scheme is implemented
+   in #BcpsNodeDesc. It stores only the differences with respect to parent.
+
+   #BcpsTreeNode fixes and API that should be implemented by the user sub-class.
+   Virtual functions that should be implemented by the user are
+
+   <ul>
+
+   <li> ::generateConstraints(). User sub-class should generate constrints and
+        populate the input pool.
+
+   <li> ::generateVariables(). User sub-class should generate new varaibles and
+        populate the given pool.
+
+   <li> ::chooseBranchingObject(). User sub-class should implement choosing a
+        branch object.
+
+   <li> ::installSubProblem(). User sub-class should implement how to install
+        the subproblem to the underlying solver. The subproblem data are stored
+        in desc_, which is a pointer to an instance of the user node
+        description class.
+
+   <li> ::branchConstrainOrPrice(). During bounding loop, this function decides
+        what to do next, i.e., keep bounding, branch, generate constraints,
+        generate columns.
+
+   </ul>
+
 */
-//#############################################################################
 
 class BcpsTreeNode : public AlpsTreeNode {
+protected:
+  /// Branching object for this node, which has information of how to
+  /// execute branching.
+  BcpsBranchObject * branchObject_;
+  /// Bounding loop, generate cols, vars and keeps bounding the subproblem.
+  int boundingLoop(bool isRoot, bool rampUp);
+  /// Helper function for process method. Sets status to pregnant in
+  /// boundingLoop() called from process().
+  void processSetPregnant();
 
- protected:
+public:
+  ///@name Constructors and Destructor.
+  //@{
+  /// Default constructor.
+  BcpsTreeNode(): branchObject_(NULL) { }
+  /// Destructor.
+  virtual ~BcpsTreeNode();
+  //@}
 
-    /** Branching object for this node, which has information of how to
-        execute branching. */
-    BcpsBranchObject *branchObject_;
+  ///@name Pure virtual functions that should be implemented by user
+  /// sub-class
+  //@{
+  /// Generate constraints. The generated constraints are stored
+  /// in constraint pool. The default implementation does nothing.
+  virtual int generateConstraints(BcpsConstraintPool *conPool) = 0;
+  /// Generate variables. The generated varaibles are stored
+  /// in variable pool. The default implementation does nothing.
+  virtual int generateVariables(BcpsVariablePool *varPool) = 0;
+  /// Choose a branching object.
+  virtual int chooseBranchingObject() = 0;
+  /** Extract node information (bounds, constraints, variables) from
+      this node and load the information into the relaxation solver,
+      such as linear programming solver.*/
+  virtual int installSubProblem() = 0;
+  /** Once the solver is done, decide what to do next:
+   *  - relaxed feasible but not integer feasible,
+   *  - integer feasible,
+   *  - infeasible,
+   *  - unbounded,
+   *  - fathomed (for instance, reaching objective limit for LP).
+   * Set node status accordingly.
+   * \param subproblem_status   Input The solution status of bounding.
+   * \param keepBounding        Output  Whether to keep on bounding.
+   * \param branch              Output        Whether to branch this.
+   * \param generateConstraints Output Whether to generate constraints for the
+   * subproblem.
+   * \param generateVariables   Output Whether to generate variables for the
+   * subproblem.
+   */
+  virtual void branchConstrainOrPrice(BcpsSubproblemStatus subproblem_status,
+                                     bool & keepBounding,
+                                     bool & branch,
+                                     bool & generateConstraints,
+                                     bool & generateVariables) = 0;
+  /// Bounding procedure to estimate quality of this node. Typically involves
+  /// solution of the corresponding subproblem.
+  virtual BcpsSubproblemStatus bound() = 0;
+  /// Call heuristics to search for a solution in the current subproblem.
+  virtual void callHeuristics() = 0;
+  virtual void applyConstraints(BcpsConstraintPool const * conPool) = 0;
+//@}
 
- protected:
 
-    /** Generate constraints. The generated constraints are stored
-        in constraint pool. The default implementation does nothing. */
-    virtual int generateConstraints(BcpsModel *model,
-                                    BcpsConstraintPool *conPool) {
-        AlpsReturnStatus status = AlpsReturnStatusOk;
-        return status;
-    }
+  ///@name Other functions
+  //@{
+  /** This methods performs the processing of the node. For branch and bound,
+      this would mean performing the bounding operation. This method updates
+      the status of the node. Alps level tree manager does the rest.
+  */
+  virtual int process(bool isRoot = false, bool rampUp = false);
+  /// Clear branch object stored.
+  void clearBranchObject();
+  //@}
 
-    /** Generate variables. The generated varaibles are stored
-        in variable pool. The default implementation does nothing. */
-    virtual int generateVariables(BcpsModel *model,
-                                  BcpsVariablePool *varPool) {
-        AlpsReturnStatus status = AlpsReturnStatusOk;
-        return status;
-    }
 
-    /** Choose a branching object. */
-    virtual int chooseBranchingObject(BcpsModel *model) = 0;
+  ///@name Get/Set functions
+  //@{
+  /// Return the branching object.
+  const BcpsBranchObject * branchObject() const { return branchObject_; }
+  /// Set the branching object.
+  void setBranchObject(BcpsBranchObject * b) { branchObject_ = b; }
+  //@}
 
-    /** Extract node information (bounds, constraints, variables) from
-        this node and load the information into the relaxation solver,
-        such as linear programming solver.*/
-    virtual int installSubProblem(BcpsModel *model) = 0;
-
-    /** Handle bounding status:
-     *  - relaxed feasible but not integer feasible,
-     *  - integer feasible,
-     *  - infeasible,
-     *  - unbounded,
-     *  - fathomed (for instance, reaching objective limit for LP).
-     * Set node status accordingly.
-     * \param staus    Input   The solution status of bounding.
-     * \param keepOn   Output  Whether to keep on bounding.
-     * \param fathomed Output  Whether this node is fathomed.
-     */
-    virtual int handleBoundingStatus(int status, bool &keepOn, bool &fathomed){
-        // Default do nothing.
-        return BcpsReturnStatusOk;
-    }
-
- public:
-
-    /** Default constructor. */
-    BcpsTreeNode() : branchObject_(NULL) { }
-
-    /** Destructor. */
-    virtual ~BcpsTreeNode(){ delete branchObject_; }
-
-    /** This methods performs the processing of the node. For branch and bound,
-        this would mean performing the bounding operation. The minimum
-        requirement for this method is that it change the status to either
-        internal or fathomed so the tree manager can deal with it
-        afterwards. The status of the node when it begins processing will be
-        active. */
-    virtual int process(bool isRoot = false, bool rampUp = false);
-
-    /** Bounding procedure to estimate quality of this node. */
-    virtual int bound(BcpsModel *model) = 0;
-
-    /** This method must be invoked on a \c pregnant node (which has all the
-        information needed to create the children) and should create the
-        children's decriptions. The stati of the children
-        can be any of the ones \c process() can return. */
-    virtual std::vector< CoinTriple<AlpsNodeDesc*, AlpsNodeStatus, double> >
-        branch() = 0;
-
-    /** Return the branching object. */
-    const BcpsBranchObject * branchObject() const { return branchObject_; }
-
-    /** Set the branching object. */
-    void setBranchObject(BcpsBranchObject * b) { branchObject_ = b; }
-
- protected:
-
-    /** Pack Bcps portion of node into an encoded object. */
-    AlpsReturnStatus encodeBcps(AlpsEncoded *encoded) const {
-        AlpsReturnStatus status = AlpsReturnStatusOk;
-        int type = 0;
-        if (branchObject_) {
-            type = branchObject_->type();
-            encoded->writeRep(type);
-            status = branchObject_->encode(encoded);
-        }
-        else {
-            encoded->writeRep(type);
-        }
-        return status;
-    }
-
-#if 0 // Can't docode a down(blis) branching object here.
-    /** Unpack Bcps portion of node from an encoded object. */
-    AlpsReturnStatus decodeBcps(AlpsEncoded &encoded) {
-        AlpsReturnStatus status = AlpsReturnStatusOk;
-        int mark;
-        encoded.readRep(mark);
-
-        if (mark == 1) {
-            // branchObject_ is not NULL.
-            status = branchObject_->encode(encoded);
-        }
-
-        return status;
-    }
-#endif
-
+  ///@name Encode and Decode functions
+  //@{
+  /// Encode the content of this into the given AlpsEncoded object.
+  virtual AlpsReturnStatus encode(AlpsEncoded * encoded) const;
+  /// Decode the given AlpsEncoded object into this.
+  virtual AlpsReturnStatus decodeToSelf(AlpsEncoded & encoded);
+  //@}
 };
 
 #endif
