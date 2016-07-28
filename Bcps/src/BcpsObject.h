@@ -228,9 +228,7 @@ class BcpsObject : public AlpsKnowledge {
 
         The object may also compute an estimate of cost of going "up" or
         "down". This will probably be based on pseudo-cost ideas. */
-    virtual double infeasibility(BcpsModel *m, int &preferredWay) const {
-        return 0.0;
-    }
+    virtual double infeasibility(BcpsModel *m, int &preferredWay) const = 0;
 
     /** Look at the current solution and set bounds to match the solution.*/
     virtual void feasibleRegion(BcpsModel *m) {}
