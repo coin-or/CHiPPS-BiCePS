@@ -68,9 +68,7 @@
 
 */
 
-class BcpsBranchObject {
-  /// The model that owns this branch object.
-  BcpsModel * model_;
+class BcpsBranchObject: virtual public AlpsKnowledge {
   /// Type of branching. This will be set by the application built on top of
   /// Bcps.
   int type_;
@@ -85,22 +83,13 @@ class BcpsBranchObject {
   /// class.
   double value_;
 
-  ///@name Private functions.
-  //@{
-  /// Pack Bcps portion to an encoded object.
-  AlpsReturnStatus encodeBcps(AlpsEncoded * encoded) const;
-  /// Unpack Bcps portion from an encoded object.
-  AlpsReturnStatus decodeBcps(AlpsEncoded & encoded);
-  //@}
-
 public:
   ///@name Constructors and Destructor.
   //@{
   /// Constructor.
-  BcpsBranchObject(BcpsModel * model, int type, int index, int score);
+  BcpsBranchObject(int type, int index, int score);
   /// Constructor.
-  BcpsBranchObject(BcpsModel * model, int type, int index, double score,
-                   double value);
+  BcpsBranchObject(int type, int index, double score, double value);
   /// Copy constructor.
   BcpsBranchObject(BcpsBranchObject const & other);
   /// Copy assignment operator
@@ -111,8 +100,6 @@ public:
 
   ///@name Get functions.
   //@{
-  /// Return model.
-  BcpsModel * model() const { return  model_; }
   /// Get type.
   int type() const { return type_; }
   /// Get index.
@@ -136,10 +123,11 @@ public:
   virtual int numBranchesLeft() const = 0;
   /// Spit out a branch and, update this or superclass fields if necessary.
   virtual double branch(bool normalBranch = false) = 0;
-  /// Pack to an encoded object.
-  virtual AlpsReturnStatus encode(AlpsEncoded * encoded) const = 0;
-  /// Unpack a branching object from an encoded object.
-  virtual AlpsReturnStatus decode(AlpsEncoded & encoded) = 0;
+
+  /// Encode the content of this into the given AlpsEncoded object.
+  virtual AlpsReturnStatus encode(AlpsEncoded * encoded) const;
+  /// Decode the given AlpsEncoded object into this.
+  virtual AlpsReturnStatus decodeToSelf(AlpsEncoded & encoded);
   //@}
 
 private:

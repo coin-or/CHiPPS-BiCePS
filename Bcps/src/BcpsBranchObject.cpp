@@ -31,38 +31,40 @@
 
 
 /// Constructor.
-BcpsBranchObject::BcpsBranchObject(BcpsModel * model, int type, int index,
-                                   int score)
-  : model_(model), type_(type), index_(index), score_(score), value_(0.0) {
+BcpsBranchObject::BcpsBranchObject(int type, int index, int score)
+  : AlpsKnowledge(AlpsKnowledgeTypeUndefined, NULL),
+    type_(type), index_(index), score_(score), value_(0.0) {
+
 }
 
 /// Constructor.
-BcpsBranchObject::BcpsBranchObject(BcpsModel * model, int type, int index,
-                                   double score, double value)
-  : model_(model), type_(type), index_(index), score_(score), value_(value) {
+BcpsBranchObject::BcpsBranchObject(int type, int index, double score,
+                                   double value)
+  : AlpsKnowledge(AlpsKnowledgeTypeUndefined, NULL),
+    type_(type), index_(index), score_(score), value_(value) {
 }
 
 /// Copy constructor.
 BcpsBranchObject::BcpsBranchObject(BcpsBranchObject const & other)
-  : model_(other.model()), type_(other.type()), index_(other.index()),
+  : AlpsKnowledge(AlpsKnowledgeTypeUndefined, other.broker_),
+    type_(other.type()), index_(other.index()),
     score_(other.score()), value_(other.value()) {
 }
 
 /// Copy assignment operator
 BcpsBranchObject & BcpsBranchObject::operator=(BcpsBranchObject const & rhs) {
-  model_ = rhs.model();
   type_ = rhs.type();
   index_ = rhs.index();
   score_ = rhs.score();
   value_ = rhs.value();
+  broker_ = rhs.broker_;
   return *this;
 }
 
 /// Pack Bcps portion to an encoded object.
-AlpsReturnStatus BcpsBranchObject::encodeBcps(AlpsEncoded * encoded) const {
+AlpsReturnStatus BcpsBranchObject::encode(AlpsEncoded * encoded) const {
   AlpsReturnStatus status = AlpsReturnStatusOk;
   assert(encoded);
-  encoded->writeRep(model_);
   encoded->writeRep(type_);
   encoded->writeRep(index_);
   encoded->writeRep(score_);
@@ -71,9 +73,8 @@ AlpsReturnStatus BcpsBranchObject::encodeBcps(AlpsEncoded * encoded) const {
 }
 
 /// Unpack Bcps portion from an encoded object.
-AlpsReturnStatus BcpsBranchObject::decodeBcps(AlpsEncoded & encoded) {
+AlpsReturnStatus BcpsBranchObject::decodeToSelf(AlpsEncoded & encoded) {
   AlpsReturnStatus status = AlpsReturnStatusOk;
-  encoded.readRep(model_);
   encoded.readRep(type_);
   encoded.readRep(index_);
   encoded.readRep(score_);
