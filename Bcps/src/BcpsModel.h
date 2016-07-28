@@ -48,6 +48,8 @@ protected:
   int numCoreConstraints_;
   /** Number of core variables. By default, all input variables are core.*/
   int numCoreVariables_;
+
+public:
   /** Message handler. */
   CoinMessageHandler * bcpsMessageHandler_;
   /** Bcps messages. */
