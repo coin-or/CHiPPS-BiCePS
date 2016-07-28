@@ -42,29 +42,36 @@
 
  */
 
-//#############################################################################
-// Return code.
-//#############################################################################
-
 enum BcpsReturnStatus {
    BcpsReturnStatusOk = 0,
    BcpsReturnStatusErr
 };
-
-//#############################################################################
 
 enum BcpsKnowledgeType{
    BcpsKnowledgeTypeConstraint  = 11,
    BcpsKnowledgeTypeVariable  = 12
 };
 
-//#############################################################################
-
 enum BcpsValidRegion{
     BcpsValidLocal = 0,
     BcpsValidGlobal
 };
 
-//#############################################################################
+enum BcpsSubproblemStatus {
+  BcpsSubproblemStatusOptimal,
+  BcpsSubproblemStatusAbandoned,
+  BcpsSubproblemStatusPrimalInfeasible,
+  BcpsSubproblemStatusDualInfeasible,
+  BcpsSubproblemStatusPrimalObjLim,
+  BcpsSubproblemStatusDualObjLim,
+  BcpsSubproblemStatusIterLim,
+  BcpsSubproblemStatusUnknown
+};
+
+/** Node branch direction, is it a left node or right */
+enum BcpsNodeBranchDir {
+    BcpsNodeBranchDirectionDown = 0,
+    BcpsNodeBranchDirectionUp
+};
 
 #endif
