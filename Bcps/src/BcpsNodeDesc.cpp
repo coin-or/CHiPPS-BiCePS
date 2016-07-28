@@ -990,41 +990,33 @@ BcpsNodeDesc::decodeObjectMods(AlpsEncoded &encoded,
     int k;
     AlpsReturnStatus status = AlpsReturnStatusOk;
 
-    std::cerr << "Not implemented yet."
-              << std::endl;
-    throw std::exception();
+    // Pack removed object positions.
+    encoded.readRep(objMod->posRemove, objMod->numRemove);
 
-    // AlpsKnowledgeBroker *broker = model_->getKnowledgeBroker();
-    // assert(broker);
+    // Pack added objects.
+    encoded.readRep(objMod->numAdd);
 
-    // // Pack removed object positions.
-    // encoded.readRep(objMod->posRemove, objMod->numRemove);
+    if (objMod->numAdd > 0) {
+        objMod->objects = new BcpsObject* [objMod->numAdd];
+        for (k = 0; k < objMod->numAdd; ++k) {
+            objMod->objects[k]->decodeToSelf(encoded);
 
-    // // Pack added objects.
-    // encoded.readRep(objMod->numAdd);
+            // Unpack a object from an encoded.
+            // (objMod->objects)[k]->encode(encoded);
+        }
+    }
 
-    // if (objMod->numAdd > 0) {
-    //     objMod->objects = new BcpsObject* [objMod->numAdd];
-    //     for (k = 0; k < objMod->numAdd; ++k) {
-    //         objMod->objects[k] = static_cast<BcpsObject *>
-    //             ( broker->decoderObject(BcpsKnowledgeTypeConstraint)->decode(encoded) );
-
-    //         // Unpack a object from an encoded.
-    //         // (objMod->objects)[k]->encode(encoded);
-    //     }
-    // }
-
-    // //std::cout << "---- BCPS decode lb hard:" << std::endl;
-    // status = decodeDblFieldMods(encoded, &(objMod->lbHard));
-    // //std::cout << "---- BCPS decode ub hard:" << std::endl;
-    // status = decodeDblFieldMods(encoded, &(objMod->ubHard));
-    // //std::cout << "---- BCPS decode lb soft:" << std::endl;
-    // status = decodeDblFieldMods(encoded, &(objMod->lbSoft));
-    // //std::cout << "---- BCPS decode ub soft:" << std::endl;
-    // status = decodeDblFieldMods(encoded, &(objMod->ubSoft));
+    //std::cout << "---- BCPS decode lb hard:" << std::endl;
+    status = decodeDblFieldMods(encoded, &(objMod->lbHard));
+    //std::cout << "---- BCPS decode ub hard:" << std::endl;
+    status = decodeDblFieldMods(encoded, &(objMod->ubHard));
+    //std::cout << "---- BCPS decode lb soft:" << std::endl;
+    status = decodeDblFieldMods(encoded, &(objMod->lbSoft));
+    //std::cout << "---- BCPS decode ub soft:" << std::endl;
+    status = decodeDblFieldMods(encoded, &(objMod->ubSoft));
 
     // Do know what's the use of status.
-    //status = encodeIntFieldMods(encoded, &(objMod->status));
+    // status = encodeIntFieldMods(encoded, &(objMod->status));
 
     return status;
 }
