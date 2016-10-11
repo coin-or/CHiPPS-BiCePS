@@ -30,6 +30,7 @@
 #include "BcpsModel.h"
 #include "BcpsObject.h"
 
+#include <cmath>
 
 //#############################################################################
 
