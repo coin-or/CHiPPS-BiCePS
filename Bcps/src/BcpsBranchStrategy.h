@@ -94,7 +94,7 @@ public:
   /// Set model.
   void setModel(BcpsModel * model) { model_ = model; }
   // set branch objects, takes ownership of input objects.
-  void setBranchObjects(int num, BcpsBranchObject **obj);
+  void setBranchObjects(int num, BcpsBranchObject **& obj);
   void setBranchObjects(std::vector<BcpsBranchObject*> & obj);
   void setBestIndex(int index) { bestIndex_ = index; }
   //@}

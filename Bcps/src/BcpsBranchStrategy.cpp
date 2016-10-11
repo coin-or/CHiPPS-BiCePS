@@ -42,7 +42,7 @@ BcpsBranchStrategy::~BcpsBranchStrategy() {
   delete[] branchObjects_;
 }
 
-void BcpsBranchStrategy::setBranchObjects(int num, BcpsBranchObject ** obj) {
+void BcpsBranchStrategy::setBranchObjects(int num, BcpsBranchObject **& obj) {
   // clear members
   clearBranchObjects();
   // take ownership of objects
