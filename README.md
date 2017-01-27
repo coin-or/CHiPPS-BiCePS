@@ -6,6 +6,18 @@ is freely redistributable. All source code and documentation is Copyright
 2001-2017 by Lehigh University, Yan Xu, and Ted Ralphs. This README may be
 distributed freely.
 
+TESTING STATUS
+==============
+
+[![Build Status](https://travis-ci.org/coin-or/CHiPPS-BiCePS.svg?branch=master)](https://travis-ci.org/coin-or/CHiPPS-BiCePS)
+
+[![Build status](https://ci.appveyor.com/api/projects/status/lqdk3l72xs5j8qxj?svg=true)](https://ci.appveyor.com/project/tkralphs/chipps-biceps)
+
+CITE
+====
+
+[![DOI](https://zenodo.org/badge/23726997.svg)](https://zenodo.org/badge/latestdoi/23726997)
+
 WHAT IS BiCePS?
 ===============
 
@@ -45,12 +57,12 @@ SUPPORT
 Source Code:
 
 Yan Xu (yax2@lehigh.edu)
-Ted Ralphs (tkralphs@lehigh.edu), Project Manager
+Ted Ralphs (ted@lehigh.edu), Project Manager
 
 Original Conceptual Design:
 
 Yan Xu (yax2@lehigh.edu)
-Ted Ralphs (tkralphs@lehigh.edu), Project Manager
+Ted Ralphs (ted@lehigh.edu), Project Manager
 Laci Ladanyi (ladanyi@us.ibm.com)
 Matt Saltzman (mjs@clemson.edu)
 
