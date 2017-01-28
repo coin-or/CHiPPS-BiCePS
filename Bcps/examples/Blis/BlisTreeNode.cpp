@@ -191,7 +191,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
     else if (model->useCons() == 0) {
 	// NOTE: Only automatic has depth limit.
 	if (depth_ < maxConstraintDepth) {
-            if (!diving_ || isRoot) genConsHere = true;
+            genConsHere = true;
 	}
     }
     else {
@@ -2413,7 +2413,7 @@ BlisTreeNode::generateConstraints(BlisModel *model, OsiCuts & cutPool)
 	    if (model->isRoot_) useThis = true;
 	}
 	else if (strategy == 0) {
-	    if (!diving_ || model->isRoot_) useThis = true;
+	    useThis = true;
 	}
 	else if (strategy > 0) {
 	    // Num of nodes is set at the beginning of process().
@@ -2425,7 +2425,7 @@ BlisTreeNode::generateConstraints(BlisModel *model, OsiCuts & cutPool)
 	
 #ifdef BLIS_DEBUG_MORE
 	std::cout<<"CUTGEN: " << model->cutGenerators(i)->name() 
-		 <<": useThis="<<useThis<<", diving=" <<diving_
+		 <<": useThis="<<useThis
 		 << ", strategy=" << strategy 
 		 << ", num of nodes=" << model->getNumNodes()
 		 <<std::endl;
