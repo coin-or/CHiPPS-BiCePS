@@ -1,10 +1,10 @@
-BiCePS Version 0.94 README
+BiCePS Version 0.99 README
 ==========================
 
 Welcome to BiCePS. BiCePS is distributed under the Eclipse Public License and
 is freely redistributable. All source code and documentation is Copyright
-2001-2017 by Lehigh University, Yan Xu, and Ted Ralphs. This README may be
-distributed freely.
+2001-2018 by Lehigh University, Yan Xu, Aykut Bulut, and Ted Ralphs. This
+README may be distributed freely.
 
 TESTING STATUS
 ==============
@@ -64,6 +64,7 @@ SUPPORT
 Source Code:
 
 Yan Xu (yax2@lehigh.edu)
+Aykut Bulut (aykutblt@gmail.com)
 Ted Ralphs (ted@lehigh.edu), Project Manager
 
 Original Conceptual Design:
@@ -73,13 +74,8 @@ Ted Ralphs (ted@lehigh.edu), Project Manager
 Laci Ladanyi (ladanyi@us.ibm.com)
 Matt Saltzman (mjs@clemson.edu)
 
-2. List Serve
+2. Bug Reports and Other Issues
 
-BiCePS users should use the CHiPPS mailing list. To subscribe, go to 
-http://list.coin-or.org/mailman/listinfo/chipps
+Bug reports should be reported on the CHiPPS GitHub web site at
 
-3. Bug Reports
-
-Bug reports should be reported on the CHiPPS development web site at
-
-https://projects.coin-or.org/CHiPPS/newticket
+https://github.com/coin-or/CHiPPS-BLIS/issues/new

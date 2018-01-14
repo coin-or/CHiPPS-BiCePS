@@ -7,6 +7,7 @@
  * Authors:                                                                  *
  *                                                                           *
  *          Yan Xu, Lehigh University                                        *
+ *          Aykut Bulut, Lehigh University                                   *
  *          Ted Ralphs, Lehigh University                                    *
  *                                                                           *
  * Conceptual Design:                                                        *
