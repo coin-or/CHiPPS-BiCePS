@@ -78,4 +78,4 @@ Matt Saltzman (mjs@clemson.edu)
 
 Bug reports should be reported on the CHiPPS GitHub web site at
 
-https://github.com/coin-or/CHiPPS-BLIS/issues/new
+https://github.com/coin-or/CHiPPS-BiCePS/issues/new
