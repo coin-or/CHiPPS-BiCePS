@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -62,9 +62,9 @@ class BlisBranchStrategyStrong : public BcpsBranchStrategy {
 
     /** Illegal Assignment operator.*/
     BlisBranchStrategyStrong& operator=(const BlisBranchStrategyStrong& rhs);
-    
+
  public:
-    
+
     /** Strong Constructor. */
     BlisBranchStrategyStrong() {}
 
@@ -72,24 +72,24 @@ class BlisBranchStrategyStrong : public BcpsBranchStrategy {
     BlisBranchStrategyStrong(BlisModel *model)
         : BcpsBranchStrategy(model)
         {}
-    
+
     /** Destructor. */
     virtual ~BlisBranchStrategyStrong() {}
-    
+
     /** Copy constructor. */
     BlisBranchStrategyStrong(const BlisBranchStrategyStrong &);
-    
+
     /** Clone a brancing strategy. */
     virtual BcpsBranchStrategy * clone() const {
 	return new BlisBranchStrategyStrong(*this);
     }
-    
+
     /** Create a set of candidate branching objects. */
     virtual int createCandBranchObjects(int numPassesLeft);
-    
-    /** Compare branching object thisOne to bestSoFar. If thisOne is better 
+
+    /** Compare branching object thisOne to bestSoFar. If thisOne is better
 	than bestObject, return branching direction(1 or -1), otherwise
-	return 0. 
+	return 0.
 	If bestSorFar is NULL, then always return branching direction(1 or -1).
     */
     virtual int betterBranchObject(BcpsBranchObject * thisOne,

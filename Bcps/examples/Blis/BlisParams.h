@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -46,7 +46,7 @@ class BlisParams : public AlpsParameterSet {
     //
     endOfBoolParams
   };
-  
+
   /** Integer paramters. */
   enum intParams{
       /** The number of candidate used in strong branching. Default: 10. */
@@ -56,26 +56,26 @@ class BlisParams : public AlpsParameterSet {
       ///logLevel,
 
       /** Branching strategy.
-          0: max infeasibilty, 
-          1: pseudocost, 
-          2: relibility, 
+          0: max infeasibilty,
+          1: pseudocost,
+          2: relibility,
           3: strong branching.
       */
       branchStrategy,
 
       /** Heuristics control.
-          -1: disable, 
-          0: default, 
-          1: moderate, 
-          2: aggressive. 
+          -1: disable,
+          0: default,
+          1: moderate,
+          2: aggressive.
       */
       heurRound,
 
-      /** Cut generators control. 
-          -1: disable, 
-          0: default, 
-          1: moderate, 
-          2: aggressive. 
+      /** Cut generators control.
+          -1: disable,
+          0: default,
+          1: moderate,
+          2: aggressive.
       */
       cutClique,
       cutGomory,
@@ -98,10 +98,10 @@ class BlisParams : public AlpsParameterSet {
     /** Tolrence to treat as an integer. Default: 1.0e-5 */
     integerTol,
 
-    /** The value added to relaxation value when deciding fathom. 
+    /** The value added to relaxation value when deciding fathom.
 	Default:1.0e-6 */
     cutoffInc,
-    
+
     /** If the relative gap between best feasible and best relaxed fall into
 	this gap, search stops. Default: 1.0e-6 */
     optimalRelGap,
@@ -113,14 +113,14 @@ class BlisParams : public AlpsParameterSet {
     /** Weight used to calculate pseudocost. */
     pseudoWeight,
 
-    /** Limit the max number cuts applied at a node. 
+    /** Limit the max number cuts applied at a node.
         maxNumCons = (CutFactor - 1) * numCoreConstraints. */
     cutFactor,
 
-    /** Dense constraint factor.*/    
+    /** Dense constraint factor.*/
     denseConFactor,
 
-    /** Scaling indicator of a constraint.*/    
+    /** Scaling indicator of a constraint.*/
     scaleConFactor,
     //
     endOfDblParams
@@ -170,18 +170,18 @@ class BlisParams : public AlpsParameterSet {
 
  public:
   //===========================================================================
-  /** For user application: 
-   *   Following code are do NOT need to change. 
-   *   The reason can not put following functions in base class 
+  /** For user application:
+   *   Following code are do NOT need to change.
+   *   The reason can not put following functions in base class
    *   <CODE> AlpsParameterSet </CODE> is that <CODE> boolParams </CODE>
    *   and <CODE> endOfBoolParams </CODE> etc., are NOT the same as those
    *   declared in base class.
    */
   //===========================================================================
 
-  
-  /**@name Query methods 
-      
+
+  /**@name Query methods
+
      The members of the parameter set can be queried for using the overloaded
      entry() method. Using the example in the class
      documentation the user can get a parameter with the
@@ -235,7 +235,7 @@ class BlisParams : public AlpsParameterSet {
 
   /**@name Packing/unpacking methods */
   /*@{*/
-  /** Pack the parameter set into the buffer (AlpsEncoded is used 
+  /** Pack the parameter set into the buffer (AlpsEncoded is used
       as buffer Here). */
   void pack(AlpsEncoded& buf) {
     buf.writeRep(bpar_, endOfBoolParams)

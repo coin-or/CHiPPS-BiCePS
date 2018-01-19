@@ -21,8 +21,8 @@ the full version of Blis.
 DOCUMENTATION
 =============
 
-The html documentation of the classes in BLIS (See INSTALL of BLIS) can be 
-created. A user's guide that is under preparation that can help users to 
+The html documentation of the classes in BLIS (See INSTALL of BLIS) can be
+created. A user's guide that is under preparation that can help users to
 develop an application.
 
 
@@ -53,7 +53,7 @@ Matt Saltzman (mjs@clemson.edu)
 
 2. List Serve
 
-Alps users should use the Coin-Discuss mailing list. To subscribe, go to 
+Alps users should use the Coin-Discuss mailing list. To subscribe, go to
 http://list.coin-or.org/mailman/listinfo/coin-discuss
 
 3. Bug Reports

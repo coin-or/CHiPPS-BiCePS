@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Corporation, Lehigh University, Yan Xu, Ted Ralphs, Matthew Salzman and   *
  * others. All Rights Reserved.                                              *
@@ -49,16 +49,16 @@ class BlisHeuristic {
 
     /** Illegal Assignment operator */
     BlisHeuristic & operator = (const BlisHeuristic& rhs);
-    
+
  protected:
 
     /** Pointer to the model */
     BlisModel *model_;
-    
+
     /** Heuristics name */
     char *name_;
-    
-    /** When to call findSolution() routine. 
+
+    /** When to call findSolution() routine.
         -2:                    disable
         -1:                    just root
          0:                    automatically decided by BLIS
@@ -74,7 +74,7 @@ class BlisHeuristic {
 
     /** The times of calling this heuristic. */
     int calls_;
-    
+
  public:
 
     /** Default Constructor. */
@@ -86,7 +86,7 @@ class BlisHeuristic {
         time_ = 0.0;
         calls_ = 0;
     }
-    
+
     /** Useful constructor. */
     BlisHeuristic(BlisModel *model, const char *name, int strategy) {
         model_ = model;
@@ -106,7 +106,7 @@ class BlisHeuristic {
     virtual ~BlisHeuristic() { if (name_) free(name_); }
 
     /** Copy constructor. */
-    BlisHeuristic(const BlisHeuristic & rhs) {        
+    BlisHeuristic(const BlisHeuristic & rhs) {
         model_ = rhs.model_;
         name_ = strdup(rhs.name_);
         strategy_ = rhs.strategy_; // What if disabled?
@@ -114,10 +114,10 @@ class BlisHeuristic {
         time_ = 0.0;
         calls_ = 0;
     }
- 
+
     /** update model (This is needed if cliques update matrix etc). */
     virtual void setModel(BlisModel * model) { model_ = model ;}
-    
+
     /** Get/set strategy. */
     //@{
     virtual void setStrategy(int strategy) { strategy_ = strategy; }
@@ -126,36 +126,35 @@ class BlisHeuristic {
 
     /** Clone a heuristic. */
     virtual BlisHeuristic * clone() const = 0;
-    
+
     /** returns 0 if no solution, 1 if valid solution
         with better objective value than one passed in
-        Sets solution values if good, sets objective value 
+        Sets solution values if good, sets objective value
         This is called after cuts have been added - so can not add cuts
     */
-    virtual bool searchSolution(double & objectiveValue, 
+    virtual bool searchSolution(double & objectiveValue,
                                 double * newSolution)=0;
-    
+
     /** returns 0 if no solution, 1 if valid solution, -1 if just
         returning an estimate of best possible solution
         with better objective value than one passed in
-        Sets solution values if good, sets objective value 
-        (only if nonzero code) 
+        Sets solution values if good, sets objective value
+        (only if nonzero code)
         This is called at same time as cut generators - so can add cuts
         Default is do nothing
     */
     virtual int searchSolution(double & objectiveValue,
                                double * newSolution,
                                OsiCuts & cs) { return 0; }
-    
+
     /** Number of solutions found. */
     int numSolutions() { return numSolutions_; }
-    
+
     /** Cpu time used. */
     inline double time() { return time_; }
-    
+
     /** Cpu time used. */
     inline int calls() { return calls_; }
 };
 
 #endif
-

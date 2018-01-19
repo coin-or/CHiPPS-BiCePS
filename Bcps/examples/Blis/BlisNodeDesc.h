@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -40,7 +40,7 @@
 class BlisNodeDesc : public BcpsNodeDesc {
 
  private:
-    
+
     /** Branched direction to create it. For updating pseudocost. */
     int branchedDir_;
 
@@ -52,7 +52,7 @@ class BlisNodeDesc : public BcpsNodeDesc {
 
     /** Warm start. */
     CoinWarmStartBasis *basis_;
-    
+
  public:
 
     /** Default constructor. */
@@ -65,7 +65,7 @@ class BlisNodeDesc : public BcpsNodeDesc {
         {}
 
     /** Useful constructor. */
-    BlisNodeDesc(BlisModel* m) 
+    BlisNodeDesc(BlisModel* m)
 	:
 	BcpsNodeDesc(m),
         branchedDir_(0),
@@ -77,11 +77,11 @@ class BlisNodeDesc : public BcpsNodeDesc {
     /** Destructor. */
     virtual ~BlisNodeDesc() { delete basis_; }
 
-    /** Set basis. */ 
-    void setBasis(CoinWarmStartBasis *&ws) { 
+    /** Set basis. */
+    void setBasis(CoinWarmStartBasis *&ws) {
         if (basis_) { delete basis_; }
         basis_= ws;
-        ws = NULL; 
+        ws = NULL;
     }
 
     /** Get warm start basis. */
@@ -125,18 +125,18 @@ class BlisNodeDesc : public BcpsNodeDesc {
 	else {
 	    encoded->writeRep(ava);
 	}
-	
+
 	return status;
     }
 
     /** Unpack blis portion of node description from an encoded. */
     AlpsReturnStatus decodeBlis(AlpsEncoded &encoded) {
 	AlpsReturnStatus status = AlpsReturnStatusOk;
-	
+
 	encoded.readRep(branchedDir_);
 	encoded.readRep(branchedInd_);
 	encoded.readRep(branchedVal_);
-	
+
 	// Basis
 	int ava;
 	encoded.readRep(ava);
@@ -146,7 +146,7 @@ class BlisNodeDesc : public BcpsNodeDesc {
 	else {
 	    basis_ = NULL;
 	}
-	
+
 	return status;
     }
 
@@ -155,23 +155,23 @@ class BlisNodeDesc : public BcpsNodeDesc {
     /** Pack node description into an encoded. */
     virtual AlpsReturnStatus encode(AlpsEncoded *encoded) const {
     	AlpsReturnStatus status = AlpsReturnStatusOk;
-	
+
 	status = encodeBcps(encoded);
 	status = encodeBlis(encoded);
-	
+
 	return status;
     }
 
     /** Unpack a node description from an encoded. Fill member data. */
     virtual AlpsReturnStatus decode(AlpsEncoded &encoded) {
-	
+
     	AlpsReturnStatus status = AlpsReturnStatusOk;
-	
+
 	status = decodeBcps(encoded);
 	status = decodeBlis(encoded);
 
 	return status;
     }
-    
+
 };
 #endif

@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -45,7 +45,7 @@ class BlisBranchStrategyRel : public BcpsBranchStrategy {
     BlisBranchStrategyRel& operator=(const BlisBranchStrategyRel& rhs);
 
     int relibility_;
-    
+
  public:
 
     /** Default Constructor. */
@@ -53,28 +53,28 @@ class BlisBranchStrategyRel : public BcpsBranchStrategy {
 
     /** Useful Constructor. */
     BlisBranchStrategyRel(BlisModel *model, int rel)
-        : 
-        BcpsBranchStrategy(model), 
+        :
+        BcpsBranchStrategy(model),
         relibility_(rel)
         {}
 
     /** Destructor. */
     virtual ~BlisBranchStrategyRel() {}
-    
+
     /** Copy constructor. */
     BlisBranchStrategyRel(const BlisBranchStrategyRel &);
-    
+
     /** Set relibility. */
-    void setRelibility(int rel) { relibility_ = rel; }    
+    void setRelibility(int rel) { relibility_ = rel; }
 
     /** Clone a brancing strategy. */
     virtual BcpsBranchStrategy * clone() const {
 	return new BlisBranchStrategyRel(*this);
     }
-    
-    /** Compare branching object thisOne to bestSoFar. If thisOne is better 
+
+    /** Compare branching object thisOne to bestSoFar. If thisOne is better
 	than bestObject, return branching direction(1 or -1), otherwise
-	return 0. 
+	return 0.
 	If bestSorFar is NULL, then always return branching direction(1 or -1).
     */
     virtual int betterBranchObject(BcpsBranchObject * thisOne,

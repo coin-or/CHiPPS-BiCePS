@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -25,7 +25,7 @@
 
 using std::make_pair;
 
-void 
+void
 BlisParams::createKeywordList() {
 
   //--------------------------------------------------------
@@ -35,7 +35,7 @@ BlisParams::createKeywordList() {
   //--------------------------------------------------------
   // CharPar
   //--------------------------------------------------------
-  
+
   keys_.push_back(make_pair(std::string("Blis_useCons"),
 			    AlpsParameter(AlpsBoolPar, useCons)));
 
@@ -44,11 +44,11 @@ BlisParams::createKeywordList() {
 
   keys_.push_back(make_pair(std::string("Blis_cutDuringRampup"),
 			    AlpsParameter(AlpsBoolPar, cutDuringRampup)));
-    
+
   //--------------------------------------------------------
   // BoolArrayPar
   //--------------------------------------------------------
-  
+
   //--------------------------------------------------------
   // Int Parameters
   //--------------------------------------------------------
@@ -76,13 +76,13 @@ BlisParams::createKeywordList() {
 
   keys_.push_back(make_pair(std::string("Blis_cutKnapsack"),
 			    AlpsParameter(AlpsIntPar, cutKnapsack)));
-  
+
   keys_.push_back(make_pair(std::string("Blis_cutMir"),
 			    AlpsParameter(AlpsIntPar, cutMir)));
-  
+
   keys_.push_back(make_pair(std::string("Blis_cutOddHole"),
 			    AlpsParameter(AlpsIntPar, cutOddHole)));
-  
+
   keys_.push_back(make_pair(std::string("Blis_cutProbing"),
 			    AlpsParameter(AlpsIntPar, cutProbing)));
 
@@ -95,35 +95,35 @@ BlisParams::createKeywordList() {
   keys_.push_back(make_pair(std::string("Blis_lookAhead"),
 			    AlpsParameter(AlpsIntPar, lookAhead)));
 
-  
+
   //--------------------------------------------------------
   // Double Parameters.
   //--------------------------------------------------------
-  
+
   keys_.push_back(make_pair(std::string("Blis_integerTol"),
 			    AlpsParameter(AlpsDoublePar, integerTol)));
-  
+
   keys_.push_back(make_pair(std::string("Blis_cutoffInc"),
 			    AlpsParameter(AlpsDoublePar, cutoffInc)));
-  
+
   keys_.push_back(make_pair(std::string("Blis_optimalRelGap"),
 			    AlpsParameter(AlpsDoublePar, optimalRelGap)));
-  
+
   keys_.push_back(make_pair(std::string("Blis_optimalRelGap"),
 			    AlpsParameter(AlpsDoublePar, optimalAbsGap)));
-  
+
   keys_.push_back(make_pair(std::string("Blis_pseudoWeight"),
 			    AlpsParameter(AlpsDoublePar, pseudoWeight)));
-  
+
   keys_.push_back(make_pair(std::string("Blis_cutFactor"),
 			    AlpsParameter(AlpsDoublePar, cutFactor)));
-  
+
   keys_.push_back(make_pair(std::string("Blis_denseConFactor"),
 			    AlpsParameter(AlpsDoublePar, denseConFactor)));
 
   keys_.push_back(make_pair(std::string("Blis_scaleConFactor"),
 			    AlpsParameter(AlpsDoublePar, scaleConFactor)));
-  
+
   //--------------------------------------------------------
   // String Parameters.
   //--------------------------------------------------------
@@ -132,7 +132,7 @@ BlisParams::createKeywordList() {
 
 //#############################################################################
 
-void 
+void
 BlisParams::setDefaultEntries() {
 
   //-------------------------------------------------------------
@@ -142,7 +142,7 @@ BlisParams::setDefaultEntries() {
   setEntry(useHeuristics, true);
   setEntry(cutDuringRampup, false);
   setEntry(useCons, true);
-  
+
   //-------------------------------------------------------------
   // Int Parameters.
   //-------------------------------------------------------------
@@ -161,7 +161,7 @@ BlisParams::setDefaultEntries() {
   setEntry(cutTwoMir, -2);
   setEntry(pseudoRelibility, 8);
   setEntry(lookAhead, 4);
-  
+
   //-------------------------------------------------------------
   // Double Parameters
   //-------------------------------------------------------------
@@ -178,5 +178,5 @@ BlisParams::setDefaultEntries() {
   //-------------------------------------------------------------
   // String Parameters
   //-------------------------------------------------------------
-  
+
 }

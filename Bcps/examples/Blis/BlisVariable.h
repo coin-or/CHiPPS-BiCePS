@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -40,7 +40,7 @@ class BlisVariable : public BcpsVariable {
  public:
 
     BlisVariable() : objCoef_(0.0), size_(0), indices_(NULL), values_(NULL) {}
-    
+
     BlisVariable(double obj, int s, const int *ind, const double *val)
 	{
             objCoef_ = obj;
@@ -50,8 +50,8 @@ class BlisVariable : public BcpsVariable {
 	    memcpy(indices_, ind, s * sizeof(int));
 	    memcpy(values_, val, s * sizeof(double));
 	}
-    
-    BlisVariable(double lbh, double ubh, double lbs, double ubs) 
+
+    BlisVariable(double lbh, double ubh, double lbs, double ubs)
 	:
 	BcpsVariable(lbh, ubh, lbs, ubs),
         objCoef_(0.0),
@@ -60,7 +60,7 @@ class BlisVariable : public BcpsVariable {
 
     BlisVariable(double lbh, double ubh, double lbs, double ubs,
                  double obj, int s, const int *ind, const double *val)
-        : 
+        :
         BcpsVariable(lbh, ubh, lbs, ubs)
         {
             objCoef_ = obj;
@@ -70,21 +70,21 @@ class BlisVariable : public BcpsVariable {
             memcpy(indices_, ind, s * sizeof(int));
             memcpy(values_, val, s * sizeof(double));
         }
-    
-    virtual ~BlisVariable(){ 
+
+    virtual ~BlisVariable(){
 	if (size_ > 0) {
 	    delete [] indices_; indices_ = NULL;
 	    delete [] values_; values_ = NULL;
 	}
     }
-    
+
     /** Return data  */
     /**@{*/
     int getSize() const     { return size_; }
     int* getIndices() const { return indices_; }
-    double* getValues()     { return values_; }    
+    double* getValues()     { return values_; }
     /**@}*/
-    
+
     /** Set data  */
     /**@{*/
     void setData(int s, const int *ind, const double *val) {
@@ -111,7 +111,7 @@ class BlisVariable : public BcpsVariable {
 	encoded->writeRep(values_, size_);
 
 	return status;
-    }    
+    }
 
     /** Unpack Blis part from a encode object. */
     AlpsReturnStatus decodeBlis(AlpsEncoded &encoded) {
@@ -120,27 +120,27 @@ class BlisVariable : public BcpsVariable {
 	encoded.readRep(objCoef_);
 	encoded.readRep(indices_, size_);
 	encoded.readRep(values_, size_);
-	
+
 	return status;
     }
-    
+
  public:
-    
+
     /** Pack to a encode object. */
     virtual AlpsReturnStatus encode(AlpsEncoded *encoded){
 	AlpsReturnStatus status;
 
 	status = encodeBcpsObject(encoded);
 	status = encodeBlis(encoded);
-	
+
 	return status;
     }
 
     /** Decode a variable from an encoded object. */
     virtual AlpsKnowledge* decode(AlpsEncoded &encoded) const {
 	AlpsReturnStatus status = AlpsReturnStatusOk;
-	BlisVariable * var = new BlisVariable();    
-	
+	BlisVariable * var = new BlisVariable();
+
 	// Unpack Bcps part.
 	status = var->decodeBcpsObject(encoded);
 	if (status) {
@@ -148,20 +148,19 @@ class BlisVariable : public BcpsVariable {
 			    "decode",
 			    "BlisObject");
 	}
-	
+
 	// Unpack Blis part.
 	status = var->decodeBlis(encoded);
 	if (status) {
-	    throw CoinError("Failed to decode Blis part of var", 
-			    "decode", 
+	    throw CoinError("Failed to decode Blis part of var",
+			    "decode",
 			    "BlisObject");
 	}
 	return var;
     }
-    
+
 };
 
 //#############################################################################
 
 #endif /* End of file */
-

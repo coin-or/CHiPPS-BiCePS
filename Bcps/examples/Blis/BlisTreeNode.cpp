@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -64,14 +64,14 @@ BlisTreeNode::createNewTreeNode(AlpsNodeDesc *&desc) const
 
     // Set solution estimate for this nodes.
     // solEstimate = quality_ + sum_i{min{up_i, down_i}}
-    
+
     node->setSolEstimate(solEstimate_);
 
 #ifdef BLIS_DEBUG_MORE
     printf("BLIS:createNewTreeNode: quality=%g, solEstimate=%g\n",
            quality_, solEstimate_);
 #endif
-    
+
     desc = NULL;
 
     return node;
@@ -107,9 +107,9 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
     // Only autmatic stategy has depth limit.
     int maxConstraintDepth = 20;
 
-    int numPassesLeft = 20;      
+    int numPassesLeft = 20;
     int bStatus = -1;
- 
+
     double cutoff = getKnowledgeBroker()->getIncumbentValue();
     double parentObjValue = getQuality();
     double primalTolerance = 1.0e-6;
@@ -136,17 +136,17 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
     int numDelRows = 0;
     int *delRow = NULL;
     int *oldConsPos = NULL;
-    
+
     std::vector<int> delIndices;
-    
+
     BlisModel* model = dynamic_cast<BlisModel*>(desc_->getModel());
 
     AlpsPhase phase = knowledgeBroker_->getPhase();
-    
+
     //------------------------------------------------------
     // Check if this can be fathomed by objective cutoff.
     //------------------------------------------------------
-    
+
     //std::cout << "parentObjValue = " << parentObjValue << std::endl;
     if (parentObjValue - primalTolerance > cutoff) {
 	setStatus(AlpsNodeStatusFathomed);
@@ -157,7 +157,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
         model->setActiveNode(this);
         model->addNumNodes();
     }
-    
+
     //------------------------------------------------------
     // Get model information and parameters.
     //------------------------------------------------------
@@ -167,7 +167,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
     numCoreCols = model->getNumCoreVariables();
     numCoreRows = model->getNumCoreConstraints();
     numAppliedCons =  numRows - numCoreRows;
-    
+
     maxNumCons = model->getMaxNumCons();
 
     heurSolution = new double [numCols];
@@ -197,21 +197,21 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
     else {
 	genConsHere = true;
     }
-    
+
     //======================================================
     // Restore, load and solve the subproblem.
     // (1) LP infeasible
     //     a. set status to be fathom.
     // (2) LP feasible
     //     a. MILP feasible. Check whether need update incumbent.
-    //     b. LP feasible but not MIP feasible. Check whether can be 
+    //     b. LP feasible but not MIP feasible. Check whether can be
     //        fathomed, if not, choose a branch variable.
     //======================================================
 
     //------------------------------------------------------
     // Extract info from this node and load subproblem into lp solver.
     //------------------------------------------------------
-    
+
     installSubProblem(model);
 
     //------------------------------------------------------
@@ -223,7 +223,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 
     origNumOldCons = numStartRows - numCoreRows;
     currNumOldCons = origNumOldCons;
-    
+
 #ifdef BLIS_DEBUG
     std::cout << "PROCESS: genConsHere=" << genConsHere
 	      << ", useCons=" << model->useCons()
@@ -241,45 +241,45 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 
     if (genConsHere) {
         maxNewCons = maxNumCons;
-        newConstraints = new BcpsObject* [maxNewCons];    
+        newConstraints = new BcpsObject* [maxNewCons];
     }
 
     while (keepOn && (pass < maxPass)) {
         ++pass;
         keepOn = false;
-        
+
         //--------------------------------------------------
         // Bounding to get the quality of this node.
         //--------------------------------------------------
-        
+
         status = bound(model);
 	if (pass == 1) {
 	    int iter = model->solver()->getIterationCount();
 	    model->addNumIterations(iter);
 	}
-        
+
         switch(status) {
         case BLIS_LP_OPTIMAL:
-            // Check if IP feasible 
+            // Check if IP feasible
             feasibleIP = model->feasibleSolution(numIntInfs, numObjInfs);
-            
-            if (feasibleIP) {         
-                // IP feasible 
-		
-		if (quality_ < cutoff) {  
+
+            if (feasibleIP) {
+                // IP feasible
+
+		if (quality_ < cutoff) {
                     // Better than incumbent
                     betterSolution = true;
                     model->setBestSolution(BLIS_SOL_BOUNDING,
-                                           quality_, 
+                                           quality_,
                                            model->getLpSolution());
                     getKnowledgeBroker()->getNodeSelection()->setWeight(0.0);
-                    BlisSolution* ksol = 
-                        new BlisSolution(numCols, 
-                                           model->getLpSolution(), 
+                    BlisSolution* ksol =
+                        new BlisSolution(numCols,
+                                           model->getLpSolution(),
                                            quality_);
-                    getKnowledgeBroker()->addKnowledge(AlpsKnowledgeTypeSolution, 
-                                                       ksol, 
-                                                       quality_); 
+                    getKnowledgeBroker()->addKnowledge(AlpsKnowledgeTypeSolution,
+                                                       ksol,
+                                                       quality_);
                     // Update cutoff
                     cutoff = getKnowledgeBroker()->getIncumbentValue();
                 }
@@ -294,7 +294,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                 }
                 needBranch = true;
                 reducedCostFix(model);
-                
+
                 //------------------------------------------
                 // Check if tailoff
                 //------------------------------------------
@@ -306,9 +306,9 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                         //       tailoff.
                         keepOn = true;
                     }
-                    
+
 #ifdef BLIS_DEBUG_MORE
-                    std::cout << "PROCESS: pass["<< pass << "], improvement=" 
+                    std::cout << "PROCESS: pass["<< pass << "], improvement="
                               << improvement << ", tailOffTol=" << tailOffTol
                               << std::endl;
 #endif
@@ -320,31 +320,31 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                 preObjValue = quality_;
 
                 //------------------------------------------
-                // Remove non-core slack constraints. 
+                // Remove non-core slack constraints.
                 //------------------------------------------
 
                 numRows = model->getNumRows();
-                
+
                 if ( genConsHere &&
-                     //(improvement > tailOffTol) && 
+                     //(improvement > tailOffTol) &&
                      //(numRows > numStartRows) ) {
-                     (numRows > numCoreRows) ) {   
-                 
-#ifdef BLIS_DEBUG                  
+                     (numRows > numCoreRows) ) {
+
+#ifdef BLIS_DEBUG
                     if ( (numStartRows + numNewCons != numRows) ||
                          (numCoreRows + currNumOldCons + numNewCons != numRows) ) {
-                        
+
                         std::cout << "ERROR: numRows=" << numRows
                                   << "; numCoreRows=" << numCoreRows
                                   << "; numStartRows=" << numStartRows
                                   << "; numNewCons=" << numNewCons
                                   << "; currNumOldCons=" << currNumOldCons
                                   << std::endl;
-                        
+
                         assert(numRows - numStartRows == numNewCons);
                     }
 #endif
-                    
+
                     int *oldDelMark = NULL;
                     if (currNumOldCons > 0) {
                         oldDelMark = new int [currNumOldCons];
@@ -355,11 +355,11 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                         newDelMark = new int [numNewCons];
                         CoinZeroN(newDelMark, numNewCons);
                     }
-                    
-                    const CoinWarmStartBasis* ws= 
+
+                    const CoinWarmStartBasis* ws=
                         dynamic_cast<CoinWarmStartBasis*>
                         (model->solver()->getWarmStart());
-                    
+
                     // Make sure delIndices is empty.
                     assert(delIndices.size()==0);
 
@@ -380,30 +380,30 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                     }
 #endif
                     numDelRows = static_cast<int> (delIndices.size());
-		    
+
 #ifdef BLIS_DEBUG
-                    std::cout << "PROCESS: new cuts=" << numNewCons 
-                              << ", slack cuts=" << numDelRows 
-                              << ", numRows=" << numRows 
+                    std::cout << "PROCESS: new cuts=" << numNewCons
+                              << ", slack cuts=" << numDelRows
+                              << ", numRows=" << numRows
                               << ", numStartRows=" <<numStartRows << std::endl;
 #endif
-                    
+
                     if (numDelRows > 0) {
                         delRow = new int [numDelRows];
                         for (k = 0; k < numDelRows; ++k) {
                             delRow[k] = delIndices[k];
 #ifdef BLIS_DEBUG
-			    std::cout << "REMOVE: slack row " << delRow[k] 
+			    std::cout << "REMOVE: slack row " << delRow[k]
 				      << std::endl;
 #endif
                         }
-                        
+
                         //----------------------------------
                         // Delete from lp solver.
                         //----------------------------------
-                        
+
                         model->solver()->deleteRows(numDelRows, delRow);
-                        
+
                         delete [] delRow;
                         delRow = NULL;
                         delIndices.clear();
@@ -416,12 +416,12 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                         for (k = 0; k < currNumOldCons; ++k) {
                             if (oldDelMark[k] != 1) {
                                 // Survived
-                                oldConsPos[tempNum++] = oldConsPos[k];    
+                                oldConsPos[tempNum++] = oldConsPos[k];
                             }
                         }
                         currNumOldCons = tempNum;
                         numStartRows = numCoreRows + currNumOldCons;
-                        
+
                         //----------------------------------
                         // Delete from new cut vector.
                         //----------------------------------
@@ -432,12 +432,12 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                             if (newDelMark[k] == 1) {
                                 // Deleted
 #ifdef BLIS_DEBUG_MORE
-                                std::cout << "delete cut " << k 
-                                          << ", size=" 
+                                std::cout << "delete cut " << k
+                                          << ", size="
                                           << dynamic_cast<BlisConstraint*>(newConstraints[k])->getSize()
                                           << std::endl;
 #endif
-                                
+
                                 delete newConstraints[k];
                                 newConstraints[k] = NULL;
                             }
@@ -449,12 +449,12 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                         //assert(tempNum + numDelRows == numNewCons);
                         numAppliedCons -= numNewCons;
                         numAppliedCons += tempNum;
-                        numNewCons = tempNum;                        
-                        
+                        numNewCons = tempNum;
+
                         //----------------------------------
                         // Resolve to update solution info in lp solver.
                         //----------------------------------
-                        
+
                         int easy = 2;
                         model->solver()->setHintParam(OsiDoInBranchAndCut,
                                                       true, OsiHintDo, &easy);
@@ -466,7 +466,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                             // TODO: maybe some cuts become slack again
 #ifdef BLIS_DEBUG
                             std::cout << "SLACK: resolve changed solution!"
-                                      << ", iter=" 
+                                      << ", iter="
 				      << model->solver()->getIterationCount()
 				      << std::endl;
 #endif
@@ -477,30 +477,30 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                                      << std::endl;
 #endif
 			}
-			
+
                         double tempOV = model->solver()->getObjValue();
                         double ovDiff = fabs(quality_ - tempOV);
-                        
+
                         if (ovDiff /(1.0 + tempOV) > 1.0e-3) {
-                            std::cout << "ERROR: SLACK: quality_("<<quality_ 
+                            std::cout << "ERROR: SLACK: quality_("<<quality_
                                       << ") != tempOV(" << tempOV
                                       << ")" << std::endl;
                             assert(0);
                         }
                         else {
-                            std::cout << "AFTER SLACK: quality_("<<quality_ 
+                            std::cout << "AFTER SLACK: quality_("<<quality_
                                       << ") == tempOV(" << tempOV
                                       << ")" << std::endl;
                         }
 #endif
                     }
-                    
+
                     delete ws;
                     delete [] newDelMark;
                     delete [] oldDelMark;
                 }
             }
-            
+
             break;
         case BLIS_LP_ABANDONED:
 #ifdef BLIS_DEBUG
@@ -543,20 +543,20 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
         //--------------------------------------------------
         // Apply heuristics.
         //--------------------------------------------------
-        
+
         if (keepOn && model->useHeuristics_) {
             heurObjValue = getKnowledgeBroker()->getIncumbentValue();
             for (k = 0; k < model->numHeuristics(); ++k) {
                 foundSolution = false;
-                foundSolution = 
+                foundSolution =
                     model->heuristics(k)->searchSolution(heurObjValue,
                                                          heurSolution);
 		if (foundSolution) {
                     model->setBestSolution(BLIS_SOL_ROUNDING,
                                            heurObjValue,
                                            heurSolution);
-                    BlisSolution* ksol = new BlisSolution(numCols, 
-							  heurSolution, 
+                    BlisSolution* ksol = new BlisSolution(numCols,
+							  heurSolution,
 							  heurObjValue);
                     getKnowledgeBroker()->addKnowledge(AlpsKnowledgeTypeSolution,
                                                        ksol,
@@ -570,30 +570,30 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		}
             }
         }
-        
+
         //--------------------------------------------------
         // Generate constraints.
         //--------------------------------------------------
-        
+
         if ( keepOn && genConsHere && (numAppliedCons < maxNumCons) ) {
-            
+
             OsiCuts newCutPool;
-            
-            memcpy(currLpSolution, 
+
+            memcpy(currLpSolution,
                    model->getLpSolution(),
                    numCols * sizeof(double));
-            
+
             status = generateConstraints(model, newCutPool);
-            
+
             if (status != BLIS_LP_OPTIMAL) {
                 setStatus(AlpsNodeStatusFathomed);
                 quality_ = -ALPS_OBJ_MAX; // Remove it as soon as possilbe
                 goto TERM_PROCESS;
             }
-            
+
             // TODO: column cuts, which are already installed by probing.
             tempNum = newCutPool.sizeRowCuts();
-            
+
             if (tempNum > 0) {
                 applyConstraints(model, newCutPool, currLpSolution);
                 keepOn = true;
@@ -609,12 +609,12 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                     if (numNewCons >= maxNewCons) {
                         // No space, need resize
 #ifdef BLIS_DEBUG
-                        std::cout << "NEWCUT: resize, maxNewCons = " 
+                        std::cout << "NEWCUT: resize, maxNewCons = "
                                   << maxNewCons << std::endl;
 #endif
                         maxNewCons *= 2;
                         BcpsObject **tempNews = new BcpsObject* [maxNewCons];
-                        memcpy(tempNews, 
+                        memcpy(tempNews,
                                newConstraints,
                                numNewCons * sizeof(BcpsObject *));
                         delete [] newConstraints;
@@ -628,37 +628,37 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
             keepOn = false;
         }
     }
-    
+
 #ifdef BLIS_DEBUG_MORE
     printf("needBranch = %d\n", needBranch);
-#endif    
-    
+#endif
+
     //------------------------------------------------------
     // Select branching object
     //------------------------------------------------------
-    
+
  TERM_BRANCH:
-    
-    if (needBranch) { 
-	
+
+    if (needBranch) {
+
         // Find the best branching object
-        numPassesLeft = 20;      
+        numPassesLeft = 20;
         bStatus = -1;
-        
-        while (bStatus == -1) { 
+
+        while (bStatus == -1) {
             foundSolution = false;
             if(getKnowledgeBroker()->getProcRank() == -1) {
-                std::cout << "*** I AM RANK ONE: before choose:bStatus = " 
+                std::cout << "*** I AM RANK ONE: before choose:bStatus = "
                           << bStatus << std::endl;
             }
-            bStatus = selectBranchObject(model, 
-                                         foundSolution, 
+            bStatus = selectBranchObject(model,
+                                         foundSolution,
                                          numPassesLeft);
             --numPassesLeft;
-            
-            if (bStatus == -1) { 
+
+            if (bStatus == -1) {
                 lpFeasible = model->resolve();
-                
+
                 //resolved = true ;
 #ifdef BLIS_DEBUG_MORE
                 printf("Resolve since some col fixed, Obj value %g, numRows %d, cutoff %g\n",
@@ -673,7 +673,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                     if (getQuality() > model->getCutoff()) {
                         bStatus = -2;
                     }
-                    feasibleIP = model->feasibleSolution(numIntInfs, 
+                    feasibleIP = model->feasibleSolution(numIntInfs,
                                                          numObjInfs);
                     if (feasibleIP) {
                         bStatus = -2;
@@ -695,36 +695,36 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                     setStatus(AlpsNodeStatusFathomed);
                 }
             }
-            
+
             if(getKnowledgeBroker()->getProcRank() == -1) {
                 std::cout << "*** I AM RANK ONE: bStatus = " << bStatus
                           << std::endl;
             }
         }
-        
+
         assert(bStatus != -1);
-        
+
         //----------------------------------------------------
         // If found a branching object:
         // 1. Record basis
-        // 2. Record soft var bound difference. 
+        // 2. Record soft var bound difference.
         // 3. Record add/del constraints.
         // NOTE: Hard var bound differences have been recorded when branch().
         //       startXXXXX have branching bounds for this node
         //----------------------------------------------------
-        
+
         if (bStatus >= 0) {
-            
+
 #ifdef BLIS_DEBUG_MORE
             //FIXME: Can we do this check? I think so.
             //bool fea = false;
             //int numInfObj;
             //fea = model->feasibleSolution(numUnsatisfied_, numInfObj);
             //assert(!fea);
-            
+
             BlisBranchObjectInt *branchObject =
                 dynamic_cast<BlisIntegerBranchObject *>(branchObject_);
-            std::cout << "SetPregnant: branchedOn = " 
+            std::cout << "SetPregnant: branchedOn = "
                       << model->getIntVars()[branchObject->variable()]
                       << std::endl;
 #endif
@@ -733,7 +733,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
             //--------------------------------------------------
 
             setStatus(AlpsNodeStatusPregnant);
-	    
+
             //--------------------------------------------------
             // Save basis.
             //--------------------------------------------------
@@ -755,14 +755,14 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 	    int *tempVarUBPos = model->tempVarUBPos();
 	    //int *tempConLBPos = model->tempConLBPos();
 	    //int *tempConUBPos = model->tempConUBPos();
-	    
+
 	    int numModSoftColLB = 0;
 	    int numModSoftColUB = 0;
 	    const double *currColLB = model->solver()->getColLower();
 	    const double *currColUB = model->solver()->getColUpper();
 	    //const double *currRowLB = model->solver()->getRowLower();
 	    //const double *currRowUB = model->solver()->getRowUpper();
-	    
+
 	    double *startColLB = model->startVarLB();
 	    double *startColUB = model->startVarUB();
 	    //double *startRowLB = model->startConLB();
@@ -786,7 +786,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 	    //----------------------------------------------
 	    // Decide if save explicit decription.
 	    //----------------------------------------------
-	    
+
 	    if (depth_ % 30 == 0 || isRoot || (phase == AlpsPhaseRampup)) {
 		explicit_ = 1;
 		std::cout << "SAVE: node "<< index_ <<" explicitly, "
@@ -797,28 +797,28 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		//std::cout << "SAVE: node "<< index_ <<" relatively, "
 		//  << "depth=" << depth_ << std::endl;
 	    }
-	    
+
 	    //explicit_ = 1;
 
 	    if (explicit_ || (phase == AlpsPhaseRampup) ) {
-		// NOTE: full hard bound has been stored. 
-		
+		// NOTE: full hard bound has been stored.
+
 		int index;
 		int numModify = 0;
 		int numSoftVarLowers = 0;
 		int numSoftVarUppers = 0;
 		double value;
-		
+
 		double *fVarHardLB = new double [numCols];
 		double *fVarHardUB = new double [numCols];
 		int *fVarHardLBInd = new int [numCols];
 		int *fVarHardUBInd = new int [numCols];
-		
+
 		double *fVarSoftLB = new double [numCols];
 		double *fVarSoftUB = new double [numCols];
 		int *fVarSoftLBInd = new int [numCols];
 		int *fVarSoftUBInd = new int [numCols];
-		
+
 		for (k = 0; k < numCols; ++k) {
 		    fVarSoftLB[k] = ALPS_DBL_MAX;
 		    fVarSoftUB[k] = -ALPS_DBL_MAX;
@@ -831,13 +831,13 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		//------------------------------------------
 		// Build the path to an explicit node.
 		//------------------------------------------
-		
+
 		AlpsTreeNode *parent = parent_;
 
 		// First push this node since it has branching hard bounds.
 		model->leafToRootPath.push_back(this);
 		BlisNodeDesc* pathDesc = NULL;
-		
+
 		if (phase != AlpsPhaseRampup) {
 		    while(parent) {
 			model->leafToRootPath.push_back(parent);
@@ -858,34 +858,34 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		//------------------------------------------
 		// Summarize bounds.
 		//------------------------------------------
-		
+
 		for(j = static_cast<int> (model->leafToRootPath.size() - 1); j > -1; --j) {
-		    
+
 		    pathDesc = dynamic_cast<BlisNodeDesc*>
 			((model->leafToRootPath.at(j))->getDesc());
-		    
+
 		    //--------------------------------------
 		    // Full variable hard bounds.
 		    //--------------------------------------
-		    
+
 		    numModify = pathDesc->getVars()->lbHard.numModify;
 		    for (k = 0; k < numModify; ++k) {
 			index = pathDesc->getVars()->lbHard.posModify[k];
 			value = pathDesc->getVars()->lbHard.entries[k];
 			fVarHardLB[index] = value;
 		    }
-		    
+
 		    numModify = pathDesc->getVars()->ubHard.numModify;
 		    for (k = 0; k < numModify; ++k) {
 			index = pathDesc->getVars()->ubHard.posModify[k];
 			value = pathDesc->getVars()->ubHard.entries[k];
 			fVarHardUB[index] = value;
 		    }
-		    
+
 		    //--------------------------------------
 		    // Full variable soft bounds.
 		    //--------------------------------------
-		    
+
 		    numModify = pathDesc->getVars()->lbSoft.numModify;
 #ifdef BLIS_DEBUG_MORE
 		    std::cout << "SAVE: EXP: j=" << j << ", numModify soft lb="
@@ -896,7 +896,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 			value = pathDesc->getVars()->lbSoft.entries[k];
 			fVarSoftLB[index] = value;
 		    }
-		    
+
 		    numModify = pathDesc->getVars()->ubSoft.numModify;
 #ifdef BLIS_DEBUG_MORE
 		    std::cout << "SAVE: EXP: j=" << j << ", numModify soft ub="
@@ -914,7 +914,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		// Collect modified soft bounds at this node.
 		// NOTE: Do this after collecting previous soft bounds.
 		//------------------------------------------
-		
+
 		numModSoftColLB = 0;
 		numModSoftColUB = 0;
 		for (k = 0; k < numCoreCols; ++k) {
@@ -925,30 +925,30 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 			printf("Col %d, soft lb change, start %g, curr %g\n",
 			       k, startColLB[k], currColLB[k]);
 #endif
-			
+
 		    }
 		    if (currColUB[k] != startColUB[k]) {
 			fVarSoftUB[k] = currColUB[k];
 			++numModSoftColUB;
 		    }
 		}
-		
+
 #ifdef BLIS_DEBUG_MORE
-		std::cout << "SAVE: EXP: THIS: numModSoftColLB = "<<numModSoftColLB 
+		std::cout << "SAVE: EXP: THIS: numModSoftColLB = "<<numModSoftColLB
 			  << ", numModSoftColUB = " << numModSoftColUB << std::endl;
 #endif
-		
+
 		//--------------------------------------
 		// Debug if bounds are consistant.
 		//--------------------------------------
 
 #ifdef BLIS_DEBUG
 		for (k = 0; k < numCols; ++k) {
-		    
-		    //std::cout << "EXP: COL[" << k <<"]: " 
-		    //      <<"hardLB=" << fVarHardLB[k] 
+
+		    //std::cout << "EXP: COL[" << k <<"]: "
+		    //      <<"hardLB=" << fVarHardLB[k]
 		    //      <<", hardUB=" << fVarHardUB[k] << std::endl;
-		    
+
 		    // Hard lower bound should not greater than
 		    // hard upper bound.
 		    if (fVarHardLB[k] > fVarHardUB[k] + ALPS_GEN_TOL) {
@@ -956,19 +956,19 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 			       k, fVarHardLB[k], fVarHardUB[k]);
 			assert(0);
 		    }
-		    
+
 		    if (fVarSoftLB[k] < ALPS_BND_MAX) {
-			// Soft lower changed, and should not greater 
+			// Soft lower changed, and should not greater
 			// than its hard upper bound.
 			if (fVarSoftLB[k] > fVarHardUB[k] + ALPS_GEN_TOL) {
 			    printf("ERROR: Col %d, \tlb %g,  \tub %g\n",
 				   k, fVarSoftLB[k], fVarHardUB[k]);
-			    assert(0);	
+			    assert(0);
 			}
 		    }
-		    
+
 		    if (fVarSoftUB[k] > -ALPS_BND_MAX) {
-			// Soft upper changed, and should not less 
+			// Soft upper changed, and should not less
 			// than its hard lower bound.
 			if (fVarSoftUB[k] < fVarHardLB[k] - ALPS_GEN_TOL) {
 			    printf("ERROR: Col %d, \tlb %g,  \tub %g\n",
@@ -978,22 +978,22 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		    }
 		}
 #endif
-		
+
 		//------------------------------------------
 		// Record hard variable bounds. FULL set.
 		//------------------------------------------
-		
+
 		desc->assignVarHardBound(numCols,
 					 fVarHardLBInd,
 					 fVarHardLB,
 					 numCols,
 					 fVarHardUBInd,
 					 fVarHardUB);
-		
+
 		//------------------------------------------
 		// Recode soft variable bound. Modified.
 		//------------------------------------------
-		
+
 		for (k = 0; k < numCols; ++k) {
 		    if (fVarSoftLB[k] < ALPS_BND_MAX) {
 			fVarSoftLBInd[numSoftVarLowers] = k;
@@ -1005,7 +1005,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		    }
 		}
 
-		
+
 #ifdef BLIS_DEBUG_MORE
 		// Print soft bounds.
 		std::cout << "SAVE: EXP: numSoftVarLowers=" << numSoftVarLowers
@@ -1013,7 +1013,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 			  << std::endl;
 		for (k = 0; k < numSoftVarLowers; ++k) {
 		    std::cout << "Col[" << fVarSoftLBInd[k] << "]: soft lb="
-			      << fVarSoftLB[k] << std::endl;		    
+			      << fVarSoftLB[k] << std::endl;
 		}
 		std::cout << "------------------" << std::endl;
 		for (k = 0; k < numSoftVarUppers; ++k) {
@@ -1024,12 +1024,12 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 #endif
 
 		//if ( (numSoftVarUppers > 0) || (numSoftVarLowers > 0) ) {
-                
+
                 // Assign it anyway so to delete memory(fVarSoftLBInd,etc.)
-                desc->assignVarSoftBound(numSoftVarLowers, 
+                desc->assignVarSoftBound(numSoftVarLowers,
                                          fVarSoftLBInd,
                                          fVarSoftLB,
-                                         numSoftVarUppers, 
+                                         numSoftVarUppers,
                                          fVarSoftUBInd,
                                          fVarSoftUB);
 
@@ -1039,7 +1039,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                 // old constraint: model->oldConstraints_, currNumOldCons.
                 // new constraint: newConstraints, numNewCons.
 
-                BcpsObject **toAddCons = new BcpsObject * [currNumOldCons + 
+                BcpsObject **toAddCons = new BcpsObject * [currNumOldCons +
                                                            numNewCons];
                 if (currNumOldCons > 0) {
                     // Hard copy of the survived old constraints.
@@ -1048,19 +1048,19 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                         BlisConstraint *aCon = model->oldConstraints()[oldPos];
                         assert(aCon);
 #ifdef BLIS_DEBUG
-			std::cout << "SAVE: EXP: currNumOldCons=" << currNumOldCons 
+			std::cout << "SAVE: EXP: currNumOldCons=" << currNumOldCons
 				  << ", k=" << k << ", len=" << aCon->getSize()
                                   << ", node=" << index_ << std::endl;
 #endif
-			
+
                         BlisConstraint *newCon = new BlisConstraint(*aCon);
                         toAddCons[k] = newCon;
                     }
                 }
-                
+
 		if (numNewCons > 0) {
 		    // Include new constraints.
-		    memcpy(toAddCons + currNumOldCons, 
+		    memcpy(toAddCons + currNumOldCons,
 			   newConstraints,
 			   numNewCons * sizeof(BcpsObject *));
 		}
@@ -1069,11 +1069,11 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                 // Save in description. Add first delete exiting, then add.
 		// Pointers in model->oldConstraints_ can be dangling.
 		// It is not safe to use model->oldConstraints_ after adding.
-		
+
 		// If this node is the root of a subtree, and before processing
-		// it has a list of cuts, then model->oldConstraints_ 
+		// it has a list of cuts, then model->oldConstraints_
 		// stores pointer to the cuts when installing.
-		
+
 		// Need update model->constraints_ here OR do not be smart!
 		// 1/6/06: Choose to be dumn.
 		//------------------------------------------
@@ -1085,22 +1085,22 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 
 		int numTotal = currNumOldCons + numNewCons;
                 desc->setAddedConstraints(numTotal, toAddCons);
-                
+
 #ifdef BLIS_DEBUG
 		std::cout << "SAVE: EXP: currNumOldCons=" << currNumOldCons
 			  << ", numNewCons=" << numNewCons
 			  << std::endl;
-#endif	
-		
+#endif
+
                 //------------------------------------------
                 // Full set of active non-core variables.
                 //------------------------------------------
                 // Todo.
-                
+
 		//------------------------------------------
 		// Clear path vector.
 		//------------------------------------------
-		
+
 		model->leafToRootPath.clear();
 		assert(model->leafToRootPath.size() == 0);
 	    }
@@ -1109,7 +1109,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		// Record soft bound changes for core vars.
 		//------------------------------------------
 
-		// Variable bound change 
+		// Variable bound change
 		numModSoftColLB = 0;
 		numModSoftColUB = 0;
 		for (k = 0; k < numCoreCols; ++k) {
@@ -1117,12 +1117,12 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 			tempVarLBPos[numModSoftColLB] = k;
 			/* startColLB as a temporary storage vector */
 			startColLB[numModSoftColLB] = currColLB[k];
-			
+
 #ifdef BLIS_DEBUG_MORE
 			printf("Col %d, soft lb change, start %g, curr %g\n",
 			       k, startColLB[k], currColLB[k]);
 #endif
-			
+
 			++numModSoftColLB;
 		    }
 		    if (currColUB[k] != startColUB[k]) {
@@ -1133,23 +1133,23 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		}
 
 #ifdef BLIS_DEBUG_MORE
-		std::cout << "SAVE: REL: numModSoftColLB = " << numModSoftColLB 
-			  << ", numModSoftColUB = " << numModSoftColUB 
+		std::cout << "SAVE: REL: numModSoftColLB = " << numModSoftColLB
+			  << ", numModSoftColUB = " << numModSoftColUB
 			  << std::endl;
 #endif
-            
+
 		if (numModSoftColLB > 0 || numModSoftColUB > 0) {
 #ifdef BLIS_DEBUG
 		    //assert(0);
 #endif
-		    desc->setVarSoftBound(numModSoftColLB, 
+		    desc->setVarSoftBound(numModSoftColLB,
 					  tempVarLBPos,
 					  startColLB,
-					  numModSoftColUB, 
+					  numModSoftColUB,
 					  tempVarUBPos,
 					  startColUB);
 		}
-            
+
 		//------------------------------------------
 		// TODO: Constraint bounds change.
 		//------------------------------------------
@@ -1168,15 +1168,15 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		    }
 		}
 		if (numModSoftRowLB > 0 || numModSoftRowUB > 0) {
-		    desc->setConSoftBound(numModSoftRowLB, 
+		    desc->setConSoftBound(numModSoftRowLB,
 					  tempConLBPos,
 					  startRowLB,
-					  numModSoftRowUB, 
+					  numModSoftRowUB,
 					  tempConUBPos,
 					  startRowUB);
 		}
-#endif	
-            
+#endif
+
 		if (genConsHere) {
 		    // NOTE: explicit_ can NOT do this if, since genConsHere maybe
 		    //       false here, but there are maybe cons from parents.
@@ -1185,27 +1185,27 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		    // Record add constraints.
 		    //--------------------------------------
 
-		    // Apend will copy old, then add new. 
-		    // If this node has a list of cuts before pointers in 
+		    // Apend will copy old, then add new.
+		    // If this node has a list of cuts before pointers in
 		    // model->oldConstraints() will be kept. Safe!
 		    if (numNewCons > 0) {
 			desc->appendAddedConstraints(numNewCons, newConstraints);
                     }
-		    
+
 		    //--------------------------------------
 		    // Record deleted constraint positions.
 		    //--------------------------------------
-		    
+
 		    int *oldLeft = new int [origNumOldCons];
 		    int leftCon;
 		    CoinZeroN(oldLeft, origNumOldCons);
-		    
+
 		    for (k = 0; k < currNumOldCons; ++k) {
 			leftCon = oldConsPos[k];
 			assert(leftCon >= 0 && leftCon < origNumOldCons);
 			oldLeft[leftCon] = 1;
 		    }
-		    // 
+		    //
 		    leftCon = 0;
 		    for (k = 0; k < origNumOldCons; ++k) {
 			if (oldLeft[k] == 0) {
@@ -1216,37 +1216,37 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
                         //assert(k < 15196924);
 		    }
 		    desc->delConstraints(leftCon, oldLeft);
-		    
+
 #ifdef BLIS_DEBUG
-		    std::cout << "PROCESS: ADD: new cuts=" << numNewCons 
-			      << ", numRows=" << model->solver()->getNumRows() 
-			      << ", numStartRows="<< numStartRows 
-                              << ", origNumStartRows="<< origNumStartRows 
-                              << ", num removed=" << leftCon << std::endl;                    
+		    std::cout << "PROCESS: ADD: new cuts=" << numNewCons
+			      << ", numRows=" << model->solver()->getNumRows()
+			      << ", numStartRows="<< numStartRows
+                              << ", origNumStartRows="<< origNumStartRows
+                              << ", num removed=" << leftCon << std::endl;
 #endif
-		    
+
 		}// EOF of if(genConsHere)
 	    } // EOF of relative
         }
         else if (bStatus == -2) {
-            
+
 #ifdef BLIS_DEBUG_MORE
             std::cout << "bStatus = -2" << std::endl;
 #endif
             //branchObject->getDown()[0], branchObject->getDown()[1]);
-	    
+
             setStatus(AlpsNodeStatusFathomed);
         }
         else {
-            throw CoinError("No branch object found", "process", 
+            throw CoinError("No branch object found", "process",
                             "BlisTreeNode");
         }
     }
-    
+
     //------------------------------------------------------
     // End of process()
     //------------------------------------------------------
-    
+
  TERM_PROCESS:
 
     delete [] heurSolution;
@@ -1260,7 +1260,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
     }
     delete [] newConstraints;
     delete [] oldConsPos;
-    
+
     model->isRoot_ = false;
 
 #ifdef BLIS_DEBUG_MORE
@@ -1274,7 +1274,7 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
 		  << ", node=" << index_ << std::endl;
     }
 #endif
-    
+
 
     return status;
 }
@@ -1295,12 +1295,12 @@ BlisTreeNode::branch()
 
     double objVal = getQuality();
 
-    BlisNodeDesc* childDesc = NULL;  
-      
-    std::vector< CoinTriple<AlpsNodeDesc*, AlpsNodeStatus, double> > 
+    BlisNodeDesc* childDesc = NULL;
+
+    std::vector< CoinTriple<AlpsNodeDesc*, AlpsNodeStatus, double> >
 	childNodeDescs;
-    
-    BlisModel* model = dynamic_cast<BlisModel*>(desc_->getModel());    
+
+    BlisModel* model = dynamic_cast<BlisModel*>(desc_->getModel());
 
     int numCols = model->getNumCols();
 
@@ -1318,9 +1318,9 @@ BlisTreeNode::branch()
 #endif
 
     //------------------------------------------------------
-    // Get branching object. TODO: Assume integer branching object. 
+    // Get branching object. TODO: Assume integer branching object.
     //------------------------------------------------------
-    
+
     BlisBranchObjectInt *branchObject =
 	dynamic_cast<BlisBranchObjectInt *>(branchObject_);
     int objInd = branchObject->getObjectIndex();
@@ -1329,12 +1329,12 @@ BlisTreeNode::branch()
 
     BlisObjectInt *obj = dynamic_cast<BlisObjectInt *>(model->objects(objInd));
     int branchVar = obj->columnIndex();
-    
+
 #ifdef BLIS_DEBUG
     if ( (branchVar < 0) || (branchVar >= numCols) ) {
-	std::cout << "ERROR: BRANCH(): branchVar = " << branchVar 
+	std::cout << "ERROR: BRANCH(): branchVar = " << branchVar
 		  << "; numCols = " << numCols  << std::endl;
-	throw CoinError("branch index is out of range", 
+	throw CoinError("branch index is out of range",
 			"branch", "BlisTreeNode");
     }
 #endif
@@ -1349,32 +1349,32 @@ BlisTreeNode::branch()
 
     BlisNodeDesc* thisDesc = dynamic_cast<BlisNodeDesc*>(desc_);
 
-        
+
     //======================================================
     //------------------------------------------------------
     // Create down-branch node description.
     //------------------------------------------------------
     //======================================================
-    
+
     childDesc = new BlisNodeDesc(model);
-    
+
     if (phase == AlpsPhaseRampup) {
-	
+
 	//--------------------------------------------------
 	// Store a full description since each node will be the root of
 	// a subtree.
 	// NOTE: this desc must be explicit during rampup.
-	//--------------------------------------------------	
+	//--------------------------------------------------
 
 	int index, k;
 	int numModify = -1;
 	double value;
-	
+
 	double *fVarHardLB = new double [numCols];
 	double *fVarHardUB = new double [numCols];
 	int *fVarHardLBInd = new int [numCols];
 	int *fVarHardUBInd = new int [numCols];
-		
+
 	double *fVarSoftLB = NULL;
 	double *fVarSoftUB = NULL;
 	int *fVarSoftLBInd = NULL;
@@ -1393,7 +1393,7 @@ BlisTreeNode::branch()
 	    fVarHardLB[k] = value;
 	    fVarHardLBInd[k] = index;
 	}
-	
+
 	numModify = thisDesc->getVars()->ubHard.numModify;
 	assert(numModify == numCols);
 	for (k = 0; k < numModify; ++k) {
@@ -1403,7 +1403,7 @@ BlisTreeNode::branch()
 	    fVarHardUB[k] = value;
 	    fVarHardUBInd[k] = index;
 	}
-	
+
 	// Branching bounds.
 	fVarHardLB[branchVar] = branchObject->getDown()[0];
 	fVarHardUB[branchVar] = branchObject->getDown()[1];
@@ -1432,7 +1432,7 @@ BlisTreeNode::branch()
 		fVarSoftLBInd[k] = index;
 	    }
 	}
-		    
+
 	int numSoftVarUppers = thisDesc->getVars()->ubSoft.numModify;
 	assert(numSoftVarUppers >= 0 && numSoftVarUppers <= numCols);
 	if (numSoftVarUppers > 0) {
@@ -1453,7 +1453,7 @@ BlisTreeNode::branch()
 		  << std::endl;
 	for (k = 0; k < numSoftVarLowers; ++k) {
 	    std::cout << "Col[" << fVarSoftLBInd[k] << "]: soft lb="
-		      << fVarSoftLB[k] << std::endl;		    
+		      << fVarSoftLB[k] << std::endl;
 	}
 	std::cout << "------------------" << std::endl;
 	for (k = 0; k < numSoftVarUppers; ++k) {
@@ -1464,10 +1464,10 @@ BlisTreeNode::branch()
 #endif
 
 	// Assign it anyway so to transfer ownership of memory(fVarSoftLBInd,etc.)
-	childDesc->assignVarSoftBound(numSoftVarLowers, 
+	childDesc->assignVarSoftBound(numSoftVarLowers,
 				      fVarSoftLBInd,
 				      fVarSoftLB,
-				      numSoftVarUppers, 
+				      numSoftVarUppers,
 				      fVarSoftUBInd,
 				      fVarSoftUB);
 
@@ -1479,14 +1479,14 @@ BlisTreeNode::branch()
 
 	BcpsObject **tempCons = NULL;
 	int tempInt = 0;
-	
+
 	tempInt = thisDesc->getCons()->numAdd;
 	if (tempInt > 0) {
 	    tempCons = new BcpsObject* [tempInt];
 	    for (k = 0; k < tempInt; ++k) {
 		BlisConstraint *aCon = dynamic_cast<BlisConstraint *>
 		    (thisDesc->getCons()->objects[k]);
-                
+
 		assert(aCon);
 		assert(aCon->getSize() > 0);
 		assert(aCon->getSize() < 100000);
@@ -1494,7 +1494,7 @@ BlisTreeNode::branch()
 		tempCons[k] = newCon;
 	    }
 	}
-	    
+
 
 #if 0
 	else {
@@ -1505,7 +1505,7 @@ BlisTreeNode::branch()
 		tempCons = new BcpsObject* [tempInt];
 	    }
 	    for (k = 0; k < tempInt; ++k) {
-		BlisConstraint *aCon = model->oldConstraints()[k];                
+		BlisConstraint *aCon = model->oldConstraints()[k];
 		assert(aCon);
 		assert(aCon->getSize() > 0);
 		assert(aCon->getSize() < 100000);
@@ -1522,12 +1522,12 @@ BlisTreeNode::branch()
 	childDesc->setAddedConstraints(tempInt, tempCons);
     }
     else {
-	
+
 	//--------------------------------------------------
-	// Relative: Only need to record hard var bound change. 
+	// Relative: Only need to record hard var bound change.
 	// NOTE: soft var bound changes are Record after selectBranchObject.
 	//--------------------------------------------------
-	
+
 	childDesc->setVarHardBound(1,
 				   &branchVar,
 				   &(branchObject->getDown()[0]),
@@ -1544,7 +1544,7 @@ BlisTreeNode::branch()
     CoinWarmStartBasis *ws = thisDesc->getBasis();
     CoinWarmStartBasis *newWs = new CoinWarmStartBasis(*ws);
     childDesc->setBasis(newWs);
-    
+
     childNodeDescs.push_back(CoinMakeTriple(static_cast<AlpsNodeDesc *>
 					    (childDesc),
 					    AlpsNodeStatusCandidate,
@@ -1555,7 +1555,7 @@ BlisTreeNode::branch()
     // Create up-branch node description.
     //------------------------------------------------------
     //======================================================
-    
+
     childDesc = new BlisNodeDesc(model);
 
     if (phase == AlpsPhaseRampup) {
@@ -1564,17 +1564,17 @@ BlisTreeNode::branch()
 	// Store a full description since each node will be the root of
 	// a subtree.
 	// NOTE: parent must be explicit during rampup.
-	//--------------------------------------------------	
+	//--------------------------------------------------
 
 	int index, k;
 	int numModify = -1;
 	double value;
-	
+
 	double *fVarHardLB = new double [numCols];
 	double *fVarHardUB = new double [numCols];
 	int *fVarHardLBInd = new int [numCols];
 	int *fVarHardUBInd = new int [numCols];
-		
+
 	double *fVarSoftLB = NULL;
 	double *fVarSoftUB = NULL;
 	int *fVarSoftLBInd = NULL;
@@ -1583,7 +1583,7 @@ BlisTreeNode::branch()
 	//--------------------------------------------------
 	// Full hard variable bounds.
 	//--------------------------------------------------
-	
+
 	numModify = thisDesc->getVars()->lbHard.numModify;
 	assert(numModify == numCols);
 	for (k = 0; k < numModify; ++k) {
@@ -1593,7 +1593,7 @@ BlisTreeNode::branch()
 	    fVarHardLB[k] = value;
 	    fVarHardLBInd[k] = index;
 	}
-	
+
 	numModify = thisDesc->getVars()->ubHard.numModify;
 	assert(numModify == numCols);
 	for (k = 0; k < numModify; ++k) {
@@ -1603,7 +1603,7 @@ BlisTreeNode::branch()
 	    fVarHardUB[k] = value;
 	    fVarHardUBInd[k] = index;
 	}
-	
+
 	// Branching bounds.
 	fVarHardLB[branchVar] = branchObject->getUp()[0];
 	fVarHardUB[branchVar] = branchObject->getUp()[1];
@@ -1631,7 +1631,7 @@ BlisTreeNode::branch()
 		fVarSoftLBInd[k] = index;
 	    }
 	}
-		    
+
 	int numSoftVarUppers = thisDesc->getVars()->ubSoft.numModify;
 	assert(numSoftVarUppers >= 0 && numSoftVarUppers <= numCols);
 	if (numSoftVarUppers > 0) {
@@ -1646,10 +1646,10 @@ BlisTreeNode::branch()
 	}
 
 	// Assign it anyway so to transfer ownership of memory(fVarSoftLBInd,etc.)
-	childDesc->assignVarSoftBound(numSoftVarLowers, 
+	childDesc->assignVarSoftBound(numSoftVarLowers,
 				      fVarSoftLBInd,
 				      fVarSoftLB,
-				      numSoftVarUppers, 
+				      numSoftVarUppers,
 				      fVarSoftUBInd,
 				      fVarSoftUB);
 
@@ -1658,18 +1658,18 @@ BlisTreeNode::branch()
 	// NOTE: non-core constraints have been saved in description
 	//       when process() during ramp-up.
 	//--------------------------------------------------
-	
+
 	BcpsObject **tempCons = NULL;
 	int tempInt = 0;
-	
+
 	tempInt = thisDesc->getCons()->numAdd;
 	if (tempInt > 0) {
 	    tempCons = new BcpsObject* [tempInt];
-	
+
 	    for (k = 0; k < tempInt; ++k) {
 		BlisConstraint *aCon = dynamic_cast<BlisConstraint *>
 		    (thisDesc->getCons()->objects[k]);
-	    
+
 		assert(aCon);
 		assert(aCon->getSize() > 0);
 		assert(aCon->getSize() < 1000);
@@ -1677,7 +1677,7 @@ BlisTreeNode::branch()
 		tempCons[k] = newCon;
 	    }
 	}
-	
+
 #if 0
 	else {
 	    // No cons or only root cons.
@@ -1686,7 +1686,7 @@ BlisTreeNode::branch()
 		tempCons = new BcpsObject* [tempInt];
 	    }
 	    for (k = 0; k < tempInt; ++k) {
-		BlisConstraint *aCon = model->oldConstraints()[k];                
+		BlisConstraint *aCon = model->oldConstraints()[k];
 		assert(aCon);
 		assert(aCon->getSize() > 0);
 		assert(aCon->getSize() < 1000);
@@ -1705,7 +1705,7 @@ BlisTreeNode::branch()
     else {
 
 	//--------------------------------------------------
-	// Relative: Only need to record hard var bound change. 
+	// Relative: Only need to record hard var bound change.
 	// NOTE: soft var bound changes are Record after selectBranchObject.
 	//--------------------------------------------------
 
@@ -1720,19 +1720,19 @@ BlisTreeNode::branch()
     childDesc->setBranchedDir(1);
     childDesc->setBranchedInd(objInd);
     childDesc->setBranchedVal(bValue);
-    
+
     // Copy warm start.
     CoinWarmStartBasis *newWs2 = new CoinWarmStartBasis(*ws);
     childDesc->setBasis(newWs2);
-    
+
     childNodeDescs.push_back(CoinMakeTriple(static_cast<AlpsNodeDesc *>
 					    (childDesc),
 					    AlpsNodeStatusCandidate,
-					    objVal));  
+					    objVal));
 
     // Change node status to branched.
     status_ = AlpsNodeStatusBranched;
-    
+
     return childNodeDescs;
 }
 
@@ -1741,9 +1741,9 @@ BlisTreeNode::branch()
 /* FIXME: need rewrite from scratch */
 /* 0: find a branch var, -1 no branch var (should not happen) */
 
-int BlisTreeNode::selectBranchObject(BlisModel *model, 
-                                     bool& foundSol, 
-                                     int numPassesLeft) 
+int BlisTreeNode::selectBranchObject(BlisModel *model,
+                                     bool& foundSol,
+                                     int numPassesLeft)
 {
     int bStatus = 0;
 
@@ -1751,7 +1751,7 @@ int BlisTreeNode::selectBranchObject(BlisModel *model,
         delete branchObject_;
         branchObject_ = NULL;
     }
-    
+
     //------------------------------------------------------
     // Get branching strategy.
     //------------------------------------------------------
@@ -1764,16 +1764,16 @@ int BlisTreeNode::selectBranchObject(BlisModel *model,
     //------------------------------------------------------
     // Create branching object candidates.
     //-----------------------------------------------------
-    
+
     bStatus = strategy->createCandBranchObjects(numPassesLeft,
                                                 model->getCutoff());
-    
+
     //------------------------------------------------------
     // Select the best branching objects.
     //-----------------------------------------------------
-    
+
     if (bStatus >= 0) {
-        
+
        branchObject_ = strategy->bestBranchObject();
 
        if (branchObject_) {
@@ -1793,7 +1793,7 @@ int BlisTreeNode::selectBranchObject(BlisModel *model,
        // Set guessed solution value
        // solEstimate_ = quality_ + sumDeg;
     }
-    
+
     if (!model->branchStrategy()) {
         delete strategy;
     }
@@ -1803,11 +1803,11 @@ int BlisTreeNode::selectBranchObject(BlisModel *model,
 
 //#############################################################################
 
-int BlisTreeNode::bound(BcpsModel *model) 
+int BlisTreeNode::bound(BcpsModel *model)
 {
     int status = BLIS_OK;
     BlisModel *m = dynamic_cast<BlisModel *>(model);
-    
+
 #ifdef BLIS_DEBUG_MORE
     int j;
     int numCols = m->solver()->getNumCols();
@@ -1836,16 +1836,16 @@ int BlisTreeNode::bound(BcpsModel *model)
 
         double objValue = m->solver()->getObjValue() *
             m->solver()->getObjSense();
-        
+
         int dir = desc->getBranchedDir();
         if (dir != 0) {
             double objDeg = objValue - quality_;
             int objInd = desc->getBranchedInd();
             double lpX = desc->getBranchedVal();
-            BlisObjectInt *intObject = 
-                dynamic_cast<BlisObjectInt *>(m->objects(objInd));            
+            BlisObjectInt *intObject =
+                dynamic_cast<BlisObjectInt *>(m->objects(objInd));
 #ifdef BLIS_DEBUG_MORE
-            std::cout << "BOUND: col[" << intObject->columnIndex() 
+            std::cout << "BOUND: col[" << intObject->columnIndex()
                       << "], dir=" << dir << ", objDeg=" << objDeg
                       << ", x=" << lpX
                       << ", up=" << intObject->pseudocost().getUpCost()
@@ -1895,7 +1895,7 @@ int BlisTreeNode::bound(BcpsModel *model)
 	std::cout << "UNKNOWN LP STATUS" << std::endl;
 	assert(0);
     }
-    
+
     return status;
 }
 
@@ -1911,7 +1911,7 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
 
     BlisModel *model = dynamic_cast<BlisModel *>(m);
     assert(model);
-    
+
     BlisNodeDesc *desc = dynamic_cast<BlisNodeDesc*>(desc_);
 
     int numModify = 0;
@@ -1931,12 +1931,12 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
     //double *conSoftUB = NULL;
     //double *conHardLB = NULL;
     //double *conHardUB = NULL;
-    
+
     double *startColLB = model->startVarLB();
     double *startColUB = model->startVarUB();
     double *startRowLB = model->startConLB();
     double *startRowUB = model->startConUB();
-    
+
     CoinFillN(startColLB, numCoreVars, -ALPS_DBL_MAX);
     CoinFillN(startColUB, numCoreVars, ALPS_DBL_MAX);
     CoinFillN(startRowLB, numCoreCons, -ALPS_DBL_MAX);
@@ -1960,7 +1960,7 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
     AlpsPhase phase = knowledgeBroker_->getPhase();
 
     //======================================================
-    // Restore subproblem: 
+    // Restore subproblem:
     //  1. Remove noncore var/con
     //  2. Travel back to root and correct differencing to
     //     full var/con bounds into model->startXXX
@@ -1977,26 +1977,26 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
     //------------------------------------------------------
 
     int numDelCons = numRows - numCoreCons;
-    
+
 #ifdef BLIS_DEBUG
     std::cout << "INSTALL: numDelCons = " << numDelCons << std::endl;
 #endif
-	
+
     if (numDelCons > 0) {
 	int *indices = new int [numDelCons];
 	if (indices == NULL) {
 	    throw CoinError("Out of memory", "installSubProblem", "BlisTreeNode");
 	}
-	
+
 	for (i = 0; i < numDelCons; ++i) {
 	    indices[i] = numCoreCons + i;
 	}
-	
+
 	model->solver()->deleteRows(numDelCons, indices);
 	delete [] indices;
 	indices = NULL;
     }
-    
+
     //--------------------------------------------------------
     // Travel back to a full node, then collect diff (add/rem col/row,
     // hard/soft col/row bounds) from the node full to this node.
@@ -2004,24 +2004,24 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
     // Note: if we store full set of logic/agorithm col/row, then
     //       no diff are needed for col/row
     //--------------------------------------------------------
-    
+
     //--------------------------------------------------------
     // Collect differencing bounds. Branching bounds of this node
     // are ALSO collected.
     //--------------------------------------------------------
 
     BlisNodeDesc* pathDesc = NULL;
-    AlpsTreeNode *parent = parent_;    
-    
-    /* First push this node since it has branching hard bounds. 
+    AlpsTreeNode *parent = parent_;
+
+    /* First push this node since it has branching hard bounds.
        NOTE: during rampup, this desc has full description when branch(). */
     model->leafToRootPath.push_back(this);
-    
+
     if (phase != AlpsPhaseRampup) {
 	while(parent) {
 #ifdef BLIS_DEBUG_MORE
 	    std::cout << "Parent id = " << parent->getIndex() << std::endl;
-#endif     
+#endif
 	    model->leafToRootPath.push_back(parent);
 	    if (parent->getExplicit()) {
 		// Reach an explicit node, then stop.
@@ -2032,63 +2032,63 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
 	    }
 	}
     }
-    
+
 #ifdef BLIS_DEBUG_MORE
     std::cout << "INSTALL: path len = " << model->leafToRootPath.size()
 	      << std::endl;
 #endif
-    
+
     //------------------------------------------------------
     // Travel back from this node to the explicit node to
     // collect full description.
     //------------------------------------------------------
-    
+
     for(i = static_cast<int> (model->leafToRootPath.size() - 1); i > -1; --i) {
 
 #ifdef BLIS_DEBUG_MORE
         if (index_ == 3487) {
-            std::cout << "\n----------- NODE ------------" 
+            std::cout << "\n----------- NODE ------------"
                       << model->leafToRootPath.at(i)->getIndex() << std::endl;
         }
 #endif
-	
+
 	//--------------------------------------------------
-	// NOTE: As away from explicit node, bounds become 
+	// NOTE: As away from explicit node, bounds become
 	//       tighter and tighter.
 	//--------------------------------------------------
-        
+
         pathDesc = dynamic_cast<BlisNodeDesc*>((model->leafToRootPath.at(i))->
                                                getDesc());
-        
+
         varHardLB = pathDesc->getVars()->lbHard.entries;
         varHardUB = pathDesc->getVars()->ubHard.entries;
-        
-	//--------------------------------------------------      
+
+	//--------------------------------------------------
         // Adjust bounds according to hard var lb/ub.
 	// If rampup or explicit, collect hard bounds so far.
 	//--------------------------------------------------
-	
+
         numModify = pathDesc->getVars()->lbHard.numModify;
-	
+
 #ifdef BLIS_DEBUG_MORE
 	std::cout << "INSTALL: numModify lb hard = " << numModify << std::endl;
 #endif
-	
+
         for (k = 0; k < numModify; ++k) {
             index = pathDesc->getVars()->lbHard.posModify[k];
             value = pathDesc->getVars()->lbHard.entries[k];
-      
+
 #ifdef BLIS_DEBUG_MORE
-	    printf("INSTALL: 1, col %d, value %g, startColLB %x\n", 
+	    printf("INSTALL: 1, col %d, value %g, startColLB %x\n",
 		   index, value, startColLB);
-#endif      
+#endif
 	    // Hard bounds do NOT change according to soft bounds, so
 	    // here need std::max.
             startColLB[index] = std::max(startColLB[index], value);
-            
+
 #ifdef BLIS_DEBUG_MORE
             if (index_ == 3487) {
-                printf("INSTALL: 1, col %d, hard lb %g, ub %g\n", 
+                printf("INSTALL: 1, col %d, hard lb %g, ub %g\n",
                        index, startColLB[index], startColUB[index]);
             }
 #endif
@@ -2103,10 +2103,10 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
             index = pathDesc->getVars()->ubHard.posModify[k];
             value = pathDesc->getVars()->ubHard.entries[k];
             startColUB[index] = std::min(startColUB[index], value);
-	    
+
 #ifdef BLIS_DEBUG_MORE
             if (index_ == 3487) {
-                printf("INSTALL: 2, col %d, hard lb %g, ub %g\n", 
+                printf("INSTALL: 2, col %d, hard lb %g, ub %g\n",
                        index, startColLB[index], startColUB[index]);
             }
             if (startColLB[index] > startColUB[index]) {
@@ -2114,7 +2114,7 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
             }
 #endif
         }
-        
+
         //--------------------------------------------------
         // Adjust bounds according to soft var lb/ub.
 	// If rampup or explicit, collect soft bounds so far.
@@ -2129,20 +2129,20 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
             index = pathDesc->getVars()->lbSoft.posModify[k];
             value = pathDesc->getVars()->lbSoft.entries[k];
             startColLB[index] = std::max(startColLB[index], value);
-            
+
 #ifdef BLIS_DEBUG_MORE
             if (index_ == 3487) {
-                printf("INSTALL: 3, col %d, soft lb %g, ub %g\n", 
+                printf("INSTALL: 3, col %d, soft lb %g, ub %g\n",
                        index, startColLB[index], startColUB[index]);
             }
-            
+
             if (startColLB[index] > startColUB[index]) {
 		//assert(0);
             }
 #endif
         }
         numModify = pathDesc->getVars()->ubSoft.numModify;
-        
+
 #ifdef BLIS_DEBUG_MORE
 	std::cout << "INSTALL: i=" << i << ", numModify soft ub="
 		  << numModify << std::endl;
@@ -2152,19 +2152,19 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
             index = pathDesc->getVars()->ubSoft.posModify[k];
             value = pathDesc->getVars()->ubSoft.entries[k];
             startColUB[index] = std::min(startColUB[index], value);
-            
+
 #ifdef BLIS_DEBUG_MORE
             if (index_ == 3487) {
-                printf("INSTALL: 4, col %d, soft lb %g, ub %g\n", 
+                printf("INSTALL: 4, col %d, soft lb %g, ub %g\n",
                        index, startColLB[index], startColUB[index]);
             }
-            
+
             if (startColLB[index] > startColUB[index]) {
 		//assert(0);
             }
 #endif
         }
-        
+
         //--------------------------------------------------
         // TODO: Modify hard/soft row lb/ub.
         //--------------------------------------------------
@@ -2175,60 +2175,60 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
         //--------------------------------------------------
 
 	//----------------------------------------------
-	// First collect all generated cuts, then remove 
+	// First collect all generated cuts, then remove
 	// deleted.
 	//----------------------------------------------
-	
+
 	tempInt = pathDesc->getCons()->numAdd;
-	    
+
 #ifdef BLIS_DEBUG_MORE
 	std::cout << "\nINSTALL: numAdd = " << tempInt << std::endl;
 #endif
 
 	int maxOld = model->getOldConstraintsSize();
-	
+
 	for (k = 0; k < tempInt; ++k) {
 	    aCon = dynamic_cast<BlisConstraint *>
 		(pathDesc->getCons()->objects[k]);
-	    
+
 	    assert(aCon);
 	    assert(aCon->getSize() > 0);
 	    assert(aCon->getSize() < 100000);
-	    
+
 #ifdef BLIS_DEBUG_MORE
-	    std::cout << "INSTALL: cut  k=" << k 
-		      << ", len=" <<aCon->getSize() 
+	    std::cout << "INSTALL: cut  k=" << k
+		      << ", len=" <<aCon->getSize()
 		      << ", node="<< index_ << std::endl;
 #endif
 	    (model->oldConstraints())[numOldCons++] = aCon;
-	    
+
 	    if (numOldCons >= maxOld) {
 		// Need resize
 #ifdef BLIS_DEBUG_MORE
-		std::cout << "INSTALL: resize, maxOld = " 
+		std::cout << "INSTALL: resize, maxOld = "
 			  << maxOld << std::endl;
 #endif
 		maxOld *= 2;
 		BlisConstraint **tempCons = new BlisConstraint* [maxOld];
-		
-		memcpy(tempCons, 
-		       model->oldConstraints(), 
+
+		memcpy(tempCons,
+		       model->oldConstraints(),
 		       numOldCons * sizeof(BlisConstraint *));
-		
+
 		model->delOldConstraints();
 		model->setOldConstraints(tempCons);
 		model->setOldConstraintsSize(maxOld);
 	    }
 	}
-	    
+
 	//----------------------------------------------
-	// Remove those deleted. 
-	// NOTE: model->oldConstraints_ stores all previously 
+	// Remove those deleted.
+	// NOTE: model->oldConstraints_ stores all previously
 	// generated active constraints at parent.
 	//----------------------------------------------
-	
+
 	tempInt = pathDesc->getCons()->numRemove;
-            
+
 	if (tempInt > 0) {
 	    int tempPos;
 	    int *tempMark = new int [numOldCons];
@@ -2236,14 +2236,14 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
 	    for (k = 0; k < tempInt; ++k) {
 		tempPos = pathDesc->getCons()->posRemove[k];
 #ifdef BLIS_DEBUG_MORE
-		std::cout << "tempPos=" << tempPos 
-			  << ", tempInt=" << tempInt 
+		std::cout << "tempPos=" << tempPos
+			  << ", tempInt=" << tempInt
 			  << ", numOldCons=" << numOldCons << std::endl;
 #endif
 		tempMark[tempPos] = 1;
-		
+
 	    }
-	    
+
 	    tempInt = 0;
 	    for (k = 0; k < numOldCons; ++k) {
 		if (tempMark[k] != 1) {
@@ -2256,10 +2256,10 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
 		std::cout << "INSTALL: tempInt=" << tempInt
 			  <<", numRemove="<<pathDesc->getCons()->numRemove
 			  << ", numOldCons=" << numOldCons << std::endl;
-		
+
 		assert(0);
 	    }
-	    
+
 	    // Update number of old non-core constraints.
 	    numOldCons = tempInt;
 	    delete [] tempMark;
@@ -2277,52 +2277,52 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
             printf("INSTALL: Col %d, \tlb %g,  \tub %g\n",
                    k, startColLB[k], startColUB[k]);
 	    //}
-        
+
         if (startColLB[k] > startColUB[k] + ALPS_GEN_TOL) {
             printf("INSTALL: Col %d, \tlb %g,  \tub %g\n",
                    k, startColLB[k], startColUB[k]);
             assert(0);
         }
     }
-#endif   
+#endif
 
     //--------------------------------------------------------
     // Clear path vector.
     //--------------------------------------------------------
-    
+
     model->leafToRootPath.clear();
     assert(model->leafToRootPath.size() == 0);
-    
+
     //--------------------------------------------------------
-    // Adjust column bounds in lp solver  
+    // Adjust column bounds in lp solver
     //--------------------------------------------------------
-    
+
     for(i = 0; i < numCols; ++i) {
-	model->solver()->setColBounds(i, startColLB[i], startColUB[i]); 
+	model->solver()->setColBounds(i, startColLB[i], startColUB[i]);
     }
-    
+
     //--------------------------------------------------------
-    // TODO: Set row bounds 
+    // TODO: Set row bounds
     //--------------------------------------------------------
-    
+
 
     //--------------------------------------------------------
     // Add old constraints, which are collect from differencing.
     //--------------------------------------------------------
-    
+
     // If removed cuts due to local cuts.
 
     model->setNumOldConstraints(numOldCons);
-    
+
 #ifdef BLIS_DEBUG
-    std::cout << "INSTALL: after collecting, numOldCons = " << numOldCons 
+    std::cout << "INSTALL: after collecting, numOldCons = " << numOldCons
 	      << std::endl;
 #endif
 
     if (numOldCons > 0) {
 	const OsiRowCut ** oldOsiCuts = new const OsiRowCut * [numOldCons];
 	for (k = 0; k < numOldCons; ++k) {
-	    OsiRowCut * acut = 
+	    OsiRowCut * acut =
 		BlisConstraintToOsiCut(model->oldConstraints()[k]);
 	    oldOsiCuts[k] = acut;
 	}
@@ -2333,11 +2333,11 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
 	delete [] oldOsiCuts;
 	oldOsiCuts = NULL;
     }
-    
+
     //--------------------------------------------------------
     // Add parent variables, which are collect from differencing.
     //--------------------------------------------------------
-    
+
 
     //--------------------------------------------------------
     // Set basis
@@ -2350,35 +2350,35 @@ int BlisTreeNode::installSubProblem(BcpsModel *m)
 
 #ifdef BLIS_DEBUG
 	printf("NODE %d: set warm start\n", getIndex());
-	
+
 	numCols = model->solver()->getNumCols();
 	numRows = model->solver()->getNumRows();
 	int nStr = pws->getNumStructural();
 	int nArt = pws->getNumArtificial();
-	
+
 	if (numCols != nStr) {
-	    std::cout << "nStr=" << nStr << ", numCols=" << numCols 
+	    std::cout << "nStr=" << nStr << ", numCols=" << numCols
 		      << std::endl;
 	    assert(0);
 	}
-	std::cout << "nArt=" << nArt << ", numRows=" << numRows 
+	std::cout << "nArt=" << nArt << ", numRows=" << numRows
 		  << std::endl;
 	if (numRows != nArt) {
-	    std::cout << "nArt=" << nArt << ", numRows=" << numRows 
+	    std::cout << "nArt=" << nArt << ", numRows=" << numRows
 		      << std::endl;
 	    assert(0);
 	}
 #endif
 
-    }  
+    }
 
     return status;
 }
 
 //#############################################################################
 
-int 
-BlisTreeNode::generateConstraints(BlisModel *model, OsiCuts & cutPool) 
+int
+BlisTreeNode::generateConstraints(BlisModel *model, OsiCuts & cutPool)
 {
     int i, numCGs;
     int status = BLIS_LP_OPTIMAL;
@@ -2387,24 +2387,24 @@ BlisTreeNode::generateConstraints(BlisModel *model, OsiCuts & cutPool)
     int newCons = 0;
     int strategy = -2;
     int maxStrategy = -2;
-    
+
     bool mustResolve = false;
     bool fullScan = true;
-    
+
     double useTime;
-    
+
     numCGs = model->numCutGenerators();
-  
-    
+
+
     for (i = 0 ; i < numCGs; ++i) {
-	
+
 	//----------------------------------------------------
 	// Check if call this generator.
 	//----------------------------------------------------
-	
+
 	strategy =  model->cutGenerators(i)->strategy();
 	maxStrategy = ALPS_MAX(strategy, maxStrategy);
-      
+
 	bool useThis = false;
 	if (strategy == -2) {
 	    useThis = false;
@@ -2422,11 +2422,11 @@ BlisTreeNode::generateConstraints(BlisModel *model, OsiCuts & cutPool)
 		useThis = true;
 	    }
 	}
-	
+
 #ifdef BLIS_DEBUG_MORE
-	std::cout<<"CUTGEN: " << model->cutGenerators(i)->name() 
+	std::cout<<"CUTGEN: " << model->cutGenerators(i)->name()
 		 <<": useThis="<<useThis
-		 << ", strategy=" << strategy 
+		 << ", strategy=" << strategy
 		 << ", num of nodes=" << model->getNumNodes()
 		 <<std::endl;
 #endif
@@ -2439,9 +2439,9 @@ BlisTreeNode::generateConstraints(BlisModel *model, OsiCuts & cutPool)
 	    newCons = 0;
 	    preNumRowCons = cutPool.sizeRowCuts();
 	    preNumColCons = cutPool.sizeColCuts();
-          
+
 	    useTime = CoinCpuTime();
-	    mustResolve = 
+	    mustResolve =
 		model->cutGenerators(i)->generateCons(cutPool, fullScan);
 	    useTime = CoinCpuTime() - useTime;
 
@@ -2452,7 +2452,7 @@ BlisTreeNode::generateConstraints(BlisModel *model, OsiCuts & cutPool)
 #ifdef BLIS_DEBUG
 		    std::cout << "CUTGEN: after probing, this node survived."
 			      << std::endl;
-#endif             
+#endif
 		}
 		else {
 #ifdef BLIS_DEBUG
@@ -2462,13 +2462,13 @@ BlisTreeNode::generateConstraints(BlisModel *model, OsiCuts & cutPool)
 		    break;
 		}
 	    }
-	    
+
 	    //------------------------------------------------
-	    // Modify control. 
+	    // Modify control.
 	    // NOTE: only modify if user choose automatic.
 	    //------------------------------------------------
-	    
-	    if ( (model->useCons() == 0) && 
+
+	    if ( (model->useCons() == 0) &&
 		 (model->cutGenerators(i)->noConsCalls() > 30) ) {
 		// disable.
 		model->cutGenerators(i)->setStrategy(-2);
@@ -2476,38 +2476,38 @@ BlisTreeNode::generateConstraints(BlisModel *model, OsiCuts & cutPool)
 	    }
 	}
     }
-    
+
     if ( (model->useCons() == 0) && (maxStrategy == -2) ){
 	// Previously automatic, now all cut generators have been disabled.
 	model->setUseCons(-2);
     }
-    
+
     return status;
 }
 
 //#############################################################################
 
-int 
-BlisTreeNode::applyConstraints(BlisModel *model, 
+int
+BlisTreeNode::applyConstraints(BlisModel *model,
                                OsiCuts & osiCutSet,
                                const double *solution)
 {
     int status = BLIS_OK;
     int i, k;
-    
+
     //int numColumnCuts = osiCutSet.sizeColCuts() ;
     int numRowCuts = osiCutSet.sizeRowCuts();
     int numToAdd = numRowCuts;
     int numAdded = 0;
-    
+
     if (numRowCuts > 0) {
 	BlisParams * BlisPar = model->BlisPar();
 	double scaleConFactor = BlisPar->entry(BlisParams::scaleConFactor);
-        
-        if (numToAdd > 0) { 
-	    
+
+        if (numToAdd > 0) {
+
             OsiRowCut *rowCut = NULL;
-	    
+
 #ifdef BLIS_DEBUG
             printf("\nAPPLYCUT: before selecting, num of new cuts = %d\n",
                    numRowCuts);
@@ -2516,14 +2516,14 @@ BlisTreeNode::applyConstraints(BlisModel *model,
             int numCols = model->solver()->getNumCols();
             CoinWarmStartBasis *ws = dynamic_cast<CoinWarmStartBasis*>
                 (model->solver()->getWarmStart());
-            
+
             const OsiRowCut ** addCuts = new const OsiRowCut * [numToAdd];
 
             for (i = 0 ; i < numToAdd ; i++) {
 		bool keep = true;
-		
+
                 rowCut = &(osiCutSet.rowCut(i));
-                
+
 		//------------------------------------------
 		// Remove:
 		//  - empty cuts
@@ -2536,9 +2536,9 @@ BlisTreeNode::applyConstraints(BlisModel *model,
 		const CoinPackedVector & rowVector = rowCut->row();
 		int length = rowVector.getNumElements();
                 bool check = true;
-                
+
                 while (check) {
-                    //--------------------------------------                   
+                    //--------------------------------------
                     // Empty.
                     //--------------------------------------
 
@@ -2558,10 +2558,10 @@ BlisTreeNode::applyConstraints(BlisModel *model,
                     if(length > model->getDenseConCutoff()){
                         keep = false;
 #ifdef BLIS_DEBUG
-                        std::cout << "APPLYCUT: A dense cut. length = " 
-                                  << length << ", cutoff = " 
+                        std::cout << "APPLYCUT: A dense cut. length = "
+                                  << length << ", cutoff = "
                                   << model->getDenseConCutoff() << std::endl;
-#endif  
+#endif
                         break;
                     }
 
@@ -2571,14 +2571,14 @@ BlisTreeNode::applyConstraints(BlisModel *model,
 
                     const double *elements = rowVector.getElements();
                     const int *indices = rowVector.getIndices();
-                    
+
                     int index;
                     double activity = 0.0;
-                    
+
                     double maxElem = 0.0;
                     double minElem = ALPS_DBL_MAX;
                     double scaleFactor;
-                    
+
                     for (k = 0; k < length; ++k) {
                         if (fabs(elements[k]) > maxElem) {
                             maxElem = fabs(elements[k]);
@@ -2596,10 +2596,10 @@ BlisTreeNode::applyConstraints(BlisModel *model,
                         assert(0);
                         scaleFactor = ALPS_DBL_MAX;
                     }
-                    
+
 #ifdef BLIS_DEBUG
                     std::cout << "APPLYCUT: scaleFactor=" << scaleFactor
-                              << ", maxElem=" << maxElem 
+                              << ", maxElem=" << maxElem
                               << ", minElem=" << minElem << std::endl;
 #endif
                     if (scaleFactor > scaleConFactor) {
@@ -2610,7 +2610,7 @@ BlisTreeNode::applyConstraints(BlisModel *model,
                         keep = false;
                         break;
                     }
-                    
+
                     //--------------------------------------
                     // Weak.
                     //--------------------------------------
@@ -2619,7 +2619,7 @@ BlisTreeNode::applyConstraints(BlisModel *model,
                     double cutRhs = rowCut->rhs();
                     double violation = -1.0;
                     double range;
-                    
+
                     switch(cutSense) {
                     case 'E':
                         violation = fabs(activity - cutRhs);
@@ -2636,11 +2636,11 @@ BlisTreeNode::applyConstraints(BlisModel *model,
                         break;
                     case 'N':
                     default:
-                        throw CoinError("Unknown cut sense", 
+                        throw CoinError("Unknown cut sense",
                                         "applyConstraint", "BlisTreeNode");
                         break;
                     }
-                    
+
                     if (violation < 1.0e-6) {
                         // Found a weak cuts.
 #ifdef BLIS_DEBUG
@@ -2650,12 +2650,12 @@ BlisTreeNode::applyConstraints(BlisModel *model,
                         keep = false;
                         break;
                     }
-                    
+
                     //--------------------------------------
                     // Parallel cuts.
                     //--------------------------------------
-                    
-		    bool paral = parallel(model, 
+
+		    bool paral = parallel(model,
 					  &osiCutSet,
 					  i,
 					  rowCut);
@@ -2666,14 +2666,14 @@ BlisTreeNode::applyConstraints(BlisModel *model,
 			keep = false;
 			break;
 		    }
-                    
+
                     //--------------------------------------
                     // Check once and stop.
                     //--------------------------------------
 
                     check = false;
                 }//while
-                
+
 		if (keep) {
                     addCuts[numAdded++] = &(osiCutSet.rowCut(i));
                 }
@@ -2685,33 +2685,33 @@ BlisTreeNode::applyConstraints(BlisModel *model,
 
 
             }
-	    
+
 
 #ifdef BLIS_DEBUG
             printf("APPLYCUT: after selecting, num of new cuts = %d\n\n",
                    numAdded);
 #endif
-            
+
             //----------------------------------------------
             // Add cuts to lp and adjust basis.
             //----------------------------------------------
 
             model->solver()->applyRowCuts(numAdded, addCuts);
             delete [] addCuts;
-            
+
             ws->resize(numRowsNow + numToAdd, numCols);
-            for (i = 0 ; i < numToAdd; ++i) { 
+            for (i = 0 ; i < numToAdd; ++i) {
                 ws->setArtifStatus(numRowsNow + i,
-                                   CoinWarmStartBasis::basic); 
+                                   CoinWarmStartBasis::basic);
             }
-            if (model->solver()->setWarmStart(ws) == false) { 
+            if (model->solver()->setWarmStart(ws) == false) {
                 throw CoinError("Fail setWarmStart() after cut installation.",
-                                "applyConstraints","BlisTreeNode"); 
+                                "applyConstraints","BlisTreeNode");
             }
             delete ws;
-        }   
+        }
     }
-    
+
     return status;
 }
 
@@ -2719,7 +2719,7 @@ BlisTreeNode::applyConstraints(BlisModel *model,
 
 int BlisTreeNode::
 reducedCostFix(BlisModel *model)
-{ 
+{
     int i, var;
     int status = BLIS_OK;
 
@@ -2727,7 +2727,7 @@ reducedCostFix(BlisModel *model)
     int numFixedDown = 0;
     int numTighten = 0;
 
-    double movement;    
+    double movement;
     double newBound;
     double boundDistance;
     double dj;
@@ -2736,31 +2736,31 @@ reducedCostFix(BlisModel *model)
     const double *ub = model->solver()->getColUpper();
     const double *solution = model->solver()->getColSolution();
     const double *reducedCost = model->solver()->getReducedCost();
-    
+
     double cutup = getKnowledgeBroker()->getIncumbentValue() *
         model->solver()->getObjSense();
-    
+
     if (cutup >= ALPS_OBJ_MAX) return status;
-    
-    double lpObjValue = model->solver()->getObjValue() * 
+
+    double lpObjValue = model->solver()->getObjValue() *
         model->solver()->getObjSense();
     double epInt = 1.0e-5;
-    
+
     int numIntegers = model->getNumIntVars();
     const int *intIndices = model->getIntVars();
-    
-    for (i = 0; i < numIntegers; ++i) { 
+
+    for (i = 0; i < numIntegers; ++i) {
 	var = intIndices[i];
-        
+
         dj = reducedCost[var];
-        
+
         if (fabs(dj) < epInt) continue;
-        
+
         boundDistance = ub[var] - lb[var];
 	if (boundDistance < epInt) continue;
-	
+
         movement = floor((cutup - lpObjValue) / fabs(dj));
-        
+
         if (solution[var] > ub[var] - epInt) {
             /* At upper bound */
             if (movement < boundDistance) {
@@ -2771,7 +2771,7 @@ reducedCostFix(BlisModel *model)
 #ifdef BLIS_DEBUG_MORE
                 printf("RED-FIX: dj %g, lb %.10g, ub %.10g, newBound %.10g, movement %g\n", dj, lb[var], ub[var], newBound, movement);
 #endif
-                
+
                 if (movement <= ALPS_ZERO) {
                     ++numFixedUp;
                 }
@@ -2786,11 +2786,11 @@ reducedCostFix(BlisModel *model)
             if (movement < boundDistance) {
                 newBound = lb[var] + movement;
                 newBound = std::max(newBound, lb[var]);
-                
+
 #ifdef BLIS_DEBUG_MORE
                 printf("RED-FIX: dj %g, lb %g, ub %g, newBound %g, movement %g\n", dj, lb[var], ub[var], newBound, movement);
 #endif
-		
+
                 if (movement <= ALPS_ZERO) {
                     ++numFixedDown;
                 }
@@ -2802,7 +2802,7 @@ reducedCostFix(BlisModel *model)
             }
         }
     }
-    
+
     //int change = numFixedUp + numFixedDown + numTighten;
     //model->reducedCostFixed_ += change;
 #ifdef BLIS_DEBUG_MORE
@@ -2811,13 +2811,13 @@ reducedCostFix(BlisModel *model)
     }
 #endif
 
-    return status; 
+    return status;
 }
 
 //#############################################################################
 
 AlpsEncoded*
-BlisTreeNode::encode() const 
+BlisTreeNode::encode() const
 {
 #ifdef BLIS_DEBUG
     std::cout << "BlisTreeNode::encode()--start to encode node "
@@ -2825,52 +2825,52 @@ BlisTreeNode::encode() const
 #endif
 
     AlpsReturnStatus status = AlpsReturnStatusOk;
-    
+
     // NOTE: "AlpsKnowledgeTypeNode" is used as type name.
     AlpsEncoded* encoded = new AlpsEncoded(AlpsKnowledgeTypeNode);
-    
+
     // Encode decription.
     status = desc_->encode(encoded);
-    
+
     // Encode Alps portion.
     status = encodeAlps(encoded);
-    
+
     // Encode Bcps portion.
     status = encodeBcps(encoded);
-    
+
     // Nothing to encode for Blis portion.
-    
+
     return encoded;
 }
 
 //#############################################################################
 
-AlpsKnowledge* 
-BlisTreeNode::decode(AlpsEncoded& encoded) const 
+AlpsKnowledge*
+BlisTreeNode::decode(AlpsEncoded& encoded) const
 {
     AlpsReturnStatus status = AlpsReturnStatusOk;
     BlisTreeNode* treeNode = NULL;
 
     BlisModel *model = dynamic_cast<BlisModel*>(desc_->getModel());
-    
+
     //------------------------------------------------------
     // Unpack decription.
     //------------------------------------------------------
 
     AlpsNodeDesc* nodeDesc = new BlisNodeDesc(model);
     status = nodeDesc->decode(encoded);
-    
+
     //------------------------------------------------------
     // Unpack node.
     //------------------------------------------------------
-    
+
     // Unpack Alps portion.
     treeNode = new BlisTreeNode(nodeDesc);
     treeNode->decodeAlps(encoded);
-    
+
     // Unpack Bcps portion.
     int type = 0;
-    encoded.readRep(type);	
+    encoded.readRep(type);
     if (type == BLIS_BO_INT) {
 	// branchObject_ is simple integer.
 	BlisBranchObjectInt *bo = new BlisBranchObjectInt();
@@ -2879,30 +2879,30 @@ BlisTreeNode::decode(AlpsEncoded& encoded) const
 	// Set bo in treeNode.
 	treeNode->setBranchObject(bo);
     }
-    
+
     // Nothing to unpack for Blis portion.
-    
+
     return treeNode;
 }
 
 //#############################################################################
 
-void 
-BlisTreeNode::convertToExplicit() 
+void
+BlisTreeNode::convertToExplicit()
 {
 #ifdef BLIS_DEBUG
     std::cout << "BLIS: convertToExplicit(); explicit_="<<explicit_ << std::endl;
 #endif
 
     if(!explicit_) {
-	
+
 	// Convert to explicit
 	explicit_ = 1;
-	
+
 	BlisModel* model = dynamic_cast<BlisModel*>(desc_->getModel());
 	BlisNodeDesc *desc = dynamic_cast<BlisNodeDesc *>(desc_);
 	BlisConstraint *aCon = NULL;
-	
+
 	int numCols = model->solver()->getNumCols();
 
 	int i, k, index;
@@ -2913,12 +2913,12 @@ BlisTreeNode::convertToExplicit()
 	int numSoftVarUppers = 0;
 
 	double value;
-		
+
 	double *fVarHardLB = new double [numCols];
 	double *fVarHardUB = new double [numCols];
 	int *fVarHardLBInd = new int [numCols];
 	int *fVarHardUBInd = new int [numCols];
-	
+
 	double *fVarSoftLB = new double [numCols];
 	double *fVarSoftUB = new double [numCols];
 	int *fVarSoftLBInd = new int [numCols];
@@ -2936,21 +2936,21 @@ BlisTreeNode::convertToExplicit()
 	int numOldCons = 0;
 	int maxOld = model->getOldConstraintsSize();
 	BcpsObject ** oldConstraints = new BcpsObject* [maxOld];
-	
+
 	//--------------------------------------------------
 	// Travel back to a full node, then collect diff (add/rem col/row,
 	// hard/soft col/row bounds) from the node full to this node.
 	//--------------------------------------------------------
-    
+
 	BlisNodeDesc* pathDesc = NULL;
-	AlpsTreeNode *parent = parent_;    
-	
+	AlpsTreeNode *parent = parent_;
+
 	model->leafToRootPath.push_back(this);
-	
+
 	while(parent) {
 #ifdef BLIS_DEBUG_MORE
 	    std::cout << "Parent id = " << parent->getIndex() << std::endl;
-#endif     
+#endif
 	    model->leafToRootPath.push_back(parent);
 	    if (parent->getExplicit()) {
 		// Reach an explicit node, then stop.
@@ -2960,16 +2960,16 @@ BlisTreeNode::convertToExplicit()
 		parent = parent->getParent();
 	    }
 	}
-    
+
 #ifdef BLIS_DEBUG
 	std::cout << "CONVERT TO EXP: path len = " << model->leafToRootPath.size()
 		  << std::endl;
 #endif
-	
+
 	//------------------------------------------------------
 	// Travel back from this node to the explicit node to
 	// collect full description.
-	//------------------------------------------------------	
+	//------------------------------------------------------
 
 
 	for(i = static_cast<int> (model->leafToRootPath.size() - 1); i > -1; --i) {
@@ -2980,25 +2980,25 @@ BlisTreeNode::convertToExplicit()
 	    //--------------------------------------
 	    // Full variable hard bounds.
 	    //--------------------------------------
-	    
+
 	    numModify = pathDesc->getVars()->lbHard.numModify;
 	    for (k = 0; k < numModify; ++k) {
 		index = pathDesc->getVars()->lbHard.posModify[k];
 		value = pathDesc->getVars()->lbHard.entries[k];
 		fVarHardLB[index] = value;
 	    }
-		    
+
 	    numModify = pathDesc->getVars()->ubHard.numModify;
 	    for (k = 0; k < numModify; ++k) {
 		index = pathDesc->getVars()->ubHard.posModify[k];
 		value = pathDesc->getVars()->ubHard.entries[k];
 		fVarHardUB[index] = value;
 	    }
-		    
+
 	    //--------------------------------------
 	    // Full variable soft bounds.
 	    //--------------------------------------
-	    
+
 	    numModify = pathDesc->getVars()->lbSoft.numModify;
 #ifdef BLIS_DEBUG
 	    std::cout << "CONVERT: EXP: i=" << i << ", numModify soft lb="
@@ -3009,7 +3009,7 @@ BlisTreeNode::convertToExplicit()
 		value = pathDesc->getVars()->lbSoft.entries[k];
 		fVarSoftLB[index] = value;
 	    }
-		    
+
 	    numModify = pathDesc->getVars()->ubSoft.numModify;
 #ifdef BLIS_DEBUG
 	    std::cout << "CONVERT: EXP: i=" << i << ", numModify soft ub="
@@ -3025,54 +3025,54 @@ BlisTreeNode::convertToExplicit()
             //----------------------------------------------
             // Collect all generated constraints, then remove deleted.
             //----------------------------------------------
-            
+
             tempInt = pathDesc->getCons()->numAdd;
-	    
+
 #ifdef BLIS_DEBUG
             std::cout << "\nCONVERT: EXP: numAdd = " << tempInt << std::endl;
 #endif
-            
+
             for (k = 0; k < tempInt; ++k) {
                 aCon = dynamic_cast<BlisConstraint *>
                     (pathDesc->getCons()->objects[k]);
-                
+
                 assert(aCon);
                 assert(aCon->getSize() > 0);
                 assert(aCon->getSize() < 100000);
-                
+
 #ifdef BLIS_DEBUG
-		std::cout << "CONVERT: EXP: k=" << k 
+		std::cout << "CONVERT: EXP: k=" << k
 			  << ", len=" <<aCon->getSize() << std::endl;
 #endif
                 oldConstraints[numOldCons++] = aCon;
-                
+
                 if (numOldCons >= maxOld) {
                     // Need resize
 #ifdef BLIS_DEBUG
-                    std::cout << "CONVERT: EXP: resize, maxOld = " 
+                    std::cout << "CONVERT: EXP: resize, maxOld = "
                               << maxOld << std::endl;
 #endif
                     maxOld *= 2;
                     BcpsObject **tempCons = new BcpsObject* [maxOld];
-		    
-                    memcpy(tempCons, 
-                           oldConstraints, 
+
+                    memcpy(tempCons,
+                           oldConstraints,
                            numOldCons * sizeof(BcpsObject *));
-		    
+
 		    delete [] oldConstraints;
 		    oldConstraints = tempCons;
 		    tempCons = NULL;
                 }
             }
-	    
+
             //----------------------------------------------
-            // Remove those deleted. 
-	    // NOTE: oldConstraints stores all previously 
+            // Remove those deleted.
+	    // NOTE: oldConstraints stores all previously
 	    // generated active constraints at parent.
             //----------------------------------------------
-	    
+
             tempInt = pathDesc->getCons()->numRemove;
-            
+
             if (tempInt > 0) {
                 int tempPos;
                 int *tempMark = new int [numOldCons];
@@ -3080,13 +3080,13 @@ BlisTreeNode::convertToExplicit()
                 for (k = 0; k < tempInt; ++k) {
                     tempPos = pathDesc->getCons()->posRemove[k];
 #ifdef BLIS_DEBUG_MORE
-		    std::cout << "tempPos=" << tempPos 
-			      << ", tempInt=" << tempInt 
+		    std::cout << "tempPos=" << tempPos
+			      << ", tempInt=" << tempInt
 			      << ", numOldCons=" << numOldCons << std::endl;
 #endif
                     tempMark[tempPos] = 1;
                 }
-		
+
                 tempInt = 0;
                 for (k = 0; k < numOldCons; ++k) {
                     if (tempMark[k] != 1) {
@@ -3098,7 +3098,7 @@ BlisTreeNode::convertToExplicit()
 		    std::cout << "INSTALL: tempInt=" << tempInt
 			      <<", numRemove="<<pathDesc->getCons()->numRemove
 			      << ", numOldCons=" << numOldCons << std::endl;
-		    
+
 		    assert(0);
 		}
 
@@ -3106,13 +3106,13 @@ BlisTreeNode::convertToExplicit()
                 numOldCons = tempInt;
                 delete [] tempMark;
             }
-	    
+
 	} // EOF for (path)
-        
+
 	//------------------------------------------
 	// Record hard variable bounds. FULL set.
 	//------------------------------------------
-	
+
 	desc->assignVarHardBound(numCols,
 				 fVarHardLBInd,
 				 fVarHardLB,
@@ -3123,7 +3123,7 @@ BlisTreeNode::convertToExplicit()
 	//------------------------------------------
 	// Recode soft variable bound. Modified.
 	//------------------------------------------
-	
+
 	for (k = 0; k < numCols; ++k) {
 	    if (fVarSoftLB[k] < ALPS_BND_MAX) {
 		fVarSoftLBInd[numSoftVarLowers] = k;
@@ -3135,13 +3135,13 @@ BlisTreeNode::convertToExplicit()
 	    }
 	}
 	// Assign it anyway so to delete memory(fVarSoftLBInd,etc.)
-	desc->assignVarSoftBound(numSoftVarLowers, 
+	desc->assignVarSoftBound(numSoftVarLowers,
 				 fVarSoftLBInd,
 				 fVarSoftLB,
-				 numSoftVarUppers, 
+				 numSoftVarUppers,
 				 fVarSoftUBInd,
 				 fVarSoftUB);
-	
+
 	//------------------------------------------
 	// Recode added constraints.
 	//------------------------------------------
@@ -3150,7 +3150,7 @@ BlisTreeNode::convertToExplicit()
 	for (k = 0; k < numOldCons; ++k) {
 	    aCon = dynamic_cast<BlisConstraint *>(oldConstraints[k]);
 	    assert(aCon);
-	    
+
 	    BlisConstraint *newCon = new BlisConstraint(*aCon);
 	    oldConstraints[k] = newCon;
 	}
@@ -3160,13 +3160,13 @@ BlisTreeNode::convertToExplicit()
 	//------------------------------------------
 	// Recode deleted constraints.
 	//------------------------------------------
-	
+
 	desc->delConstraints(0, NULL);
-	
+
 	//--------------------------------------------------
 	// Clear path vector.
 	//--------------------------------------------------
-	
+
 	model->leafToRootPath.clear();
 	assert(model->leafToRootPath.size() == 0);
 
@@ -3181,15 +3181,15 @@ void
 BlisTreeNode::convertToRelative()
 {
     if(explicit_) {
-	
+
 
     }
 }
 
 //#############################################################################
 
-bool 
-BlisTreeNode::parallel(BlisModel *model, 
+bool
+BlisTreeNode::parallel(BlisModel *model,
 		       OsiCuts *newCutSet,
 		       int lastNew,
 		       OsiRowCut *rowCut)
@@ -3197,7 +3197,7 @@ BlisTreeNode::parallel(BlisModel *model,
     bool parallel = false;
     int k;
     double threshold = 0.999;
-    
+
     //------------------------------------------------------
     // Compare with old cuts
     //------------------------------------------------------
@@ -3211,7 +3211,7 @@ BlisTreeNode::parallel(BlisModel *model,
 				      threshold);
 	if (parallel) return parallel;
     }
-    
+
 
     //------------------------------------------------------
     // Compare with old cuts
@@ -3224,10 +3224,8 @@ BlisTreeNode::parallel(BlisModel *model,
 				      threshold);
 	if (parallel) return parallel;
     }
-    
+
     return parallel;
 }
 
 //#############################################################################
-
-

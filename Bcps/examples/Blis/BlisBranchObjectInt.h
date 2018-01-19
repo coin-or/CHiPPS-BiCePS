@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -39,19 +39,19 @@ class BlisBranchObjectInt : public BcpsBranchObject {
 
  protected:
 
-    /** Down_[0]: the lower bound of down arm; 
+    /** Down_[0]: the lower bound of down arm;
         Down_[1]: the upper bound of down arm; */
     double down_[2];
-    
-    /** Up_[0]: the lower bound of upper arm; 
+
+    /** Up_[0]: the lower bound of upper arm;
         Up_[1]: the upper bound of upper arm; */
     double up_[2];
 
  public:
-    
+
     /** Default constructor. */
-    BlisBranchObjectInt()    
-        : 
+    BlisBranchObjectInt()
+        :
         BcpsBranchObject()
         {
 	    type_ = BLIS_BO_INT;
@@ -61,16 +61,16 @@ class BlisBranchObjectInt : public BcpsBranchObject {
             up_[1] = 0.0;
         }
 
-    /** Construct a branching object, which branching on variable varInd. 
+    /** Construct a branching object, which branching on variable varInd.
         \param varInd     the index of integer variable in object set
         \param direction  the direction of first branching: 1(up), -1(down)
-        \param value      the fractional solution value of variable varInd 
+        \param value      the fractional solution value of variable varInd
     */
-    BlisBranchObjectInt(BlisModel * model, 
+    BlisBranchObjectInt(BlisModel * model,
                         int varInd,
                         int direction,
                         double value)
-        : 
+        :
         BcpsBranchObject(model, varInd, direction, value)
         {
 	    type_ = BLIS_BO_INT;
@@ -81,12 +81,12 @@ class BlisBranchObjectInt : public BcpsBranchObject {
             up_[1] = model->getColUpper()[iColumn];
         }
 
-    /** Construct a branching object, which branching on variable varInd. 
+    /** Construct a branching object, which branching on variable varInd.
         \param varInd     the index of integer variable in object set
         \param intScore   the integer score/goodness
         \param dblScore   the double score/goodness
         \param direction  the direction of first branching: 1(up), -1(down)
-        \param value      the fractional solution value of variable varInd 
+        \param value      the fractional solution value of variable varInd
     */
     BlisBranchObjectInt(BlisModel * model,
                         int varInd,
@@ -94,7 +94,7 @@ class BlisBranchObjectInt : public BcpsBranchObject {
                         double dblScore,
                         int direction,
                         double value)
-        : 
+        :
         BcpsBranchObject(model, varInd, intScore, dblScore, direction, value)
         {
 	    type_ = BLIS_BO_INT;
@@ -104,16 +104,16 @@ class BlisBranchObjectInt : public BcpsBranchObject {
             up_[0] = ceil(value_);
             up_[1] = model->getColUpper()[iColumn];
         }
-    
+
     /** Create a degenerate branching object.
-        Specifies a `one-direction branch'. Calling branch() for this 
-        object will always result in lowerValue <= x <= upperValue. 
+        Specifies a `one-direction branch'. Calling branch() for this
+        object will always result in lowerValue <= x <= upperValue.
         Used to fix a variable when lowerValue = upperValue.
     */
     BlisBranchObjectInt(BlisModel * model,
-                        int varInd, 
+                        int varInd,
                         int direction,
-                        double lowerValue, 
+                        double lowerValue,
                         double upperValue)
         :
         BcpsBranchObject(model, varInd, direction, lowerValue)
@@ -125,13 +125,13 @@ class BlisBranchObjectInt : public BcpsBranchObject {
             up_[0] = lowerValue;
             up_[1] = upperValue;
         }
-  
+
     /** Copy constructor. */
     BlisBranchObjectInt(const BlisBranchObjectInt &);
-    
+
     /** Assignment operator. */
     BlisBranchObjectInt & operator = (const BlisBranchObjectInt& rhs);
-    
+
     /** Clone. */
     virtual BcpsBranchObject * clone() const {
         return (new BlisBranchObjectInt(*this));
@@ -139,7 +139,7 @@ class BlisBranchObjectInt : public BcpsBranchObject {
 
     /** Destructor. */
     virtual ~BlisBranchObjectInt() {}
-  
+
     /** Set the bounds for the variable according to the current arm
 	of the branch and advances the object state to the next arm.
 	Returns change in guessed objective on next branch. */
@@ -168,7 +168,7 @@ class BlisBranchObjectInt : public BcpsBranchObject {
 	for (j = 0; j < 2; ++j) {
 	    encoded->writeRep(up_[j]);
 	}
-	
+
 	return status;
     }
 
@@ -183,7 +183,7 @@ class BlisBranchObjectInt : public BcpsBranchObject {
 	for (j = 0; j < 2; ++j) {
 	    encoded.readRep(up_[j]);
 	}
-	
+
 	return status;
     }
 
@@ -195,20 +195,19 @@ class BlisBranchObjectInt : public BcpsBranchObject {
 
 	status = encodeBcps(encoded);
 	status = encodeBlis(encoded);
-	
+
 	return status;
     }
 
     /** Unpack a branching object from an encoded object. */
     virtual AlpsReturnStatus decode(AlpsEncoded &encoded) {
-	
+
 	AlpsReturnStatus status = AlpsReturnStatusOk;
 
 	status = decodeBcps(encoded);
 	status = decodeBlis(encoded);
-	
+
 	return status;
     }
-    
-};
 
+};

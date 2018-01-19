@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -34,14 +34,14 @@
 /** Useful constructor
     Loads actual upper & lower bounds for the specified variable. */
 BlisObjectInt::BlisObjectInt(int objectIndex,
-                             int iColumn, 
+                             int iColumn,
                              double lb,
                              double ub,
                              double breakEven)
-    : 
+    :
     BcpsObject()
 {
-    
+
     assert (breakEven > 0.0 && breakEven < 1.0);
     objectIndex_ = objectIndex;
     columnIndex_ = iColumn;
@@ -52,7 +52,7 @@ BlisObjectInt::BlisObjectInt(int objectIndex,
 
 //#############################################################################
 
-// Copy constructor 
+// Copy constructor
 BlisObjectInt::BlisObjectInt( const BlisObjectInt & rhs)
     :
     BcpsObject(rhs)
@@ -67,8 +67,8 @@ BlisObjectInt::BlisObjectInt( const BlisObjectInt & rhs)
 
 //#############################################################################
 
-// Assignment operator 
-BlisObjectInt & 
+// Assignment operator
+BlisObjectInt &
 BlisObjectInt::operator = (const BlisObjectInt& rhs)
 {
     if (this != &rhs) {
@@ -83,22 +83,22 @@ BlisObjectInt::operator = (const BlisObjectInt& rhs)
 
 
 // Compute the infeasibility based on currently relax solution.
-double 
+double
 BlisObjectInt::infeasibility(BcpsModel *m, int & preferredWay) const
 {
     BlisModel * model = dynamic_cast<BlisModel *>(m);
     OsiSolverInterface * solver = model->solver();
-    
+
     const double * solution =  solver->getColSolution();
 
     const double * lower = solver->getColLower();
     const double * upper = solver->getColUpper();
 
     double value = solution[columnIndex_];
-    
+
     value = std::max(value, lower[columnIndex_]);
     value = std::min(value, upper[columnIndex_]);
-    
+
     //printf("%d %g %g %g %g\n",columnIndex_,value,lower[columnIndex_],
     //   solution[columnIndex_],upper[columnIndex_]);
 
@@ -110,7 +110,7 @@ BlisObjectInt::infeasibility(BcpsModel *m, int & preferredWay) const
     else {
 	preferredWay = -1;
     }
-    
+
     double weight = fabs(value - nearest);
 
     // normalize so weight is 0.5 at break even
@@ -120,7 +120,7 @@ BlisObjectInt::infeasibility(BcpsModel *m, int & preferredWay) const
     else {
 	weight = (0.5/(1.0 - breakEven_)) * weight;
     }
-    
+
     if (fabs(value - nearest) <= integerTolerance) {
 	return 0.0;
     }
@@ -134,13 +134,13 @@ BlisObjectInt::infeasibility(BcpsModel *m, int & preferredWay) const
 // Force this object within exiting bounds, then fix the bounds at the
 // the nearest integer value. Assume solution value is within tolerance of
 // the nearest integer.
-void 
+void
 BlisObjectInt::feasibleRegion(BcpsModel *m)
 {
 
     BlisModel *model = dynamic_cast<BlisModel* >(m);
     OsiSolverInterface * solver = model->solver();
-  
+
     const double * solution =  solver->getColSolution();
     const double * lower = solver->getColLower();
     const double * upper = solver->getColUpper();
@@ -150,7 +150,7 @@ BlisObjectInt::feasibleRegion(BcpsModel *m)
     // 1) Force value to be in bounds.
     value = CoinMax(value, lower[columnIndex_]);
     value = CoinMin(value, upper[columnIndex_]);
-    
+
     double nearest = floor(value + 0.5);
 
     // 2) Fix variable at the nearest integer
@@ -162,40 +162,40 @@ BlisObjectInt::feasibleRegion(BcpsModel *m)
 //#############################################################################
 
 // Creates a branching object from this infeasible object.
-BcpsBranchObject * 
+BcpsBranchObject *
 BlisObjectInt::createBranchObject(BcpsModel *m, int direction) const
 {
     BlisModel *model = dynamic_cast<BlisModel* >(m);
     OsiSolverInterface * solver = model->solver();
-    
+
     double integerTolerance = model->BlisPar()->entry(BlisParams::integerTol);
-    
+
     const double * solution = solver->getColSolution();
     const double * lower = solver->getColLower();
     const double * upper = solver->getColUpper();
-    
+
     double value = solution[columnIndex_];
     //std::cout << "COL"<< columnIndex_ << ": x = " << value << std::endl;
-    
+
     // Force value in bounds.
     value = CoinMax(value, lower[columnIndex_]);
     value = CoinMin(value, upper[columnIndex_]);
-    
+
     double nearest = floor(value + 0.5);
-    
+
     assert (upper[columnIndex_] > lower[columnIndex_]);
-    
+
     int hotstartStrategy = model->getHotstartStrategy();
-    
+
     if (hotstartStrategy <= 0) {
         if (fabs(value - nearest) < integerTolerance) {
             // Already integeral.
-            std::cout << "ERROR: COL" << columnIndex_ << ": x=" << value 
-                      << ", nearest=" << nearest 
+            std::cout << "ERROR: COL" << columnIndex_ << ": x=" << value
+                      << ", nearest=" << nearest
                       << ", intTol=" << integerTolerance << std::endl;
             assert(0);
         }
-    } 
+    }
     else {
 	const double * incumbent = model->incumbent();
 	double targetValue = incumbent[columnIndex_];
@@ -206,25 +206,25 @@ BlisObjectInt::createBranchObject(BcpsModel *m, int direction) const
 	    value = targetValue + 0.1;
 	}
     }
-    
+
     return new BlisBranchObjectInt(model, objectIndex_, direction, value);
 }
 
 //#############################################################################
 
-// Feasible branching. Given a integeral solution value, return a 
+// Feasible branching. Given a integeral solution value, return a
 // branching object which would give a new feasible point in direction
 // reduced cost says would be better. If no better feasible point,
 // return NULL.
 
-BcpsBranchObject * 
+BcpsBranchObject *
 BlisObjectInt::preferredNewFeasible(BcpsModel *m) const
 {
     BlisModel *model = dynamic_cast<BlisModel* >(m);
     OsiSolverInterface * solver = model->solver();
-    
+
     double value = solver->getColSolution()[columnIndex_];
-    
+
     double nearest = floor(value + 0.5);
     double integerTolerance = model->BlisPar()->entry(BlisParams::integerTol);
 
@@ -244,13 +244,13 @@ BlisObjectInt::preferredNewFeasible(BcpsModel *m) const
                                              nearest - 1.0,
                                              nearest - 1.0);
 	}
-    } 
+    }
     else {
 	// Better go up
 	if (nearest < originalUpper_ - 0.5) {
 	    // Has room to go up
-	    object = new BlisBranchObjectInt(model, 
-                                             objectIndex_, 
+	    object = new BlisBranchObjectInt(model,
+                                             objectIndex_,
                                              -1,
                                              nearest + 1.0,
                                              nearest + 1.0);
@@ -259,21 +259,21 @@ BlisObjectInt::preferredNewFeasible(BcpsModel *m) const
 
     return object;
 }
-  
+
 //#############################################################################
 
-// Feasible branching. Given a integeral solution value, return a 
+// Feasible branching. Given a integeral solution value, return a
 // branching object which would give a new feasible point in direction
 // reduced cost says would be worse. If no better feasible point,
 // return NULL.
 
-BcpsBranchObject * 
-BlisObjectInt::notPreferredNewFeasible(BcpsModel *m) const 
+BcpsBranchObject *
+BlisObjectInt::notPreferredNewFeasible(BcpsModel *m) const
 {
     BlisModel *model = dynamic_cast<BlisModel* >(m);
     OsiSolverInterface * solver = model->solver();
     double value = solver->getColSolution()[columnIndex_];
-    
+
     double nearest = floor(value + 0.5);
     double integerTolerance = model->BlisPar()->entry(BlisParams::integerTol);
 
@@ -291,7 +291,7 @@ BlisObjectInt::notPreferredNewFeasible(BcpsModel *m) const
                                              nearest - 1.0,
                                              nearest - 1.0);
 	}
-    } 
+    }
     else {
 	// Worse if go up.
 	if (nearest < originalUpper_-0.5) {
@@ -310,7 +310,7 @@ BlisObjectInt::notPreferredNewFeasible(BcpsModel *m) const
 //#############################################################################
 
 // Reset bounds to the ones in LP solver.
-void 
+void
 BlisObjectInt::resetBounds(BcpsModel *m)
 {
     originalLower_ = dynamic_cast<BlisModel *>

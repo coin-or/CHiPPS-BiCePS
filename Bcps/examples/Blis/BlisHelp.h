@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -55,7 +55,7 @@ CoinWarmStartBasis *BlisDecodeWarmStart(AlpsEncoded &encoded,
 					AlpsReturnStatus *rc);
 
 /** Compute and return a hash value of an Osi row cut. */
-double BlisHashingOsiRowCut(const OsiRowCut *rowCut, 
+double BlisHashingOsiRowCut(const OsiRowCut *rowCut,
 			    const BlisModel *model);
 
 /** Check if a row cut parallel with another row cut. */

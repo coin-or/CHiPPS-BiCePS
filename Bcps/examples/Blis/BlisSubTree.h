@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -43,7 +43,7 @@ class BlisTreeNode : public BcpsTreeNode {
    /** Takes the explicit description of the current active node and decides
        whether or not it should be fathomed. */
    virtual bool fathom();
-   
+
 };
 
 //#############################################################################

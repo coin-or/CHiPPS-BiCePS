@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -29,7 +29,7 @@
 //#############################################################################
 
 class BlisConstraint : public BcpsConstraint {
-    
+
  private:
 
     int size_;
@@ -46,7 +46,7 @@ class BlisConstraint : public BcpsConstraint {
 
     /** Useful constructor. */
     BlisConstraint(double lbh, double ubh, double lbs, double ubs);
-    
+
     /** Useful constructor. */
     BlisConstraint(double lbh, double ubh, double lbs, double ubs,
                    int s, const int *ind, const double *val);
@@ -55,14 +55,14 @@ class BlisConstraint : public BcpsConstraint {
 
     /** Copy constructor. */
     BlisConstraint(const BlisConstraint & rhs);
-    
+
     /** Return data  */
     /**@{*/
     int getSize() const       { return size_; }
     int* getIndices() const   { return indices_; }
-    double* getValues() const { return values_; }    
+    double* getValues() const { return values_; }
     /**@}*/
-    
+
     /** Set data  */
     /**@{*/
     void setData(int s, const int *ind, const double *val) {
@@ -85,15 +85,15 @@ class BlisConstraint : public BcpsConstraint {
 
     /** Unpack Blis part from a encode object. */
     AlpsReturnStatus decodeBlis(AlpsEncoded &encoded);
-	    
+
  public:
 
     /** Pack into a encode object. */
     virtual AlpsReturnStatus encode(AlpsEncoded *encoded);
-    
+
     /** Decode a constraint from an encoded object. */
     virtual AlpsKnowledge* decode(AlpsEncoded& encoded) const;
-    
+
     /** Compute a hash key. */
     virtual void hashing(BcpsModel *model=NULL);
 };

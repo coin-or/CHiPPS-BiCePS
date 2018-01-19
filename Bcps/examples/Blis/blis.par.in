@@ -6,7 +6,7 @@ Alps_timeLimit 600.0
 Alps_interClusterBalance 1      # 1: balancing load, 0: don't.
 Alps_intraClusterBalance 1      # 1: balancing load, 0: don't.
 Alps_unitWorkNodes 30           # or unit time
-Alps_unitWorkTime 0.03 
+Alps_unitWorkTime 0.03
 Alps_needWorkThreshold 0.5
 Alps_changeWorkThreshold 0.10
 Alps_donorThreshold 0.10
