@@ -35,6 +35,7 @@ BlisBranchObjectInt(const BlisBranchObjectInt & rhs)
     :
     BcpsBranchObject(rhs)
 {
+    direction_ = rhs.direction_;
     down_[0] = rhs.down_[0];
     down_[1] = rhs.down_[1];
     up_[0] = rhs.up_[0];
@@ -49,6 +50,7 @@ BlisBranchObjectInt::operator=(const BlisBranchObjectInt& rhs)
 {
     if (this != &rhs) {
 	BcpsBranchObject::operator=(rhs);
+        direction_ = rhs.direction_;
 	down_[0] = rhs.down_[0];
 	down_[1] = rhs.down_[1];
 	up_[0] = rhs.up_[0];
@@ -72,12 +74,9 @@ BlisBranchObjectInt::operator=(const BlisBranchObjectInt& rhs)
 double
 BlisBranchObjectInt::branch(bool normalBranch)
 {
-    BlisModel *model = dynamic_cast<BlisModel *>(model_);
+    BlisModel * model = dynamic_cast<BlisModel *>(broker()->getModel());
 
-    int iColumn = model->getIntVars()[objectIndex_];
-
-    // Decrement number of branches left by 1.
-    --numBranchesLeft_;
+    int iColumn = model->getIntVars()[index()];
 
     if (direction_<0) {
 #ifdef BLIS_DEBUG_MORE
@@ -117,8 +116,8 @@ BlisBranchObjectInt::branch(bool normalBranch)
 void
 BlisBranchObjectInt::print(bool normalBranch)
 {
-    BlisModel *model = dynamic_cast<BlisModel*>(model_);
-    int iColumn = model->getIntVars()[objectIndex_];
+    BlisModel * model = dynamic_cast<BlisModel*>(broker()->getModel());
+    int iColumn = model->getIntVars()[index()];
     double olb, oub ;
 
     if (direction_ < 0) {
@@ -137,3 +136,63 @@ BlisBranchObjectInt::print(bool normalBranch)
 }
 
 //#############################################################################
+
+
+
+/// The number of branch arms created for this branch object.
+int BlisBranchObjectInt::numBranches() const {
+  std::cerr << "Not implemented yet!" << std::endl;
+  throw std::exception();
+  return 0;
+}
+
+
+/// The number of branch arms left to be evaluated.
+int BlisBranchObjectInt::numBranchesLeft() const {
+  std::cerr << "Not implemented yet!" << std::endl;
+  throw std::exception();
+  return 0;
+}
+
+
+/// Spit out a branch and, update this or superclass fields if necessary.
+// double BlisBranchObjectInt::branch(bool normalBranch = false) {
+//   std::cerr << "Not implemented yet!" << std::endl;
+//   throw std::exception();
+//   return 0.0;
+// }
+
+
+AlpsReturnStatus BlisBranchObjectInt::encode(AlpsEncoded * encoded) const {
+  assert(encoded);
+  AlpsReturnStatus status;
+  status = BcpsBranchObject::encode(encoded);
+  assert(status==AlpsReturnStatusOk);
+  encoded->writeRep(down_[0]);
+  encoded->writeRep(down_[1]);
+  encoded->writeRep(up_[0]);
+  encoded->writeRep(up_[1]);
+  return status;
+}
+
+AlpsKnowledge * BlisBranchObjectInt::decode(AlpsEncoded &encoded) const {
+  // create a new object with default values,
+  // Bcps decode will decode right values into them.
+  AlpsKnowledge * new_bo = new BlisBranchObjectInt(-1, 0.0, -1, 0.0);
+  new_bo->decodeToSelf(encoded);
+  return new_bo;
+}
+
+/// Decode the given AlpsEncoded object into this.
+AlpsReturnStatus BlisBranchObjectInt::decodeToSelf(AlpsEncoded & encoded) {
+  AlpsReturnStatus status;
+  // decode Bcps part.
+  status = BcpsBranchObject::decodeToSelf(encoded);
+  assert(status=AlpsReturnStatusOk);
+  // decode fields of DcoBranchObject
+  encoded.readRep(down_[0]);
+  encoded.readRep(down_[1]);
+  encoded.readRep(up_[0]);
+  encoded.readRep(up_[1]);
+  return status;
+}

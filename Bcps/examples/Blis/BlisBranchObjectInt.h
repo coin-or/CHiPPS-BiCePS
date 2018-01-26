@@ -39,6 +39,8 @@ class BlisBranchObjectInt : public BcpsBranchObject {
 
  protected:
 
+    int direction_;
+
     /** Down_[0]: the lower bound of down arm;
         Down_[1]: the upper bound of down arm; */
     double down_[2];
@@ -48,61 +50,26 @@ class BlisBranchObjectInt : public BcpsBranchObject {
     double up_[2];
 
  public:
-
-    /** Default constructor. */
-    BlisBranchObjectInt()
-        :
-        BcpsBranchObject()
-        {
-	    type_ = BLIS_BO_INT;
-            down_[0] = 0.0;
-            down_[1] = 0.0;
-            up_[0] = 0.0;
-            up_[1] = 0.0;
-        }
-
     /** Construct a branching object, which branching on variable varInd.
-        \param varInd     the index of integer variable in object set
+        \param index     the index of integer variable in object set
+        \param score   the double score/goodness
         \param direction  the direction of first branching: 1(up), -1(down)
         \param value      the fractional solution value of variable varInd
     */
-    BlisBranchObjectInt(BlisModel * model,
-                        int varInd,
+    BlisBranchObjectInt(int index,
+                        double score,
                         int direction,
                         double value)
         :
-        BcpsBranchObject(model, varInd, direction, value)
+        BcpsBranchObject(BLIS_BO_INT, index, score, value)
         {
-	    type_ = BLIS_BO_INT;
-            int iColumn = model->getIntVars()[objectIndex_];
-            down_[0] = model->solver()->getColLower()[iColumn];
-            down_[1] = floor(value_);
-            up_[0] = ceil(value_);
-            up_[1] = model->getColUpper()[iColumn];
-        }
-
-    /** Construct a branching object, which branching on variable varInd.
-        \param varInd     the index of integer variable in object set
-        \param intScore   the integer score/goodness
-        \param dblScore   the double score/goodness
-        \param direction  the direction of first branching: 1(up), -1(down)
-        \param value      the fractional solution value of variable varInd
-    */
-    BlisBranchObjectInt(BlisModel * model,
-                        int varInd,
-                        int intScore,
-                        double dblScore,
-                        int direction,
-                        double value)
-        :
-        BcpsBranchObject(model, varInd, intScore, dblScore, direction, value)
-        {
-	    type_ = BLIS_BO_INT;
-            int iColumn = model->getIntVars()[objectIndex_];
-            down_[0] = model->solver()->getColLower()[iColumn];
-            down_[1] = floor(value_);
-            up_[0] = ceil(value_);
-            up_[1] = model->getColUpper()[iColumn];
+            direction_ = direction;
+            BlisModel * model = dynamic_cast <BlisModel*> (broker()->getModel());
+            //double value = model->solver()->getColSolution()[index];
+            down_[0] = model->solver()->getColLower()[index];
+            down_[1] = floor(value);
+            up_[0] = ceil(value);
+            up_[1] = model->getColUpper()[index];
         }
 
     /** Create a degenerate branching object.
@@ -110,16 +77,15 @@ class BlisBranchObjectInt : public BcpsBranchObject {
         object will always result in lowerValue <= x <= upperValue.
         Used to fix a variable when lowerValue = upperValue.
     */
-    BlisBranchObjectInt(BlisModel * model,
-                        int varInd,
+    BlisBranchObjectInt(int index,
+                        double score,
                         int direction,
                         double lowerValue,
                         double upperValue)
         :
-        BcpsBranchObject(model, varInd, direction, lowerValue)
+        BcpsBranchObject(BLIS_BO_INT, index, score, lowerValue)
         {
-	    type_ = BLIS_BO_INT;
-            numBranchesLeft_ = 1;
+            direction_ = direction;
             down_[0] = lowerValue;
             down_[1] = upperValue;
             up_[0] = lowerValue;
@@ -131,6 +97,15 @@ class BlisBranchObjectInt : public BcpsBranchObject {
 
     /** Assignment operator. */
     BlisBranchObjectInt & operator = (const BlisBranchObjectInt& rhs);
+
+    ///@name Pure virtual functions inherited.
+    //@{
+    /// The number of branch arms created for this branch object.
+    virtual int numBranches() const;
+    /// The number of branch arms left to be evaluated.
+    virtual int numBranchesLeft() const;
+    //@}
+
 
     /** Clone. */
     virtual BcpsBranchObject * clone() const {
@@ -154,60 +129,16 @@ class BlisBranchObjectInt : public BcpsBranchObject {
     /** Get upper arm bounds. */
     const double *getUp() const { return up_; }
 
- protected:
-
-    /** Pack Blis portion to an encoded object. */
-    AlpsReturnStatus encodeBlis(AlpsEncoded *encoded) const {
-	assert(encoded);
-	AlpsReturnStatus status = AlpsReturnStatusOk;
-	int j;
-	// TODO: N-way.
-	for (j = 0; j < 2; ++j) {
-	    encoded->writeRep(down_[j]);
-	}
-	for (j = 0; j < 2; ++j) {
-	    encoded->writeRep(up_[j]);
-	}
-
-	return status;
-    }
-
-    /** Unpack Blis portion from an encoded object. */
-    AlpsReturnStatus decodeBlis(AlpsEncoded &encoded) {
-	AlpsReturnStatus status = AlpsReturnStatusOk;
-	int j;
-	// TODO: N-way.
-	for (j = 0; j < 2; ++j) {
-	    encoded.readRep(down_[j]);
-	}
-	for (j = 0; j < 2; ++j) {
-	    encoded.readRep(up_[j]);
-	}
-
-	return status;
-    }
-
- public:
-
-    /** Pack to an encoded object. */
-    virtual AlpsReturnStatus encode(AlpsEncoded *encoded) const {
-	AlpsReturnStatus status = AlpsReturnStatusOk;
-
-	status = encodeBcps(encoded);
-	status = encodeBlis(encoded);
-
-	return status;
-    }
-
-    /** Unpack a branching object from an encoded object. */
-    virtual AlpsReturnStatus decode(AlpsEncoded &encoded) {
-
-	AlpsReturnStatus status = AlpsReturnStatusOk;
-
-	status = decodeBcps(encoded);
-	status = decodeBlis(encoded);
-
-	return status;
-    }
+    ///@name Encode and Decode functions
+    ///@{
+    using AlpsKnowledge::encode;
+    /// Encode the content of this into the given AlpsEncoded object.
+    virtual AlpsReturnStatus encode(AlpsEncoded * encoded) const;
+    /// Decode the given AlpsEncoded object into a new AlpsKnowledge object and
+    /// return a pointer to it.
+    virtual AlpsKnowledge * decode(AlpsEncoded & encoded) const;
+    /// Decode the given AlpsEncoded object into this.
+    virtual AlpsReturnStatus decodeToSelf(AlpsEncoded & encoded);
+    ///@}
 
 };

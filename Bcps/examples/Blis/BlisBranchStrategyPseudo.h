@@ -43,45 +43,41 @@ class BlisBranchStrategyPseudo : public BcpsBranchStrategy {
  private:
     /** Illegal Assignment operator.*/
     BlisBranchStrategyPseudo& operator=(const BlisBranchStrategyPseudo& rhs);
+    BlisBranchStrategyPseudo(const BlisBranchStrategyPseudo& rhs);
+    BlisBranchStrategyPseudo();
 
-    int relibility_;
+    int reliability_;
 
  public:
-
-    /** Default Constructor. */
-    BlisBranchStrategyPseudo() : relibility_(1) {}
 
     /** Useful Constructor. */
     BlisBranchStrategyPseudo(BlisModel *model, int rel)
         :
         BcpsBranchStrategy(model),
-        relibility_(rel)
+        reliability_(rel)
         {}
 
     /** Destructor. */
     virtual ~BlisBranchStrategyPseudo() {}
 
-    /** Copy constructor. */
-    BlisBranchStrategyPseudo(const BlisBranchStrategyPseudo &);
-
-    /** Set relibility. */
-    void setRelibility(int rel) { relibility_ = rel; }
+    /** Set reliability. */
+    void setReliability(int rel) { reliability_ = rel; }
 
     /** Clone a brancing strategy. */
-    virtual BcpsBranchStrategy * clone() const {
-	return new BlisBranchStrategyPseudo(*this);
-    }
+    /* virtual BcpsBranchStrategy * clone() const { */
+    /*     return new BlisBranchStrategyPseudo(*this); */
+    /* } */
 
     /** Compare branching object thisOne to bestSoFar. If thisOne is better
 	than bestObject, return branching direction(1 or -1), otherwise
 	return 0.
 	If bestSorFar is NULL, then always return branching direction(1 or -1).
     */
-    virtual int betterBranchObject(BcpsBranchObject * thisOne,
-				   BcpsBranchObject * bestSoFar);
+    virtual int betterBranchObject(BcpsBranchObject const * current,
+				   BcpsBranchObject const * other);
 
     /** Create a set of candidate branching objects. */
-    int createCandBranchObjects(int numPassesLeft, double ub);
+    virtual int createCandBranchObjects(BcpsTreeNode * node);
 };
 
 #endif

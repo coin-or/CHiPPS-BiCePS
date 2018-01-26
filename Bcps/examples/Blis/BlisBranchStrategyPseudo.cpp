@@ -42,26 +42,13 @@ struct BlisPseuoGreater
 
 //#############################################################################
 
-// Copy constructor
-BlisBranchStrategyPseudo::BlisBranchStrategyPseudo (
-    const BlisBranchStrategyPseudo & rhs
-    )
-    :
-    BcpsBranchStrategy()
-{
-    bestChangeUp_ = rhs.bestChangeUp_;
-    bestNumberUp_ = rhs.bestNumberUp_;
-    bestChangeDown_ = rhs.bestChangeDown_;
-    bestNumberDown_ = rhs.bestNumberDown_;
-}
-
 //#############################################################################
 
 /** Compare object thisOne to the bestSorFar. The compare is based on
     pseudocost. */
 int
-BlisBranchStrategyPseudo::betterBranchObject(BcpsBranchObject * thisOne,
-					     BcpsBranchObject * bestSoFar)
+BlisBranchStrategyPseudo::betterBranchObject(BcpsBranchObject const * thisOne,
+					     BcpsBranchObject const * bestSoFar)
 {
     int betterDirection = 0;
     double bestChange;
@@ -96,6 +83,15 @@ BlisBranchStrategyPseudo::betterBranchObject(BcpsBranchObject * thisOne,
 }
 
 //#############################################################################
+
+
+int
+BlisBranchStrategyPseudo::createCandBranchObjects(BcpsTreeNode * node)
+{
+  // get upper bound and numpasses left
+
+}
+
 
 /** Create a set of candidate branching objects. */
 int
