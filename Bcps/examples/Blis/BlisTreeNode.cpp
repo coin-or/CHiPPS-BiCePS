@@ -457,28 +457,6 @@ BcpsSubproblemStatus BlisTreeNode::bound()
 
         double objValue = model->solver()->getObjValue() *
             model->solver()->getObjSense();
-
-        int dir = desc->getBranchedDir();
-        if (dir != 0) {
-            double objDeg = objValue - quality_;
-            int objInd = desc->getBranchedInd();
-            double lpX = desc->getBranchedVal();
-            BlisObjectInt *intObject =
-                dynamic_cast<BlisObjectInt *>(model->objects(objInd));
-#ifdef BLIS_DEBUG_MORE
-            std::cout << "BOUND: col[" << intObject->columnIndex()
-                      << "], dir=" << dir << ", objDeg=" << objDeg
-                      << ", x=" << lpX
-                      << ", up=" << intObject->pseudocost().getUpCost()
-                      << ", down=" << intObject->pseudocost().getDownCost()
-                      << ", pre quality=" << quality_
-                      << ", objValue=" << objValue
-                      << std::endl;
-#endif
-
-            intObject->pseudocost().update(dir, objDeg, lpX);
-        }
-
         // Update quality of this nodes.
         quality_ = objValue;
     }
