@@ -152,7 +152,7 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
 						      solver->getColSolution(),
 						      newObjValue);
 
-	    model->getKnowledgeBroker()->addKnowledge(AlpsKnowledgeTypeSolution,
+	    model->broker()->addKnowledge(AlpsKnowledgeTypeSolution,
 						      ksol,
 						      newObjValue);
 
@@ -226,7 +226,7 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
 						  solver->getColSolution(),
 						  newObjValue);
 
-	    model->getKnowledgeBroker()->addKnowledge(AlpsKnowledgeTypeSolution,
+	    model->broker()->addKnowledge(AlpsKnowledgeTypeSolution,
 						      ksol,
 						      newObjValue);
 	    // FIXME: should not keep this branch.

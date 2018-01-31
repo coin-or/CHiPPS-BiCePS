@@ -62,6 +62,15 @@ enum BLIS_BO_TYPE {
     BLIS_BO_SOS
 };
 
+/** Branching strategy type. */
+enum BLIS_BS_TYPE {
+    BLIS_BS_NONE = 0,
+    BLIS_BS_MAXINF,
+    BLIS_BS_PSEUDOCOST,
+    BLIS_BS_RELIABILITY,
+    BLIS_BS_SOS
+};
+
 //#############################################################################
 
 #endif

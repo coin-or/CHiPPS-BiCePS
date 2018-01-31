@@ -100,65 +100,81 @@ class BlisVariable : public BcpsVariable {
     }
     /**@}*/
 
- protected:
-
-   /** Pack Blis part into an encoded object. */
-    AlpsReturnStatus encodeBlis(AlpsEncoded *encoded) {
-	AlpsReturnStatus status = AlpsReturnStatusOk;
-
-	encoded->writeRep(objCoef_);
-	encoded->writeRep(indices_, size_);
-	encoded->writeRep(values_, size_);
-
-	return status;
+    virtual double infeasibility(BcpsModel * bcps_model, int & preferredDir) const {
+        bool integral = true;
+        if (not integral) {
+          return 0.0;
+        }
+        BlisModel * model = dynamic_cast<BlisModel*>(bcps_model);
+        preferredDir = -1;
+        // get integer tolerance parameter
+        double tolerance = model->BlisPar()->entry(BlisParams::integerTol);
+        double value = model->solver()->getColSolution()[getObjectIndex()];
+        double dist_to_upper = ceil(value) - value;
+        double dist_to_lower = value - floor(value);
+        // return the minimum of distance to upper or lower
+        double infeas;
+        if (dist_to_upper>dist_to_lower) {
+          preferredDir = -1;
+          infeas = dist_to_lower;
+        }
+        else {
+          preferredDir = 1;
+          infeas = dist_to_upper;
+        }
+        if (infeas<tolerance) {
+          infeas = 0.0;
+        }
+        return infeas;
     }
 
-    /** Unpack Blis part from a encode object. */
-    AlpsReturnStatus decodeBlis(AlpsEncoded &encoded) {
-	AlpsReturnStatus status = AlpsReturnStatusOk;
 
-	encoded.readRep(objCoef_);
-	encoded.readRep(indices_, size_);
-	encoded.readRep(values_, size_);
-
-	return status;
+    virtual BcpsBranchObject * createBranchObject(BcpsModel *m, int way) const {
+        BlisModel * model = dynamic_cast<BlisModel*>(m);
+        int var_index = getObjectIndex();
+        // get current value from solver
+        double value = model->solver()->getColSolution()[var_index];
+        // we do not know the score of branch object since we do not know
+        // the branching strategy.
+        double score = 0.0;
+        BcpsBranchObject * bo = new BlisBranchObjectInt(var_index, score, value);
+        bo->setBroker(broker_);
+        return bo;
     }
 
- public:
-
-    /** Pack to a encode object. */
-    virtual AlpsReturnStatus encode(AlpsEncoded *encoded){
-	AlpsReturnStatus status;
-
-	status = encodeBcpsObject(encoded);
-	status = encodeBlis(encoded);
-
-	return status;
-    }
-
-    /** Decode a variable from an encoded object. */
-    virtual AlpsKnowledge* decode(AlpsEncoded &encoded) const {
-	AlpsReturnStatus status = AlpsReturnStatusOk;
-	BlisVariable * var = new BlisVariable();
-
-	// Unpack Bcps part.
-	status = var->decodeBcpsObject(encoded);
-	if (status) {
-	    throw CoinError("Failed to decode Bcps part of var",
-			    "decode",
-			    "BlisObject");
-	}
-
-	// Unpack Blis part.
-	status = var->decodeBlis(encoded);
-	if (status) {
-	    throw CoinError("Failed to decode Blis part of var",
-			    "decode",
-			    "BlisObject");
-	}
-	return var;
-    }
-
+  ///@name Encode and Decode functions
+  //@{
+  /// Get encode from #AlpsKnowledge
+  using AlpsKnowledge::encode;
+  /// Encode this to an AlpsEncoded object.
+  virtual AlpsReturnStatus encode(AlpsEncoded * encoded) const {
+      std::cerr << "Not implemented, "
+                << "file: " <<  __FILE__
+                << "line: " << __LINE__
+                << std::endl;
+      throw std::exception();
+      return AlpsReturnStatusOk;
+  }
+  /// Decode a given AlpsEncoded object to a new BlisVariable object and return
+  /// a pointer to it.
+  virtual AlpsKnowledge * decode(AlpsEncoded & encoded) const {
+      std::cerr << "Not implemented, "
+                << "file: " <<  __FILE__
+                << "line: " << __LINE__
+                << std::endl;
+      throw std::exception();
+      return NULL;
+  }
+  /// Decode a given AlpsEncoded object into self.
+  virtual AlpsReturnStatus decodeToSelf(AlpsEncoded & encoded) {
+      std::cerr << "Not implemented, "
+                << "file: " <<  __FILE__
+                << "line: " << __LINE__
+                << std::endl;
+      throw std::exception();
+      return AlpsReturnStatusOk;
+  }
+  //@}
 };
 
 //#############################################################################

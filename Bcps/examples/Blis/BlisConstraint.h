@@ -78,21 +78,20 @@ class BlisConstraint : public BcpsConstraint {
     }
     /**@}*/
 
- protected:
+    virtual double infeasibility(BcpsModel * m, int & preferredWay) const;
 
-    /** Pack Blis part into an encoded object. */
-    AlpsReturnStatus encodeBlis(AlpsEncoded *encoded);
-
-    /** Unpack Blis part from a encode object. */
-    AlpsReturnStatus decodeBlis(AlpsEncoded &encoded);
-
- public:
-
-    /** Pack into a encode object. */
-    virtual AlpsReturnStatus encode(AlpsEncoded *encoded);
-
-    /** Decode a constraint from an encoded object. */
-    virtual AlpsKnowledge* decode(AlpsEncoded& encoded) const;
+    ///@name Encode and Decode functions
+    //@{
+    /// Encode this to an AlpsEncoded object.
+    virtual AlpsReturnStatus encode(AlpsEncoded * encoded);
+    /// Decode a given AlpsEncoded object to an AlpsKnowledge object and return a
+    /// pointer to it.
+    virtual AlpsKnowledge * decode(AlpsEncoded & encoded) const;
+    // todo(aykut) this should be a pure virtual function in Alps level
+    // we can overload this function here due to cv-qualifier.
+    /// Decode a given AlpsEncoded object into self.
+    AlpsReturnStatus decodeToSelf(AlpsEncoded & encoded);
+    //@}
 
     /** Compute a hash key. */
     virtual void hashing(BcpsModel *model=NULL);

@@ -26,6 +26,9 @@
 // Borrow ideas from COIN/Cbc
 //#############################################################################
 
+#ifndef BlisBranchObjectInt_h_
+#define BlisBranchObjectInt_h_
+
 
 #include "BcpsBranchObject.h"
 
@@ -37,17 +40,10 @@
 
 class BlisBranchObjectInt : public BcpsBranchObject {
 
- protected:
-
-    int direction_;
-
-    /** Down_[0]: the lower bound of down arm;
-        Down_[1]: the upper bound of down arm; */
-    double down_[2];
-
-    /** Up_[0]: the lower bound of upper arm;
-        Up_[1]: the upper bound of upper arm; */
-    double up_[2];
+    /// upper bound of the down branch
+    double ubDownBranch_;
+    /// lower bound of the up branch
+    double lbUpBranch_;
 
  public:
     /** Construct a branching object, which branching on variable varInd.
@@ -58,76 +54,38 @@ class BlisBranchObjectInt : public BcpsBranchObject {
     */
     BlisBranchObjectInt(int index,
                         double score,
-                        int direction,
                         double value)
         :
         BcpsBranchObject(BLIS_BO_INT, index, score, value)
         {
-            direction_ = direction;
-            BlisModel * model = dynamic_cast <BlisModel*> (broker()->getModel());
-            //double value = model->solver()->getColSolution()[index];
-            down_[0] = model->solver()->getColLower()[index];
-            down_[1] = floor(value);
-            up_[0] = ceil(value);
-            up_[1] = model->getColUpper()[index];
-        }
-
-    /** Create a degenerate branching object.
-        Specifies a `one-direction branch'. Calling branch() for this
-        object will always result in lowerValue <= x <= upperValue.
-        Used to fix a variable when lowerValue = upperValue.
-    */
-    BlisBranchObjectInt(int index,
-                        double score,
-                        int direction,
-                        double lowerValue,
-                        double upperValue)
-        :
-        BcpsBranchObject(BLIS_BO_INT, index, score, lowerValue)
-        {
-            direction_ = direction;
-            down_[0] = lowerValue;
-            down_[1] = upperValue;
-            up_[0] = lowerValue;
-            up_[1] = upperValue;
+          ubDownBranch_ = floor(value);
+          lbUpBranch_ = ceil(value);
         }
 
     /** Copy constructor. */
     BlisBranchObjectInt(const BlisBranchObjectInt &);
-
+    BlisBranchObjectInt(const BcpsBranchObject *);
     /** Assignment operator. */
     BlisBranchObjectInt & operator = (const BlisBranchObjectInt& rhs);
+    /** Destructor. */
+    virtual ~BlisBranchObjectInt() {}
 
-    ///@name Pure virtual functions inherited.
-    //@{
+    ///@name Virtual functions inherited from BcpsBranchObject
     /// The number of branch arms created for this branch object.
     virtual int numBranches() const;
     /// The number of branch arms left to be evaluated.
     virtual int numBranchesLeft() const;
+    /// Spit out a branch and, update this or superclass fields if necessary.
+    virtual double branch(bool normalBranch = false);
     //@}
 
-
-    /** Clone. */
-    virtual BcpsBranchObject * clone() const {
-        return (new BlisBranchObjectInt(*this));
-    }
-
-    /** Destructor. */
-    virtual ~BlisBranchObjectInt() {}
-
-    /** Set the bounds for the variable according to the current arm
-	of the branch and advances the object state to the next arm.
-	Returns change in guessed objective on next branch. */
-    virtual double branch(bool normalBranch = false);
-
-    /** \brief Print something about branch - only if log level high. */
-    virtual void print(bool normalBranch);
-
-    /** Get down arm bounds. */
-    const double *getDown() const { return down_; }
-
-    /** Get upper arm bounds. */
-    const double *getUp() const { return up_; }
+    ///@name Bound getting functions.
+    //@{
+    /// Get upper bound of the down branch.
+    double ubDownBranch() const { return ubDownBranch_; }
+    /// Get lower bound of the up branch.
+    double lbUpBranch() const { return lbUpBranch_; }
+    //@}
 
     ///@name Encode and Decode functions
     ///@{
@@ -141,4 +99,9 @@ class BlisBranchObjectInt : public BcpsBranchObject {
     virtual AlpsReturnStatus decodeToSelf(AlpsEncoded & encoded);
     ///@}
 
+ private:
+  /// Disable default constructor.
+  BlisBranchObjectInt();
 };
+
+#endif

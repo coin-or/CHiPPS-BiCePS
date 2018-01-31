@@ -100,78 +100,42 @@ BlisConstraint::BlisConstraint(const BlisConstraint & rhs)
 
 //#############################################################################
 
-/** Pack Blis part into an encoded object. */
-AlpsReturnStatus
-BlisConstraint::encodeBlis(AlpsEncoded *encoded)
-{
-    AlpsReturnStatus status = AlpsReturnStatusOk;
-    if (size_ <= 0) {
-	std::cout << "ERROR: encodeBlis: size_=" << size_<<std::endl;
-	assert(size_ > 0);
-    }
-    std::cout << "encodeBlis: size_=" << size_<<std::endl;
-    encoded->writeRep(indices_, size_);
-    encoded->writeRep(values_, size_);
-    return status;
+double BlisConstraint::infeasibility(BcpsModel * m,
+                                     int & preferredWay) const {
+  std::cerr << "Not implemented, " << std::endl
+            << "file: " <<  __FILE__ << std::endl
+            << "line: " << __LINE__ << std::endl;
+  throw std::exception();
+  return 0.0;
 }
 
-//#############################################################################
-
-/** Unpack Blis part from a encode object. */
-AlpsReturnStatus
-BlisConstraint::decodeBlis(AlpsEncoded &encoded)
-{
-    AlpsReturnStatus status = AlpsReturnStatusOk;
-    encoded.readRep(indices_, size_);
-    if (size_ <= 0) {
-	std::cout << "ERROR: decodeBlis: con1, size_=" << size_<<std::endl;
-	assert(size_ > 0);
-    }
-    encoded.readRep(values_, size_);
-    if (size_ <= 0) {
-	std::cout << "ERROR: decodeBlis: con2, size_=" << size_<<std::endl;
-	assert(size_ > 0);
-    }
-    return status;
+/// Encode this to an AlpsEncoded object.
+AlpsReturnStatus BlisConstraint::encode(AlpsEncoded * encoded) {
+  std::cerr << "Not implemented, " << std::endl
+            << "file: " <<  __FILE__ << std::endl
+            << "line: " << __LINE__ << std::endl;
+  throw std::exception();
+  return AlpsReturnStatusOk;
 }
 
-//#############################################################################
-
-AlpsReturnStatus
-BlisConstraint::encode(AlpsEncoded *encoded)
-{
-    AlpsReturnStatus status = AlpsReturnStatusOk;
-    status = encodeBcpsObject(encoded);
-    status = encodeBlis(encoded);
-    return status;
+/// Decode a given AlpsEncoded object to an AlpsKnowledge object and return a
+/// pointer to it.
+AlpsKnowledge * BlisConstraint::decode(AlpsEncoded & encoded) const {
+  std::cerr << "Not implemented, " << std::endl
+            << "file: " <<  __FILE__ << std::endl
+            << "line: " << __LINE__ << std::endl;
+  throw std::exception();
+  BlisConstraint * con = new BlisConstraint();
+  return con;
 }
 
-//#############################################################################
-
-/** Decode a constraint from an encoded object. */
-AlpsKnowledge*
-BlisConstraint::decode(AlpsEncoded& encoded) const
-{
-    AlpsReturnStatus status = AlpsReturnStatusOk;
-    BlisConstraint* con = new BlisConstraint();
-
-    // Unpack Bcps object part.
-    status = con->decodeBcpsObject(encoded);
-    if (status) {
-	throw CoinError("Failed to decode Bcps part",
-			"decode",
-			"BlisObject");
-    }
-
-    // Unpack Blis part.
-    status = con->decodeBlis(encoded);
-    if (status) {
-	throw CoinError("Failed to decode Blis part",
-			"decode",
-			"BlisObject");
-    }
-
-    return con;
+/// Decode a given AlpsEncoded object into self.
+AlpsReturnStatus BlisConstraint::decodeToSelf(AlpsEncoded & encoded) {
+  std::cerr << "Not implemented, " << std::endl
+            << "file: " <<  __FILE__ << std::endl
+            << "line: " << __LINE__ << std::endl;
+  throw std::exception();
+  return AlpsReturnStatusOk;
 }
 
 //#############################################################################

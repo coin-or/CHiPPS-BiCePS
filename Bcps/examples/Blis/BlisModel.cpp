@@ -40,8 +40,8 @@
 
 #include "BlisBranchObjectInt.h"
 #include "BlisBranchStrategyPseudo.h"
-#include "BlisBranchStrategyRel.h"
-#include "BlisBranchStrategyStrong.h"
+//#include "BlisBranchStrategyRel.h"
+//#include "BlisBranchStrategyStrong.h"
 
 #include "BlisConstraint.h"
 #include "BlisHeurRound.h"
@@ -387,19 +387,19 @@ BlisModel::setupSelf()
     int brStrategy = BlisPar_->entry(BlisParams::branchStrategy);
     if (brStrategy == 0) {
         // Max inf
-        branchStrategy_ =  new BlisBranchStrategyStrong(this);
+        //branchStrategy_ =  new BlisBranchStrategyStrong(this);
     }
     else if (brStrategy == 1) {
         // Pseudocost
-        branchStrategy_ =  new BlisBranchStrategyPseudo(this, 1);
+        branchStrategy_ =  new BlisBranchStrategyPseudo(this);
     }
     else if (brStrategy == 2) {
         // Relibility
-        branchStrategy_ =  new BlisBranchStrategyRel(this, relibility);
+        //branchStrategy_ =  new BlisBranchStrategyRel(this, relibility);
     }
     else if (brStrategy == 3) {
         // Strong
-        branchStrategy_ =  new BlisBranchStrategyStrong(this);
+        //branchStrategy_ =  new BlisBranchStrategyStrong(this);
     }
     else {
         throw CoinError("Unknown branch strategy.", "setupSelf","BlisModel");
@@ -574,11 +574,12 @@ BlisModel::setupSelf()
 
 //############################################################################
 
-bool
-BlisModel::feasibleSolution(int & numIntegerInfs)
+BlisSolution *
+BlisModel::feasibleSolution(int & numIntegerInfs, double & infAmount)
 {
     bool feasible = true;
     numIntegerInfs = 0;
+    infAmount = 0.0;
     int i = -1;
     //const int numCols = lpSolver_->getNumCols();
     const double *savedLpSolution = lpSolver_->getColSolution();
@@ -602,7 +603,13 @@ BlisModel::feasibleSolution(int & numIntegerInfs)
       }
     }
 
-    return feasible;
+    BlisSolution * sol = NULL;
+    if (feasible) {
+      sol = new BlisSolution(lpSolver_->getNumCols(),
+                             lpSolver_->getColSolution(),
+                             lpSolver_->getObjValue());
+    }
+    return sol;
 }
 
 //############################################################################
@@ -1128,20 +1135,24 @@ BlisModel::addCutGenerator(CglCutGenerator * generator,
 
 //#############################################################################
 
-AlpsEncoded*
-BlisModel::encode() const
+
+AlpsKnowledge * BlisModel::decode(AlpsEncoded & encoded) const {
+}
+
+
+AlpsReturnStatus BlisModel::encode(AlpsEncoded * encoded) const
 {
     AlpsReturnStatus status = AlpsReturnStatusOk;
 
     // NOTE: "AlpsKnowledgeTypeModel" is the type name.
-    AlpsEncoded* encoded = new AlpsEncoded(AlpsKnowledgeTypeModel);
+    //AlpsEncoded* encoded = new AlpsEncoded(AlpsKnowledgeTypeModel);
 
     //------------------------------------------------------
     // Encode Alps part.
     // NOTE: Nothing to do for Bcps part.
     //------------------------------------------------------
 
-    status = encodeAlps(encoded);
+    status = AlpsModel::encode(encoded);
 
     //------------------------------------------------------
     // Encode Blis part.
@@ -1248,13 +1259,12 @@ BlisModel::encode() const
     std::cout << std::endl;
 #endif
 
-    return encoded;
+    return status;
 }
 
 //#############################################################################
 
-void
-BlisModel::decodeToSelf(AlpsEncoded& encoded)
+AlpsReturnStatus BlisModel::decodeToSelf(AlpsEncoded & encoded)
 {
     AlpsReturnStatus status = AlpsReturnStatusOk;
 
@@ -1263,7 +1273,7 @@ BlisModel::decodeToSelf(AlpsEncoded& encoded)
     // NOTE: Nothing to do for Bcps part.
     //------------------------------------------------------
 
-    status = decodeAlps(encoded);
+    status = AlpsModel::decodeToSelf(encoded);
 
     //------------------------------------------------------
     // Decode Blis part.

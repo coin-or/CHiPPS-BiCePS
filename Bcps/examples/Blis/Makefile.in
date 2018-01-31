@@ -36,8 +36,6 @@ EXE = blis@EXEEXT@
 
 OBJS =  BlisBranchObjectInt.@OBJEXT@ \
 	BlisBranchStrategyPseudo.@OBJEXT@ \
-	BlisBranchStrategyRel.@OBJEXT@ \
-	BlisBranchStrategyStrong.@OBJEXT@ \
 	BlisConGenerator.@OBJEXT@ \
 	BlisConstraint.@OBJEXT@ \
 	BlisHelp.@OBJEXT@ \

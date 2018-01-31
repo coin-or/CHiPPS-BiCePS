@@ -141,4 +141,17 @@ protected:
 
     /** Access pseudocost. */
     BlisPseudocost & pseudocost() { return pseudocost_; }
+
+    ///@name Encode and Decode functions
+    ///@{
+    using AlpsKnowledge::encode;
+    /// Encode the content of this into the given AlpsEncoded object.
+    virtual AlpsReturnStatus encode(AlpsEncoded * encoded) const;
+    /// Decode the given AlpsEncoded object into a new AlpsKnowledge object and
+    /// return a pointer to it.
+    virtual AlpsKnowledge * decode(AlpsEncoded & encoded) const;
+    /// Decode the given AlpsEncoded object into this.
+    virtual AlpsReturnStatus decodeToSelf(AlpsEncoded & encoded);
+    ///@}
+
 };

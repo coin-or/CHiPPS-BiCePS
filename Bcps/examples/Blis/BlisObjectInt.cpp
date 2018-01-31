@@ -207,7 +207,7 @@ BlisObjectInt::createBranchObject(BcpsModel *m, int direction) const
 	}
     }
 
-    return new BlisBranchObjectInt(model, objectIndex_, direction, value);
+    return new BlisBranchObjectInt(objectIndex_, 0.0, value);
 }
 
 //#############################################################################
@@ -238,22 +238,18 @@ BlisObjectInt::preferredNewFeasible(BcpsModel *m) const
 	// Better go down
 	if (nearest > originalLower_ + 0.5) {
 	    // Has room to go down
-	    object = new BlisBranchObjectInt(model,
-                                             objectIndex_,
-                                             -1,
-                                             nearest - 1.0,
-                                             nearest - 1.0);
+	    object = new BlisBranchObjectInt(objectIndex_,
+                                             0.0,
+                                             fabs(value - nearest));
 	}
     }
     else {
 	// Better go up
 	if (nearest < originalUpper_ - 0.5) {
 	    // Has room to go up
-	    object = new BlisBranchObjectInt(model,
-                                             objectIndex_,
-                                             -1,
-                                             nearest + 1.0,
-                                             nearest + 1.0);
+	    object = new BlisBranchObjectInt(objectIndex_,
+                                             0.0,
+                                             fabs(value - nearest));
 	}
     }
 
@@ -285,22 +281,18 @@ BlisObjectInt::notPreferredNewFeasible(BcpsModel *m) const
 	// Worse if go down.
 	if (nearest > originalLower_ + 0.5) {
 	    // Has room to go down.
-	    object = new BlisBranchObjectInt(model,
-                                             objectIndex_,
-                                             -1,
-                                             nearest - 1.0,
-                                             nearest - 1.0);
+	    object = new BlisBranchObjectInt(objectIndex_,
+                                             0.0,
+                                             fabs(value-nearest));
 	}
     }
     else {
 	// Worse if go up.
 	if (nearest < originalUpper_-0.5) {
 	    // Has room to go up.
-	    object = new BlisBranchObjectInt(model,
-                                             objectIndex_,
-                                             -1,
-                                             nearest + 1.0,
-                                             nearest + 1.0);
+	    object = new BlisBranchObjectInt(objectIndex_,
+                                             0.0,
+                                             fabs(value-nearest));
 	}
     }
 
@@ -320,3 +312,37 @@ BlisObjectInt::resetBounds(BcpsModel *m)
 }
 
 //#############################################################################
+
+AlpsReturnStatus BlisObjectInt::encode(AlpsEncoded * encoded) const {
+  AlpsReturnStatus status;
+  status = BcpsObject::encode(encoded);
+  assert(status==AlpsReturnStatusOk);
+  encoded->writeRep(columnIndex_);
+  encoded->writeRep(originalLower_);
+  encoded->writeRep(originalUpper_);
+  encoded->writeRep(breakEven_);
+  encoded->writeRep(pseudocost_);
+  return status;
+}
+
+AlpsKnowledge * BlisObjectInt::decode(AlpsEncoded & encoded) const {
+  AlpsReturnStatus status;
+  AlpsKnowledge * new_bo = new BlisObjectInt(-1, -1, 0.0, 0.0);
+  status = new_bo->decodeToSelf(encoded);
+  assert(status=AlpsReturnStatusOk);
+  return new_bo;
+}
+
+AlpsReturnStatus BlisObjectInt::decodeToSelf(AlpsEncoded & encoded) {
+  AlpsReturnStatus status;
+  // decode Bcps part.
+  status = BcpsObject::decodeToSelf(encoded);
+  assert(status=AlpsReturnStatusOk);
+  // decode fields of DcoBranchObject
+  encoded.readRep(columnIndex_);
+  encoded.readRep(originalLower_);
+  encoded.readRep(originalUpper_);
+  encoded.readRep(breakEven_);
+  encoded.readRep(pseudocost_);
+  return status;
+}

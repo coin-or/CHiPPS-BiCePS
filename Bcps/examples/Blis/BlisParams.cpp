@@ -95,6 +95,9 @@ BlisParams::createKeywordList() {
   keys_.push_back(make_pair(std::string("Blis_lookAhead"),
 			    AlpsParameter(AlpsIntPar, lookAhead)));
 
+  keys_.push_back(make_pair(std::string("Blis_objSense"),
+			    AlpsParameter(AlpsIntPar, objSense)));
+
 
   //--------------------------------------------------------
   // Double Parameters.
@@ -124,6 +127,8 @@ BlisParams::createKeywordList() {
   keys_.push_back(make_pair(std::string("Blis_scaleConFactor"),
 			    AlpsParameter(AlpsDoublePar, scaleConFactor)));
 
+  keys_.push_back(make_pair(std::string("Blis_cutoff"),
+			    AlpsParameter(AlpsDoublePar, cutoff)));
   //--------------------------------------------------------
   // String Parameters.
   //--------------------------------------------------------
@@ -161,6 +166,7 @@ BlisParams::setDefaultEntries() {
   setEntry(cutTwoMir, -2);
   setEntry(pseudoRelibility, 8);
   setEntry(lookAhead, 4);
+  setEntry(objSense, 1);
 
   //-------------------------------------------------------------
   // Double Parameters
@@ -174,6 +180,7 @@ BlisParams::setDefaultEntries() {
   setEntry(cutFactor, 4.0);
   setEntry(denseConFactor, 5.0);
   setEntry(scaleConFactor, 1000000.0);
+  setEntry(cutoff, 1e20);
 
   //-------------------------------------------------------------
   // String Parameters

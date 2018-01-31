@@ -89,6 +89,8 @@ class BlisParams : public AlpsParameterSet {
       pseudoRelibility,
       /** The look ahead of pseudocost. */
       lookAhead,
+      /// optimization direction, 1 for min, -1 for max.
+      objSense,
       //
       endOfIntParams
   };
@@ -122,7 +124,9 @@ class BlisParams : public AlpsParameterSet {
 
     /** Scaling indicator of a constraint.*/
     scaleConFactor,
-    //
+    /// objective cutoff, relaxations with objective value higher than this can
+    /// be fathomed.
+    cutoff,
     endOfDblParams
   };
 
