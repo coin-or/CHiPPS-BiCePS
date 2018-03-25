@@ -63,12 +63,12 @@ int BcpsTreeNode::process(bool isRoot, bool rampUp) {
     return AlpsReturnStatusOk;
   }
 
-  if (status==AlpsNodeStatusCandidate or
+  if (status==AlpsNodeStatusCandidate ||
       status==AlpsNodeStatusEvaluated) {
     boundingLoop(isRoot, rampUp);
   }
-  else if (status==AlpsNodeStatusBranched or
-           status==AlpsNodeStatusFathomed or
+  else if (status==AlpsNodeStatusBranched ||
+           status==AlpsNodeStatusFathomed ||
            status==AlpsNodeStatusDiscarded) {
     // this should not happen
     message_handler->message(BCPS_NODE_UNEXPECTEDSTATUS, model->bcpsMessages_)
