@@ -23,7 +23,7 @@
 
 #include "BcpsTreeNode.h"
 #include "BcpsNodeDesc.h"
-
+#include <sstream>
 
 extern std::map<BCPS_Grumpy_Msg_Type, char const *> grumpyMessage;
 extern std::map<BcpsNodeBranchDir, char> grumpyDirection;
