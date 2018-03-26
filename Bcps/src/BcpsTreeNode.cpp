@@ -144,7 +144,7 @@ int BcpsTreeNode::boundingLoop(bool isRoot, bool rampUp) {
       // node is fathomed, nothing to do.
       break;
     }
-    else if (keepBounding and genConstraints) {
+    else if (keepBounding && genConstraints) {
       generateConstraints(constraintPool);
       // add constraints to the model
       applyConstraints(constraintPool);
@@ -153,19 +153,19 @@ int BcpsTreeNode::boundingLoop(bool isRoot, bool rampUp) {
       // set status to evaluated
       setStatus(AlpsNodeStatusEvaluated);
     }
-    else if (keepBounding and genVariables) {
+    else if (keepBounding && genVariables) {
       generateVariables(variablePool);
       // add variables to the model
       // set status to evaluated
       setStatus(AlpsNodeStatusEvaluated);
     }
-    else if (keepBounding==false and do_branch==false) {
+    else if (keepBounding==false && do_branch==false) {
       // put node back into the list.
       // this means do not change the node status and end processing the node.
       // set status to evaluated
       setStatus(AlpsNodeStatusEvaluated);
     }
-    else if (keepBounding==false and do_branch) {
+    else if (keepBounding==false && do_branch) {
       // // prepare for branch() call
       // BcpsBranchStrategy * branchStrategy = model->branchStrategy();
       // // todo(aykut) following should be a parameter
