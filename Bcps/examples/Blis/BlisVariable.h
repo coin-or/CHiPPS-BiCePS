@@ -102,7 +102,7 @@ class BlisVariable : public BcpsVariable {
 
     virtual double infeasibility(BcpsModel * bcps_model, int & preferredDir) const {
         bool integral = true;
-        if (not integral) {
+        if (!integral) {
           return 0.0;
         }
         BlisModel * model = dynamic_cast<BlisModel*>(bcps_model);
