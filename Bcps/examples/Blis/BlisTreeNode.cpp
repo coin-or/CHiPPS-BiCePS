@@ -109,16 +109,16 @@ BlisTreeNode::process(bool isRoot, bool rampUp)
   double abs_gap_limit = model->BlisPar()->entry(BlisParams::optimalAbsGap);
   double abs_gap = cutoff-getQuality();
   double rel_gap = abs_gap/fabs(cutoff);
-  if (rel_gap_limit>rel_gap or abs_gap_limit>abs_gap) {
+  if (rel_gap_limit>rel_gap || abs_gap_limit>abs_gap) {
     setStatus(AlpsNodeStatusFathomed);
     return AlpsReturnStatusOk;
   }
-  if (status==AlpsNodeStatusCandidate or
+  if (status==AlpsNodeStatusCandidate ||
       status==AlpsNodeStatusEvaluated) {
     boundingLoop();
   }
-  else if (status==AlpsNodeStatusBranched or
-           status==AlpsNodeStatusFathomed or
+  else if (status==AlpsNodeStatusBranched ||
+           status==AlpsNodeStatusFathomed ||
            status==AlpsNodeStatusDiscarded) {
     // this should not happen
     std::cerr << "Unexpected node status!" << std::endl;
@@ -145,7 +145,7 @@ void BlisTreeNode::boundingLoop() {
     // update number of iterations statistics
     //model->addNumRelaxIterations();
     if ((subproblem_status==BcpsSubproblemStatusOptimal) &&
-        (getStatus()==AlpsNodeStatusCandidate or
+        (getStatus()==AlpsNodeStatusCandidate ||
          getStatus()==AlpsNodeStatusEvaluated)) {
     }
     // end of grumpy message
@@ -161,7 +161,7 @@ void BlisTreeNode::boundingLoop() {
     double rel_gap = abs_gap/fabs(cutoff);
     //std::cout << "abs " << abs_gap << " limit " << abs_gap_limit << std::endl;
     //std::cout << "rel " << rel_gap << " limit " << rel_gap_limit << std::endl;
-    if (rel_gap_limit>rel_gap or abs_gap_limit>abs_gap) {
+    if (rel_gap_limit>rel_gap || abs_gap_limit>abs_gap) {
       setStatus(AlpsNodeStatusFathomed);
       break;
     }
@@ -176,7 +176,7 @@ void BlisTreeNode::boundingLoop() {
       // node is fathomed, nothing to do.
       break;
     }
-    else if (keepBounding and genConstraints) {
+    else if (keepBounding && genConstraints) {
       generateConstraints(constraintPool);
       // add constraints to the model
       applyConstraints(constraintPool);
@@ -185,19 +185,19 @@ void BlisTreeNode::boundingLoop() {
       // set status to evaluated
       setStatus(AlpsNodeStatusEvaluated);
     }
-    else if (keepBounding and genVariables) {
+    else if (keepBounding && genVariables) {
       generateVariables(variablePool);
       // add variables to the model
       // set status to evaluated
       setStatus(AlpsNodeStatusEvaluated);
     }
-    else if (keepBounding==false and do_branch==false) {
+    else if (keepBounding==false && do_branch==false) {
       // put node back into the list.
       // this means do not change the node status and end processing the node.
       // set status to evaluated
       setStatus(AlpsNodeStatusEvaluated);
     }
-    else if (keepBounding==false and do_branch) {
+    else if (keepBounding==false && do_branch) {
       // branch
       BcpsBranchStrategy * branchStrategy = model->branchStrategy();
       branchStrategy->createCandBranchObjects(this);
@@ -253,7 +253,7 @@ BlisTreeNode::branch()
   double rel_gap = abs_gap/fabs(broker()->getIncumbentValue());
   //std::cout << "abs " << abs_gap << " limit " << abs_gap_limit << std::endl;
   //std::cout << "rel " << rel_gap << " limit " << rel_gap_limit << std::endl;
-  if (rel_gap_limit>rel_gap or abs_gap_limit>abs_gap) {
+  if (rel_gap_limit>rel_gap || abs_gap_limit>abs_gap) {
     setStatus(AlpsNodeStatusFathomed);
     return res;
   }
@@ -1089,9 +1089,13 @@ BlisTreeNode::generateConstraints(BcpsConstraintPool *conPool)
 
 
 int BlisTreeNode::generateVariables(BcpsVariablePool *varPool) {
+  std::cerr << "not implemented yet." << std::endl;
+  return 0;
 }
 
 int BlisTreeNode::chooseBranchingObject() {
+  std::cerr << "not implemented yet." << std::endl;
+  return 0;
 }
 
 void BlisTreeNode::branchConstrainOrPrice(
@@ -1108,7 +1112,7 @@ void BlisTreeNode::branchConstrainOrPrice(
     setStatus(AlpsNodeStatusFathomed);
     return;
   }
-  if (subproblem_status!=BcpsSubproblemStatusOptimal and
+  if (subproblem_status!=BcpsSubproblemStatusOptimal &&
       subproblem_status!=BcpsSubproblemStatusDualInfeasible) {
     std::cerr << "This should not happen!" << std::endl;
     throw std::exception();

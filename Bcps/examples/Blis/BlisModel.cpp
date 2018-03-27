@@ -1135,10 +1135,12 @@ BlisModel::addCutGenerator(CglCutGenerator * generator,
 
 //#############################################################################
 
-
 AlpsKnowledge * BlisModel::decode(AlpsEncoded & encoded) const {
+  std::cerr << "not implemented yet." << std::endl;
+  return NULL;
 }
 
+//#############################################################################
 
 AlpsReturnStatus BlisModel::encode(AlpsEncoded * encoded) const
 {
