@@ -29,7 +29,7 @@
 
 AC_PREREQ(2.59)
 
-AC_INIT([Bcps],[0.94.5],[https://github.com/coin-or/CHiPPS-BiCePS/issues/new])
+AC_INIT([Bcps],[0.94],[https://github.com/coin-or/CHiPPS-BiCePS/issues/new])
 
 AC_COPYRIGHT([
 #==========================================================================#
