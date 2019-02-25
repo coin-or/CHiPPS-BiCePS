@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -31,7 +31,7 @@
 
 //#############################################################################
 
-// Copy constructor 
+// Copy constructor
 BlisHeurRound::BlisHeurRound(const BlisHeurRound & rhs)
     :
     BlisHeuristic(rhs),
@@ -67,7 +67,7 @@ void BlisHeurRound::setModel(BlisModel * model)
 // See if rounding will give solution
 // Sets value of solution
 // Assumes rhs for original matrix still okay
-// At present only works with integers 
+// At present only works with integers
 // Fix values if asked for
 // Returns 1 if solution, 0 if not
 
@@ -75,7 +75,7 @@ bool
 BlisHeurRound::searchSolution(double & solutionValue, double * betterSolution)
 {
     bool foundBetter = false;
-    
+
     if (strategy_ == -2) {
         // This heuristic has been disabled.
         return foundBetter;
@@ -86,7 +86,7 @@ BlisHeurRound::searchSolution(double & solutionValue, double * betterSolution)
     //------------------------------------------------------
 
     double start = CoinCpuTime();
-    
+
     // Get a copy of original matrix (and by row for rounding);
     matrix_ = *(model_->solver()->getMatrixByCol());
     matrixByRow_ = *(model_->solver()->getMatrixByRow());
@@ -183,7 +183,7 @@ BlisHeurRound::searchSolution(double & solutionValue, double * betterSolution)
     }
 
     double penalty = 0.0;
-  
+
     // see if feasible
     for (i = 0; i < numberRows; i++) {
 	double value = rowActivity[i];
@@ -213,22 +213,22 @@ BlisHeurRound::searchSolution(double & solutionValue, double * betterSolution)
 		    double absElement = fabs(elementValue);
 		    if (thisInfeasibility * elementValue > 0.0) {
 			// we want to reduce
-			if ((currentValue - lowerValue) * absElement >= 
+			if ((currentValue - lowerValue) * absElement >=
 			    absInfeasibility) {
-			    
+
 			    // possible - check if integer
 			    double distance = absInfeasibility / absElement;
-			    double thisCost = 
+			    double thisCost =
 				-direction * objective[iColumn] * distance;
 			    if (solver->isInteger(iColumn)) {
 				distance = ceil(distance - primalTolerance);
-				assert (currentValue - distance >= 
+				assert (currentValue - distance >=
 					lowerValue - primalTolerance);
-				if (absInfeasibility - distance * absElement 
+				if (absInfeasibility - distance * absElement
 				    < -gap - primalTolerance)
 				    thisCost = 1.0e100; // no good
 				else
-				    thisCost = 
+				    thisCost =
 					-direction*objective[iColumn]*distance;
 			    }
 			    if (thisCost < bestCost) {
@@ -241,21 +241,21 @@ BlisHeurRound::searchSolution(double & solutionValue, double * betterSolution)
 			}
 		    } else {
 			// we want to increase
-			if ((upperValue - currentValue) * absElement >= 
+			if ((upperValue - currentValue) * absElement >=
 			    absInfeasibility) {
 			    // possible - check if integer
 			    double distance = absInfeasibility / absElement;
-			    double thisCost = 
+			    double thisCost =
 				direction * objective[iColumn] * distance;
 			    if (solver->isInteger(iColumn)) {
 				distance = ceil(distance - 1.0e-7);
-				assert (currentValue - distance <= 
+				assert (currentValue - distance <=
 					upperValue + primalTolerance);
-				if (absInfeasibility - distance * absElement 
+				if (absInfeasibility - distance * absElement
 				    < -gap - primalTolerance)
 				    thisCost = 1.0e100; // no good
 				else
-				    thisCost = 
+				    thisCost =
 					direction*objective[iColumn]*distance;
 			    }
 			    if (thisCost < bestCost) {
@@ -287,7 +287,7 @@ BlisHeurRound::searchSolution(double & solutionValue, double * betterSolution)
 	//seed_++;
 	//CoinSeedRandom(seed_);
 	// Random number between 0 and 1.
-        
+
 	double randomNumber = CoinDrand48();
 	int iPass;
 	int start[2];
@@ -324,7 +324,7 @@ BlisHeurRound::searchSolution(double & solutionValue, double * betterSolution)
 			     j < columnStart[iColumn] + columnLength[iColumn];
 			     j++) {
 			    int iRow = row[j];
-			    double newActivity = 
+			    double newActivity =
 				rowActivity[iRow] + move*element[j];
 			    if (newActivity < rowLower[iRow] - primalTolerance
 				||
@@ -338,7 +338,7 @@ BlisHeurRound::searchSolution(double & solutionValue, double * betterSolution)
 			    newSolutionValue += move * cost;
 			    int j;
 			    for (j = columnStart[iColumn];
-				 j < columnStart[iColumn] + 
+				 j < columnStart[iColumn] +
 				     columnLength[iColumn]; j++) {
 				int iRow = row[j];
 				rowActivity[iRow] += move*element[j];
@@ -377,12 +377,12 @@ BlisHeurRound::searchSolution(double & solutionValue, double * betterSolution)
 	    }
 	    if (feasible) {
 		// new solution
-		memcpy(betterSolution, newSolution, 
+		memcpy(betterSolution, newSolution,
 		       numberColumns * sizeof(double));
 		solutionValue = newSolutionValue;
 		//printf("** Solution of %g found by rounding\n",newSolutionValue);
 		foundBetter = true;
-                
+
 	    } else {
 		// Can easily happen
 		//printf("Debug BlisHeurRound giving bad solution\n");
@@ -399,7 +399,7 @@ BlisHeurRound::searchSolution(double & solutionValue, double * betterSolution)
     ++calls_;
     if (foundBetter) ++numSolutions_;
     time_ += (CoinCpuTime() - start);
-    
+
     return foundBetter;
 }
 

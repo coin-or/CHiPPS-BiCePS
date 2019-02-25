@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -27,7 +27,7 @@
 //#############################################################################
 
 /* Default constructor. */
-BlisConstraint::BlisConstraint() 
+BlisConstraint::BlisConstraint()
     :size_(0), indices_(NULL), values_(NULL) {}
 
 //#############################################################################
@@ -45,7 +45,7 @@ BlisConstraint::BlisConstraint(int s, const int *ind, const double *val)
 //#############################################################################
 
 /* Useful constructor. */
-BlisConstraint::BlisConstraint(double lbh, double ubh, double lbs, double ubs) 
+BlisConstraint::BlisConstraint(double lbh, double ubh, double lbs, double ubs)
     :
     BcpsConstraint(lbh, ubh, lbs, ubs),
     size_(0), indices_(NULL), values_(NULL) {}
@@ -55,7 +55,7 @@ BlisConstraint::BlisConstraint(double lbh, double ubh, double lbs, double ubs)
 /* Useful constructor. */
 BlisConstraint::BlisConstraint(double lbh, double ubh, double lbs, double ubs,
 			       int s, const int *ind, const double *val)
-    : 
+    :
     BcpsConstraint(lbh, ubh, lbs, ubs)
 {
     size_ = s;
@@ -69,7 +69,7 @@ BlisConstraint::BlisConstraint(double lbh, double ubh, double lbs, double ubs,
 
 /** Destructor. */
 BlisConstraint::~BlisConstraint()
-{ 
+{
     delete [] indices_; indices_ = NULL;
     delete [] values_; values_ = NULL;
 }
@@ -77,11 +77,11 @@ BlisConstraint::~BlisConstraint()
 //#############################################################################
 
 /** Copy constructor. */
-BlisConstraint::BlisConstraint(const BlisConstraint & rhs) 
-    : BcpsConstraint(rhs) 
+BlisConstraint::BlisConstraint(const BlisConstraint & rhs)
+    : BcpsConstraint(rhs)
 {
     size_ = rhs.size_;
-    
+
     if (size_ <= 0) {
 	std::cout << "ERROR: size_ = " << size_ << std::endl;
 	assert(size_);
@@ -99,94 +99,58 @@ BlisConstraint::BlisConstraint(const BlisConstraint & rhs)
 }
 
 //#############################################################################
-   
-/** Pack Blis part into an encoded object. */
-AlpsReturnStatus 
-BlisConstraint::encodeBlis(AlpsEncoded *encoded) 
-{
-    AlpsReturnStatus status = AlpsReturnStatusOk;
-    if (size_ <= 0) {
-	std::cout << "ERROR: encodeBlis: size_=" << size_<<std::endl;
-	assert(size_ > 0);
-    }
-    std::cout << "encodeBlis: size_=" << size_<<std::endl;
-    encoded->writeRep(indices_, size_);
-    encoded->writeRep(values_, size_);
-    return status;
-}    
 
-//#############################################################################
-
-/** Unpack Blis part from a encode object. */
-AlpsReturnStatus 
-BlisConstraint::decodeBlis(AlpsEncoded &encoded) 
-{
-    AlpsReturnStatus status = AlpsReturnStatusOk;
-    encoded.readRep(indices_, size_);
-    if (size_ <= 0) {
-	std::cout << "ERROR: decodeBlis: con1, size_=" << size_<<std::endl;
-	assert(size_ > 0);
-    }
-    encoded.readRep(values_, size_);
-    if (size_ <= 0) {
-	std::cout << "ERROR: decodeBlis: con2, size_=" << size_<<std::endl;
-	assert(size_ > 0);
-    }
-    return status;
+double BlisConstraint::infeasibility(BcpsModel * m,
+                                     int & preferredWay) const {
+  std::cerr << "Not implemented, " << std::endl
+            << "file: " <<  __FILE__ << std::endl
+            << "line: " << __LINE__ << std::endl;
+  throw std::exception();
+  return 0.0;
 }
 
-//#############################################################################
-
-AlpsReturnStatus 
-BlisConstraint::encode(AlpsEncoded *encoded) 
-{
-    AlpsReturnStatus status = AlpsReturnStatusOk;
-    status = encodeBcpsObject(encoded);
-    status = encodeBlis(encoded);
-    return status;
+/// Encode this to an AlpsEncoded object.
+AlpsReturnStatus BlisConstraint::encode(AlpsEncoded * encoded) {
+  std::cerr << "Not implemented, " << std::endl
+            << "file: " <<  __FILE__ << std::endl
+            << "line: " << __LINE__ << std::endl;
+  throw std::exception();
+  return AlpsReturnStatusOk;
 }
 
-//#############################################################################
+/// Decode a given AlpsEncoded object to an AlpsKnowledge object and return a
+/// pointer to it.
+AlpsKnowledge * BlisConstraint::decode(AlpsEncoded & encoded) const {
+  std::cerr << "Not implemented, " << std::endl
+            << "file: " <<  __FILE__ << std::endl
+            << "line: " << __LINE__ << std::endl;
+  throw std::exception();
+  BlisConstraint * con = new BlisConstraint();
+  return con;
+}
 
-/** Decode a constraint from an encoded object. */
-AlpsKnowledge* 
-BlisConstraint::decode(AlpsEncoded& encoded) const 
-{
-    AlpsReturnStatus status = AlpsReturnStatusOk;
-    BlisConstraint* con = new BlisConstraint();    
-    
-    // Unpack Bcps object part.
-    status = con->decodeBcpsObject(encoded);
-    if (status) {
-	throw CoinError("Failed to decode Bcps part",
-			"decode", 
-			"BlisObject");
-    }
-    
-    // Unpack Blis part.
-    status = con->decodeBlis(encoded);
-    if (status) {
-	throw CoinError("Failed to decode Blis part", 
-			"decode", 
-			"BlisObject");
-    }
-    
-    return con;
+/// Decode a given AlpsEncoded object into self.
+AlpsReturnStatus BlisConstraint::decodeToSelf(AlpsEncoded & encoded) {
+  std::cerr << "Not implemented, " << std::endl
+            << "file: " <<  __FILE__ << std::endl
+            << "line: " << __LINE__ << std::endl;
+  throw std::exception();
+  return AlpsReturnStatusOk;
 }
 
 //#############################################################################
 
 /** Compute hash value. */
-void 
+void
 BlisConstraint::hashing(BcpsModel *model)
 {
     assert(model != NULL);
     BlisModel *m = dynamic_cast<BlisModel *>(model);
-    
+
     int k, ind;
     const double * randoms = m->getConRandoms();
 
-    hashValue_ = 0.0;    
+    hashValue_ = 0.0;
     for (k = 0; k < size_; ++k) {
 	ind = indices_[k];
 	hashValue_ += randoms[ind] * ind;
@@ -198,6 +162,3 @@ BlisConstraint::hashing(BcpsModel *model)
 
 //#############################################################################
 //#############################################################################
-
-
-

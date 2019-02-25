@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -29,7 +29,7 @@
 //#############################################################################
 
 class BlisConstraint : public BcpsConstraint {
-    
+
  private:
 
     int size_;
@@ -46,7 +46,7 @@ class BlisConstraint : public BcpsConstraint {
 
     /** Useful constructor. */
     BlisConstraint(double lbh, double ubh, double lbs, double ubs);
-    
+
     /** Useful constructor. */
     BlisConstraint(double lbh, double ubh, double lbs, double ubs,
                    int s, const int *ind, const double *val);
@@ -55,14 +55,14 @@ class BlisConstraint : public BcpsConstraint {
 
     /** Copy constructor. */
     BlisConstraint(const BlisConstraint & rhs);
-    
+
     /** Return data  */
     /**@{*/
     int getSize() const       { return size_; }
     int* getIndices() const   { return indices_; }
-    double* getValues() const { return values_; }    
+    double* getValues() const { return values_; }
     /**@}*/
-    
+
     /** Set data  */
     /**@{*/
     void setData(int s, const int *ind, const double *val) {
@@ -78,22 +78,21 @@ class BlisConstraint : public BcpsConstraint {
     }
     /**@}*/
 
- protected:
+    virtual double infeasibility(BcpsModel * m, int & preferredWay) const;
 
-    /** Pack Blis part into an encoded object. */
-    AlpsReturnStatus encodeBlis(AlpsEncoded *encoded);
+    ///@name Encode and Decode functions
+    //@{
+    /// Encode this to an AlpsEncoded object.
+    virtual AlpsReturnStatus encode(AlpsEncoded * encoded);
+    /// Decode a given AlpsEncoded object to an AlpsKnowledge object and return a
+    /// pointer to it.
+    virtual AlpsKnowledge * decode(AlpsEncoded & encoded) const;
+    // todo(aykut) this should be a pure virtual function in Alps level
+    // we can overload this function here due to cv-qualifier.
+    /// Decode a given AlpsEncoded object into self.
+    AlpsReturnStatus decodeToSelf(AlpsEncoded & encoded);
+    //@}
 
-    /** Unpack Blis part from a encode object. */
-    AlpsReturnStatus decodeBlis(AlpsEncoded &encoded);
-	    
- public:
-
-    /** Pack into a encode object. */
-    virtual AlpsReturnStatus encode(AlpsEncoded *encoded);
-    
-    /** Decode a constraint from an encoded object. */
-    virtual AlpsKnowledge* decode(AlpsEncoded& encoded) const;
-    
     /** Compute a hash key. */
     virtual void hashing(BcpsModel *model=NULL);
 };

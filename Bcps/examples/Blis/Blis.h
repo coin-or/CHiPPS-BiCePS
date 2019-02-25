@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -60,6 +60,15 @@ enum BLIS_BO_TYPE {
     BLIS_BO_NONE = 0,
     BLIS_BO_INT,
     BLIS_BO_SOS
+};
+
+/** Branching strategy type. */
+enum BLIS_BS_TYPE {
+    BLIS_BS_NONE = 0,
+    BLIS_BS_MAXINF,
+    BLIS_BS_PSEUDOCOST,
+    BLIS_BS_RELIABILITY,
+    BLIS_BS_SOS
 };
 
 //#############################################################################

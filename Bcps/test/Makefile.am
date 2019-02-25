@@ -18,7 +18,7 @@
 #          Matthew Saltzman, Clemson University                            #
 #                                                                          #
 #                                                                          #
-# Copyright (C) 2001-2018, Lehigh University, Yan Xu, Aykut Bulut, and     #
+# Copyright (C) 2001-2019, Lehigh University, Yan Xu, Aykut Bulut, and     #
 #                          Ted Ralphs.                                     #
 # All Rights Reserved.                                                     #
 #==========================================================================#
@@ -36,8 +36,6 @@ noinst_PROGRAMS = unitTest
 nodist_unitTest_SOURCES = \
 	BlisBranchObjectInt.cpp BlisBranchObjectInt.h \
 	BlisBranchStrategyPseudo.cpp BlisBranchStrategyPseudo.h \
-	BlisBranchStrategyRel.cpp BlisBranchStrategyRel.h \
-	BlisBranchStrategyStrong.cpp BlisBranchStrategyStrong.h \
 	BlisConGenerator.cpp BlisConGenerator.h \
 	BlisConstraint.cpp BlisConstraint.h \
 	Blis.h \
@@ -55,7 +53,7 @@ nodist_unitTest_SOURCES = \
 	BlisSolution.h \
 	BlisSubTree.h \
 	BlisTreeNode.cpp BlisTreeNode.h \
-	BlisVariable.h 
+	BlisVariable.h
 
 # List libraries of COIN projects
 unitTest_LDADD = ../src/libBcps.la $(ABC_LIBS) $(BCPSLIB_LIBS)
@@ -69,7 +67,7 @@ AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/../src` \
 
 # This line is necessary to allow VPATH compilation with MS compilers
 # on Cygwin
-DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)` 
+DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)`
 
 test: unitTest$(EXEEXT)
 	./unitTest$(EXEEXT) -Alps_instance ./flugpl.mps

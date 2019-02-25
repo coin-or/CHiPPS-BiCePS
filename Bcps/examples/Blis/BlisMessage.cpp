@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -69,7 +69,7 @@ static Blis_message us_english[]=
 //#############################################################################
 
 /* Constructor */
-BlisMessage::BlisMessage(Language language) 
+BlisMessage::BlisMessage(Language language)
     :
     CoinMessages(sizeof(us_english) / sizeof(Blis_message))
 {

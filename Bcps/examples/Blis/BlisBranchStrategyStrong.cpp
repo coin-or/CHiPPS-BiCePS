@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -34,7 +34,7 @@
 
 //#############################################################################
 
-// Copy constructor 
+// Copy constructor
 BlisBranchStrategyStrong::BlisBranchStrategyStrong (
     const BlisBranchStrategyStrong & rhs
     )
@@ -50,7 +50,7 @@ BlisBranchStrategyStrong::BlisBranchStrategyStrong (
 //#############################################################################
 
 /** Create a set of candidate branching objects. */
-int 
+int
 BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 {
     int bStatus = 0;
@@ -62,28 +62,28 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
     int numObjectInfs = 0;   // For non-integer objects.
     double sumDeg = 0.0;     // For solution estimate.
     double lpX;
-    
+
     BlisObjectInt *intObject = NULL;
-    
+
     BlisModel *model = dynamic_cast<BlisModel *>(model_);
     OsiSolverInterface * solver = model->solver();
-    
+
     int numCols = model->getNumCols();
     int numObjects = model->numObjects();
     bool beforeSolution = (model->getNumSolutions() == 0);
-    
+
     int givenStrongLen = dynamic_cast<BlisParams*>
         (model->BlisPar())->entry(BlisParams::strongCandSize);
     int strongLen = givenStrongLen;
     int maxStrongLen = CoinMax(CoinMin(givenStrongLen, numObjects), 1);
-    
+
     BlisStrong * candStrongs = new BlisStrong [maxStrongLen];
 
     //------------------------------------------------------
     // Backup solver status
     //------------------------------------------------------
 
-    // Objective value. 
+    // Objective value.
     double objValue = solver->getObjSense() * solver->getObjValue();
 
     // Column bounds.
@@ -95,72 +95,72 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 	saveLower[i] = lower[i];
 	saveUpper[i] = upper[i];
     }
-    
+
     // Primal solution.
     double * saveSolution = new double[numCols];
     memcpy(saveSolution, solver->getColSolution(),numCols * sizeof(double));
 
     //------------------------------------------------------
-    // Select a set of objects based on feasibility. 
+    // Select a set of objects based on feasibility.
     // NOTE: we might go round this loop twice if we are feed in
     //       a "feasible" solution.
     //------------------------------------------------------
-    
+
     for (pass = 0; pass < 2; ++pass) {
-	
-	// Compute how many infeasible objects. 
+
+	// Compute how many infeasible objects.
         // NOTE: it set model->savedLpSolution
 	model->feasibleSolution(numIntegerInfs, numObjectInfs);
 
-	sumDeg = 0.0; 
+	sumDeg = 0.0;
 	numInfs = 0;
 
-        int preferDir;        
+        int preferDir;
 	int leastFrac = 0;
         double infeasibility;
         double minInf = ALPS_ZERO;
         BlisObjectInt * object = NULL;
-        
+
 	for (i = 0; i < maxStrongLen; ++i) {
 	    candStrongs[i].bObject = NULL;
 	}
-	
+
 	strongLen = 0;
-        
+
 	for (i = 0; i < numObjects; ++i) {
-            
+
             // TODO: currently all integer object.
 	    object = dynamic_cast<BlisObjectInt *>(model->objects(i));
 	    infeasibility = object->infeasibility(model, preferDir);
-            
+
 	    if (infeasibility) {
 		++numInfs;
-                
+
 		// Increase estimated degradation to solution
 		sumDeg += object->pseudocost().getScore();
-		
+
 		// Check for suitability based on infeasibility.
                 if (infeasibility > minInf) {
-		    
+
                     if (candStrongs[leastFrac].bObject) {
                         // The slot already has one, free it.
                         delete candStrongs[leastFrac].bObject;
                     }
-                    
+
                     // Create new branching object.
-		    candStrongs[leastFrac].bObject = 
+		    candStrongs[leastFrac].bObject =
 			object->createBranchObject(model, preferDir);
 
 		    candStrongs[leastFrac].bObject->setUpScore(infeasibility);
                     candStrongs[leastFrac].bObject->setObjectIndex(i);
                     candStrongs[leastFrac].objectIndex = i;
-                    
+
 		    strongLen = CoinMax(strongLen, leastFrac + 1);
-                    
+
                     // Find an empty or the worst slot.
 		    leastFrac = -1;
 		    minInf = ALPS_INFINITY;
-                    
+
 		    for(j = 0; j < maxStrongLen; ++j) {
                         if (!candStrongs[j].bObject) {
                             // j is an empty slots.
@@ -183,19 +183,19 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
                       << std::endl;
 #endif
             model->setSolEstimate(objValue + sumDeg);
-            
+
 	    break;
 	}
 	else if (pass == 0) {
 	    // The first pass and ip feasible
-            
+
 #ifdef BLIS_DEBUG_MORE
 	    std::cout << "STRONG: given a feasible sol" << std::endl;
 #endif
-            
+
 	    bool roundAgain = false;
-            
-	    CoinWarmStartBasis * ws = 
+
+	    CoinWarmStartBasis * ws =
 		dynamic_cast<CoinWarmStartBasis*>(solver->getWarmStart());
 	    if (!ws) break;
 
@@ -206,14 +206,14 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 		    saveSolution[i] = lower[i];
 		    roundAgain = true;
 		    ws->setStructStatus(i, CoinWarmStartBasis::atLowerBound);
-		} 
+		}
 		else if (lpX > upper[i]) {
 		    saveSolution[i] = upper[i];
 		    roundAgain = true;
 		    ws->setStructStatus(i, CoinWarmStartBasis::atUpperBound);
-		} 
+		}
 	    }
-	    
+
 	    if (roundAgain) {
 		// Need resolve, then do the second round selection.
 		solver->setWarmStart(ws);
@@ -221,18 +221,18 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 
 		// Resolve.
 		solver->resolve();
-		
+
 		// Save new lp solution.
-		memcpy(saveSolution, 
+		memcpy(saveSolution,
 		       solver->getColSolution(),
 		       numCols * sizeof(double));
 
 		if (!solver->isProvenOptimal()) {
-		    // Become infeasible, can do nothing. 
+		    // Become infeasible, can do nothing.
 		    bStatus = -2;
 		    break;
 		}
-	    } 
+	    }
 	    else {
 		delete ws;
 		break;
@@ -241,13 +241,13 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
     }
 
     //------------------------------------------------------
-    // Now we have a set of candidate branching object, 
+    // Now we have a set of candidate branching object,
     // evaluate them.
     //------------------------------------------------------
-    
+
     int bestBO = 0;
     double bestScore = 0.0;
-    
+
     for (i = 0; i < strongLen; ++i) {
 
 	candStrongs[i].numIntInfUp = numInfs;
@@ -259,32 +259,32 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
             // Exit selection routine.
 	    strongLen = 0;
         }
-        
+
 	// Find the most fractional object in case of doing simple branch
 	if (candStrongs[i].bObject->getUpScore() > bestScore) {
 	    bestScore = candStrongs[i].bObject->getUpScore();
 	    bestBO = i;
 	}
     }
-    
+
     // If we have hit max time don't do strong branching
     double timeLimit = model->AlpsPar()->entry(AlpsParams::timeLimit);
     bool maxTimeReached = (CoinCpuTime() - model->startTime_  > timeLimit);
-    
+
 #ifdef BLIS_DEBUG_MORE
-    printf("1. strongLen = %d, maxTimeReached %d, numPassesLeft %d\n", 
+    printf("1. strongLen = %d, maxTimeReached %d, numPassesLeft %d\n",
 	   strongLen, maxTimeReached, numPassesLeft);
 #endif
-    
+
     if (strongLen <= 0 || maxTimeReached) {
-        
+
         //--------------------------------------------------
         // Simple max infeasibility branching.
         //--------------------------------------------------
-        
+
 #ifdef BLIS_DEBUG
         std::cout << "NOT STRONG: maxTimeReached=" << maxTimeReached
-                  << "; numPassesLeft=" << numPassesLeft 
+                  << "; numPassesLeft=" << numPassesLeft
                   << std::endl;
 #endif
 
@@ -296,39 +296,39 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
         strongLen = 0;
     }
     else {
-        
+
         //--------------------------------------------------------
         /* Strong branching */
         //--------------------------------------------------------
-        
+
         // set true to say look at all even if some fixed (experiment)
 	bool solveAll = false;
 	int saveLimit;
-        
+
 	CoinWarmStart * ws = solver->getWarmStart();
 	solver->getIntParam(OsiMaxNumIterationHotStart, saveLimit);
 	if (beforeSolution) {
 	    solver->setIntParam(OsiMaxNumIterationHotStart, 10000);
         }
-        
+
         // Mark hot start
         solver->markHotStart();
-        
+
 #ifdef BLIS_DEBUG_MORE
 	printf("BEFORE LOOP: strongLen = %d\n",strongLen);
 #endif
-        
+
 	for (i = 0; i < strongLen; ++i) {
 	    double objChange;
 	    double newObjValue = ALPS_DBL_MAX;
-            
+
 	    // status is 0 finished, 1 infeasible and other
 	    int lpStatus;
-            
+
             //----------------------------------------------
 	    // Branching down.
             //----------------------------------------------
-            
+
             candStrongs[i].bObject->setDirection(-1);
             candStrongs[i].bObject->branch();
             solver->solveFromHotStart();
@@ -338,15 +338,15 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
             }
             else if (solver->isIterationLimitReached()
                      &&!solver->isDualObjectiveLimitReached()) {
-                lpStatus = 2; // unknown 
+                lpStatus = 2; // unknown
             }
             else {
                 lpStatus = 1; // infeasible
             }
-            
+
             newObjValue = solver->getObjSense() * solver->getObjValue();
             objChange = newObjValue-objValue ;
-            
+
 #ifdef BLIS_DEBUG_MORE
 	    std::cout << "Down: lpStatus = " << lpStatus << std::endl;
 #endif
@@ -363,31 +363,31 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 		candStrongs[i].finishedDown = true ;
 		if (newObjValue >= model->getCutoff()) {
 		    objChange = ALPS_DBL_MAX; // say infeasible
-		} 
-                else {    
+		}
+                else {
 		    if(model->feasibleSolution(candStrongs[i].numIntInfDown)){
 			printf("STRONG:easy:down:found a feasible solution\n");
 		    }
-		    
+
 		    // See if integer solution
 		    if (model->feasibleSolution(candStrongs[i].numIntInfDown,
 						candStrongs[i].numObjInfDown)) {
 #ifdef BLIS_DEBUG_MORE
 			printf("STRONG:down:found a feasible solution\n");
 #endif
-			
+
 			model->setBestSolution(BLIS_SOL_STRONG,
 					       newObjValue,
 					       solver->getColSolution());
 			(model->getKnowledgeBroker())->
                             getNodeSelection()->setWeight(0.0);
-			BlisSolution* ksol = 
-			    new BlisSolution(solver->getNumCols(), 
-					       solver->getColSolution(), 
+			BlisSolution* ksol =
+			    new BlisSolution(solver->getNumCols(),
+					       solver->getColSolution(),
 					       newObjValue);
 			model->getKnowledgeBroker()->
-                            addKnowledge(AlpsKnowledgeTypeSolution, 
-                                         ksol, 
+                            addKnowledge(AlpsKnowledgeTypeSolution,
+                                         ksol,
                                          newObjValue);
 
 			objChange = ALPS_DBL_MAX ;
@@ -396,14 +396,14 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 	    }
 	    else if (lpStatus == 1) {
 	      objChange = ALPS_DBL_MAX ;
-	    } 
+	    }
 	    else {
 		// Can't say much as we did not finish
 		candStrongs[i].finishedDown = false ;
 	    }
-            
+
 	    candStrongs[i].bObject->setDownScore(objChange);
-	    
+
 	    // restore bounds
             int numDiff = 0;
             for (j = 0; j < numCols; ++j) {
@@ -419,8 +419,8 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 
 #ifdef BLIS_DEBUG_MORE
             std::cout << "numDiff = " << numDiff << std::endl;
-#endif	    
-            
+#endif
+
             //----------------------------------------------
 	    // Branching up.
             //----------------------------------------------
@@ -433,18 +433,18 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
             }
             else if (solver->isIterationLimitReached()
                      &&!solver->isDualObjectiveLimitReached()) {
-                lpStatus = 2; // unknown 
+                lpStatus = 2; // unknown
             }
             else {
                 lpStatus = 1; // infeasible
             }
-            
+
             newObjValue = solver->getObjSense() * solver->getObjValue();
             objChange = newObjValue - objValue ;
-            
+
 #ifdef BLIS_DEBUG_MORE
 	    std::cout << "STRONG: Up: lpStatus = " << lpStatus << std::endl;
-#endif      
+#endif
 
 	    if (lpStatus == 0) {
                 // Update pseudocost
@@ -457,46 +457,46 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 		candStrongs[i].finishedUp = true ;
 		if (newObjValue >= model->getCutoff()) {
 		    objChange = ALPS_DBL_MAX; // Cutoff
-		} 
+		}
 		else {
 		    // See if integer solution
 		    if (model->feasibleSolution(candStrongs[i].numIntInfUp,
 						candStrongs[i].numObjInfUp)) {
-                        
+
 #ifdef BLIS_DEBUG_MORE
 			printf("STRONG:up:found a feasible solution\n");
 #endif
-                        
+
 			model->setBestSolution(BLIS_SOL_STRONG,
 					       newObjValue,
 					       solver->getColSolution());
-                        
+
 			model->getKnowledgeBroker()->
                             getNodeSelection()->setWeight(0.0);
-                        
+
 			BlisSolution* ksol =
-			    new BlisSolution(solver->getNumCols(), 
-					     solver->getColSolution(), 
+			    new BlisSolution(solver->getNumCols(),
+					     solver->getColSolution(),
 					     newObjValue);
-                        
+
 			model->getKnowledgeBroker()->
-                            addKnowledge(AlpsKnowledgeTypeSolution, 
-                                         ksol, 
+                            addKnowledge(AlpsKnowledgeTypeSolution,
+                                         ksol,
                                          newObjValue);
-                        
+
                         objChange = ALPS_DBL_MAX;
 		    }
 		}
-	    } 
+	    }
 	    else if (lpStatus == 1) {
 		objChange = ALPS_DBL_MAX;
-	    } 
+	    }
             else {
 		// Can't say much as we did not finish
 		candStrongs[i].finishedUp = false ;
 	    }
 	    candStrongs[i].bObject->setUpScore(objChange);
-	    
+
 	    // restore bounds
             for (j = 0; j < numCols; ++j) {
                 if (saveLower[j] != lower[j]) {
@@ -506,24 +506,24 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
                     solver->setColUpper(j,saveUpper[j]);
                 }
 	    }
-            
+
             //----------------------------------------------
             // End of evaluation for this branching object.
             // Possibilities are:
-	    // 1) Both sides below cutoff; this variable is a 
+	    // 1) Both sides below cutoff; this variable is a
             //    candidate for branching.
-	    // 2) Both sides infeasible or above the obj cutoff: 
-	    //    no further action here. Break from the evaluation loop and 
+	    // 2) Both sides infeasible or above the obj cutoff:
+	    //    no further action here. Break from the evaluation loop and
 	    //    assume the node will be purged by the caller.
-	    // 3) One side below cutoff: Install the branch (i.e., fix the 
-	    //    variable). Break from the evaluation loop and assume the 
+	    // 3) One side below cutoff: Install the branch (i.e., fix the
+	    //    variable). Break from the evaluation loop and assume the
 	    //    node will be reoptimised by the caller.
             //----------------------------------------------
-            
+
 	    if (candStrongs[i].bObject->getUpScore() < ALPS_INFINITY) {
 		if(candStrongs[i].bObject->getDownScore() < ALPS_INFINITY) {
 		    // feasible - no action
-		} 
+		}
                 else {
 		    // up feasible, down infeasible
 		    bStatus = -1;
@@ -533,7 +533,7 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 			break;
 		    }
 		}
-	    } 
+	    }
             else {
 		if(candStrongs[i].bObject->getDownScore() < ALPS_INFINITY) {
 		    // down feasible, up infeasible
@@ -543,7 +543,7 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 			candStrongs[i].bObject->branch();
 			break;
 		    }
-		} 
+		}
                 else {
 		    // neither side feasible
 		    bStatus = -2;
@@ -551,33 +551,33 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
 		}
 	    }
 	}// EOF the loop for checking each candiate
-        
-        
+
+
         //--------------------------------------------------
         // Unmark hotstart and reset lp solver.
         //--------------------------------------------------
-        
+
         solver->unmarkHotStart();
         solver->setIntParam(OsiMaxNumIterationHotStart, saveLimit);
         solver->setWarmStart(ws);
         delete ws;
     }
-     
+
 
     if (bStatus >= 0) {
-        // Store the set of candidate branching objects. 
+        // Store the set of candidate branching objects.
         numBranchObjects_ = strongLen;
-        
-        branchObjects_ = new BcpsBranchObject* [strongLen];        
+
+        branchObjects_ = new BcpsBranchObject* [strongLen];
         for (i = 0; i < strongLen; ++i) {
             branchObjects_[i] = candStrongs[i].bObject;
             candStrongs[i].bObject = NULL;
         }
     }
-    
+
     // Restore solution
     solver->setColSolution(saveSolution);
-    
+
     // Cleanup.
     delete [] saveSolution;
     delete [] saveLower;
@@ -589,17 +589,17 @@ BlisBranchStrategyStrong::createCandBranchObjects(int numPassesLeft)
         }
     }
     delete [] candStrongs;
-    
+
 
     return bStatus;
 }
 
 //#############################################################################
 
-/** Strong method to compare object thisOne to the bestObject_. 
+/** Strong method to compare object thisOne to the bestObject_.
     Compare based on number of infeasibility objects (numInfUp, numInfDn)
-    until a solution is found by search, then swith to change 
-    (changeUp, changeDn) in objective. 
+    until a solution is found by search, then swith to change
+    (changeUp, changeDn) in objective.
     The lesser of the MIN(numInfUp, numInfDown), the better.
     The larger of the MIN(changeUp, changeDown), the better. */
 int
@@ -608,8 +608,8 @@ BlisBranchStrategyStrong::betterBranchObject(BcpsBranchObject * thisOne,
 {
     int betterDirection = 0;
     double bestChange;
-    
-    //BlisModel *model = dynamic_cast<BlisModel *>(model_);    
+
+    //BlisModel *model = dynamic_cast<BlisModel *>(model_);
 
     if (!bestSoFar) {
 	bestChange = -1.0;
@@ -617,21 +617,21 @@ BlisBranchStrategyStrong::betterBranchObject(BcpsBranchObject * thisOne,
     else {
 	bestChange = ALPS_MIN(bestChangeUp_, bestChangeDown_);
     }
-    
+
     double upCost = thisOne->getUpScore();
     double downCost = thisOne->getDownScore();
-    
+
     if (upCost <= downCost) {
 	if (upCost > bestChange) {
 	    betterDirection = 1;    // Branching up.
 	}
-    } 
+    }
     else {
 	if (downCost > bestChange) {
 	    betterDirection = -1;   // Branching down
 	}
     }
-    
+
     if (betterDirection) {
 	bestChangeUp_ = upCost;
 	bestChangeDown_ = downCost;

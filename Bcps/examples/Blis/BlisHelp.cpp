@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -41,22 +41,22 @@ BlisConstraint * BlisOsiCutToConstraint(const OsiRowCut *rowCut)
 {
     int size = rowCut->row().getNumElements();
     assert(size > 0);
-    
+
     const int *ind = rowCut->row().getIndices();
     const double *val = rowCut->row().getElements();
 
     double lower = rowCut->lb();
     double upper = rowCut->ub();
-    
-    BlisConstraint *con = new BlisConstraint(lower, upper, 
+
+    BlisConstraint *con = new BlisConstraint(lower, upper,
                                              lower, upper,
                                              size, ind, val);
-    
+
     if (!con) {
         // No memory
         throw CoinError("Out of Memory", "Blis_OsiCutToConstraint", "NONE");
     }
-    
+
     return con;
 }
 
@@ -67,21 +67,21 @@ OsiRowCut * BlisConstraintToOsiCut(const BlisConstraint * con)
 {
     double lower = CoinMax(con->getLbHard(), con->getLbSoft());
     double upper = CoinMin(con->getUbHard(), con->getUbSoft());
-    
+
     OsiRowCut * cut = new OsiRowCut;
     if (!cut) {
         /* Out of memory. */
 	throw CoinError("Out of Memory", "Blis_constraintToOsiCut", "NONE");
     }
-    
+
     assert(con->getSize() > 0);
-    
+
     cut->setLb(lower);
     cut->setUb(upper);
     cut->setRow(con->getSize(),
                 con->getIndices(),
                 con->getValues());
-    
+
     return cut;
 }
 
@@ -98,9 +98,9 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
     int j, numIntInfDown, numObjInfDown;
 
     double newObjValue;
-    
+
     OsiSolverInterface * solver = model->solver();
-    
+
     int numCols = solver->getNumCols();
     const double * lower = solver->getColLower();
     const double * upper = solver->getColUpper();
@@ -121,18 +121,18 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
 	}
     }
     std::cout << "BEFORE: numDiff = " << numDiff << std::endl;
-#endif	 
-   
+#endif
+
     //------------------------------------------------------
     // Branching down.
     //------------------------------------------------------
 
     solver->setColUpper(colInd, floor(x));
     solver->solveFromHotStart();
-    
+
     newObjValue = solver->getObjSense() * solver->getObjValue();
     downDeg = newObjValue - objValue;
-    
+
     if (solver->isProvenOptimal()) {
 	lpStatus = 0; // optimal
 #ifdef BLIS_DEBUG_MORE
@@ -143,18 +143,18 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
 #ifdef BLIS_DEBUG_MORE
 	    printf("STRONG:down:found a feasible solution\n");
 #endif
-	    
+
 	    model->setBestSolution(BLIS_SOL_STRONG,
 				   newObjValue,
 				   solver->getColSolution());
 
-	    BlisSolution* ksol = new BlisSolution(solver->getNumCols(), 
+	    BlisSolution* ksol = new BlisSolution(solver->getNumCols(),
 						      solver->getColSolution(),
 						      newObjValue);
 
-	    model->getKnowledgeBroker()->addKnowledge(AlpsKnowledgeTypeSolution, 
-						      ksol, 
-						      newObjValue);	    
+	    model->broker()->addKnowledge(AlpsKnowledgeTypeSolution,
+						      ksol,
+						      newObjValue);
 
 	    downKeep = false;
 	}
@@ -163,9 +163,9 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
 	}
 	downFinished = true;
     }
-    else if (solver->isIterationLimitReached() && 
+    else if (solver->isIterationLimitReached() &&
 	     !solver->isDualObjectiveLimitReached()) {
-	lpStatus = 2;      // unknown 
+	lpStatus = 2;      // unknown
 	downKeep = true;
 	downFinished = false;
     }
@@ -173,12 +173,12 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
 	lpStatus = 1; // infeasible
 	downKeep = false;
 	downFinished = false;
-    }       
-            
+    }
+
 #ifdef BLIS_DEBUG_MORE
     std::cout << "Down: lpStatus = " << lpStatus << std::endl;
 #endif
-    
+
     // restore bounds
     numDiff = 0;
     for (j = 0; j < numCols; ++j) {
@@ -194,18 +194,18 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
 #ifdef BLIS_DEBUG
     assert(numDiff > 0);
     //std::cout << "numDiff = " << numDiff << std::endl;
-#endif	    
-          
+#endif
+
     //----------------------------------------------
     // Branching up.
     //----------------------------------------------
-    
+
     solver->setColLower(colInd, ceil(x));
     solver->solveFromHotStart();
 
     newObjValue = solver->getObjSense() * solver->getObjValue();
     upDeg = newObjValue - objValue;
-    
+
     if (solver->isProvenOptimal()) {
 	lpStatus = 0; // optimal
 
@@ -217,18 +217,18 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
 #ifdef BLIS_DEBUG_MORE
 	    printf("STRONG: up:found a feasible solution\n");
 #endif
-	    
+
 	    model->setBestSolution(BLIS_SOL_STRONG,
 				   newObjValue,
 				   solver->getColSolution());
 
-	    BlisSolution* ksol = new BlisSolution(solver->getNumCols(), 
+	    BlisSolution* ksol = new BlisSolution(solver->getNumCols(),
 						  solver->getColSolution(),
 						  newObjValue);
 
-	    model->getKnowledgeBroker()->addKnowledge(AlpsKnowledgeTypeSolution, 
-						      ksol, 
-						      newObjValue);	    
+	    model->broker()->addKnowledge(AlpsKnowledgeTypeSolution,
+						      ksol,
+						      newObjValue);
 	    // FIXME: should not keep this branch.
 	    upKeep = false;
 	}
@@ -239,7 +239,7 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
     }
     else if (solver->isIterationLimitReached()
 	     &&!solver->isDualObjectiveLimitReached()) {
-	lpStatus = 2; // unknown 
+	lpStatus = 2; // unknown
 	upKeep = true;
 	upFinished = false;
     }
@@ -248,11 +248,11 @@ int BlisStrongBranch(BlisModel *model, double objValue, int colInd, double x,
 	upKeep = false;
 	upFinished = false;
     }
-    
+
 #ifdef BLIS_DEBUG_MORE
     std::cout << "STRONG: Up: lpStatus = " << lpStatus << std::endl;
-#endif      
-    
+#endif
+
     // restore bounds
     for (j = 0; j < numCols; ++j) {
 	if (saveLower[j] != lower[j]) {
@@ -281,7 +281,7 @@ int BlisEncodeWarmStart(AlpsEncoded *encoded, const CoinWarmStartBasis *ws)
     // Pack structural.
     int nint = (ws->getNumStructural() + 15) >> 4;
     encoded->writeRep(ws->getStructuralStatus(), nint * 4);
-    
+
     // Pack artificial.
     nint = (ws->getNumArtificial() + 15) >> 4;
     encoded->writeRep(ws->getArtificialStatus(), nint * 4);
@@ -292,22 +292,22 @@ int BlisEncodeWarmStart(AlpsEncoded *encoded, const CoinWarmStartBasis *ws)
 //#############################################################################
 
 CoinWarmStartBasis *BlisDecodeWarmStart(AlpsEncoded &encoded,
-					AlpsReturnStatus *rc) 
+					AlpsReturnStatus *rc)
 {
     int numCols;
     int numRows;
-    
+
     encoded.readRep(numCols);
     encoded.readRep(numRows);
-    
+
     int tempInt;
-    
+
     // Structural
     int nint = (numCols + 15) >> 4;
     char *structuralStatus = new char[4 * nint];
     encoded.readRep(structuralStatus, tempInt);
     assert(tempInt == nint*4);
-    
+
     // Artificial
     nint = (numRows + 15) >> 4;
     char *artificialStatus = new char[4 * nint];
@@ -318,18 +318,18 @@ CoinWarmStartBasis *BlisDecodeWarmStart(AlpsEncoded &encoded,
     if (!ws) {
 	throw CoinError("Out of memory", "BlisDecodeWarmStart", "HELP");
     }
-    
-    ws->assignBasisStatus(numCols, numRows, 
+
+    ws->assignBasisStatus(numCols, numRows,
 			  structuralStatus, artificialStatus);
-    
+
     return ws;
-    
+
 }
 
 //#############################################################################
 
 /** Compute and return a hash value of an Osi row cut. */
-double BlisHashingOsiRowCut(const OsiRowCut *rowCut, 
+double BlisHashingOsiRowCut(const OsiRowCut *rowCut,
 			    const BlisModel *model)
 {
     int size = rowCut->row().getNumElements();
@@ -339,8 +339,8 @@ double BlisHashingOsiRowCut(const OsiRowCut *rowCut,
 
     const int *indices = rowCut->row().getIndices();
     const double * randoms = model->getConRandoms();
-    
-    double hashValue_ = 0.0;    
+
+    double hashValue_ = 0.0;
     for (k = 0; k < size; ++k) {
 	ind = indices[k];
 	hashValue_ += randoms[ind] * ind;
@@ -356,14 +356,14 @@ double BlisHashingOsiRowCut(const OsiRowCut *rowCut,
 /** Check if a row cut parallel with another row cut. */
 bool BlisParallelCutCut(OsiRowCut * rowCut1,
 			OsiRowCut * rowCut2,
-			double threshold) 
+			double threshold)
 {
     int size1 = rowCut1->row().getNumElements();
     int size2 = rowCut2->row().getNumElements();
     assert(size1 > 0 && size2 > 0);
 
     int i, j, k;
-    
+
     //------------------------------------------------------
     // Assume no duplicate indices.
     // rowCut->setRow() tests duplicate indices.
@@ -377,7 +377,7 @@ bool BlisParallelCutCut(OsiRowCut * rowCut1,
 
     const int *indices2 = rowCut2->row().getIndices();
     const double *elems2 = rowCut2->row().getElements();
-    
+
     //------------------------------------------------------
     // Compute norms.
     //------------------------------------------------------
@@ -395,7 +395,7 @@ bool BlisParallelCutCut(OsiRowCut * rowCut1,
     norm2 = sqrt(norm2);
 
     //------------------------------------------------------
-    // Compute angel cut1 * cut2 
+    // Compute angel cut1 * cut2
     //------------------------------------------------------
 
     double denorm = 0.0;
@@ -425,7 +425,7 @@ bool BlisParallelCutCut(OsiRowCut * rowCut1,
     denorm = fabs(denorm);
     angle = denorm/(norm1 * norm2);
     assert(angle >= 0.0 && angle <= 1.000001);
-    
+
     if (angle >= threshold) {
 	return true;
     }
@@ -444,7 +444,7 @@ bool BlisParallelCutCon(OsiRowCut * rowCut,
     bool parallel;
     // Convert con to row cut
     OsiRowCut * rowCut2 = BlisConstraintToOsiCut(con);
-    
+
     parallel = BlisParallelCutCut(rowCut,
 				  rowCut2,
 				  threshold);

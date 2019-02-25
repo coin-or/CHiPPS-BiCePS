@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -34,54 +34,45 @@
 #include "BcpsBranchStrategy.h"
 #include "BlisModel.h"
 
+class BlisTreeNode;
+
 
 /** Blis branching strategy default class
     This class implements a simple default algorithm, betterBranchObject(),
     for choosing a branching variable. */
 class BlisBranchStrategyPseudo : public BcpsBranchStrategy {
+    /// score factor used. See class documentation.
+    double score_factor_;
+    ///@name Statistics
+    //@{
+    /// number of observations for each integer variable
+    int * down_num_;
+    int * up_num_;
+    /// estimated improvement in the objective value per change in each variable
+    /// derivative_[i] is the average of all observations for variable i.
+    /// these are \f$ \varphi \f$ variables in the documentation
+    double * down_derivative_;
+    double * up_derivative_;
+    /// reverse map of relaxed columns, rev_relaxed_[index] gives the index of
+    /// the varaible in relaxed columns array.
+    std::map<int,int> rev_relaxed_;
+    /// update scores of the stored branch objects.
+    void update_statistics(BlisTreeNode * node);
 
- private:
-    /** Illegal Assignment operator.*/
-    BlisBranchStrategyPseudo& operator=(const BlisBranchStrategyPseudo& rhs);
-
-    int relibility_;
-    
  public:
-
-    /** Default Constructor. */
-    BlisBranchStrategyPseudo() : relibility_(1) {}
-
-    /** Useful Constructor. */
-    BlisBranchStrategyPseudo(BlisModel *model, int rel)
-        : 
-        BcpsBranchStrategy(model), 
-        relibility_(rel)
-        {}
-
-    /** Destructor. */
-    virtual ~BlisBranchStrategyPseudo() {}
-    
-    /** Copy constructor. */
-    BlisBranchStrategyPseudo(const BlisBranchStrategyPseudo &);
-    
-    /** Set relibility. */
-    void setRelibility(int rel) { relibility_ = rel; }    
-
-    /** Clone a brancing strategy. */
-    virtual BcpsBranchStrategy * clone() const {
-	return new BlisBranchStrategyPseudo(*this);
-    }
-    
-    /** Compare branching object thisOne to bestSoFar. If thisOne is better 
-	than bestObject, return branching direction(1 or -1), otherwise
-	return 0. 
-	If bestSorFar is NULL, then always return branching direction(1 or -1).
-    */
-    virtual int betterBranchObject(BcpsBranchObject * thisOne,
-				   BcpsBranchObject * bestSoFar);
-
-    /** Create a set of candidate branching objects. */
-    int createCandBranchObjects(int numPassesLeft, double ub);
+  BlisBranchStrategyPseudo(BlisModel * model);
+  virtual ~BlisBranchStrategyPseudo();
+  virtual int createCandBranchObjects(BcpsTreeNode * node);
+  /// Compare current to other, return 1 if current is better, 0 otherwise
+  virtual int betterBranchObject(BcpsBranchObject const * current,
+                                 BcpsBranchObject const * other);
+private:
+  /// Disable default constructor.
+  BlisBranchStrategyPseudo();
+  /// Disable copy constructor.
+  BlisBranchStrategyPseudo(BlisBranchStrategyPseudo const & other);
+  /// Disable copy assignment operator.
+  BlisBranchStrategyPseudo & operator=(BlisBranchStrategyPseudo const & rhs);
 };
 
 #endif

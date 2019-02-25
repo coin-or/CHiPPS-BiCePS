@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -53,29 +53,24 @@ class BlisTreeNode : public BcpsTreeNode {
     BlisTreeNode(const BlisTreeNode&);
 
     BlisTreeNode& operator=(const BlisTreeNode&);
-    
+
     /** Constraint pool. */
     //BcpsConstraintPool *constraintPool_;
-    
+
     /** Variable pool. */
     //BcpsVariablePool *variablePool_;
 
     /** Save an explicit node description. */
     //void saveExplicit();
-    
-    bool parallel(BlisModel *model, 
-		  OsiCuts *newCutSet,
-		  int lastNew,
-		  OsiRowCut *rowCut);
 
  public:
 
     /** Default constructor. */
-    BlisTreeNode() 
-        : 
-        BcpsTreeNode() 
+    BlisTreeNode()
+        :
+        BcpsTreeNode()
         { init(); }
-    
+
     /** Useful constructor. */
     BlisTreeNode(BlisModel* m) {
         init();
@@ -94,13 +89,13 @@ class BlisTreeNode : public BcpsTreeNode {
         //delete constraintPool_;
         //delete variablePool_;
     }
-    
+
     /** Initilize member data when constructing a node. */
     void init() {
         //constraintPool_ = new BcpsConstraintPool;
         //variablePool_ = new BcpsVariablePool;
     }
-    
+
     /** Create a new node based on given desc. */
     AlpsTreeNode* createNewTreeNode(AlpsNodeDesc *&desc) const;
 
@@ -109,53 +104,65 @@ class BlisTreeNode : public BcpsTreeNode {
     virtual void convertToExplicit();
     virtual void convertToRelative();
     ///@}
-    
-    /** intall subproblem */
-    virtual int installSubProblem(BcpsModel *mode);
-    
+
+
     /** Performing the bounding operation. */
     virtual int process(bool isRoot = false, bool rampUp = false);
-    
-    /** Bounding procedure */
-    virtual int bound(BcpsModel *model);
 
-    /** Takes the explicit description of the current active node and 
-        creates the children's descriptions, which contain information 
+
+    /** Takes the explicit description of the current active node and
+        creates the children's descriptions, which contain information
         about how the branching is to be done. The stati of the children
         are AlpsNodeStatusCandidate. */
-    virtual std::vector< CoinTriple<AlpsNodeDesc*, AlpsNodeStatus, double> > 
+    virtual std::vector< CoinTriple<AlpsNodeDesc*, AlpsNodeStatus, double> >
 	branch();
-    
+
+    BlisNodeDesc * getDesc() const {
+      return dynamic_cast<BlisNodeDesc*>(AlpsTreeNode::getDesc());
+    }
+
     /** Select a branching object based on give branching strategy. */
-    int selectBranchObject(BlisModel *model, 
-                           bool& foundSol, 
+    int selectBranchObject(BlisModel *model,
+                           bool& foundSol,
                            int numPassesLeft);
-
-    /** To be defined. */
-    virtual int chooseBranchingObject(BcpsModel*) { return AlpsReturnStatusOk;}
-    
-    /** Generate constraints. */
-    int generateConstraints(BlisModel *model, OsiCuts & cutPool);
-
-    /** Select and apply constraints. */
-    int applyConstraints(BlisModel *model,
-                         OsiCuts & cutPool,
-                         const double *solution); 
 
     /** Fix and tighten varaibles based optimality conditions. */
     int reducedCostFix(BlisModel *model);
-    
-    /** Return constraint pool. */
-    //BcpsConstraintPool * constraintPool() { return constraintPool_; }
 
-    /** Return variable pool. */
-    //BcpsVariablePool * variablePool() { return variablePool_; }
-    
-    /** Encode this node for message passing. */
-    virtual AlpsEncoded* encode() const;
+    ///@name Pure virtual functions inherited from Bcps.
+    //@{
+    virtual int generateConstraints(BcpsConstraintPool *conPool);
+    virtual int generateVariables(BcpsVariablePool *varPool);
+    virtual int chooseBranchingObject();
+    virtual int installSubProblem();
+    virtual void branchConstrainOrPrice(BcpsSubproblemStatus subproblem_status,
+                                        bool & keepBounding,
+                                        bool & branch,
+                                        bool & generateConstraints,
+                                        bool & generateVariables);
+    virtual BcpsSubproblemStatus bound();
+    virtual void callHeuristics();
+    virtual void applyConstraints(BcpsConstraintPool const * conPool);
+    //@}
 
-    /** Decode a node from an encoded object. */
-    virtual AlpsKnowledge* decode(AlpsEncoded&) const;
+    /// Sets node status to pregnant and carries necessary operations.
+    void processSetPregnant();
+    void boundingLoop();
+    void copyFullNode(BlisNodeDesc * child_node) const;
+
+    ///@name Encode and Decode functions for parallel execution
+    //@{
+    /// Get encode from #AlpsKnowledge
+    using AlpsKnowledge::encode;
+    /// Pack this into an encoded object.
+    virtual AlpsReturnStatus encode(AlpsEncoded * encoded) const;
+    /// Unpack into this from an encoded object.
+    virtual AlpsReturnStatus decodeToSelf(AlpsEncoded & encoded);
+    /// Unpack into a new DcoTreeNode object and return a
+    /// pointer to it.
+    virtual AlpsKnowledge * decode(AlpsEncoded & encoded) const;
+    //@}
+
 };
 
 #endif

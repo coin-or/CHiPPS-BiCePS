@@ -44,6 +44,7 @@
 #include "BlisConGenerator.h"
 #include "BlisHeuristic.h"
 #include "BlisParams.h"
+#include "BlisSolution.h"
 
 #include "AlpsTreeNode.h"
 
@@ -345,7 +346,7 @@ public:
   /** Test the current lp solution for feasiblility.
       Scan integer objects for indications of infeasibility.
   */
-  bool feasibleSolution(int & numIntegerInfs);
+  BlisSolution * feasibleSolution(int & numIntegerInfs, double & infAmount);
 
   /** Test the current solution for feasiblility.
       Scan all objects for indications of infeasibility. This is broken down
@@ -586,7 +587,7 @@ public:
 
   using AlpsKnowledge::encode;
   virtual AlpsReturnStatus encode(AlpsEncoded * encoded) const;
-  virtual AlpsKnowledge * decode(AlpsEncoded & encoded) const = 0;
+  virtual AlpsKnowledge * decode(AlpsEncoded & encoded) const;
   virtual AlpsReturnStatus decodeToSelf(AlpsEncoded & encoded);
 };
 

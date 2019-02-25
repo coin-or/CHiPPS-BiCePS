@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -29,111 +29,92 @@
 
 //#############################################################################
 
-// Copy constructor 
+// Copy constructor
 BlisBranchObjectInt::
-BlisBranchObjectInt(const BlisBranchObjectInt & rhs) 
+BlisBranchObjectInt(const BlisBranchObjectInt & rhs)
     :
     BcpsBranchObject(rhs)
 {
-    down_[0] = rhs.down_[0];
-    down_[1] = rhs.down_[1];
-    up_[0] = rhs.up_[0];
-    up_[1] = rhs.up_[1];
+    ubDownBranch_ = rhs.ubDownBranch();
+    lbUpBranch_ = rhs.lbUpBranch();
 }
 
-//#############################################################################
+BlisBranchObjectInt::
+BlisBranchObjectInt(const BcpsBranchObject * rhs)
+  : AlpsKnowledge(rhs->getType(), rhs->broker_),
+    BcpsBranchObject(*rhs)
+{
+    BlisBranchObjectInt const * blis_other =
+        dynamic_cast<BlisBranchObjectInt const *>(rhs);
+    if (blis_other==NULL) {
+        std::cerr << "Fatal error!" << std::endl;
+        throw std::exception();
+    }
+    ubDownBranch_ = blis_other->ubDownBranch();
+    lbUpBranch_ = blis_other->lbUpBranch();
+}
 
-// Assignment operator 
-BlisBranchObjectInt & 
+// Assignment operator
+BlisBranchObjectInt &
 BlisBranchObjectInt::operator=(const BlisBranchObjectInt& rhs)
 {
     if (this != &rhs) {
 	BcpsBranchObject::operator=(rhs);
-	down_[0] = rhs.down_[0];
-	down_[1] = rhs.down_[1];
-	up_[0] = rhs.up_[0];
-	up_[1] = rhs.up_[1];
+        ubDownBranch_ = rhs.ubDownBranch();
+        lbUpBranch_ = rhs.lbUpBranch();
     }
     return *this;
 }
 
-//#############################################################################
-
-/*
-  Perform a branch by adjusting the bounds of the specified variable.
-  Note that each arm of the branch advances the object to the next arm by
-  advancing the value of direction_.
-  
-  Providing new values for the variable's lower and upper bounds for each
-  branching direction gives a little bit of additional flexibility and will
-  be easily extensible to multi-direction branching.
-  Returns change in guessed objective on next branch
-*/
-double
-BlisBranchObjectInt::branch(bool normalBranch)
-{
-    BlisModel *model = dynamic_cast<BlisModel *>(model_);
-
-    int iColumn = model->getIntVars()[objectIndex_];
-    
-    // Decrement number of branches left by 1.
-    --numBranchesLeft_;
-    
-    if (direction_<0) {
-#ifdef BLIS_DEBUG_MORE
-	{ 
-	    double olb, oub ;
-	    olb = model->solver()->getColLower()[iColumn];
-	    oub = model->solver()->getColUpper()[iColumn];
-	    printf("branching down on var %d: [%g,%g] => [%g,%g]\n",
-		   iColumn,olb,oub,down_[0],down_[1]); 
-	}
-#endif
-	model->solver()->setColLower(iColumn, down_[0]);
-	model->solver()->setColUpper(iColumn, down_[1]);
-	direction_ = 1;
-    } 
-    else {
-#ifdef BLIS_DEBUG_MORE
-	{ 
-	    double olb, oub ;
-	    olb = model->solver()->getColLower()[iColumn];
-	    oub = model->solver()->getColUpper()[iColumn];
-	    printf("branching up on var %d: [%g,%g] => [%g,%g]\n",
-		   iColumn,olb,oub,up_[0],up_[1]); 
-	}
-#endif
-	model->solver()->setColLower(iColumn, up_[0]);
-	model->solver()->setColUpper(iColumn, up_[1]);
-	direction_ = -1;	  // Swap direction
-    }
-    
-    return 0.0;
+/// The number of branch arms created for this branch object.
+int BlisBranchObjectInt::numBranches() const {
+  std::cerr << "Not implemented yet!" << std::endl;
+  throw std::exception();
+  return 0;
 }
 
-//#############################################################################
 
-// Print what would happen  
-void
-BlisBranchObjectInt::print(bool normalBranch)
-{
-    BlisModel *model = dynamic_cast<BlisModel*>(model_);
-    int iColumn = model->getIntVars()[objectIndex_];
-    double olb, oub ;
-    
-    if (direction_ < 0) {
-        olb = model->solver()->getColLower()[iColumn] ;
-        oub = model->solver()->getColUpper()[iColumn] ;
-        printf("BlisInteger would branch down on var %d: [%g,%g] => [%g,%g]\n",
-               iColumn,olb,oub,down_[0],down_[1]); 
-
-    } 
-    else {
-        olb = model->solver()->getColLower()[iColumn] ;
-        oub = model->solver()->getColUpper()[iColumn] ;
-        printf("BlisInteger would branch up on var %d: [%g,%g] => [%g,%g]\n",
-               iColumn,olb,oub,up_[0],up_[1]);
-    }
+/// The number of branch arms left to be evaluated.
+int BlisBranchObjectInt::numBranchesLeft() const {
+  std::cerr << "Not implemented yet!" << std::endl;
+  throw std::exception();
+  return 0;
 }
 
-//#############################################################################
+
+/// Spit out a branch and, update this or superclass fields if necessary.
+double BlisBranchObjectInt::branch(bool normalBranch) {
+  std::cerr << "Not implemented yet!" << std::endl;
+  throw std::exception();
+  return 0.0;
+}
+
+
+AlpsReturnStatus BlisBranchObjectInt::encode(AlpsEncoded * encoded) const {
+  assert(encoded);
+  AlpsReturnStatus status;
+  status = BcpsBranchObject::encode(encoded);
+  assert(status==AlpsReturnStatusOk);
+  encoded->writeRep(ubDownBranch_);
+  return status;
+}
+
+AlpsKnowledge * BlisBranchObjectInt::decode(AlpsEncoded &encoded) const {
+  // create a new object with default values,
+  // Bcps decode will decode right values into them.
+  AlpsKnowledge * new_bo = new BlisBranchObjectInt(-1, 0.0, 0.0);
+  new_bo->decodeToSelf(encoded);
+  return new_bo;
+}
+
+/// Decode the given AlpsEncoded object into this.
+AlpsReturnStatus BlisBranchObjectInt::decodeToSelf(AlpsEncoded & encoded) {
+  AlpsReturnStatus status;
+  // decode Bcps part.
+  status = BcpsBranchObject::decodeToSelf(encoded);
+  assert(status=AlpsReturnStatusOk);
+  // decode fields of BlisBranchObjectInt
+  encoded.readRep(ubDownBranch_);
+  encoded.readRep(lbUpBranch_);
+  return status;
+}

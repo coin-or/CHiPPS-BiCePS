@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -37,7 +37,7 @@
     CoinMessageHandler.hpp is the general part of message handling.
     All it has are enum's for the various messages.
     BlisMessage.cpp has text in various languages.
-    
+
     It is trivial to use the .hpp and .cpp file as a basis for
     messages for other components.
  */

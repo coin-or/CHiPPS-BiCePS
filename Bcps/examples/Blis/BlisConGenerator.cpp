@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -47,21 +47,21 @@ BlisConGenerator::BlisConGenerator(BlisModel * model,
 				   CglCutGenerator * generator,
 				   const char * name,
 				   int strategy,
-				   bool normal, 
-				   bool atSolution, 
+				   bool normal,
+				   bool atSolution,
 				   bool infeasible)
 {
     model_ = model;
     generator_ = generator;
     generator_->refreshSolver(model_->solver());
-    
+
     if (name) {
         name_ = strdup(name);
     }
     else {
         name_ = strdup("Unknown");
     }
-    
+
     strategy_ = strategy;
     normal_ = normal;
     atSolution_ = atSolution;
@@ -75,7 +75,7 @@ BlisConGenerator::BlisConGenerator(BlisModel * model,
 
 //#############################################################################
 
-// Copy constructor 
+// Copy constructor
 BlisConGenerator::BlisConGenerator(const BlisConGenerator & rhs)
 {
     model_ = rhs.model_;
@@ -95,8 +95,8 @@ BlisConGenerator::BlisConGenerator(const BlisConGenerator & rhs)
 
 //#############################################################################
 
-// Assignment operator 
-BlisConGenerator & 
+// Assignment operator
+BlisConGenerator &
 BlisConGenerator::operator=( const BlisConGenerator& rhs)
 {
     if (this != &rhs) {
@@ -116,7 +116,7 @@ BlisConGenerator::operator=( const BlisConGenerator& rhs)
         calls_ = 0;
         noConsCalls_ = 0;
     }
-    
+
     return *this;
 }
 
@@ -124,9 +124,9 @@ BlisConGenerator::operator=( const BlisConGenerator& rhs)
 
 // This is used to refresh any inforamtion.
 // It also refreshes the solver in the con generator
-// in case generator wants to do some work 
+// in case generator wants to do some work
 
-void 
+void
 BlisConGenerator::refreshModel(BlisModel * model)
 {
   model_ = model;
@@ -143,19 +143,19 @@ bool
 BlisConGenerator::generateCons(OsiCuts & coinCuts , bool fullScan)
 {
     bool status = false;
-    
+
     if (strategy_ == -2) {
         // This con generator has been disabled.
         return false;
     }
 
     OsiSolverInterface * solver = model_->solver();
-    
+
 #if defined(BLIS_DEBUG_MORE)
     std::cout << "model_->getNodeCount() = " << model_->getNodeCount()
               << std::endl;
 #endif
-    
+
     if ( fullScan ||
          ((strategy_ > 0) && (model_->getNumNodes() % strategy_) == 0) ) {
 
@@ -165,13 +165,13 @@ BlisConGenerator::generateCons(OsiCuts & coinCuts , bool fullScan)
 
 	int j;
         double start = CoinCpuTime();
-        int numConsBefore = coinCuts.sizeCuts();   
-        int numRowsBefore = coinCuts.sizeRowCuts();   
+        int numConsBefore = coinCuts.sizeCuts();
+        int numRowsBefore = coinCuts.sizeRowCuts();
 
         assert(generator_ != NULL);
-        
+
         CglProbing* generator = dynamic_cast<CglProbing *>(generator_);
-        
+
         if (!generator) {
             generator_->generateCuts(*solver, coinCuts);
         }

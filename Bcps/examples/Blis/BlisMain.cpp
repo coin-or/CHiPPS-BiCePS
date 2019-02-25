@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -45,32 +45,32 @@
 
 //#############################################################################
 
-int main(int argc, char *argv[]) 
+int main(int argc, char *argv[])
 {
     try{
 	// Set up lp solver
         OsiClpSolverInterface lpSolver;
 	lpSolver.getModelPtr()->setDualBound(1.0e10);
 	lpSolver.messageHandler()->setLogLevel(0);
-	
-	// Create BLIS model 
+
+	// Create BLIS model
 	BlisModel model;
 	model.setSolver(&lpSolver);
-	
+
 #ifdef  COIN_HAS_MPI
 	AlpsKnowledgeBrokerMPI broker(argc, argv, model);
 #else
-	AlpsKnowledgeBrokerSerial broker(argc, argv, model); 
+	AlpsKnowledgeBrokerSerial broker(argc, argv, model);
 #endif
 
 	// Search for best solution
 	broker.search(&model);
-	
+
 	// Report the best solution found and its ojective value
 	// broker.printBestResult();
     }
     catch(CoinError& er) {
-	std::cerr << "\nBLIS ERROR: \"" << er.message() 
+	std::cerr << "\nBLIS ERROR: \"" << er.message()
 		  << "\""<< std::endl
 		  << "             from function \"" << er.methodName()
 		  << "\""<< std::endl
@@ -80,10 +80,9 @@ int main(int argc, char *argv[])
     catch(...) {
 	std::cerr << "Something went wrong!" << std::endl;
     }
-    
-    
+
+
     return 0;
 }
 
 //#############################################################################
-

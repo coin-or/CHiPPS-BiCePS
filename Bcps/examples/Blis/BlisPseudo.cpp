@@ -15,7 +15,7 @@
  *          Ted Ralphs, Lehigh University                                    *
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
- *                                                                           * 
+ *                                                                           *
  *                                                                           *
  * Copyright (C) 2001-2017, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
@@ -30,20 +30,20 @@
 
 //#############################################################################
 
-void 
+void
 BlisPseudocost::update(const int dir,
                        const double parentObjValue,
                        const double objValue,
                        const double solValue)
 {
-    
-    double objDiff = objValue - parentObjValue;    
+
+    double objDiff = objValue - parentObjValue;
 
 #ifdef BLIS_DEBUG
     assert(objDiff/(1.0+objValue) >= -1.0e-5);
 #endif
 
-    update(dir, objDiff, solValue);    
+    update(dir, objDiff, solValue);
 }
 
 //#############################################################################
@@ -55,7 +55,7 @@ BlisPseudocost::update(int dir,
 {
     double fraction;
     double cost;
-    
+
 #ifdef BLIS_DEBUG
     if (objDiff < -1.0e-1) {
         std::cout << "objDiff=" << objDiff
@@ -98,10 +98,10 @@ BlisPseudocost::update(int dir,
         ALPS_PRINTF("ERROR: wrong direction %d.\n", dir);
         assert(0);
     }
-    
-    score_ = weight_* ALPS_MIN(upCost_, downCost_) + 
+
+    score_ = weight_* ALPS_MIN(upCost_, downCost_) +
         (1.0 - weight_) * ALPS_MAX(upCost_, downCost_);
-    
+
 }
 
 //#############################################################################

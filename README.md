@@ -3,7 +3,7 @@ BiCePS Version 0.99 README
 
 Welcome to BiCePS. BiCePS is distributed under the Eclipse Public License and
 is freely redistributable. All source code and documentation is Copyright
-2001-2018 by Lehigh University, Yan Xu, Aykut Bulut, and Ted Ralphs. This
+2001-2019 by Lehigh University, Yan Xu, Aykut Bulut, and Ted Ralphs. This
 README may be distributed freely.
 
 TESTING STATUS

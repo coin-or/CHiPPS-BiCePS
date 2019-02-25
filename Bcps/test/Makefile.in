@@ -34,7 +34,7 @@
 #          Matthew Saltzman, Clemson University                            #
 #                                                                          #
 #                                                                          #
-# Copyright (C) 2001-2018, Lehigh University, Yan Xu, Aykut Bulut, and     #
+# Copyright (C) 2001-2019, Lehigh University, Yan Xu, Aykut Bulut, and     #
 #                          Ted Ralphs.                                     #
 # All Rights Reserved.                                                     #
 #==========================================================================#
@@ -86,9 +86,7 @@ CONFIG_CLEAN_FILES = BlisBranchObjectInt.cpp BlisBranchObjectInt.h \
 	BlisTreeNode.h BlisVariable.h flugpl.mps
 PROGRAMS = $(noinst_PROGRAMS)
 nodist_unitTest_OBJECTS = BlisBranchObjectInt.$(OBJEXT) \
-	BlisBranchStrategyPseudo.$(OBJEXT) \
-	BlisBranchStrategyRel.$(OBJEXT) \
-	BlisBranchStrategyStrong.$(OBJEXT) BlisConGenerator.$(OBJEXT) \
+	BlisBranchStrategyPseudo.$(OBJEXT) BlisConGenerator.$(OBJEXT) \
 	BlisConstraint.$(OBJEXT) BlisHelp.$(OBJEXT) \
 	BlisHeurRound.$(OBJEXT) BlisMain.$(OBJEXT) \
 	BlisMessage.$(OBJEXT) BlisModel.$(OBJEXT) \
@@ -311,8 +309,6 @@ AUTOMAKE_OPTIONS = foreign
 nodist_unitTest_SOURCES = \
 	BlisBranchObjectInt.cpp BlisBranchObjectInt.h \
 	BlisBranchStrategyPseudo.cpp BlisBranchStrategyPseudo.h \
-	BlisBranchStrategyRel.cpp BlisBranchStrategyRel.h \
-	BlisBranchStrategyStrong.cpp BlisBranchStrategyStrong.h \
 	BlisConGenerator.cpp BlisConGenerator.h \
 	BlisConstraint.cpp BlisConstraint.h \
 	Blis.h \
@@ -330,7 +326,7 @@ nodist_unitTest_SOURCES = \
 	BlisSolution.h \
 	BlisSubTree.h \
 	BlisTreeNode.cpp BlisTreeNode.h \
-	BlisVariable.h 
+	BlisVariable.h
 
 
 # List libraries of COIN projects
@@ -346,7 +342,7 @@ AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/../src` \
 
 # This line is necessary to allow VPATH compilation with MS compilers
 # on Cygwin
-DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)` 
+DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)`
 
 ########################################################################
 #                          Cleaning stuff                              #
@@ -407,8 +403,6 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BlisBranchObjectInt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BlisBranchStrategyPseudo.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BlisBranchStrategyRel.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BlisBranchStrategyStrong.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BlisConGenerator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BlisConstraint.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BlisHelp.Po@am__quote@
