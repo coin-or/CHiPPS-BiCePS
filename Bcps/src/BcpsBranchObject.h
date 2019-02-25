@@ -132,7 +132,7 @@ class BcpsBranchObject {
     /** Useful constructor. */
     BcpsBranchObject(BcpsModel * model, 
                      int objectIndex, 
-                     int upScore,
+                     double upScore,
                      double downScore,
                      int direction , 
                      double value)

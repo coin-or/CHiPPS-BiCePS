@@ -115,7 +115,7 @@ class BcpsBranchStrategy {
     virtual BcpsBranchStrategy * clone() const = 0;
     
     /** Get type. */
-    int getType() { return type_; }
+    int getType() const { return type_; }
     
     /** Set type. */
     void setType(int t) { type_ = t; }
@@ -125,8 +125,8 @@ class BcpsBranchStrategy {
 
     /** Set/get branching objects. */
     //@{
-    int getNumBranchObjects() { return numBranchObjects_; }
-    void getNumBranchObjects(int num) { numBranchObjects_ = num; }
+    int getNumBranchObjects() const { return numBranchObjects_; }
+    void setNumBranchObjects(int num) { numBranchObjects_ = num; }
     BcpsBranchObject ** getBranchObjects() { return branchObjects_; }
     void setBranchObjects(BcpsBranchObject **obj) { branchObjects_ = obj; }
     BcpsBranchObject *getBestBranchObject() { return bestBranchObject_; }
