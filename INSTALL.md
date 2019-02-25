@@ -52,7 +52,7 @@ To get help with additional options available in running the script, do
 ./coin/install.sh --help
 ```
 
-The above procedures will build all required dependencies and Alps itself.
+The above procedures will build all required dependencies and BiCePS itself.
 Afterwards, the binaries will be installed in the directory `Mibs/build/bin`
 and the libraries in the directory `Bcps/build/lib`. If you wish to
 install in a different directory, such as `/usr/local`, then run the command
@@ -95,9 +95,9 @@ bash
 pacman -S make wget tar patch dos2unix diffutils git svn
 ```
 
-To obtain the source code, the first step is to get the installer that will then
-fetch the source for Alps and all its dependencies. *You do not need to
-clone Alps first, just do the following!* Open a terminal and execute
+To obtain the source code, the first step is to get the installer that will
+then fetch the source for BiCePSs and all its dependencies. *You do not need to
+clone BiCePS first, just do the following!* Open a terminal and execute
 
 ```
 git clone https://www.github.com/coin-or/COIN-OR-OptimizationSuite
@@ -184,9 +184,9 @@ do
 brew install gcc wget svn git
 ```
 
-To obtain the source code, the first step is to get the installer that will then
-fetch the source for Alps and all its dependencies. *You do not need to
-clone Alps first, just do the following!* Open a terminal and execute
+To obtain the source code, the first step is to get the installer that will
+then fetch the source for BiCePS and all its dependencies. *You do not need to
+clone BiCePS first, just do the following!* Open a terminal and execute
 
 ```
 git clone https://www.github.com/coin-or/COIN-OR-OptimizationSuite
