@@ -27,7 +27,7 @@ The BiCePS development site is https://github.com/coin-or/CHiPPS-BiCePS.
 
 ## CITE
 
-[![DOI](https://zenodo.org/badge/2595523.svg)](https://zenodo.org/badge/latestdoi/2595523)
+[![DOI](https://zenodo.org/badge/23726997.svg)](https://zenodo.org/badge/latestdoi/23726997)
 
 ## CURRENT BUILD STATUS
 
