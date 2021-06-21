@@ -35,17 +35,17 @@ Dependencies:
     URL: https://projects.coin-or.org/svn/Osi/stable/0.107/Osi
     Version: 0.108
     Required: Required
-  - Description: Open Solver Interface
+  - Description: COIN-OR LP Solver
     URL: https://projects.coin-or.org/svn/Clp/stable/1.16/Clp
     Version: 1.17
     Required: Required
-  - Description: Open Solver Interface
+  - Description: Cut Generation Library
     URL: https://projects.coin-or.org/svn/Cgl/stable/0.59/Cgl
     Version: 0.60
     Required: Required
-  - Description: Open Solver Interface
+  - Description: Abstract Library for Parallel Search
     URL: https://github.com/coin-or/CHiPPS-ALPS
-    Version: 1.5
+    Version: 2.0
     Required: Required
   - Description: Basic Linear Algebra Subroutines (BLAS)
     URL: http://www.netlib.org/blas
