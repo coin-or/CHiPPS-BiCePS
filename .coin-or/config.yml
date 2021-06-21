@@ -13,7 +13,7 @@ Description:
   Homepage: https://github.com/coin-or/CHiPPS-BiCePS
   License: Eclipse Public License 2.0
   LicenseURL: http://www.opensource.org/licenses/eclipse-2.0
-  Zenodo: 2595523
+  Zenodo: 23726997
   IncludedIn:
     Package: CHiPPS-BLIS
   Language:
