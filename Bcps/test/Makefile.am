@@ -25,8 +25,6 @@
 
 ## $Id: Makefile.am 507 2006-06-03 03:20:16Z andreasw $
 
-AUTOMAKE_OPTIONS = foreign
-
 ########################################################################
 #                      unitTest for CoinUtils                          #
 ########################################################################
@@ -56,18 +54,13 @@ nodist_unitTest_SOURCES = \
 	BlisVariable.h
 
 # List libraries of COIN projects
-unitTest_LDADD = ../src/libBcps.la $(ABC_LIBS) $(BCPSLIB_LIBS)
-unitTest_DEPENDENCIES = ../src/libBcps.la $(ABC_DEPENDENCIES) $(BCPSLIB_DEPENDENCIES)
+unitTest_LDADD = ../src/libBcps.la $(UNITTEST_LFLAGS) $(BCPSLIB_LFLAGS)
 
-# Here list all include flags, relative to this "srcdir" directory.  This
-# "cygpath" stuff is necessary to compile with native compilers on Cygwin
-AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/../src` \
-        $(ABC_CFLAGS) \
-        $(BCPSLIB_CFLAGS)
+AM_LDFLAGS = $(LT_LDFLAGS)
 
-# This line is necessary to allow VPATH compilation with MS compilers
-# on Cygwin
-DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)`
+AM_CPPFLAGS = -I$(srcdir)/../src $(UNITTEST_CFLAGS) $(BCPSLIB_CFLAGS) 	
+
+all: test
 
 test: unitTest$(EXEEXT)
 	./unitTest$(EXEEXT) -Alps_instance ./flugpl.mps

@@ -31,7 +31,7 @@
 
 AC_PREREQ(2.59)
 
-AC_INIT([Bcps],[trunk],[https://github.com/coin-or/CHiPPS-BiCePS/issues/new])
+AC_INIT([Bcps],[devel],[https://github.com/coin-or/CHiPPS-BiCePS/issues/new],[coin-or-bcps],[https://github.com/coin-or/CHiPPS-BiCePS])
 
 AC_COPYRIGHT([
 #==========================================================================#
@@ -64,54 +64,48 @@ AC_COPYRIGHT([
 # whether the package is actually there
 AC_CONFIG_SRCDIR(src/BcpsModel.h)
 
-# Where should everything be installed by default?  Here, we want it
-# to be installed directly in 'bin', 'lib', 'include' subdirectories
-# of the directory where configure is run.  The default would be
-# /usr/local.
-AC_PREFIX_DEFAULT([`pwd`])
+# Do some initialization work (version numbers, change prefix default, ...)
+AC_COIN_INITIALIZE
 
 #############################################################################
 #                         Standard build tool stuff                         #
 #############################################################################
 
-# Get the system type
-AC_CANONICAL_BUILD
-
-# If this project depends on external projects, the Externals file in
-# the source root directory contains definition of where to find those
-# externals.  The following macro ensures that those externals are
-# retrieved by svn if they are not there yet.
-AC_COIN_PROJECTDIR_INIT(Bcps)
-
-# Check if user wants to produce debugging code
-AC_COIN_DEBUG_COMPILE(Bcps)
-
-# Get the name of the C++ compiler and appropriate compiler options
+# Get the name of the C++ compiler and appropriate compiler options.
 AC_COIN_PROG_CXX
+
+# This is a C++ package, set the language accordingly.
+AC_LANG_PUSH(C++)
+
+# Initialize libtool
+AC_COIN_PROG_LIBTOOL
+
+# set RPATH_FLAGS to the compiler link flags required to hardcode location
+# of the shared objects (expanded_libdir is set somewhere in configure before)
+# (use in examples Makefile)
+AC_COIN_RPATH_FLAGS([$expanded_libdir])
 
 # We filter out the -pedantic-errors flag for C and C++ compiler in
 # case the user wants to use MPI, since otherwise the compilation
-# fails
-if test "${with_mpi_lib+set}" = set; then
-  CFLAGS=`echo $CFLAGS | sed -e s/-pedantic-errors//g`
-  CXXFLAGS=`echo $CXXFLAGS | sed -e s/-pedantic-errors//g`
-fi
-
-# Initialize automake and libtool
-AC_COIN_INIT_AUTO_TOOLS
-
-# Check for C++11 standard
-
+# fails.
+#if test "${with_mpi_lib+set}" = set; then
+#  CFLAGS=`echo $CFLAGS | sed -e s/-pedantic-errors//g`
+#  CXXFLAGS=`echo $CXXFLAGS | sed -e s/-pedantic-errors//g`
+#fi
 
 #############################################################################
 #                              COIN components                              #
 #############################################################################
 
-AC_COIN_CHECK_PACKAGE(Alps, [alps], [BcpsLib])
+AC_COIN_CHK_PKG(Alps, [BcpsLib])
 if test $coin_has_alps != yes ; then
   AC_MSG_ERROR([Required package Alps not available.])
 fi
-AC_COIN_CHECK_PACKAGE(Clp, [cgl osi-clp], [Abc])
+
+# These are only required for the unit test and the Abc example.
+AC_COIN_CHK_PKG(Osi, [UnitTest])
+AC_COIN_CHK_PKG(Clp, [UnitTest], [osi-clp])
+AC_COIN_CHK_PKG(Cgl, [UnitTest])
 
 ##############################################################################
 #                   VPATH links for example input files                      #
@@ -119,7 +113,7 @@ AC_COIN_CHECK_PACKAGE(Clp, [cgl osi-clp], [Abc])
 
 # In this case, the source code is taken from the Bcps examples directory
 
-AC_CONFIG_LINKS(test/BlisBranchObjectInt.cpp:examples/Blis/BlisBranchObjectInt.cpp
+AC_COIN_VPATH_LINK(test/BlisBranchObjectInt.cpp:examples/Blis/BlisBranchObjectInt.cpp
         test/BlisBranchObjectInt.h:examples/Blis/BlisBranchObjectInt.h
         test/BlisBranchStrategyPseudo.cpp:examples/Blis/BlisBranchStrategyPseudo.cpp
         test/BlisBranchStrategyPseudo.h:examples/Blis/BlisBranchStrategyPseudo.h
@@ -168,11 +162,14 @@ AC_CONFIG_LINKS(test/BlisBranchObjectInt.cpp:examples/Blis/BlisBranchObjectInt.c
 #                  Check for doxygen                                        #
 #############################################################################
 
-AC_COIN_DOXYGEN(CoinUtils Alps)
+AC_COIN_DOXYGEN([CoinUtils Alps])
 
 ##############################################################################
 #                   Finishing up by writing all the output                   #
 ##############################################################################
+
+# Finalize libs and cflags.
+AC_COIN_FINALIZE_FLAGS([BcpsLib UnitTest])
 
 # Here list all the files that configure should create (except for the
 # configuration header file)
