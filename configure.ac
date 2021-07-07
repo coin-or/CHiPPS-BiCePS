@@ -178,8 +178,7 @@ AC_CONFIG_FILES([Makefile
                  examples/Blis/blis.par
                  src/Makefile
                  test/Makefile
-                 bcps.pc
-                 bcps-uninstalled.pc])
+                 bcps.pc])
 
 AC_CONFIG_FILES([doxydoc/doxygen.conf])
 

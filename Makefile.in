@@ -127,7 +127,7 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/src/config.h \
 	$(top_builddir)/src/config_bcps.h
 CONFIG_CLEAN_FILES = examples/Blis/Makefile examples/Blis/blis.par \
-	bcps.pc bcps-uninstalled.pc doxydoc/doxygen.conf
+	bcps.pc doxydoc/doxygen.conf
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -478,8 +478,6 @@ examples/Blis/Makefile: $(top_builddir)/config.status $(top_srcdir)/examples/Bli
 examples/Blis/blis.par: $(top_builddir)/config.status $(top_srcdir)/examples/Blis/blis.par.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 bcps.pc: $(top_builddir)/config.status $(srcdir)/bcps.pc.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
-bcps-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/bcps-uninstalled.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 doxydoc/doxygen.conf: $(top_builddir)/config.status $(top_srcdir)/doxydoc/doxygen.conf.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@

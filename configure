@@ -18931,7 +18931,7 @@ printf "%s\n" "$as_me: UNITTEST_CFLAGS: \"${UNITTEST_CFLAGS}\"" >&6;}
 
 # Here list all the files that configure should create (except for the
 # configuration header file)
-ac_config_files="$ac_config_files Makefile examples/Blis/Makefile examples/Blis/blis.par src/Makefile test/Makefile bcps.pc bcps-uninstalled.pc"
+ac_config_files="$ac_config_files Makefile examples/Blis/Makefile examples/Blis/blis.par src/Makefile test/Makefile bcps.pc"
 
 
 ac_config_files="$ac_config_files doxydoc/doxygen.conf"
@@ -20142,7 +20142,6 @@ do
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "test/Makefile") CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
     "bcps.pc") CONFIG_FILES="$CONFIG_FILES bcps.pc" ;;
-    "bcps-uninstalled.pc") CONFIG_FILES="$CONFIG_FILES bcps-uninstalled.pc" ;;
     "doxydoc/doxygen.conf") CONFIG_FILES="$CONFIG_FILES doxydoc/doxygen.conf" ;;
     "src/config.h") CONFIG_HEADERS="$CONFIG_HEADERS src/config.h" ;;
     "src/config_bcps.h") CONFIG_HEADERS="$CONFIG_HEADERS src/config_bcps.h" ;;
