@@ -1,3 +1,5 @@
+build/*
+acinclude.m4
 aclocal.m4*
 aclocal.m4.orig*
 autom4te*
@@ -8,3 +10,4 @@ config.log
 config.status
 libtool
 dist
+
