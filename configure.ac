@@ -29,8 +29,6 @@
 #                       Names and other basic things                        #
 #############################################################################
 
-AC_PREREQ(2.59)
-
 AC_INIT([Bcps],[devel],[https://github.com/coin-or/CHiPPS-BiCePS/issues/new],[coin-or-bcps],[https://github.com/coin-or/CHiPPS-BiCePS])
 
 AC_COPYRIGHT([
@@ -84,14 +82,6 @@ AC_COIN_PROG_LIBTOOL
 # of the shared objects (expanded_libdir is set somewhere in configure before)
 # (use in examples Makefile)
 AC_COIN_RPATH_FLAGS([$expanded_libdir])
-
-# We filter out the -pedantic-errors flag for C and C++ compiler in
-# case the user wants to use MPI, since otherwise the compilation
-# fails.
-#if test "${with_mpi_lib+set}" = set; then
-#  CFLAGS=`echo $CFLAGS | sed -e s/-pedantic-errors//g`
-#  CXXFLAGS=`echo $CXXFLAGS | sed -e s/-pedantic-errors//g`
-#fi
 
 #############################################################################
 #                              COIN components                              #

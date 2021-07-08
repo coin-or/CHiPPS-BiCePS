@@ -2,7 +2,7 @@
 @COIN_RELOCATABLE_TRUE@prefix=${pcfiledir}/../..
 exec_prefix=@exec_prefix@
 libdir=@libdir@
-includedir=@includedir@/coin
+includedir=@includedir@/coin-or
 
 Name: @PACKAGE_NAME@
 Description: Branch, Constrain, and Price Software Fraework

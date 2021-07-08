@@ -153,10 +153,12 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includecoindir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libBcps_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
-am_libBcps_la_OBJECTS = BcpsBranchObject.lo BcpsBranchStrategy.lo \
-	BcpsMessage.lo BcpsModel.lo BcpsNodeDesc.lo BcpsObject.lo \
-	BcpsObjectPool.lo BcpsSolution.lo BcpsSubTree.lo \
-	BcpsTreeNode.lo
+am_libBcps_la_OBJECTS = libBcps_la-BcpsBranchObject.lo \
+	libBcps_la-BcpsBranchStrategy.lo libBcps_la-BcpsMessage.lo \
+	libBcps_la-BcpsModel.lo libBcps_la-BcpsNodeDesc.lo \
+	libBcps_la-BcpsObject.lo libBcps_la-BcpsObjectPool.lo \
+	libBcps_la-BcpsSolution.lo libBcps_la-BcpsSubTree.lo \
+	libBcps_la-BcpsTreeNode.lo
 libBcps_la_OBJECTS = $(am_libBcps_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -177,12 +179,16 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/BcpsBranchObject.Plo \
-	./$(DEPDIR)/BcpsBranchStrategy.Plo ./$(DEPDIR)/BcpsMessage.Plo \
-	./$(DEPDIR)/BcpsModel.Plo ./$(DEPDIR)/BcpsNodeDesc.Plo \
-	./$(DEPDIR)/BcpsObject.Plo ./$(DEPDIR)/BcpsObjectPool.Plo \
-	./$(DEPDIR)/BcpsSolution.Plo ./$(DEPDIR)/BcpsSubTree.Plo \
-	./$(DEPDIR)/BcpsTreeNode.Plo
+am__depfiles_remade = ./$(DEPDIR)/libBcps_la-BcpsBranchObject.Plo \
+	./$(DEPDIR)/libBcps_la-BcpsBranchStrategy.Plo \
+	./$(DEPDIR)/libBcps_la-BcpsMessage.Plo \
+	./$(DEPDIR)/libBcps_la-BcpsModel.Plo \
+	./$(DEPDIR)/libBcps_la-BcpsNodeDesc.Plo \
+	./$(DEPDIR)/libBcps_la-BcpsObject.Plo \
+	./$(DEPDIR)/libBcps_la-BcpsObjectPool.Plo \
+	./$(DEPDIR)/libBcps_la-BcpsSolution.Plo \
+	./$(DEPDIR)/libBcps_la-BcpsSubTree.Plo \
+	./$(DEPDIR)/libBcps_la-BcpsTreeNode.Plo
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
@@ -442,9 +448,8 @@ libBcps_la_SOURCES = \
 	BcpsTreeNode.cpp \
 	BcpsTreeNode.h
 
-
-# This is for libtool (on Windows)
 libBcps_la_LIBADD = $(BCPSLIB_LFLAGS)
+libBcps_la_CPPFLAGS = $(BCPSLIB_CFLAGS)
 
 ########################################################################
 #                            Additional flags                          #
@@ -582,16 +587,16 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsBranchObject.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsBranchStrategy.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsMessage.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsModel.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsNodeDesc.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsObject.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsObjectPool.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsSolution.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsSubTree.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/BcpsTreeNode.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libBcps_la-BcpsBranchObject.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libBcps_la-BcpsBranchStrategy.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libBcps_la-BcpsMessage.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libBcps_la-BcpsModel.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libBcps_la-BcpsNodeDesc.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libBcps_la-BcpsObject.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libBcps_la-BcpsObjectPool.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libBcps_la-BcpsSolution.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libBcps_la-BcpsSubTree.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libBcps_la-BcpsTreeNode.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -622,6 +627,76 @@ am--depfiles: $(am__depfiles_remade)
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
+
+libBcps_la-BcpsBranchObject.lo: BcpsBranchObject.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libBcps_la-BcpsBranchObject.lo -MD -MP -MF $(DEPDIR)/libBcps_la-BcpsBranchObject.Tpo -c -o libBcps_la-BcpsBranchObject.lo `test -f 'BcpsBranchObject.cpp' || echo '$(srcdir)/'`BcpsBranchObject.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libBcps_la-BcpsBranchObject.Tpo $(DEPDIR)/libBcps_la-BcpsBranchObject.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='BcpsBranchObject.cpp' object='libBcps_la-BcpsBranchObject.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libBcps_la-BcpsBranchObject.lo `test -f 'BcpsBranchObject.cpp' || echo '$(srcdir)/'`BcpsBranchObject.cpp
+
+libBcps_la-BcpsBranchStrategy.lo: BcpsBranchStrategy.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libBcps_la-BcpsBranchStrategy.lo -MD -MP -MF $(DEPDIR)/libBcps_la-BcpsBranchStrategy.Tpo -c -o libBcps_la-BcpsBranchStrategy.lo `test -f 'BcpsBranchStrategy.cpp' || echo '$(srcdir)/'`BcpsBranchStrategy.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libBcps_la-BcpsBranchStrategy.Tpo $(DEPDIR)/libBcps_la-BcpsBranchStrategy.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='BcpsBranchStrategy.cpp' object='libBcps_la-BcpsBranchStrategy.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libBcps_la-BcpsBranchStrategy.lo `test -f 'BcpsBranchStrategy.cpp' || echo '$(srcdir)/'`BcpsBranchStrategy.cpp
+
+libBcps_la-BcpsMessage.lo: BcpsMessage.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libBcps_la-BcpsMessage.lo -MD -MP -MF $(DEPDIR)/libBcps_la-BcpsMessage.Tpo -c -o libBcps_la-BcpsMessage.lo `test -f 'BcpsMessage.cpp' || echo '$(srcdir)/'`BcpsMessage.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libBcps_la-BcpsMessage.Tpo $(DEPDIR)/libBcps_la-BcpsMessage.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='BcpsMessage.cpp' object='libBcps_la-BcpsMessage.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libBcps_la-BcpsMessage.lo `test -f 'BcpsMessage.cpp' || echo '$(srcdir)/'`BcpsMessage.cpp
+
+libBcps_la-BcpsModel.lo: BcpsModel.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libBcps_la-BcpsModel.lo -MD -MP -MF $(DEPDIR)/libBcps_la-BcpsModel.Tpo -c -o libBcps_la-BcpsModel.lo `test -f 'BcpsModel.cpp' || echo '$(srcdir)/'`BcpsModel.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libBcps_la-BcpsModel.Tpo $(DEPDIR)/libBcps_la-BcpsModel.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='BcpsModel.cpp' object='libBcps_la-BcpsModel.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libBcps_la-BcpsModel.lo `test -f 'BcpsModel.cpp' || echo '$(srcdir)/'`BcpsModel.cpp
+
+libBcps_la-BcpsNodeDesc.lo: BcpsNodeDesc.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libBcps_la-BcpsNodeDesc.lo -MD -MP -MF $(DEPDIR)/libBcps_la-BcpsNodeDesc.Tpo -c -o libBcps_la-BcpsNodeDesc.lo `test -f 'BcpsNodeDesc.cpp' || echo '$(srcdir)/'`BcpsNodeDesc.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libBcps_la-BcpsNodeDesc.Tpo $(DEPDIR)/libBcps_la-BcpsNodeDesc.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='BcpsNodeDesc.cpp' object='libBcps_la-BcpsNodeDesc.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libBcps_la-BcpsNodeDesc.lo `test -f 'BcpsNodeDesc.cpp' || echo '$(srcdir)/'`BcpsNodeDesc.cpp
+
+libBcps_la-BcpsObject.lo: BcpsObject.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libBcps_la-BcpsObject.lo -MD -MP -MF $(DEPDIR)/libBcps_la-BcpsObject.Tpo -c -o libBcps_la-BcpsObject.lo `test -f 'BcpsObject.cpp' || echo '$(srcdir)/'`BcpsObject.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libBcps_la-BcpsObject.Tpo $(DEPDIR)/libBcps_la-BcpsObject.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='BcpsObject.cpp' object='libBcps_la-BcpsObject.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libBcps_la-BcpsObject.lo `test -f 'BcpsObject.cpp' || echo '$(srcdir)/'`BcpsObject.cpp
+
+libBcps_la-BcpsObjectPool.lo: BcpsObjectPool.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libBcps_la-BcpsObjectPool.lo -MD -MP -MF $(DEPDIR)/libBcps_la-BcpsObjectPool.Tpo -c -o libBcps_la-BcpsObjectPool.lo `test -f 'BcpsObjectPool.cpp' || echo '$(srcdir)/'`BcpsObjectPool.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libBcps_la-BcpsObjectPool.Tpo $(DEPDIR)/libBcps_la-BcpsObjectPool.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='BcpsObjectPool.cpp' object='libBcps_la-BcpsObjectPool.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libBcps_la-BcpsObjectPool.lo `test -f 'BcpsObjectPool.cpp' || echo '$(srcdir)/'`BcpsObjectPool.cpp
+
+libBcps_la-BcpsSolution.lo: BcpsSolution.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libBcps_la-BcpsSolution.lo -MD -MP -MF $(DEPDIR)/libBcps_la-BcpsSolution.Tpo -c -o libBcps_la-BcpsSolution.lo `test -f 'BcpsSolution.cpp' || echo '$(srcdir)/'`BcpsSolution.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libBcps_la-BcpsSolution.Tpo $(DEPDIR)/libBcps_la-BcpsSolution.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='BcpsSolution.cpp' object='libBcps_la-BcpsSolution.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libBcps_la-BcpsSolution.lo `test -f 'BcpsSolution.cpp' || echo '$(srcdir)/'`BcpsSolution.cpp
+
+libBcps_la-BcpsSubTree.lo: BcpsSubTree.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libBcps_la-BcpsSubTree.lo -MD -MP -MF $(DEPDIR)/libBcps_la-BcpsSubTree.Tpo -c -o libBcps_la-BcpsSubTree.lo `test -f 'BcpsSubTree.cpp' || echo '$(srcdir)/'`BcpsSubTree.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libBcps_la-BcpsSubTree.Tpo $(DEPDIR)/libBcps_la-BcpsSubTree.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='BcpsSubTree.cpp' object='libBcps_la-BcpsSubTree.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libBcps_la-BcpsSubTree.lo `test -f 'BcpsSubTree.cpp' || echo '$(srcdir)/'`BcpsSubTree.cpp
+
+libBcps_la-BcpsTreeNode.lo: BcpsTreeNode.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libBcps_la-BcpsTreeNode.lo -MD -MP -MF $(DEPDIR)/libBcps_la-BcpsTreeNode.Tpo -c -o libBcps_la-BcpsTreeNode.lo `test -f 'BcpsTreeNode.cpp' || echo '$(srcdir)/'`BcpsTreeNode.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libBcps_la-BcpsTreeNode.Tpo $(DEPDIR)/libBcps_la-BcpsTreeNode.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='BcpsTreeNode.cpp' object='libBcps_la-BcpsTreeNode.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libBcps_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libBcps_la-BcpsTreeNode.lo `test -f 'BcpsTreeNode.cpp' || echo '$(srcdir)/'`BcpsTreeNode.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -744,16 +819,16 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/BcpsBranchObject.Plo
-	-rm -f ./$(DEPDIR)/BcpsBranchStrategy.Plo
-	-rm -f ./$(DEPDIR)/BcpsMessage.Plo
-	-rm -f ./$(DEPDIR)/BcpsModel.Plo
-	-rm -f ./$(DEPDIR)/BcpsNodeDesc.Plo
-	-rm -f ./$(DEPDIR)/BcpsObject.Plo
-	-rm -f ./$(DEPDIR)/BcpsObjectPool.Plo
-	-rm -f ./$(DEPDIR)/BcpsSolution.Plo
-	-rm -f ./$(DEPDIR)/BcpsSubTree.Plo
-	-rm -f ./$(DEPDIR)/BcpsTreeNode.Plo
+		-rm -f ./$(DEPDIR)/libBcps_la-BcpsBranchObject.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsBranchStrategy.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsMessage.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsModel.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsNodeDesc.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsObject.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsObjectPool.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsSolution.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsSubTree.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsTreeNode.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-tags
@@ -799,16 +874,16 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/BcpsBranchObject.Plo
-	-rm -f ./$(DEPDIR)/BcpsBranchStrategy.Plo
-	-rm -f ./$(DEPDIR)/BcpsMessage.Plo
-	-rm -f ./$(DEPDIR)/BcpsModel.Plo
-	-rm -f ./$(DEPDIR)/BcpsNodeDesc.Plo
-	-rm -f ./$(DEPDIR)/BcpsObject.Plo
-	-rm -f ./$(DEPDIR)/BcpsObjectPool.Plo
-	-rm -f ./$(DEPDIR)/BcpsSolution.Plo
-	-rm -f ./$(DEPDIR)/BcpsSubTree.Plo
-	-rm -f ./$(DEPDIR)/BcpsTreeNode.Plo
+		-rm -f ./$(DEPDIR)/libBcps_la-BcpsBranchObject.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsBranchStrategy.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsMessage.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsModel.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsNodeDesc.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsObject.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsObjectPool.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsSolution.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsSubTree.Plo
+	-rm -f ./$(DEPDIR)/libBcps_la-BcpsTreeNode.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

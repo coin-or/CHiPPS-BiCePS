@@ -61,8 +61,9 @@ libBcps_la_SOURCES = \
 	BcpsTreeNode.cpp \
 	BcpsTreeNode.h
 
-# This is for libtool (on Windows)
 libBcps_la_LIBADD = $(BCPSLIB_LFLAGS)
+
+libBcps_la_CPPFLAGS = $(BCPSLIB_CFLAGS)
 
 ########################################################################
 #                            Additional flags                          #
