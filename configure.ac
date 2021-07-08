@@ -158,9 +158,6 @@ AC_COIN_DOXYGEN([CoinUtils Alps])
 #                   Finishing up by writing all the output                   #
 ##############################################################################
 
-# Finalize libs and cflags.
-AC_COIN_FINALIZE_FLAGS([BcpsLib UnitTest])
-
 # Here list all the files that configure should create (except for the
 # configuration header file)
 AC_CONFIG_FILES([Makefile
@@ -174,6 +171,9 @@ AC_CONFIG_FILES([doxydoc/doxygen.conf])
 
 # Here put the location and name of the configuration header file
 AC_CONFIG_HEADER([src/config.h src/config_bcps.h])
+
+# Finalize libs and cflags.
+AC_COIN_FINALIZE_FLAGS([BcpsLib UnitTest])
 
 # Finally, we let configure write all the output...
 AC_COIN_FINALIZE

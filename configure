@@ -17439,14 +17439,6 @@ fi
 
 
 
-# We filter out the -pedantic-errors flag for C and C++ compiler in
-# case the user wants to use MPI, since otherwise the compilation
-# fails.
-#if test "${with_mpi_lib+set}" = set; then
-#  CFLAGS=`echo $CFLAGS | sed -e s/-pedantic-errors//g`
-#  CXXFLAGS=`echo $CXXFLAGS | sed -e s/-pedantic-errors//g`
-#fi
-
 #############################################################################
 #                              COIN components                              #
 #############################################################################
@@ -18830,6 +18822,18 @@ fi
 #                   Finishing up by writing all the output                   #
 ##############################################################################
 
+# Here list all the files that configure should create (except for the
+# configuration header file)
+ac_config_files="$ac_config_files Makefile examples/Blis/Makefile examples/Blis/blis.par src/Makefile test/Makefile bcps.pc"
+
+
+ac_config_files="$ac_config_files doxydoc/doxygen.conf"
+
+
+# Here put the location and name of the configuration header file
+ac_config_headers="$ac_config_headers src/config.h src/config_bcps.h"
+
+
 # Finalize libs and cflags.
 
    if test "$BUILDTOOLS_DEBUG" = 1 ; then
@@ -18927,18 +18931,6 @@ printf "%s\n" "$as_me: UNITTEST_LFLAGS: \"${UNITTEST_LFLAGS}\"" >&6;}
 printf "%s\n" "$as_me: UNITTEST_CFLAGS: \"${UNITTEST_CFLAGS}\"" >&6;}
       fi
 
-
-
-# Here list all the files that configure should create (except for the
-# configuration header file)
-ac_config_files="$ac_config_files Makefile examples/Blis/Makefile examples/Blis/blis.par src/Makefile test/Makefile bcps.pc"
-
-
-ac_config_files="$ac_config_files doxydoc/doxygen.conf"
-
-
-# Here put the location and name of the configuration header file
-ac_config_headers="$ac_config_headers src/config.h src/config_bcps.h"
 
 
 # Finally, we let configure write all the output...

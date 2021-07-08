@@ -25,8 +25,6 @@
 
 ## $Id$
 
-include $(top_srcdir)/BuildTools/Makemain.inc
-
 ########################################################################
 #                               libBcps                                #
 ########################################################################
@@ -69,10 +67,6 @@ libBcps_la_CPPFLAGS = $(BCPSLIB_CFLAGS)
 #                            Additional flags                          #
 ########################################################################
 
-# Here list all include flags, relative to this "srcdir" directory.  This
-# "cygpath" stuff is necessary to compile with native compilers on Windows.
-AM_CPPFLAGS = $(BCPSLIB_CFLAGS)
-
 # Use additional libtool flags
 AM_LDFLAGS = $(LT_LDFLAGS)
 
@@ -82,7 +76,7 @@ AM_LDFLAGS = $(LT_LDFLAGS)
 
 # Here list all the header files that are required by a user of the library,
 # and that therefore should be installed in 'include/coin'
-includecoindir = $(pkgincludedir)
+includecoindir = $(includedir)/coin-or
 includecoin_HEADERS = \
 	Bcps.h \
 	BcpsBranchObject.h \
