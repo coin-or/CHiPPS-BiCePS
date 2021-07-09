@@ -31,6 +31,7 @@
 #include "AlpsTreeNode.h"
 #include "AlpsNodeDesc.h"
 
+#include "BcpsConfig.h"
 #include "BcpsBranchObject.h"
 #include "BcpsObjectPool.h"
 
@@ -69,7 +70,7 @@
 
 */
 
-class BcpsTreeNode : public AlpsTreeNode {
+class BCPSLIB_EXPORT BcpsTreeNode : public AlpsTreeNode {
 protected:
   /// Branching object for this node, which has information of how to
   /// execute branching.

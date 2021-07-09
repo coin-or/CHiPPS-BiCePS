@@ -24,6 +24,7 @@
 #ifndef BcpsBranchStrategy_h_
 #define BcpsBranchStrategy_h_
 
+#include "BcpsConfig.h"
 #include "BcpsBranchObject.h"
 
 class BcpsModel;
@@ -44,7 +45,7 @@ class BcpsTreeNode;
 
 */
 
-class BcpsBranchStrategy {
+class BCPSLIB_EXPORT BcpsBranchStrategy {
   /// Type of branching strategy.
   int type_;
   /// Pointer to model.

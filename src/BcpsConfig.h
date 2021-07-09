@@ -1,7 +1,7 @@
 /*===========================================================================*
- * This file is part of the Abstract Library for Parallel Search (ALPS).     *
+ * This file is part of the Branch, Constrain and Price Software (BiCePS)    *
  *                                                                           *
- * ALPS is distributed under the Eclipse Public License as part of the       *
+ * BiCePS is distributed under the Eclipse Public License as part of the     *
  * COIN-OR repository (http://www.coin-or.org).                              *
  *                                                                           *
  * Authors:                                                                  *
@@ -17,12 +17,11 @@
  *          Laszlo Ladanyi, IBM T.J. Watson Research Center                  *
  *          Matthew Saltzman, Clemson University                             *
  *                                                                           *
- *                                                                           *
  * Copyright (C) 2001-2019, Lehigh University, Yan Xu, and Ted Ralphs.       *
  * All Rights Reserved.                                                      *
  *===========================================================================*/
 
-/* Include file for the configuration of Alps.
+/* Include file for the configuration of BiCePS.
  *
  * On systems where the code is configured with the configure script
  * (i.e., compilation is always done with HAVE_CONFIG_H defined), this
@@ -44,15 +43,29 @@
 #define __BCPSCONFIG_H__
 
 #ifdef HAVE_CONFIG_H
-#ifdef BCPS_BUILD
+#ifdef BCPSLIB_BUILD
 #include "config.h"
+
+/* overwrite BCPSLIB_EXPORT from config.h when building BiCePS
+ * we want it to be __declspec(dllexport) when building a DLL on Windows
+ * we want it to be __attribute__((__visibility__("default"))) when building with GCC,
+ *   so user can compile with -fvisibility=hidden
+ */
+#ifdef DLL_EXPORT
+#undef BCPSLIB_EXPORT
+#define BCPSLIB_EXPORT __declspec(dllexport)
+#elif defined(__GNUC__) && __GNUC__ >= 4
+#undef BCPSLIB_EXPORT
+#define BCPSLIB_EXPORT __attribute__((__visibility__("default")))
+#endif
+
 #else
-#include "config_bcps.h"
+#include "config_alps.h"
 #endif
 
 #else /* HAVE_CONFIG_H */
 
-#ifdef BCPS_BUILD
+#ifdef BCPSLIB_BUILD
 #include "config_default.h"
 #else
 #include "config_bcps_default.h"

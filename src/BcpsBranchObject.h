@@ -29,6 +29,7 @@
 #ifndef BcpsBranchObject_h_
 #define BcpsBranchObject_h_
 
+#include "BcpsConfig.h"
 #include "BcpsModel.h"
 
 #include "Alps.h"
@@ -69,7 +70,7 @@
 
 */
 
-class BcpsBranchObject: virtual public AlpsKnowledge {
+class BCPSLIB_EXPORT BcpsBranchObject: virtual public AlpsKnowledge {
   /// Type of branching. This will be set by the application built on top of
   /// Bcps.
   int type_;

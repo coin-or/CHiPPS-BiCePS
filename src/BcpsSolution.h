@@ -25,6 +25,7 @@
 #define BcpsSolution_h_
 
 #include "AlpsSolution.h"
+#include "BcpsConfig.h"
 #include "BcpsObject.h"
 
 //#############################################################################
@@ -32,7 +33,7 @@
     considered to be a list of objects with associated values. */
 //#############################################################################
 
-class BcpsSolution : public AlpsSolution {
+class BCPSLIB_EXPORT BcpsSolution : public AlpsSolution {
 
  private:
 

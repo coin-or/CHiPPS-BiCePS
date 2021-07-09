@@ -28,13 +28,14 @@
 
 #include "AlpsKnowledgePool.h"
 
+#include "BcpsConfig.h"
 #include "BcpsObject.h"
 
 //#############################################################################
 /** Object pool is used to store objects */
 //#############################################################################
 
-class BcpsObjectPool : public AlpsKnowledgePool {
+class BCPSLIB_EXPORT BcpsObjectPool : public AlpsKnowledgePool {
 protected:
   std::vector<AlpsKnowledge *> objects_;
 
@@ -97,7 +98,7 @@ private:
 
 //#############################################################################
 
-class BcpsConstraintPool : public BcpsObjectPool {
+class BCPSLIB_EXPORT BcpsConstraintPool : public BcpsObjectPool {
 public:
   BcpsConstraintPool(): BcpsObjectPool() { }
     virtual ~BcpsConstraintPool() {}
@@ -123,7 +124,7 @@ private:
 
 //#############################################################################
 
-class BcpsVariablePool : public BcpsObjectPool {
+class BCPSLIB_EXPORT BcpsVariablePool : public BcpsObjectPool {
 public:
   BcpsVariablePool(): BcpsObjectPool() { }
 

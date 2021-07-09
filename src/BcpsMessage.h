@@ -33,6 +33,8 @@
 #  pragma warning(disable:4786)
 #endif
 
+#include "BcpsConfig.h"
+
 /** This deals with Bcps messages. */
 #include "CoinMessageHandler.hpp"
 
@@ -58,7 +60,7 @@ enum BCPS_Message {
   BCPS_DUMMY_END
 };
 
-class BcpsMessage : public CoinMessages {
+class BCPSLIB_EXPORT BcpsMessage : public CoinMessages {
 
 public:
 

@@ -27,6 +27,7 @@
 #include "Alps.h"
 #include "AlpsKnowledge.h"
 
+#include "BcpsConfig.h"
 #include "Bcps.h"
 
 class BcpsModel;
@@ -74,7 +75,7 @@ enum BcpsObjRep_t {
     that it has an integrality type. The concept that an object */
 //#############################################################################
 
-class BcpsObject : public AlpsKnowledge {
+class BCPSLIB_EXPORT BcpsObject : public AlpsKnowledge {
 
  protected:
 
@@ -351,7 +352,7 @@ typedef BcpsObject*  BcpsObject_p;
 //#############################################################################
 
 
-class BcpsConstraint : public BcpsObject {
+class BCPSLIB_EXPORT BcpsConstraint : public BcpsObject {
 
  public:
     /** Default constructor. */
@@ -379,7 +380,7 @@ class BcpsConstraint : public BcpsObject {
 //#############################################################################
 
 
-class BcpsVariable : public BcpsObject {
+class BCPSLIB_EXPORT BcpsVariable : public BcpsObject {
  public:
     /** Default constructor. */
     BcpsVariable() : BcpsObject() { }
