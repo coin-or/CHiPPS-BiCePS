@@ -1441,6 +1441,8 @@ AlpsReturnStatus BlisModel::decodeToSelf(AlpsEncoded & encoded)
 
     delete [] index;
     index = NULL;
+
+    return status;
 }
 
 //#############################################################################
