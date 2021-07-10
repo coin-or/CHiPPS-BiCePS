@@ -23,6 +23,9 @@
 #ifndef __CONFIG_BCPS_H__
 #define __CONFIG_BCPS_H__
 
+/* Library Visibility Attribute */
+#undef BCPSLIB_EXPORT
+
 /* Version number of project */
 #undef BCPS_VERSION
 

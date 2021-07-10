@@ -37,6 +37,8 @@
 /** This deals with Bcps messages. */
 #include "CoinMessageHandler.hpp"
 
+#include "BcpsConfig.h"
+
 enum BCPS_Message
 {
     BCPS_DUMMY_END
