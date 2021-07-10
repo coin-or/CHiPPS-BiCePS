@@ -29,6 +29,7 @@
 #ifndef BcpsBranchObject_h_
 #define BcpsBranchObject_h_
 
+#include "BcpsConfig.h"
 #include "BcpsModel.h"
 
 #include "Alps.h"
@@ -44,7 +45,7 @@
     in solver. Branching objects can be simple integer variables or more
     complicated objects like SOS. */
 
-class BcpsBranchObject {
+class BCPSLIB_EXPORT BcpsBranchObject {
     
  protected:
 

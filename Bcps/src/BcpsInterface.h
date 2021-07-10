@@ -1,6 +1,7 @@
+#include "BcpsConfig.h"
 #include "BcpsLicense.h"
 
-class BcpsInterface {
+class BCPSLIB_EXPORT BcpsInterface {
    // *FIXME* : we'll need pointer to the master module class
 
 

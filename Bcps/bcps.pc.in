@@ -1,12 +1,15 @@
-prefix=@prefix@
+@COIN_RELOCATABLE_FALSE@prefix=@prefix@
+@COIN_RELOCATABLE_TRUE@prefix=${pcfiledir}/../..
 exec_prefix=@exec_prefix@
 libdir=@libdir@
-includedir=@includedir@/coin
+includedir=@includedir@/coin-or
 
-Name: BCPS
+Name: @PACKAGE_NAME@
 Description: Branch, Constrain, and Price Software Fraework
-URL: https://projects.coin-or.org/CHiPPS
+URL: @PACKAGE_URL@
 Version: @PACKAGE_VERSION@
-Libs: -L${libdir} -lBcps @BCPSLIB_PCLIBS@
 Cflags: -I${includedir}
-Requires: @BCPSLIB_PCREQUIRES@
+@COIN_STATIC_BUILD_FALSE@Libs: -L${libdir} -lBcps
+@COIN_STATIC_BUILD_FALSE@Requires.private: @BCPSLIB_PCFILES@
+@COIN_STATIC_BUILD_TRUE@Libs: -L${libdir} -lAlps @BCPSLIB_LFLAGS_NOPC@
+@COIN_STATIC_BUILD_TRUE@Requires: @BCPSLIB_PCFILES@

@@ -32,12 +32,13 @@
 #include "AlpsModel.h"
 #include "AlpsKnowledgeBroker.h"
 
+#include "BcpsConfig.h"
 #include "BcpsMessage.h"
 #include "BcpsObject.h"
 
 //#############################################################################
 
-class BcpsModel : public AlpsModel {
+class BCPSLIB_EXPORT BcpsModel : public AlpsModel {
 
  protected:
 

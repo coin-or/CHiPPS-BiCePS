@@ -26,7 +26,7 @@
 /***************************************************************************/
 
 /* Version number of project */
-#define BCPS_VERSION "trunk"
+#define BCPS_VERSION "0.95"
 
 /* Major Version number of project */
 #define BCPS_VERSION_MAJOR   9999

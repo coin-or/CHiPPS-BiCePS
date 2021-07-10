@@ -28,6 +28,7 @@
 #include "Alps.h"
 #include "AlpsNodeDesc.h"
 
+#include "BcpsConfig.h"
 #include "BcpsObject.h"
 
 
@@ -125,7 +126,7 @@ struct BcpsObjectListMod {
     If the information on an object type is relative, it means that at least
     one of the fields (lbHard, ubHard, etc.) has a relative description.
 */
-class BcpsNodeDesc : public AlpsNodeDesc {
+class BCPSLIB_EXPORT BcpsNodeDesc : public AlpsNodeDesc {
 
  protected: 
 

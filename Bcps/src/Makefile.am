@@ -23,8 +23,6 @@
 
 ## $Id$
 
-AUTOMAKE_OPTIONS = foreign
-
 ########################################################################
 #                               libBcps                                #
 ########################################################################
@@ -49,25 +47,16 @@ libBcps_la_SOURCES = \
 	BcpsSubTree.h BcpsTreeNode.cpp \
 	BcpsTreeNode.h
 
-# List all additionally required libraries
-if DEPENDENCY_LINKING
-libBcps_la_LIBADD = $(BCPSLIB_LIBS)
-endif
+libBcps_la_LIBADD = $(BCPSLIB_LFLAGS)
 
-# This is for libtool (on Windows)
-libBcps_la_LDFLAGS = $(LT_LDFLAGS)
+libBcps_la_CPPFLAGS = $(BCPSLIB_CFLAGS)
 
 ########################################################################
 #                            Additional flags                          #
 ########################################################################
 
-# Here list all include flags, relative to this "srcdir" directory.  This
-# "cygpath" stuff is necessary to compile with native compilers on Windows.
-AM_CPPFLAGS = $(BCPSLIB_CFLAGS)
-
-# This line is necessary to allow VPATH compilation with MS compilers
-# on Cygwin
-DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)` -I$(top_builddir)/inc
+# Use additional libtool flags
+AM_LDFLAGS = $(LT_LDFLAGS)
 
 ########################################################################
 #                Headers that need to be installed                     #
@@ -75,7 +64,7 @@ DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)` -I$(top_builddir)/inc
 
 # Here list all the header files that are required by a user of the library,
 # and that therefore should be installed in 'include/coin'
-includecoindir = $(includedir)/coin
+includecoindir = $(includedir)/coin-or
 includecoin_HEADERS = \
 	Bcps.h \
 	BcpsBranchObject.h \

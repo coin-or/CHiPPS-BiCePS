@@ -23,6 +23,8 @@
 #ifndef BcpsMessage_H_
 #define BcpsMessage_H_
 
+#include "BcpsConfig.h"
+
 //#############################################################################
 // This file is modified from SbbMessage.hpp
 //#############################################################################
@@ -40,7 +42,7 @@ enum BCPS_Message
     BCPS_DUMMY_END
 };
 
-class BcpsMessage : public CoinMessages {
+class BCPSLIB_EXPORT BcpsMessage : public CoinMessages {
 
 public:
     

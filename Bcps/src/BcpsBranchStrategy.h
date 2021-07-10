@@ -23,6 +23,7 @@
 #ifndef BcpsBranchStrategy_h_
 #define BcpsBranchStrategy_h_
 
+#include "BcpsConfig.h"
 #include "BcpsBranchObject.h"
 
 class BcpsModel;
@@ -36,7 +37,7 @@ class BcpsModel;
     (1) how to select a candidate set of branching objects
     (2) how to compare two branching objects
 */
-class BcpsBranchStrategy {
+class BCPSLIB_EXPORT BcpsBranchStrategy {
     
  private:
     /** Disable assignment operator. */

@@ -43,15 +43,29 @@
 #define __BCPSCONFIG_H__
 
 #ifdef HAVE_CONFIG_H
-#ifdef BCPS_BUILD
+#ifdef BCPSLIB_BUILD
 #include "config.h"
+
+/* overwrite BCPSLIB_EXPORT from config.h when building BiCePS
+ * we want it to be __declspec(dllexport) when building a DLL on Windows
+ * we want it to be __attribute__((__visibility__("default"))) when building with GCC,
+ *   so user can compile with -fvisibility=hidden
+ */
+#ifdef DLL_EXPORT
+#undef BCPSLIB_EXPORT
+#define BCPSLIB_EXPORT __declspec(dllexport)
+#elif defined(__GNUC__) && __GNUC__ >= 4
+#undef BCPSLIB_EXPORT
+#define BCPSLIB_EXPORT __attribute__((__visibility__("default")))
+#endif
+
 #else
-#include "config_bcps.h"
+#include "config_alps.h"
 #endif
 
 #else /* HAVE_CONFIG_H */
 
-#ifdef BCPS_BUILD
+#ifdef BCPSLIB_BUILD
 #include "config_default.h"
 #else
 #include "config_bcps_default.h"

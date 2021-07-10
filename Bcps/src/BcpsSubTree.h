@@ -25,6 +25,7 @@
 
 #include <vector>
 #include "AlpsSubTree.h"
+#include "BcpsConfig.h"
 #include "BcpsObjectPool.h"
 
 //#############################################################################
@@ -39,7 +40,7 @@
 // *FIXME* : Implement hashing for object storage. 
 //#############################################################################
 
-class BcpsSubTree : public virtual AlpsSubTree {
+class BCPSLIB_EXPORT BcpsSubTree : public virtual AlpsSubTree {
  private:
     /** This is the list of objects that exist in the subtree. */
     BcpsConstraintPool *constraintPool_;

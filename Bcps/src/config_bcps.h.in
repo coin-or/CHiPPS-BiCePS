@@ -35,7 +35,4 @@
 /* Release Version number of project */
 #undef BCPS_VERSION_RELEASE
 
-/* SVN revision of project */
-#undef BCPS_SVN_REV
-
 #endif
