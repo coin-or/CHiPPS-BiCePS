@@ -60,7 +60,7 @@
 #endif
 
 #else
-#include "config_alps.h"
+#include "config_bcps.h"
 #endif
 
 #else /* HAVE_CONFIG_H */
