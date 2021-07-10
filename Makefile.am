@@ -21,48 +21,93 @@
 # All Rights Reserved.                                                     #
 #==========================================================================#
 
-## $Id: Makefile.am 788 2006-06-01 18:57:08Z andreasw $
+## $Id$
 
-AUTOMAKE_OPTIONS = foreign
+# Author:  Andreas Waechter           IBM    2006-04-13
+#          Yan Xu                     Lehigh    2006-08-27
 
-EXTRA_DIST = doxydoc/doxygen.conf
+include BuildTools/Makemain.inc
 
 ########################################################################
 #                          Subdirectories                              #
 ########################################################################
 
-# subdirs is set by configure as the list of all subdirectories to recurse
-# into
-SUBDIRS = $(subdirs)
+SUBDIRS = src
+
+pkgconfiglib_DATA = bcps.pc
+
+########################################################################
+#             Additional files to be included in tarball               #
+########################################################################
+
+# Here we need include all files that are not mentioned in other Makefiles
+
+EXTRA_DIST = \
+	examples/Blis/BlisBranchObjectInt.cpp \
+	examples/Blis/BlisBranchObjectInt.h \
+	examples/Blis/BlisBranchStrategyPseudo.cpp \
+	examples/Blis/BlisBranchStrategyPseudo.h \
+	examples/Blis/BlisBranchStrategyRel.cpp \
+	examples/Blis/BlisBranchStrategyRel.h \
+	examples/Blis/BlisBranchStrategyStrong.cpp \
+	examples/Blis/BlisBranchStrategyStrong.h \
+	examples/Blis/BlisConGenerator.cpp \
+	examples/Blis/BlisConGenerator.h \
+	examples/Blis/BlisConstraint.cpp \
+	examples/Blis/BlisConstraint.h \
+	examples/Blis/Blis.h \
+	examples/Blis/BlisHelp.cpp \
+	examples/Blis/BlisHelp.h \
+	examples/Blis/BlisHeuristic.h \
+	examples/Blis/BlisHeurRound.cpp \
+	examples/Blis/BlisHeurRound.h \
+	examples/Blis/BlisLicense.h \
+	examples/Blis/BlisMain.cpp \
+	examples/Blis/BlisMessage.cpp \
+	examples/Blis/BlisMessage.h \
+	examples/Blis/BlisModel.cpp \
+	examples/Blis/BlisModel.h \
+	examples/Blis/BlisNodeDesc.h \
+	examples/Blis/BlisObjectInt.cpp \
+	examples/Blis/BlisObjectInt.h \
+	examples/Blis/blis.par \
+	examples/Blis/BlisParams.cpp \
+	examples/Blis/BlisParams.h \
+	examples/Blis/BlisPseudo.cpp \
+	examples/Blis/BlisPseudo.h \
+	examples/Blis/BlisSolution.h \
+	examples/Blis/BlisSubTree.h \
+	examples/Blis/BlisTreeNode.cpp \
+	examples/Blis/BlisTreeNode.h \
+	examples/Blis/BlisVariable.h \
+	examples/Blis/Makefile.in \
+	examples/Blis/AUTHORS \
+	examples/Blis/INSTALL \
+	examples/Blis/LICENSE \
+	examples/Blis/Makefile.in \
+	examples/Blis/README \
+	examples/Blis/data/egout.mps \
+	examples/Blis/data/flugpl.mps \
+	examples/Blis/data/gen.mps \
+	examples/Blis/data/knap1.mps \
+	examples/Blis/data/knap2.mps \
+	examples/Blis/data/knap3.mps
 
 ########################################################################
 #                           Extra Targets                              #
 ########################################################################
 
 test: all
-	cd Bcps; $(MAKE) test
+	cd test; $(MAKE) test
 
 unitTest: test
 
-tests:
-	for dir in $(subdirs); do \
-	  if test -r $$dir/test/Makefile; then \
-	    (cd $$dir; $(MAKE) test) \
-	  fi; \
-	done
+clean-local: clean-doxygen-docs
+	if test -r test/Makefile; then cd test; $(MAKE) clean; fi
 
-unitTests: tests
+install-exec-local: install-doc
 
-doxydoc:
-	cd $(srcdir); doxygen doxydoc/doxygen.conf
+uninstall-local: uninstall-doc uninstall-doxygen-docs
 
-.PHONY: test unitTest tests unitTests doxydoc
+.PHONY: test unitTest doxydoc
 
-########################################################################
-#                         Maintainer Stuff                             #
-########################################################################
-
-# Files that are generated and should be cleaned with make distclean
-DISTCLEANFILES = coin_subdirs.txt
-
-include BuildTools/Makemain.inc
