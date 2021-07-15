@@ -21,7 +21,8 @@ Description:
   Categories: 
     - Optimization deterministic linear discrete
     - Optimization utility
-
+  PaperCite: http://dx.doi.org/10.1023/B:SUPE.0000020179.55383.ad
+  
 Dependencies:
   - Description: Sample data files
     URL: https://projects.coin-or.org/svn/Data/Sample/stable/1.2
@@ -35,15 +36,15 @@ Dependencies:
     URL: https://projects.coin-or.org/svn/Osi/stable/0.107/Osi
     Version: master
     Required: Required
-  - Description: Open Solver Interface
+  - Description: COIN-OR LP Solver
     URL: https://projects.coin-or.org/svn/Clp/stable/1.16/Clp
     Version: master
     Required: Required
-  - Description: Open Solver Interface
+  - Description: Cut Generation Library
     URL: https://projects.coin-or.org/svn/Cgl/stable/0.59/Cgl
     Version: master
     Required: Required
-  - Description: Open Solver Interface
+  - Description: Abstract Library for Parallel Search
     URL: https://github.com/coin-or/CHiPPS-ALPS
     Version: master
     Required: Required
