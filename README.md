@@ -143,6 +143,7 @@ documentation [here](http://coin-or.github.io/CHiPPS-BiCePS/Doxygen).
 
 ## Project Links
 
+ * [Code of Conduct](https://www.coin-or.org/code-of-conduct/)
  * [COIN-OR Web Site](http://www.coin-or.org/)
  * [Discussion formum](https://github.com/coin-or/CHiPPS-BiCePS/discussions)
  * [Report a bug](https://github.com/coin-or/CHiPPS-BiCePS/issues/new)
