@@ -93,7 +93,7 @@ following on the command line.
 ```
 wget https://raw.githubusercontent.com/coin-or/coinbrew/master/coinbrew
 chmod u+x coinbrew
-./coinbrew fetch Bcps@stable/0.95
+./coinbrew fetch Bcps@0.95
 ./coinbrew build Bcps
 ```
 For more detailed instructions on coinbrew, see https://coin-or.github.io/coinbrew.
@@ -143,6 +143,7 @@ documentation [here](http://coin-or.github.io/CHiPPS-BiCePS/Doxygen).
 
 ## Project Links
 
+ * [Code of Conduct](https://www.coin-or.org/code-of-conduct/)
  * [COIN-OR Web Site](http://www.coin-or.org/)
  * [Discussion formum](https://github.com/coin-or/CHiPPS-BiCePS/discussions)
  * [Report a bug](https://github.com/coin-or/CHiPPS-BiCePS/issues/new)
