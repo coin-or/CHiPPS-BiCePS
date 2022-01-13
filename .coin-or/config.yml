@@ -21,6 +21,7 @@ Description:
   Categories: 
     - Optimization deterministic linear discrete
     - Optimization utility
+  PaperCite: http://dx.doi.org/10.1023/B:SUPE.0000020179.55383.ad
 
 Dependencies:
   - Description: Sample data files

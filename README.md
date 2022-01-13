@@ -27,7 +27,9 @@ The BiCePS development site is https://github.com/coin-or/CHiPPS-BiCePS.
 
 ## CITE
 
-[![DOI](https://zenodo.org/badge/23726997.svg)](https://zenodo.org/badge/latestdoi/23726997)
+Code: [![DOI](https://zenodo.org/badge/23726997.svg)](https://zenodo.org/badge/latestdoi/23726997)
+
+Paper: http://dx.doi.org/10.1023/B:SUPE.0000020179.55383.ad
 
 ## CURRENT BUILD STATUS
 
@@ -69,18 +71,30 @@ Below is a quick start guide for building on common platforms. More detailed
 build instructions are
 [here](https://coin-or.github.io/user_introduction.html).
 
+### Dependencies
+
+BiCePS has a number of dependencies, which are detailed in
+[config.yml](.coin-or/config.yml). Dependencies on other COIN-OR projects are
+automatically downloaded when obtaining the source with `coinbrew`. For some
+of the remaining third-party dependencies, automatic download scripts and
+build wrappers are provided (and will also be automatically run for required
+and recommended dependencies), while other libraries that are aeasy to obtain
+must be installed using an appropriate package manager (or may come with your
+OS by default). 
+
 ## BUILDING from source
 
 The quick start assumes you are in a bash shell. 
 
 ### Using `coinbrew`
 
-To build BiCePS from source, obtain the `coinbrew` script, do
+To download and build BiCePS from source, execute the 
+following on the command line. 
 ```
 wget https://raw.githubusercontent.com/coin-or/coinbrew/master/coinbrew
 chmod u+x coinbrew
-./coinbrew fetch BiCePS@stable/0.94
-./coinbrew build BiCePS
+./coinbrew fetch Bcps@0.94
+./coinbrew build Bcps
 ```
 For more detailed instructions on coinbrew, see https://coin-or.github.io/coinbrew.
 The `coinbrew` script will fetch the additional projects specified in the Dependencies section of [config.yml](.coin-or/config.yml).
@@ -129,7 +143,8 @@ documentation [here](http://coin-or.github.io/CHiPPS-BiCePS/Doxygen).
 
 ## Project Links
 
- * [COIN-OR Initiative](http://www.coin-or.org/)
+ * [Code of Conduct](https://www.coin-or.org/code-of-conduct/)
+ * [COIN-OR Web Site](http://www.coin-or.org/)
  * [Discussion formum](https://github.com/coin-or/CHiPPS-BiCePS/discussions)
  * [Report a bug](https://github.com/coin-or/CHiPPS-BiCePS/issues/new)
  * [Doxygen-generated html documentation](http://coin-or.github.io/CHiPPS-BiCePS/Doxygen)
