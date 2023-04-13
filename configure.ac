@@ -27,7 +27,7 @@
 #                       Names and other basic things                        #
 #############################################################################
 
-AC_INIT([Bcps],[devel],[https://github.com/coin-or/CHiPPS-BiCePS/issues/new],[coin-or-bcps],[https://github.com/coin-or/CHiPPS-BiCePS])
+AC_INIT([Bcps],[0.95],[https://github.com/coin-or/CHiPPS-BiCePS/issues/new],[coin-or-bcps],[https://github.com/coin-or/CHiPPS-BiCePS])
 
 AC_COPYRIGHT([
 #==========================================================================#
