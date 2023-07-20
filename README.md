@@ -2,6 +2,11 @@
 
 [![A COIN-OR Project](https://coin-or.github.io/coin-or-badge.png)](https://www.coin-or.org)
 
+Projects such as this one are maintained by a small group of volunteers under
+the auspices of the non-profit [COIN-OR Foundation](https://www.coin-or.org)
+and we need your help! Please consider [sponsoring our
+activities](https://github.com/sponsors/coin-or) or [volunteering](mailto:volunteer@coin-or.org) to help!
+
 [![Latest Release](https://img.shields.io/github/v/release/coin-or/CHiPPS-BiCePS?sort=semver)](https://github.com/coin-or/CHiPPS-BiCePS/releases)
 
 _This file is auto-generated from [config.yml](.coin-or/config.yml) using the 
@@ -145,9 +150,10 @@ documentation [here](http://coin-or.github.io/CHiPPS-BiCePS/Doxygen).
 
  * [Code of Conduct](https://www.coin-or.org/code-of-conduct/)
  * [COIN-OR Web Site](http://www.coin-or.org/)
- * [Discussion formum](https://github.com/coin-or/CHiPPS-BiCePS/discussions)
+ * [COIN-OR general discussion forum](https://github.com/orgs/coin-or/discussions)
+ * [BiCePS Discussion forum](https://github.com/coin-or/CHiPPS-BiCePS/discussions)
  * [Report a bug](https://github.com/coin-or/CHiPPS-BiCePS/issues/new)
- * [Doxygen-generated html documentation](http://coin-or.github.io/CHiPPS-BiCePS/Doxygen)
+ * [Doxygen generated documentation](http://coin-or.github.io/CHiPPS-BiCePS/Doxygen)
 
 ## CURRENT TESTING STATUS
 
