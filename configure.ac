@@ -27,7 +27,7 @@
 #                       Names and other basic things                        #
 #############################################################################
 
-AC_INIT([Bcps],[0.95],[https://github.com/coin-or/CHiPPS-BiCePS/issues/new],[coin-or-bcps],[https://github.com/coin-or/CHiPPS-BiCePS])
+AC_INIT([Bcps],[0.95.1],[https://github.com/coin-or/CHiPPS-BiCePS/issues/new],[coin-or-bcps],[https://github.com/coin-or/CHiPPS-BiCePS])
 
 AC_COPYRIGHT([
 #==========================================================================#
@@ -61,7 +61,7 @@ AC_COPYRIGHT([
 AC_CONFIG_SRCDIR(src/BcpsModel.h)
 
 # Do some initialization work (version numbers, change prefix default, ...)
-AC_COIN_INITIALIZE
+AC_COIN_INITIALIZE(9:1:8)
 
 #############################################################################
 #                         Standard build tool stuff                         #
