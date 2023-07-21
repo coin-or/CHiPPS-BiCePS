@@ -76,6 +76,12 @@ AC_PREFIX_DEFAULT([`pwd`])
 AC_COIN_CREATE_LIBTOOL
 
 #############################################################################
+#                  Check for doxygen                                        #
+#############################################################################
+
+AC_COIN_DOXYGEN()
+
+#############################################################################
 #                  Check which subprojects are there                        #
 #############################################################################
 
@@ -97,6 +103,7 @@ AC_COIN_MAIN_PACKAGEDIR(Bcps)
 # Here list all the files that configure should create (except for the
 # configuration header file)
 AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([doxydoc/doxygen.conf])
 
 # Finally, we let configure write all the output...
 AC_COIN_FINALIZE
