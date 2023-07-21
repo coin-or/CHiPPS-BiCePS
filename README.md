@@ -1,4 +1,4 @@
-# BiCePS 0.94
+# BiCePS 0.94.8
 
 [![A COIN-OR Project](https://coin-or.github.io/coin-or-badge.png)](https://www.coin-or.org)
 
@@ -38,9 +38,9 @@ Paper: http://dx.doi.org/10.1023/B:SUPE.0000020179.55383.ad
 
 ## CURRENT BUILD STATUS
 
-[![Windows Builds](https://github.com/coin-or/CHiPPS-BiCePS/actions/workflows/windows-ci.yml/badge.svg?branch=stable/0.94)](https://github.com/coin-or/CHiPPS-BiCePS/actions/workflows/windows-ci.yml?query=branch%3Astable/0.94)
+[![Windows Builds](https://github.com/coin-or/CHiPPS-BiCePS/actions/workflows/windows-ci.yml/badge.svg?branch=releases/0.94.8)](https://github.com/coin-or/CHiPPS-BiCePS/actions/workflows/windows-ci.yml?query=branch%3Areleases/0.94.8)
 
-[![Linux and MacOS Builds](https://github.com/coin-or/CHiPPS-BiCePS/actions/workflows/linux-ci.yml/badge.svg?branch=stable/0.94)](https://github.com/coin-or/CHiPPS-BiCePS/actions/workflows/linux-ci.yml?query=branch%3Astable/0.94)
+[![Linux and MacOS Builds](https://github.com/coin-or/CHiPPS-BiCePS/actions/workflows/linux-ci.yml/badge.svg?branch=releases/0.94.8)](https://github.com/coin-or/CHiPPS-BiCePS/actions/workflows/linux-ci.yml?query=branch%3Areleases/0.94.8)
 
 ## DOWNLOAD
 
@@ -98,7 +98,7 @@ following on the command line.
 ```
 wget https://raw.githubusercontent.com/coin-or/coinbrew/master/coinbrew
 chmod u+x coinbrew
-./coinbrew fetch Bcps@0.94
+./coinbrew fetch Bcps@0.94.8
 ./coinbrew build Bcps
 ```
 For more detailed instructions on coinbrew, see https://coin-or.github.io/coinbrew.
@@ -136,10 +136,10 @@ subdirectory in the source distribution and type `make`.
 
 If you have `Doxygen` available, you can build a HTML documentation by typing
 
-`make doxygen-docs` 
+`make doxydoc` 
 
 in the build directory. If BiCePS was built via `coinbrew`, then the build
-directory will be `./build/CHiPPS-BiCePS/0.94` by default. The doxygen documentation main file
+directory will be `./build/CHiPPS-BiCePS/0.94.8` by default. The doxygen documentation main file
 is found at `<build-dir>/doxydoc/html/index.html`.
 
 If you don't have `doxygen` installed locally, you can use also find the
