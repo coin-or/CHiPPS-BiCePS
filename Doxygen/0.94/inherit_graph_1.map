@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classBcpsBranchStrategy.html" title="Branching strategy specifies: (1) how to select a candidate set of branching objects (2) how to compa..." alt="" coords="5,56,148,83"/>
+<area shape="rect" id="node2" href="$classBlisBranchStrategyPseudo.html" title="Blis branching strategy default class This class implements a simple default algorithm,..." alt="" coords="196,5,375,32"/>
+<area shape="rect" id="node3" href="$classBlisBranchStrategyRel.html" title="Blis branching strategy default class This class implements a simple default algorithm,..." alt="" coords="208,56,363,83"/>
+<area shape="rect" id="node4" href="$classBlisBranchStrategyStrong.html" title="Blis branching strategy default class This class implements a simple default algorithm,..." alt="" coords="199,107,371,133"/>
+</map>
