@@ -1,0 +1,15 @@
+<map id="BlisBranchStrategyPseudo" name="BlisBranchStrategyPseudo">
+<area shape="rect" id="node1" title="Blis branching strategy default class This class implements a simple default algorithm,..." alt="" coords="113,619,292,645"/>
+<area shape="rect" id="node2" href="$classBcpsBranchStrategy.html" title="Branching strategy specifies: (1) how to select a candidate set of branching objects (2) how to compa..." alt="" coords="131,543,274,569"/>
+<area shape="rect" id="node3" href="$classBcpsBranchObject.html" title="BcpsBranchObject contains the member data required when choosing branching entities and excuting actu..." alt="" coords="81,439,212,465"/>
+<area shape="rect" id="node4" href="$classBcpsModel.html" title=" " alt="" coords="166,349,253,376"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,260,88,287"/>
+<area shape="rect" id="node6" title=" " alt="" coords="113,260,306,287"/>
+<area shape="rect" id="node7" href="$classBcpsVariable.html" title=" " alt="" coords="87,171,185,197"/>
+<area shape="rect" id="node8" href="$classBcpsObject.html" title="A class for describing the objects that comprise a BCPS subproblem." alt="" coords="144,81,235,108"/>
+<area shape="rect" id="node13" href="$classBcpsConstraint.html" title=" " alt="" coords="209,171,321,197"/>
+<area shape="rect" id="node9" title=" " alt="" coords="133,5,245,32"/>
+<area shape="rect" id="node10" title="STL class." alt="" coords="387,171,503,197"/>
+<area shape="rect" id="node12" title=" " alt="" coords="330,260,537,287"/>
+<area shape="rect" id="node11" title=" " alt="" coords="426,81,465,108"/>
+</map>
