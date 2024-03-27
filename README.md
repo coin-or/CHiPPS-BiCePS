@@ -136,7 +136,7 @@ subdirectory in the source distribution and type `make`.
 
 If you have `Doxygen` available, you can build a HTML documentation by typing
 
-`make doxygen-docs` 
+`make doxydoc` 
 
 in the build directory. If BiCePS was built via `coinbrew`, then the build
 directory will be `./build/CHiPPS-BiCePS/0.94` by default. The doxygen documentation main file
@@ -169,13 +169,13 @@ documentation [here](http://coin-or.github.io/CHiPPS-BiCePS/Doxygen).
 
 Source Code:
 
-Yan Xu (yax2@lehigh.edu)
-Aykut Bulut (aykutblt@gmail.com) 
+Yan Xu (yax2@lehigh.edu) <br>
+Aykut Bulut (aykutblt@gmail.com)  <br>
 Ted Ralphs (ted@lehigh.edu), Project Manager
 
 Original Conceptual Design:
 
-Yan Xu (yax2@lehigh.edu)
-Ted Ralphs (ted@lehigh.edu), Project Manager
-Laci Ladanyi (ladanyi@us.ibm.com)
+Yan Xu (yax2@lehigh.edu) <br>
+Ted Ralphs (ted@lehigh.edu), Project Manager <br>
+Laci Ladanyi (ladanyi@us.ibm.com) <br>
 Matt Saltzman (mjs@clemson.edu)
